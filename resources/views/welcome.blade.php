@@ -5,6 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Laravel</title>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link rel="preload" href="{{ asset('fonts/Inter-Regular.ttf') }}" as="font" type="font/ttf" crossorigin>
+
+  <style>
+    @font-face {
+      font-family: "Inter-Regular";
+      src: url("{{ asset('fonts/Inter-Regular.ttf') }}");
+      font-style: normal;
+      font-weight: 400;
+    }
+  </style>
     </head>
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
