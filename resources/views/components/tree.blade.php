@@ -3,7 +3,8 @@
         @foreach ($links as $link)
             <li>
                 @if (array_key_exists('childrens', $link))
-                    <button class="w-full px-4 py-3 rounded-lg flex items-center gap-4 hover:bg-green-200/40 hover:text-green-900"
+                    <button
+                        class="w-full px-4 py-3 rounded-lg flex items-center gap-4 hover:bg-green-200/40 hover:text-green-900"
                         data-trigger="{{ $link['label'] }}">
                         <div class="w-5 h-5">
                             <x-dynamic-component :component="$link['icon']" />
@@ -33,3 +34,21 @@
         @endforeach
     </ul>
 </nav>
+
+@once
+    @push('tree')
+        <script defer>
+            const triggers = document.querySelectorAll("button[data-trigger]");
+
+            triggers.forEach((element) => {
+                element.addEventListener("click", () => {
+                    const nestedNavValue = element.getAttribute("data-trigger");
+                    const nestedNav = document.querySelector(
+                        `[data-nested="${nestedNavValue}"]`
+                    );
+                    nestedNav?.classList.toggle("open");
+                });
+            });
+        </script>
+    @endpush
+@endonce
