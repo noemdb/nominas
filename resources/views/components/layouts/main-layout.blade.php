@@ -33,10 +33,17 @@
 
     <style>
         @font-face {
-            font-family: "Inter-Regular";
+            font-family: "Inter";
             src: url("{{ asset('fonts/Inter-Regular.ttf') }}");
             font-style: normal;
             font-weight: 400;
+        }
+
+        @font-face {
+            font-family: "Inter";
+            src: url("{{ asset('fonts/Inter-Bold.ttf') }}");
+            font-style: normal;
+            font-weight: 700;
         }
     </style>
 </head>
