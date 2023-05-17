@@ -1,6 +1,15 @@
 @php
     $links = [
-        ['label' => 'dashboard', 'icon' => 'icons.home', 'childrens' => [['label' => 'Nested', 'icon' => 'icons.home']]],
+        [
+            'label' => 'dashboard',
+            'icon' => 'icons.home',
+            'childrens' => [
+                ['label' => 'Nested', 'icon' => 'icons.home'],
+                ['label' => 'Nested', 'icon' => 'icons.home'],
+                ['label' => 'Nested', 'icon' => 'icons.home'],
+                ['label' => 'Nested', 'icon' => 'icons.home']
+            ]
+        ],
         ['label' => 'dashboard2', 'icon' => 'icons.home'],
         ['label' => 'dashboard3', 'icon' => 'icons.home'],
         ['label' => 'dashboard4', 'icon' => 'icons.home'],
@@ -9,7 +18,16 @@
         ['label' => 'dashboard7', 'icon' => 'icons.home'],
         ['label' => 'dashboard8', 'icon' => 'icons.home'],
         ['label' => 'dashboard9', 'icon' => 'icons.home'],
-        ['label' => 'dashboard10', 'icon' => 'icons.home']
+        [
+            'label' => 'dashboard10',
+            'icon' => 'icons.home',
+            'childrens' => [
+                ['label' => 'Nested', 'icon' => 'icons.home'],
+                ['label' => 'Nested', 'icon' => 'icons.home'],
+                ['label' => 'Nested', 'icon' => 'icons.home'],
+                ['label' => 'Nested', 'icon' => 'icons.home']
+            ]
+        ], 
     ];
 @endphp
 
@@ -25,3 +43,19 @@
         {{ $slot }}
     </div>
 </main>
+
+@push('tree')
+    <script>
+        const triggers = document.querySelectorAll("button[data-trigger]");
+
+        triggers.forEach((element) => {
+            element.addEventListener("click", () => {
+                const nestedNavValue = element.getAttribute("data-trigger");
+                const nestedNav = document.querySelector(
+                    `[data-nested="${nestedNavValue}"]`
+                );
+                nestedNav?.classList.toggle("open");
+            });
+        });
+    </script>
+@endpush

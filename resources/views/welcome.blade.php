@@ -20,6 +20,7 @@
 
 <body class="antialiased text-neutral-800">
   <x-layouts.main-layout />
+  @stack('tree')
 </body>
 
 </html>
