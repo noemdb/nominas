@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components\icons;
+namespace App\View\Components\Icons;
 
 use Illuminate\View\Component;
 
-class home extends Component
+class Home extends Component
 {
     /**
      * Create a new component instance.
