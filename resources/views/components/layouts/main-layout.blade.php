@@ -16,7 +16,7 @@
 <main class="flex relative">
     <aside
         class="w-full h-screen p-4 bg-white hidden fixed inset-0 [&.open]:block lg:w-80 lg:bg-transparent lg:border-r lg:border-solid lg:border-gray-300 lg:block lg:relative">
-        <x-aside-nav :links="$links" />
+        <x-tree :links="$links" />
     </aside>
     <div>
         <header>

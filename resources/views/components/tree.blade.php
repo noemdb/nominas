@@ -14,7 +14,7 @@
                         </div>
                     </button>
                     <div class="hidden [&.open]:block" data-nested="{{ $link['label'] }}">
-                        <x-aside-nav :links="$link['childrens']" :isNested="true" />
+                        <x-tree :links="$link['childrens']" :isNested="true" />
                     </div>
                 @else
                     <a href="#"

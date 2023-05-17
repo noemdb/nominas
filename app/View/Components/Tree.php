@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class AsideNav extends Component
+class Tree extends Component
 {
     public $links;
     public $isNested;
@@ -26,6 +26,6 @@ class AsideNav extends Component
      */
     public function render()
     {
-        return view('components.aside-nav');
+        return view('components.tree');
     }
 }
