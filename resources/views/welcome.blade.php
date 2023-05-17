@@ -18,7 +18,7 @@
   </style>
 </head>
 
-<body class="antialiased">
+<body class="antialiased text-neutral-800">
   <x-layouts.main-layout />
 </body>
 
