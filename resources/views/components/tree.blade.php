@@ -5,7 +5,7 @@
                 @if (array_key_exists('childrens', $link))
                     <button
                         class="w-full px-4 py-3 rounded-lg flex items-center gap-4 hover:bg-green-200/40 hover:text-green-900"
-                        data-trigger="{{ $link['label'] }}">
+                        data-tree-trigger="{{ $link['label'] }}">
                         <div class="w-5 h-5">
                             <x-dynamic-component :component="$link['icon']" />
                         </div>
@@ -14,7 +14,7 @@
                             <x-icons.arrow-down />
                         </div>
                     </button>
-                    <div class="hidden [&.open]:block" data-nested="{{ $link['label'] }}">
+                    <div class="hidden [&.open]:block" data-nested-tree="{{ $link['label'] }}">
                         <x-tree :links="$link['childrens']" :isNested="true" />
                     </div>
                 @else
@@ -38,15 +38,15 @@
 @once
     @push('tree')
         <script defer>
-            const triggers = document.querySelectorAll("button[data-trigger]");
+            const treeTriggers = document.querySelectorAll("button[data-tree-trigger]");
 
-            triggers.forEach((element) => {
+            treeTriggers.forEach((element) => {
                 element.addEventListener("click", () => {
-                    const nestedNavValue = element.getAttribute("data-trigger");
-                    const nestedNav = document.querySelector(
-                        `[data-nested="${nestedNavValue}"]`
+                    const treeToTrigger = element.getAttribute("data-tree-trigger");
+                    const tree = document.querySelector(
+                        `[data-nested-tree="${treeToTrigger}"]`
                     );
-                    nestedNav?.classList.toggle("open");
+                    tree?.classList.toggle("open");
                 });
             });
         </script>
