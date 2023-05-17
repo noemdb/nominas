@@ -49,7 +49,7 @@
 </head>
 
 <body class="antialiased text-neutral-800">
-    <main class="flex relative">
+    <div class="flex relative">
         <x-sidebar name="main-nav">
             <div class="m-4 flex lg:hidden">
                 <button class="w-7 h-7 ml-auto" data-sidebar-close="main-nav">
@@ -65,14 +65,14 @@
                         <x-icons.burger></x-icons.burger>
                     </button>
                 </div>
-                <h1 class="text-xl">¡Bienvenido de vuelta!</h1>
+                <h1 class="text-xl lg:text-2xl">¡Bienvenido de vuelta!</h1>
                 <button class="w-8 h-8 bg-green-600 rounded-full flex justify-center items-center">
                     <h6 class="text-white/90">A</h6>
                 </button>
             </header>
             {{ $slot }}
         </div>
-    </main>
+    </div>
     @stack('tree')
     @stack('aside')
 </body>
