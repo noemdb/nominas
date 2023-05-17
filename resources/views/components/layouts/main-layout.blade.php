@@ -43,18 +43,24 @@
 
 <body class="antialiased text-neutral-800">
     <main class="flex relative">
-        <aside
-            class="w-full h-screen p-4 bg-white hidden fixed inset-0 [&.open]:block lg:w-80 lg:bg-transparent lg:border-r lg:border-solid lg:border-gray-300 lg:block lg:relative">
+        <x-sidebar name="main-nav">
+            <div class="lg:hidden">
+                <button data-sidebar-close="main-nav">Close</button>
+            </div>
             <x-tree :links="$links" />
-        </aside>
-        <div>
+        </x-sidebar>
+        <div class="lg:ml-80">
             <header>
+                <div class="lg:hidden">
+                    <button data-sidebar-open="main-nav">Open</button>
+                </div>
                 <h1>¡Bienvenido de vuelta!</h1>
             </header>
             {{ $slot }}
         </div>
     </main>
     @stack('tree')
+    @stack('aside')
 </body>
 
 </html>
