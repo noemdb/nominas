@@ -1,5 +1,5 @@
 <aside
-    class="w-full min-h-screen p-4 bg-white hidden fixed inset-0 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] [&.open]:block lg:w-80 lg:bg-transparent lg:border-r lg:border-solid lg:border-gray-300 lg:block"
+    class="w-full min-h-screen p-4 bg-white hidden fixed inset-0 z-10 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] [&.open]:block lg:w-80 lg:bg-transparent lg:border-r lg:border-solid lg:border-gray-300 lg:block"
     data-sidebar="{{ $name }}">
     {{ $slot }}
 </aside>
