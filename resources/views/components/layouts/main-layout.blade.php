@@ -44,17 +44,24 @@
 <body class="antialiased text-neutral-800">
     <main class="flex relative">
         <x-sidebar name="main-nav">
-            <div class="lg:hidden">
-                <button data-sidebar-close="main-nav">Close</button>
+            <div class="m-4 flex lg:hidden">
+                <button class="w-7 h-7 ml-auto" data-sidebar-close="main-nav">
+                    <x-icons.cross></x-icons.cross>
+                </button>
             </div>
             <x-tree :links="$links" />
         </x-sidebar>
-        <div class="lg:ml-80">
-            <header>
+        <div class="w-full h-full lg:ml-80 [&>*]:p-4 [&>*]:lg:py-4 [&>*]:lg:px-10">
+            <header class="border-b border-solid border-neutral-200 pb-4 flex justify-between items-center">
                 <div class="lg:hidden">
-                    <button data-sidebar-open="main-nav">Open</button>
+                    <button class="w-7 h-7" data-sidebar-open="main-nav">
+                        <x-icons.burger></x-icons.burger>
+                    </button>
                 </div>
-                <h1>¡Bienvenido de vuelta!</h1>
+                <h1 class="text-xl">¡Bienvenido de vuelta!</h1>
+                <button class="w-8 h-8 bg-green-600 rounded-full flex justify-center items-center">
+                    <h6 class="text-white/90">A</h6>
+                </button>
             </header>
             {{ $slot }}
         </div>
