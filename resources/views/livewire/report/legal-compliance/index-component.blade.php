@@ -1,0 +1,3 @@
+<div>
+    legal-compliance
+</div>

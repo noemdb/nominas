@@ -1,0 +1,90 @@
+php artisan make:livewire 'Institution/IndexComponent'
+php artisan make:livewire 'Institution/Autority/IndexComponent'
+php artisan make:livewire 'Institution/Schedule/IndexComponent'
+php artisan make:livewire 'Institution/Rol/IndexComponent'
+php artisan make:livewire 'Institution/Special/IndexComponent'
+
+
+**********************************************************************************
+php artisan make:livewire 'Employee/IndexComponent'
+php artisan make:livewire 'Employee/Personal/IndexComponent'
+php artisan make:livewire 'Employee/Information/IndexComponent'
+php artisan make:livewire 'Employee/Salary/IndexComponent'
+php artisan make:livewire 'Employee/SocialSecurity/IndexComponent'
+php artisan make:livewire 'Employee/Training/IndexComponent'
+php artisan make:livewire 'Employee/Documentation/IndexComponent'
+
+
+**********************************************************************************
+php artisan make:livewire 'Formulation/IndexComponent'
+php artisan make:livewire 'Formulation/Payroll/IndexComponent'
+php artisan make:livewire 'Formulation/SocialBenefit/IndexComponent'
+php artisan make:livewire 'Formulation/Vacation/IndexComponent'
+
+
+**********************************************************************************
+php artisan make:livewire 'PayrollAccounting/IndexComponent'
+php artisan make:livewire 'PayrollAccounting/Salary/IndexComponent'
+php artisan make:livewire 'PayrollAccounting/Deduction/IndexComponent'
+php artisan make:livewire 'PayrollAccounting/Tax/IndexComponent'
+php artisan make:livewire 'PayrollAccounting/Bonification/IndexComponent'
+php artisan make:livewire 'PayrollAccounting/Incentive/IndexComponent'
+php artisan make:livewire 'PayrollAccounting/Overtime/IndexComponent'
+php artisan make:livewire 'PayrollAccounting/Holiday/IndexComponent'
+php artisan make:livewire 'PayrollAccounting/Vacation/IndexComponent'
+php artisan make:livewire 'PayrollAccounting/PaymentVoucher/IndexComponent'
+
+
+**********************************************************************************
+php artisan make:livewire 'SocialBenefit/IndexComponent'
+php artisan make:livewire 'SocialBenefit/Register/IndexComponent'
+php artisan make:livewire 'SocialBenefit/LoanManagement/IndexComponent'
+php artisan make:livewire 'SocialBenefit/Report/IndexComponent'
+
+
+**********************************************************************************
+php artisan make:livewire 'Vacation/IndexComponent'
+php artisan make:livewire 'Vacation/Request/IndexComponent'
+php artisan make:livewire 'Vacation/Register/IndexComponent'
+php artisan make:livewire 'Vacation/Planning/IndexComponent'
+php artisan make:livewire 'Vacation/Report/IndexComponent'
+
+
+**********************************************************************************
+php artisan make:livewire 'Absence/IndexComponent'
+php artisan make:livewire 'Absence/Request/IndexComponent'
+php artisan make:livewire 'Absence/Register/IndexComponent'
+php artisan make:livewire 'Absence/Policy/IndexComponent'
+php artisan make:livewire 'Absence/Report/IndexComponent'
+
+
+**********************************************************************************
+php artisan make:livewire 'Report/IndexComponent'
+php artisan make:livewire 'Report/Payroll/IndexComponent'
+php artisan make:livewire 'Report/Benefit/IndexComponent'
+php artisan make:livewire 'Report/Vacation/IndexComponent'
+php artisan make:livewire 'Report/Absence/IndexComponent'
+php artisan make:livewire 'Report/LegalCompliance/IndexComponent'
+php artisan make:livewire 'Report/SalaryComparison/IndexComponent'
+php artisan make:livewire 'Report/ProcessEfficiency/IndexComponent'
+php artisan make:livewire 'Report/Scheduled/IndexComponent'
+
+
+**********************************************************************************
+php artisan make:livewire 'Indicator/IndexComponent'
+php artisan make:livewire 'Indicator/Benefit/IndexComponent'
+php artisan make:livewire 'Indicator/Loan/IndexComponent'
+php artisan make:livewire 'Indicator/PaymentHistory/IndexComponent'
+php artisan make:livewire 'Indicator/Accumulated/IndexComponent'
+
+**********************************************************************************
+php artisan make:livewire 'Handbook/IndexComponent'
+php artisan make:livewire 'Handbook/Institution/IndexComponent'
+php artisan make:livewire 'Handbook/Employee/IndexComponent'
+php artisan make:livewire 'Handbook/Formulation/IndexComponent'
+php artisan make:livewire 'Handbook/PayrollAccounting/IndexComponent'
+php artisan make:livewire 'Handbook/SocialBenefit/IndexComponent'
+php artisan make:livewire 'Handbook/Vacation/IndexComponent'
+php artisan make:livewire 'Handbook/Absence/IndexComponent'
+php artisan make:livewire 'Handbook/Report/IndexComponent'
+php artisan make:livewire 'Handbook/Indicator/IndexComponent'

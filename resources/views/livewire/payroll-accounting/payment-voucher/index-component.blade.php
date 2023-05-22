@@ -1,0 +1,3 @@
+<div>
+    payment-voucher
+</div>

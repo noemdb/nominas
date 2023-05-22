@@ -1,0 +1,30 @@
+institutions
+ schedules rols specials
+
+employees
+ personals informations salaries social-security trainings
+
+formulations
+ payrolls social-benefits vacations
+
+ payroll-accountings
+  salaries deductions taxes bonifications incentives overtimes holidays vacations payment-vouchers
+
+social-benefits
+ registers loan-managements reports
+
+
+vacations
+ requests registers plannings reports
+
+absences
+ requests registers policies reports
+
+reports
+ payrolls benefits vacations absences legal-compliances salary-comparisons scheduleds
+
+indicators
+ benefits loans payment-histories accumulated
+
+handbooks
+ institutions employees payroll-accountings social-benefits vacations reports

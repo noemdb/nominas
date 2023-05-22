@@ -46,6 +46,12 @@
             font-weight: 700;
         }
     </style>
+
+    {{-- styles custom --}}
+    @stack('styles')
+
+    @livewireStyles
+
 </head>
 
 <body class="antialiased text-neutral-800">
@@ -73,8 +79,15 @@
             {{ $slot }}
         </div>
     </div>
+
     @stack('tree')
     @stack('aside')
+
+    {{-- scripts custom --}}
+    @stack('scripts')
+
+    @livewireScripts
+
 </body>
 
 </html>

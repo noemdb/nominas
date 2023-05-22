@@ -1,0 +1,84 @@
+php artisan make:controller 'Welcome\HomeController'
+
+php artisan make:controller 'Institution\IndexController'
+php artisan make:controller 'Institution\Autority\IndexController'
+php artisan make:controller 'Institution\Bank\IndexController'
+php artisan make:controller 'Institution\Schedule\IndexController'
+php artisan make:controller 'Institution\Rol\IndexController'
+php artisan make:controller 'Institution\Special\IndexController'
+
+
+php artisan make:controller 'Employee\IndexController'
+php artisan make:controller 'Employee\Personal\IndexController'
+php artisan make:controller 'Employee\Information\IndexController'
+php artisan make:controller 'Employee\Salary\IndexController'
+php artisan make:controller 'Employee\SocialSecurity\IndexController'
+php artisan make:controller 'Employee\Training\IndexController'
+php artisan make:controller 'Employee\Documentation\IndexController'
+
+
+php artisan make:controller 'Formulation\IndexController'
+php artisan make:controller 'Formulation\Payroll\IndexController'
+php artisan make:controller 'Formulation\SocialBenefit\IndexController'
+php artisan make:controller 'Formulation\Vacation\IndexController'
+
+
+php artisan make:controller 'PayrollAccounting\IndexController'
+php artisan make:controller 'PayrollAccounting\Salary\IndexController'
+php artisan make:controller 'PayrollAccounting\Deduction\IndexController'
+php artisan make:controller 'PayrollAccounting\Tax\IndexController'
+php artisan make:controller 'PayrollAccounting\Bonification\IndexController'
+php artisan make:controller 'PayrollAccounting\Incentive\IndexController'
+php artisan make:controller 'PayrollAccounting\Overtime\IndexController'
+php artisan make:controller 'PayrollAccounting\Holiday\IndexController'
+php artisan make:controller 'PayrollAccounting\Vacation\IndexController'
+php artisan make:controller 'PayrollAccounting\PaymentVoucher\IndexController'
+
+
+php artisan make:controller 'SocialBenefit\IndexController'
+php artisan make:controller 'SocialBenefit\Register\IndexController'
+php artisan make:controller 'SocialBenefit\LoanManagement\IndexController'
+php artisan make:controller 'SocialBenefit\Report\IndexController'
+
+
+php artisan make:controller 'Vacation\IndexController'
+php artisan make:controller 'Vacation\Request\IndexController'
+php artisan make:controller 'Vacation\Register\IndexController'
+php artisan make:controller 'Vacation\Planning\IndexController'
+php artisan make:controller 'Vacation\Report\IndexController'
+
+
+php artisan make:controller 'Absence\IndexController'
+php artisan make:controller 'Absence\Request\IndexController'
+php artisan make:controller 'Absence\Register\IndexController'
+php artisan make:controller 'Absence\Policy\IndexController'
+php artisan make:controller 'Absence\Report\IndexController'
+
+
+php artisan make:controller 'Report\IndexController'
+php artisan make:controller 'Report\Payroll\IndexController'
+php artisan make:controller 'Report\Benefit\IndexController'
+php artisan make:controller 'Report\Vacation\IndexController'
+php artisan make:controller 'Report\Absence\IndexController'
+php artisan make:controller 'Report\LegalCompliance\IndexController'
+php artisan make:controller 'Report\SalaryComparison\IndexController'
+php artisan make:controller 'Report\ProcessEfficiency\IndexController'
+php artisan make:controller 'Report\Scheduled\IndexController'
+
+
+php artisan make:controller 'Indicator\IndexController'
+php artisan make:controller 'Indicator\Benefit\IndexController'
+php artisan make:controller 'Indicator\Loan\IndexController'
+php artisan make:controller 'Indicator\PaymentHistory\IndexController'
+php artisan make:controller 'Indicator\Accumulated\IndexController'
+
+php artisan make:controller 'Handbook\IndexController'
+php artisan make:controller 'Handbook\Institution\IndexController'
+php artisan make:controller 'Handbook\Employee\IndexController'
+php artisan make:controller 'Handbook\Formulation\IndexController'
+php artisan make:controller 'Handbook\PayrollAccounting\IndexController'
+php artisan make:controller 'Handbook\SocialBenefit\IndexController'
+php artisan make:controller 'Handbook\Vacation\IndexController'
+php artisan make:controller 'Handbook\Absence\IndexController'
+php artisan make:controller 'Handbook\Report\IndexController'
+php artisan make:controller 'Handbook\Indicator\IndexController'

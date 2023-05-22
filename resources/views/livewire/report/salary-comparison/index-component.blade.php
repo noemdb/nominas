@@ -1,0 +1,3 @@
+<div>
+    salary-comparison
+</div>
