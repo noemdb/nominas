@@ -76,6 +76,20 @@
                 ['label' => 'Reportes y estadísticas', 'route' => route('absences.reports')],
             ],
         ],
+        [
+            'label' => 'Generación de reportes',
+            'icon' => 'icons.document',
+            'childrens' => [
+                ['label' => 'Nómina', 'route' => route('reports.payrolls')],
+                ['label' => 'Prestaciones', 'route' => route('reports.benefits')],
+                ['label' => 'Vacaciones', 'route' => route('reports.vacations')],
+                ['label' => 'Ausencias', 'route' => route('reports.absences')],
+                ['label' => 'Cumplimiento legal', 'route' => route('reports.legal-compliances')],
+                ['label' => 'Comparación salarial', 'route' => route('reports.salary-comparisons')],
+                ['label' => 'Eficiencia de los procesos', 'route' => route('reports.process-efficiencies')],
+                ['label' => 'Reportes programados', 'route' => route('reports.scheduleds')],
+            ],
+        ],
     ];
 @endphp
 
