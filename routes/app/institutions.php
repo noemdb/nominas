@@ -8,7 +8,7 @@ use App\Http\Controllers\Institution\Autority\IndexController as InstitutionAuto
 use App\Http\Controllers\Institution\Bank\IndexController as InstitutionBankIndexController;
 use App\Http\Controllers\Institution\Schedule\IndexController as InstitutionScheduleIndexController;
 use App\Http\Controllers\Institution\Rol\IndexController as InstitutionRolIndexController;
-use App\Http\Controllers\Institution\Rol\IndexController as InstitutionSpecialIndexController;
+use App\Http\Controllers\Institution\Special\IndexController as InstitutionSpecialIndexController;
 
 Route::get('/institutions', [InstitutionIndexController::class, 'index'])->name('institutions');
 Route::get('/institutions/autorities', [InstitutionAutorityIndexController::class, 'index'])->name('institutions.autorities');
