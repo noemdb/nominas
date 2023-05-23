@@ -40,15 +40,19 @@
         <script defer>
             const treeTriggers = document.querySelectorAll("button[data-tree-trigger]");
 
+            //const routeCurrent = "{{ url()->current() }}"; console.log(routeCurrent);
+
             treeTriggers.forEach((element) => {
                 element.addEventListener("click", () => {
                     const treeToTrigger = element.getAttribute("data-tree-trigger");
                     const tree = document.querySelector(
                         `[data-nested-tree="${treeToTrigger}"]`
                     );
+
                     tree?.classList.toggle("open");
                 });
             });
+
         </script>
     @endpush
 @endonce
