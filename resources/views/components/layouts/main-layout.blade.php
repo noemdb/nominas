@@ -12,6 +12,18 @@
                 ['label' => 'Especiales', 'route' => route('institutions.specials')],
             ],
         ],
+        [
+            'label' => 'Empleados',
+            'icon' => 'icons.user-group',
+            'childrens' => [
+                ['label' => 'Personal', 'route' => route('employees.personals')],
+                ['label' => 'Información', 'route' => route('employees.informations')],
+                ['label' => 'Salarios', 'route' => route('employees.salaries')],
+                ['label' => 'Seguridad social', 'route' => route('employees.social')],
+                ['label' => 'Entrenamientos', 'route' => route('employees.trainings')],
+                ['label' => 'Documentación', 'route' => route('employees.documentations')],
+            ],
+        ],
     ];
 @endphp
 
