@@ -24,6 +24,15 @@
                 ['label' => 'Documentación', 'route' => route('employees.documentations')],
             ],
         ],
+        [
+            'label' => 'Formulaciones',
+            'icon' => 'icons.math',
+            'childrens' => [
+                ['label' => 'Nómina', 'route' => route('formulations.payrolls')],
+                ['label' => 'Beneficios sociales', 'route' => route('formulations.social-benefits')],
+                ['label' => 'Vacaciones', 'route' => route('formulations.vacations')],
+            ],
+        ],
     ];
 @endphp
 
