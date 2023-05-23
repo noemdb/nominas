@@ -170,7 +170,6 @@
                     <h6 class="text-white/90">A</h6>
                 </button>
             </header>
-            {{ url()->current() }}
             {{ $slot }}
         </div>
     </div>
