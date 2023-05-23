@@ -18,7 +18,7 @@
                         <x-tree :links="$link['childrens']" :isNested="true" />
                     </div>
                 @else
-                    <a href="#"
+                    <a href={{$link['route']}}
                         class="px-4 py-3 rounded-lg flex items-center gap-4 hover:bg-green-200/40 hover:text-green-900">
                         <div class="w-5 h-5 relative flex items-center justify-center">
                             @if ($isNested)
