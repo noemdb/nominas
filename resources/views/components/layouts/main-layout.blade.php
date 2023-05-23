@@ -1,22 +1,16 @@
 @php
     $links = [
+        ['label' => 'dashboard', 'icon' => 'icons.home', 'route' => route('welcome')],
         [
-            'label' => 'dashboard',
-            'icon' => 'icons.home',
-            'childrens' => [['label' => 'Nested', 'icon' => 'icons.home'], ['label' => 'Nested', 'icon' => 'icons.home'], ['label' => 'Nested', 'icon' => 'icons.home'], ['label' => 'Nested', 'icon' => 'icons.home']],
-        ],
-        ['label' => 'dashboard2', 'icon' => 'icons.home'],
-        ['label' => 'dashboard3', 'icon' => 'icons.home'],
-        ['label' => 'dashboard4', 'icon' => 'icons.home'],
-        ['label' => 'dashboard5', 'icon' => 'icons.home'],
-        ['label' => 'dashboard6', 'icon' => 'icons.home'],
-        ['label' => 'dashboard7', 'icon' => 'icons.home'],
-        ['label' => 'dashboard8', 'icon' => 'icons.home'],
-        ['label' => 'dashboard9', 'icon' => 'icons.home'],
-        [
-            'label' => 'dashboard10',
-            'icon' => 'icons.home',
-            'childrens' => [['label' => 'Nested', 'icon' => 'icons.home'], ['label' => 'Nested', 'icon' => 'icons.home'], ['label' => 'Nested', 'icon' => 'icons.home'], ['label' => 'Nested', 'icon' => 'icons.home']],
+            'label' => 'instituciones',
+            'icon' => 'icons.building',
+            'childrens' => [
+                ['label' => 'Autoridades', 'route' => route('institutions.autorities')],
+                ['label' => 'Bancos', 'route' => route('institutions.banks')],
+                ['label' => 'Horarios', 'route' => route('institutions.schedules')],
+                ['label' => 'Roles', 'route' => route('institutions.rols')],
+                ['label' => 'Especiales', 'route' => route('institutions.specials')],
+            ],
         ],
     ];
 @endphp
