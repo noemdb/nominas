@@ -18,7 +18,7 @@
                         <x-tree :links="$link['childrens']" :isNested="true" />
                     </div>
                 @else
-                    <a href="#"
+                    <a href={{$link['route']}}
                         class="px-4 py-3 rounded-lg flex items-center gap-4 hover:bg-green-200/40 hover:text-green-900">
                         <div class="w-5 h-5 relative flex items-center justify-center">
                             @if ($isNested)
@@ -40,15 +40,19 @@
         <script defer>
             const treeTriggers = document.querySelectorAll("button[data-tree-trigger]");
 
+            //const routeCurrent = "{{ url()->current() }}"; console.log(routeCurrent);
+
             treeTriggers.forEach((element) => {
                 element.addEventListener("click", () => {
                     const treeToTrigger = element.getAttribute("data-tree-trigger");
                     const tree = document.querySelector(
                         `[data-nested-tree="${treeToTrigger}"]`
                     );
+
                     tree?.classList.toggle("open");
                 });
             });
+
         </script>
     @endpush
 @endonce
