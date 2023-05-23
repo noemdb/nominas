@@ -33,6 +33,20 @@
                 ['label' => 'Vacaciones', 'route' => route('formulations.vacations')],
             ],
         ],
+        [
+            'label' => 'Nómina',
+            'icon' => 'icons.hand-cash',
+            'childrens' => [
+                ['label' => 'Salarios', 'route' => route('payroll-accountings.salaries')],
+                ['label' => 'Deducciones', 'route' => route('payroll-accountings.deductions')],
+                ['label' => 'Bonificaciones', 'route' => route('payroll-accountings.bonifications')],
+                ['label' => 'Incentivos', 'route' => route('payroll-accountings.incentives')],
+                ['label' => 'Sobretiempos', 'route' => route('payroll-accountings.overtimes')],
+                ['label' => 'Días feriados', 'route' => route('payroll-accountings.holidays')],
+                ['label' => 'Vacaciones', 'route' => route('payroll-accountings.vacations')],
+                ['label' => 'Pago de recibos', 'route' => route('payroll-accountings.payment-vouchers')],
+            ],
+        ],
     ];
 @endphp
 
