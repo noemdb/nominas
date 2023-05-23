@@ -9,7 +9,7 @@
                         <div class="w-5 h-5">
                             <x-dynamic-component :component="$link['icon']" />
                         </div>
-                        <span class="lowercase text-sm mr-auto first-letter:uppercase">{{ $link['label'] }}</span>
+                        <span class="mr-auto text-sm text-left lowercase first-letter:uppercase">{{ $link['label'] }}</span>
                         <div class="w-3 h-3">
                             <x-icons.arrow-down />
                         </div>
@@ -27,7 +27,7 @@
                                 <x-dynamic-component :component="$link['icon']" />
                             @endif
                         </div>
-                        <span class="lowercase text-sm first-letter:uppercase">{{ $link['label'] }}</span>
+                        <span class="text-sm lowercase text-left first-letter:uppercase">{{ $link['label'] }}</span>
                     </a>
                 @endif
             </li>
