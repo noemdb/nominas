@@ -90,6 +90,16 @@
                 ['label' => 'Reportes programados', 'route' => route('reports.scheduleds')],
             ],
         ],
+        [
+            'label' => 'Indicadores de gestión',
+            'icon' => 'icons.presentation-trending',
+            'childrens' => [
+                ['label' => 'Prestaciones sociales', 'route' => route('indicators.benefits')],
+                ['label' => 'Préstamos', 'route' => route('indicators.loans')],
+                ['label' => 'Histórico de pagos', 'route' => route('indicators.payment-histories')],
+                ['label' => 'Total acumulado', 'route' => route('indicators.accumulated')],
+            ],
+        ],
     ];
 @endphp
 
