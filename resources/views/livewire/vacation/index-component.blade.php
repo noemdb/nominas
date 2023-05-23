@@ -1,4 +1,64 @@
 <div>
     vacations
-    {{route('institutions')}}
+    {{-- <br> {{route('institutions')}}
+    <br> {{route('institutions.autorities')}}
+    <br> {{route('institutions.banks')}}
+    <br> {{route('institutions.schedules')}}
+    <br> {{route('institutions.rols')}}
+    <br> {{route('institutions.specials')}}
+    <br> {{route('employees')}}
+    <br> {{route('employees.personals')}}
+    <br> {{route('employees.informations')}}
+    <br> {{route('employees.salaries')}}
+    <br> {{route('employees.social')}}
+    <br> {{route('employees.trainings')}}
+    <br> {{route('employees.documentations')}}
+    <br> {{route('formulations')}}
+    <br> {{route('formulations.payrolls')}}
+    <br> {{route('formulations.social-benefits')}}
+    <br> {{route('formulations.vacations')}}
+    <br> {{route('payroll-accountings')}}
+    <br> {{route('payroll-accountings.salaries')}}
+    <br> {{route('payroll-accountings.deductions')}}
+    <br> {{route('payroll-accountings.bonifications')}}
+    <br> {{route('payroll-accountings.incentives')}}
+    <br> {{route('payroll-accountings.overtimes')}}
+    <br> {{route('payroll-accountings.holidays')}}
+    <br> {{route('payroll-accountings.vacations')}}
+    <br> {{route('payroll-accountings.payment-vouchers')}}
+    <br> {{route('social-benefits')}}
+    <br> {{route('social-benefits.registers')}}
+    <br> {{route('social-benefits.loan-managements')}}
+    <br> {{route('social-benefits.reports')}}
+    <br> {{route('vacations')}}
+    <br> {{route('vacations.requests')}}
+    <br> {{route('vacations.registers')}}
+    <br> {{route('vacations.plannings')}}
+    <br> {{route('vacations.reports')}}
+    <br> {{route('absences')}}
+    <br> {{route('absences.requests')}}
+    <br> {{route('absences.registers')}}
+    <br> {{route('absences.policies')}}
+    <br> {{route('absences.reports')}}
+    <br> {{route('reports')}}
+    <br> {{route('reports.payrolls')}}
+    <br> {{route('reports.benefits')}}
+    <br> {{route('reports.vacations')}}
+    <br> {{route('reports.absences')}}
+    <br> {{route('reports.legal-compliances')}}
+    <br> {{route('reports.salary-comparisons')}}
+    <br> {{route('reports.process-efficiencies')}}
+    <br> {{route('reports.scheduleds')}}
+    <br> {{route('indicators')}}
+    <br> {{route('indicators.benefits')}}
+    <br> {{route('indicators.loans')}}
+    <br> {{route('indicators.payment-histories')}}
+    <br> {{route('indicators.accumulated')}}
+    <br> {{route('handbooks')}}
+    <br> {{route('handbooks.institutions')}}
+    <br> {{route('handbooks.employees')}}
+    <br> {{route('handbooks.payroll-accountings')}}
+    <br> {{route('handbooks.social-benefits')}}
+    <br> {{route('handbooks.vacations')}}
+    <br> {{route('handbooks.reports')}} --}}
 </div>

@@ -21,9 +21,9 @@ require(__DIR__ . '/app/handbooks.php');
 /*
 
 -. Institución
-    *. Registro de instituciones: route('institutions')
-    *. Registro de autoridades: route('institutions.autorities')
-    *. Registro de bancos: route('institutions.banks')
+    *. Instituciones: route('institutions')
+    *. Autoridades: route('institutions.autorities')
+    *. Bancos: route('institutions.banks')
     *. Horarios laborales: route('institutions.schedules')
     *. Roles y cargos: route('institutions.rols')
     *. Especiales: route('institutions.specials')
