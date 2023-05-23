@@ -66,6 +66,16 @@
                 ['label' => 'Reportes y estadísticas', 'route' => route('vacations.reports')],
             ],
         ],
+        [
+            'label' => 'Gestión de ausencias y permisos',
+            'icon' => 'icons.circle-dashed',
+            'childrens' => [
+                ['label' => 'Solicitud', 'route' => route('absences.requests')],
+                ['label' => 'Registro', 'route' => route('absences.registers')],
+                ['label' => 'Gestión de políticas', 'route' => route('absences.policies')],
+                ['label' => 'Reportes y estadísticas', 'route' => route('absences.reports')],
+            ],
+        ],
     ];
 @endphp
 
