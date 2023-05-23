@@ -47,6 +47,15 @@
                 ['label' => 'Pago de recibos', 'route' => route('payroll-accountings.payment-vouchers')],
             ],
         ],
+        [
+            'label' => 'Beneficios sociales',
+            'icon' => 'icons.hand-heart',
+            'childrens' => [
+                ['label' => 'Registros', 'route' => route('social-benefits.registers')],
+                ['label' => 'Gestión de préstamos', 'route' => route('social-benefits.loan-managements')],
+                ['label' => 'Reportes', 'route' => route('social-benefits.reports')],
+            ],
+        ],
     ];
 @endphp
 
