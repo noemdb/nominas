@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 require(__DIR__ . '/app/institutions.php');
 require(__DIR__ . '/app/employees.php');
