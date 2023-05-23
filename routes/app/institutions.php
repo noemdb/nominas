@@ -10,10 +10,10 @@ use App\Http\Controllers\Institution\Schedule\IndexController as InstitutionSche
 use App\Http\Controllers\Institution\Rol\IndexController as InstitutionRolIndexController;
 use App\Http\Controllers\Institution\Rol\IndexController as InstitutionSpecialIndexController;
 
-Route::get('/institutions', [InstitutionIndexController::class, 'index']);
-Route::get('/institutions/autorities', [InstitutionAutorityIndexController::class, 'index']);
-Route::get('/institutions/banks', [InstitutionBankIndexController::class, 'index']);
-Route::get('/institutions/schedules', [InstitutionScheduleIndexController::class, 'index']);
-Route::get('/institutions/rols', [InstitutionRolIndexController::class, 'index']);
-Route::get('/institutions/specials', [InstitutionSpecialIndexController::class, 'index']);
+Route::get('/institutions', [InstitutionIndexController::class, 'index'])->name('institutions');
+Route::get('/institutions/autorities', [InstitutionAutorityIndexController::class, 'index'])->name('institutions.autorities');
+Route::get('/institutions/banks', [InstitutionBankIndexController::class, 'index'])->name('institutions.banks');
+Route::get('/institutions/schedules', [InstitutionScheduleIndexController::class, 'index'])->name('institutions.schedules');
+Route::get('/institutions/rols', [InstitutionRolIndexController::class, 'index'])->name('institutions.rols');
+Route::get('/institutions/specials', [InstitutionSpecialIndexController::class, 'index'])->name('institutions.specials');
 //FIN Institution

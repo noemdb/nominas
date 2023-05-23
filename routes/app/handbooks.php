@@ -11,11 +11,11 @@ use App\Http\Controllers\Handbook\SocialBenefit\IndexController as HandbookSocia
 use App\Http\Controllers\Handbook\Vacation\IndexController as HandbookVacationIndexController;
 use App\Http\Controllers\Handbook\Report\IndexController as HandbookReportIndexController;
 
-Route::get('/handbooks', [HandbookIndexController::class, 'index']);
-Route::get('/handbooks/institutions', [HandbookInstitutionIndexController::class, 'index']);
-Route::get('/handbooks/employees', [HandbookEmployeeIndexController::class, 'index']);
-Route::get('/handbooks/payroll-accountings', [HandbookPayrollAccountingIndexController::class, 'index']);
-Route::get('/handbooks/social-benefits', [HandbookSocialBenefitIndexController::class, 'index']);
-Route::get('/handbooks/vacations', [HandbookVacationIndexController::class, 'index']);
-Route::get('/handbooks/reports', [HandbookReportIndexController::class, 'index']);
+Route::get('/handbooks', [HandbookIndexController::class, 'index'])->name('handbooks');
+Route::get('/handbooks/institutions', [HandbookInstitutionIndexController::class, 'index'])->name('handbooks.institutions');
+Route::get('/handbooks/employees', [HandbookEmployeeIndexController::class, 'index'])->name('handbooks.employees');
+Route::get('/handbooks/payroll-accountings', [HandbookPayrollAccountingIndexController::class, 'index'])->name('handbooks.payroll-accountings');
+Route::get('/handbooks/social-benefits', [HandbookSocialBenefitIndexController::class, 'index'])->name('handbooks.social-benefits');
+Route::get('/handbooks/vacations', [HandbookVacationIndexController::class, 'index'])->name('handbooks.vacations');
+Route::get('/handbooks/reports', [HandbookReportIndexController::class, 'index'])->name('handbooks.reports');
 //FIN Handbook Handbook

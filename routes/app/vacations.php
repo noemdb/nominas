@@ -9,9 +9,9 @@ use App\Http\Controllers\Vacation\Register\IndexController as VacationRegisterIn
 use App\Http\Controllers\Vacation\Planning\IndexController as VacationPlanningIndexController;
 use App\Http\Controllers\Vacation\Report\IndexController as VacationReportIndexController;
 
-Route::get('/vacations', [VacationIndexController::class, 'index']);
-Route::get('/vacations/requests', [VacationRequestIndexController::class, 'index']);
-Route::get('/vacations/registers', [VacationRegisterIndexController::class, 'index']);
-Route::get('/vacations/plannings', [VacationPlanningIndexController::class, 'index']);
-Route::get('/vacations/reports', [VacationReportIndexController::class, 'index']);
+Route::get('/vacations', [VacationIndexController::class, 'index'])->name('vacations');
+Route::get('/vacations/requests', [VacationRequestIndexController::class, 'index'])->name('vacations.requests');
+Route::get('/vacations/registers', [VacationRegisterIndexController::class, 'index'])->name('vacations.registers');
+Route::get('/vacations/plannings', [VacationPlanningIndexController::class, 'index'])->name('vacations.plannings');
+Route::get('/vacations/reports', [VacationReportIndexController::class, 'index'])->name('vacations.reports');
 //FIN Vacation

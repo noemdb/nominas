@@ -11,11 +11,11 @@ use App\Http\Controllers\Employee\SocialSecurity\IndexController as EmployeeSoci
 use App\Http\Controllers\Employee\Training\IndexController as EmployeeTrainingIndexController;
 use App\Http\Controllers\Employee\Documentation\IndexController as EmployeeDocumentationIndexController;
 
-Route::get('/employees', [EmployeeIndexController::class, 'index']);
-Route::get('/employees/personals', [EmployeePersonalIndexController::class, 'index']);
-Route::get('/employees/informations', [EmployeeInformationIndexController::class, 'index']);
-Route::get('/employees/salaries', [EmployeeSalaryIndexController::class, 'index']);
-Route::get('/employees/social-security', [EmployeeSocialSecurityIndexController::class, 'index']);
-Route::get('/employees/trainings', [EmployeeTrainingIndexController::class, 'index']);
-Route::get('/employees/documentations', [EmployeeDocumentationIndexController::class, 'index']);
+Route::get('/employees', [EmployeeIndexController::class, 'index'])->name('employees');
+Route::get('/employees/personals', [EmployeePersonalIndexController::class, 'index'])->name('employees.personals');
+Route::get('/employees/informations', [EmployeeInformationIndexController::class, 'index'])->name('employees.informations');
+Route::get('/employees/salaries', [EmployeeSalaryIndexController::class, 'index'])->name('employees.salaries');
+Route::get('/employees/social-security', [EmployeeSocialSecurityIndexController::class, 'index'])->name('employees.social');
+Route::get('/employees/trainings', [EmployeeTrainingIndexController::class, 'index'])->name('employees.trainings');
+Route::get('/employees/documentations', [EmployeeDocumentationIndexController::class, 'index'])->name('employees.documentations');
 //FIN Employee
