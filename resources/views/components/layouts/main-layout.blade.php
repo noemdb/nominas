@@ -56,6 +56,16 @@
                 ['label' => 'Reportes', 'route' => route('social-benefits.reports')],
             ],
         ],
+        [
+            'label' => 'Vacaciones',
+            'icon' => 'icons.calendar',
+            'childrens' => [
+                ['label' => 'Solicitud', 'route' => route('vacations.requests')],
+                ['label' => 'Registro', 'route' => route('vacations.registers')],
+                ['label' => 'Planificación', 'route' => route('vacations.plannings')],
+                ['label' => 'Reportes', 'route' => route('vacations.reports')],
+            ],
+        ],
     ];
 @endphp
 
