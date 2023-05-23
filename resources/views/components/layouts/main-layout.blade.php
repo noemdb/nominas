@@ -100,6 +100,18 @@
                 ['label' => 'Total acumulado', 'route' => route('indicators.accumulated')],
             ],
         ],
+        [
+            'label' => 'Manuales',
+            'icon' => 'icons.book-open',
+            'childrens' => [
+                ['label' => 'Institución', 'route' => route('handbooks.institutions')],
+                ['label' => 'Empleados', 'route' => route('handbooks.employees')],
+                ['label' => 'Cálculo de nómina', 'route' => route('handbooks.payroll-accountings')],
+                ['label' => 'Prestaciones sociales', 'route' => route('handbooks.social-benefits')],
+                ['label' => 'Gestión de vacaciones', 'route' => route('handbooks.vacations')],
+                ['label' => 'Generación de reportes', 'route' => route('handbooks.reports')],
+            ],
+        ],
     ];
 @endphp
 
