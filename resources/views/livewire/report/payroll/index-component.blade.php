@@ -1,3 +1,19 @@
 <div>
-    payroll
+
+    <div>
+
+        <div class="rounded-lg bg-gray-100 p-4">
+            <h2 class="text-2xl font-bold mb-6">Cálculo de nómina registrados</h2>
+            @include('livewire.report.payroll.partials.table')
+        </div>
+
+        <hr class="my-4">
+
+        <div class="rounded-lg bg-gray-100 p-4">
+            <h2 class="text-2xl font-bold mb-6">Registrar nuevo Cálculo de nómina</h2>
+            @include('livewire.report.payroll.partials.form')
+        </div>
+
+    </div>
+
 </div>

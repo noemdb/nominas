@@ -43,6 +43,7 @@
                 ['label' => 'Incentivos', 'route' => route('payroll-accountings.incentives')],
                 ['label' => 'Horas extras', 'route' => route('payroll-accountings.overtimes')],
                 ['label' => 'Días feriados', 'route' => route('payroll-accountings.holidays')],
+                ['label' => 'Impuestos', 'route' => route('payroll-accountings.taxes')],
                 ['label' => 'Vacaciones', 'route' => route('payroll-accountings.vacations')],
                 ['label' => 'Comprobante de pago', 'route' => route('payroll-accountings.payment-vouchers')],
             ],
@@ -86,8 +87,8 @@
                 ['label' => 'Ausencias', 'route' => route('reports.absences')],
                 ['label' => 'Cumplimiento legal', 'route' => route('reports.legal-compliances')],
                 ['label' => 'Comparación salarial', 'route' => route('reports.salary-comparisons')],
-                ['label' => 'Eficiencia de los procesos', 'route' => route('reports.process-efficiencies')],
-                ['label' => 'Reportes programados', 'route' => route('reports.scheduleds')],
+                // ['label' => 'Eficiencia de los procesos', 'route' => route('reports.process-efficiencies')],
+                // ['label' => 'Reportes programados', 'route' => route('reports.scheduleds')],
             ],
         ],
         [
