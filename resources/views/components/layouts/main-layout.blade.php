@@ -155,10 +155,13 @@
 <body class="antialiased text-neutral-800">
     <div class="flex relative">
         <x-sidebar name="main-nav">
-            <div class="m-4 flex lg:hidden">
-                <button class="w-7 h-7 ml-auto" data-sidebar-close="main-nav">
-                    <x-icons.cross></x-icons.cross>
-                </button>
+            <div class="m-4 flex justify-between items-center">
+                <h6 class="text-lg font-bold text-center">{{env('APP_NAME')}}</h6>
+                <div class="flex lg:hidden">
+                    <button class="w-7 h-7 ml-auto" data-sidebar-close="main-nav">
+                        <x-icons.cross></x-icons.cross>
+                    </button>
+                </div>
             </div>
             <x-tree :links="$links" />
         </x-sidebar>
