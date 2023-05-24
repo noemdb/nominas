@@ -114,6 +114,8 @@
             ],
         ],
     ];
+
+    $paths = array_slice(explode('/', url()->current()), 3);
 @endphp
 
 <!DOCTYPE html>
@@ -166,9 +168,12 @@
                         <x-icons.burger></x-icons.burger>
                     </button>
                 </div>
-                <h1 class="text-xl lg:text-2xl">
-                    {{env('APP_NAME')}}
-                </h1>
+                <div>
+                    <h1 class="mb-2 text-xl lg:text-2xl">
+                        {{env('APP_NAME')}}
+                    </h1>
+                    <x-breadcrumbs :paths="$paths" />
+                </div>
                 <button class="w-8 h-8 bg-green-600 rounded-full flex justify-center items-center">
                     <h6 class="text-white/90">A</h6>
                 </button>

@@ -1,5 +1,5 @@
 <nav>
-    <ul class="flex gap-2 [&>*]:text-sm">
+    <ul class="flex gap-2">
         @foreach ($paths as $path)
             <li @class([
                 'lowercase first-letter:uppercase',
