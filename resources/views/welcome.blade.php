@@ -2,7 +2,7 @@
 
     <main>
 
-        @include('components.layouts.partials.indicators')
+        @include('components.layouts.partials.indicators.main')
 
     </main>
 

@@ -1,6 +1,4 @@
-<section>
- 
-    <h2 class="mb-4 text-green-700 text-2xl font-bold">Resumen general</h2>
+<h2 class="mb-4 text-green-700 text-2xl font-bold">Resumen general</h2>
     <div class="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
         <article class="p-4 border border-neutral-200 rounded-lg">
             <h6 class="mb-2 text-neutral-500">Ganacias totales</h6>
@@ -63,4 +61,3 @@
             </div>
         </article>
     </div>
-</section>

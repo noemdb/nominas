@@ -129,6 +129,11 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="preload" href="{{ asset('fonts/Inter-Regular.ttf') }}" as="font" type="font/ttf" crossorigin>
 
+    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+
+    {{-- <script src="{{ asset('chart.js/chart.js') }}"></script> --}}
+    <script src="{{ asset('js/app.js') }}"></script>
+
     <style>
         @font-face {
             font-family: "Inter";
