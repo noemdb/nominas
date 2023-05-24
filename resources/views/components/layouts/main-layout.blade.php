@@ -166,13 +166,13 @@
             <x-tree :links="$links" />
         </x-sidebar>
         <div class="w-full h-full lg:ml-80 [&>*]:p-4 [&>*]:lg:py-4 [&>*]:lg:px-10">
-            <header class="border-b border-solid border-neutral-200 pb-4 flex justify-between items-center">
+            <header class="border-b border-solid border-neutral-200 pb-4 flex items-center gap-6">
                 <div class="lg:hidden">
                     <button class="w-7 h-7" data-sidebar-open="main-nav">
                         <x-icons.burger></x-icons.burger>
                     </button>
                 </div>
-                <div class="flex flex-col gap-1">
+                <div class="mr-auto flex flex-col gap-1">
                     <h1 class="text-xl lowercase first-letter:uppercase lg:text-2xl">
                         {{$title}}
                     </h1>
