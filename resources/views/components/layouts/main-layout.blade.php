@@ -116,6 +116,7 @@
     ];
 
     $paths = array_slice(explode('/', url()->current()), 3);
+    $title = $paths ? $paths[0]: 'Dashboard';
 @endphp
 
 <!DOCTYPE html>
@@ -169,8 +170,8 @@
                     </button>
                 </div>
                 <div>
-                    <h1 class="mb-2 text-xl lg:text-2xl">
-                        {{env('APP_NAME')}}
+                    <h1 class="mb-2 text-xl lowercase first-letter:uppercase lg:text-2xl">
+                        {{$title}}
                     </h1>
                     <x-breadcrumbs :paths="$paths" />
                 </div>
