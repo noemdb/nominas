@@ -160,6 +160,7 @@
             <div class="m-4 flex justify-between items-center">
                 <h6 class="text-lg font-bold text-center">{{env('APP_NAME')}}</h6>
                 <div class="flex lg:hidden">
+                    @tailwind
                     <button class="w-7 h-7 ml-auto" data-sidebar-close="main-nav">
                         <x-icons.cross></x-icons.cross>
                     </button>

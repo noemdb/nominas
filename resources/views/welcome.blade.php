@@ -2,7 +2,7 @@
 
     @section('title','Inicio')
 
-    <main>
+    <main class="">
 
         @include('components.layouts.partials.indicators.main')
 

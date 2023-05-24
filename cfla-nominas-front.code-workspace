@@ -1,13 +1,14 @@
 {
 	"folders": [
 		{
-			"name": "public",
-			"path": "public"
-		},
-		{
 			"name": "resources",
 			"path": "resources"
 		}
 	],
-	"settings": {}
+	"settings": {},
+	"extensions": {
+		"recommendations": [
+			"bradlc.vscode-tailwindcss"
+		]
+	}
 }
