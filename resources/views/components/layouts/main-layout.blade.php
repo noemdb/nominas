@@ -166,7 +166,9 @@
                         <x-icons.burger></x-icons.burger>
                     </button>
                 </div>
-                <h1 class="text-xl lg:text-2xl">¡Bienvenido de vuelta!</h1>
+                <h1 class="text-xl lg:text-2xl">
+                    {{env('APP_NAME')}}
+                </h1>
                 <button class="w-8 h-8 bg-green-600 rounded-full flex justify-center items-center">
                     <h6 class="text-white/90">A</h6>
                 </button>

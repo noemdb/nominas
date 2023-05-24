@@ -1,5 +1,5 @@
 <div class="mb-3">
-    <form class="max-w-lg mx-2">
+    <form class="p-8 bg-white rounded-lg shadow-lg">
         <div class="mb-4">
             <label for="nombre" class="block text-gray-700 font-bold mb-2">Nombre completo:</label>
             <input type="text" id="nombre" name="nombre"
@@ -37,3 +37,4 @@
                 class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cancelar</button>
         </div>
     </form>
+</div>
