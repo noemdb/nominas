@@ -1,10 +1,12 @@
 {
 	"folders": [
 		{
-			"path": "resources"
+			"name": "public",
+			"path": "public"
 		},
 		{
-			"path": "public"
+			"name": "resources",
+			"path": "resources"
 		}
 	],
 	"settings": {}
