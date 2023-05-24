@@ -1,3 +1,15 @@
 <div>
-    requests
+	
+    <div class="rounded-lg bg-gray-100 p-4">
+        <h2 class="text-2xl font-bold mb-6">Solicitudes de Ausencias/permisos registrados</h2>
+        @include('livewire.absence.request.partials.table')
+    </div>
+
+    <hr class="my-4">
+
+    <div class="rounded-lg bg-gray-100 p-4">
+        <h2 class="text-2xl font-bold mb-6">Registrar una nueva Solicitudes de ausencias/permisos</h2>
+        @include('livewire.absence.request.partials.form')
+    </div>
+    
 </div>

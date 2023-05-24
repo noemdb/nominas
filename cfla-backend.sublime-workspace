@@ -1,0 +1,586 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"jus",
+				"justify-content-between \tBootstrap 4 Class"
+			],
+			[
+				"text-",
+				"text-center \tBootstrap 4 Class"
+			],
+			[
+				"fon",
+				"font-weight-bold"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"alert",
+				"alert-secondary"
+			],
+			[
+				"text",
+				"text-left"
+			],
+			[
+				"d-",
+				"d-flex"
+			],
+			[
+				"cla",
+				"colspan"
+			],
+			[
+				"dis",
+				"display"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": ".env",
+			"settings":
+			{
+				"buffer_size": 959,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "routes/web.php",
+			"settings":
+			{
+				"buffer_size": 4280,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"formatt",
+				"Formatter: Beautify With PHP CS Fixer"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/nuser/code/cfla",
+		"/home/nuser/code/cfla/routes"
+	],
+	"file_history":
+	[
+		"/home/nuser/code/s2223/resources/views/livewire/administracion/poll/table/poll.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/polls/indicators/partials/userxarea.blade.php",
+		"/home/nuser/code/s2223/resources/views/email/polls/messege.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/polls/charts/userxarea.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/polls/indicators/main.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/general/poll/index-component.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/polls/table/participantes.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/polls/table/poll_tokens.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/configuraciones/profesors/table/index.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/administracion/users/form/fields.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/administracion/users/index-component.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/administracion/users/table/index.blade.php",
+		"/home/nuser/code/s2223/resources/views/academicos/layouts/app.blade.php",
+		"/home/nuser/code/s2223/resources/views/academicos/pollmains/index.blade.php",
+		"/home/nuser/code/s2223/resources/views/academicos/pollmains/indicators/main.blade.php",
+		"/home/nuser/code/s2223/resources/views/academicos/pollmains/indicators/partials/general.blade.php",
+		"/home/nuser/code/s2223/resources/views/academicos/pollmains/charts/general.blade.php",
+		"/home/nuser/code/s2223/resources/views/academicos/pollmains/charts/timeline.blade.php",
+		"/home/nuser/code/s2223/resources/views/academicos/pollmains/indicators/partials/timeline.blade.php",
+		"/home/nuser/code/s2223/resources/views/academicos/pollmains/charts/question.blade.php",
+		"/home/nuser/code/s2223/resources/views/academicos/pollmains/indicators/partials/question.blade.php",
+		"/home/nuser/code/s2223/resources/views/directors/financials/index.blade.php",
+		"/home/nuser/code/s2223/resources/views/academicos/home.blade.php",
+		"/home/nuser/code/s2223/resources/views/academicos/layouts/dashboard/navbar/app.blade.php",
+		"/home/nuser/code/s2223/resources/views/academicos/pollmains/form/search.blade.php",
+		"/home/nuser/code/s2223/resources/views/directors/home.blade.php",
+		"/home/nuser/code/s2223/resources/views/directors/layouts/dashboard/app.blade.php",
+		"/home/nuser/code/s2223/resources/views/directors/layouts/dashboard/navbar/app.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/polls/analyzers.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/polls/indicators/partials/details.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/polls/indicators/partials/listResult.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/polls/indicators/partials/question.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/polls/charts/question.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/polls/indicators/partials/general.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/general/poll/component/partials/modeGrid.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/general/poll/component/partials/modeList.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/polls/indicators/partials/questions.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/polls/charts/questions.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/general/poll/partials/questions.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/general/poll/component/questions-componet.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/general/poll/component/options-componet.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/general/poll/component/answers-componet.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/administracion/poll/question/index-component.blade.php",
+		"/home/nuser/code/s2223/resources/views/email/polls/notify.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/administracion/poll/table/show.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/administracion/poll/form/fields.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/administracion/poll/question/form/fields.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/administracion/poll/question/table/questions.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/administracion/poll/index-component.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/movile/profesor/incident/form/create.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/movile/profesor/incident/partials/incident.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/administracion/poll/mode/preview.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/movile/profesor/incident/partials/incident_ul.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/movile/profesor/incident/itinerary-component.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/module/profesor/incidents/main.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/movile/profesor/main.blade.php",
+		"/home/nuser/code/s2223/resources/views/email/bienestars/messege.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/movile/profesor/incident/create-component.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/movile/profesor/index-component.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/module/profesor/pevaluacions/partials/notas.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/module/profesor/pevaluacions/partials/load.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/module/profesor/pevaluacions/partials/evaluacions.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/module/profesor/pevaluacions/partials/main.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/module/profesor/pevaluacions/main.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/movile/profesor/evaluacion/index-component.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/asisst_controls/assit_attendances/pdf/partials/assit_days.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/module/profesor/main.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/bot.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/bot/index-component.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/module/representant/estudiants/complete.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/module/representant/incidents/charts/month.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/module/representant/estudiants/main.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/movile/representant/index-component.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/module/representant/payments/charts/ingresoxmonth.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/module/representant/payments/main.blade.php",
+		"/home/nuser/code/s2223/resources/views/representants/home/charts/ingresoxmonth.blade.php",
+		"/home/nuser/code/s2223/resources/views/directors/charts/audits/usages/logdbsmonths.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/boletins/edit.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/boletins/table/crud.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/boletins/form/fields.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/boletins/table/boletin.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/boletins/menus/edit.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/service/payment/button/credicard/index-component.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/service/payment/button/credicard/steper/main.blade.php",
+		"/home/nuser/code/s2223/resources/views/service/payment/button/credicard/index.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/service/payment/button/credicard/steper/representant.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/boletins/pdf/partials/31059/corte/titlle.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/boletins/pdf/corte/31059.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/boletins/pdf/partials/31059/membrete.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/boletins/pdf/table/tbody/corte/31059.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/boletins/corte.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/boletins/table/corte.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/boletins/pdf/partials/21000/corte/titlle.blade.php",
+		"/home/nuser/code/s2223/resources/views/profesors/boletins/index.blade.php",
+		"/home/nuser/code/s2223/resources/views/profesors/boletins/table/index.blade.php",
+		"/home/nuser/code/s2223/resources/views/profesors/boletins/carga.blade.php",
+		"/home/nuser/code/s2223/resources/views/profesors/boletins/table/carga.blade.php",
+		"/home/nuser/code/s2223/resources/views/directors/boletins/carga.blade.php",
+		"/home/nuser/code/s2223/resources/views/controls/boletins/carga.blade.php",
+		"/home/nuser/code/s2223/resources/views/admons/boletins/carga.blade.php",
+		"/home/nuser/code/s2223/resources/views/academicos/boletins/carga.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/configuraciones/lapsos/table/index.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/configuraciones/lapsos/form/fields.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/layouts/partials/header.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/poll.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/profesor.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/representant.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/payment.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/login.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/welcome.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/layouts/app.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/layouts/partials/sidebar.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/text/contact.blade.php",
+		"/home/nuser/code/s2223/resources/views/movile/android/text/about.blade.php",
+		"/home/nuser/code/s2223/resources/views/representants/layouts/dashboard/navbar/partials/usermenu.blade.php",
+		"/home/nuser/code/s2223/resources/views/representants/layouts/dashboard/navbar/app.blade.php",
+		"/home/nuser/code/s2223/resources/views/email/mailers/control/messege.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/administracion/mailer/table/mailer.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/administracion/mailer/table/show.blade.php",
+		"/home/nuser/code/s2223/resources/views/email/mailers/messege.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/service/payment/button/credicard/steper/partials/representant.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/service/payment/button/credicard/steper/partials/ammount_pay.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/polls/options/index.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/polls/questions/index.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/administracion/poll/question/table/poll.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/layouts/dashboard/sidebar/partials/polls.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/layouts/dashboard/sidebar/app.blade.php",
+		"/home/nuser/code/s2223/resources/views/administracion/layouts/dashboard/navbar/partials/isrl.blade.php"
+	],
+	"find":
+	{
+		"height": 22.0
+	},
+	"find_in_files":
+	{
+		"height": 98.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"absence",
+			"laravel"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"folders":
+	[
+		{
+			"path": "/home/nuser/code/cfla"
+		}
+	],
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": ".env",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 959,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								136,
+								136
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
+							],
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "routes/web.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4280,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1370,
+								1376
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 237.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 22.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.SublimeLinter":
+	{
+		"height": 0.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "",
+	"replace":
+	{
+		"height": 40.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 216.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

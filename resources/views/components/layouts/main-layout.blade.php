@@ -9,7 +9,7 @@
                 ['label' => 'Bancos', 'route' => route('institutions.banks')],
                 ['label' => 'Horarios laborales', 'route' => route('institutions.schedules')],
                 ['label' => 'Roles y cargos', 'route' => route('institutions.rols')],
-                ['label' => 'Especiales', 'route' => route('institutions.specials')],
+                // ['label' => 'Especiales', 'route' => route('institutions.specials')],
             ],
         ],
         [
@@ -74,7 +74,7 @@
                 ['label' => 'Solicitud', 'route' => route('absences.requests')],
                 ['label' => 'Registro', 'route' => route('absences.registers')],
                 ['label' => 'Gestión de políticas', 'route' => route('absences.policies')],
-                ['label' => 'Reportes y estadísticas', 'route' => route('absences.reports')],
+                // ['label' => 'Reportes y estadísticas', 'route' => route('absences.reports')],
             ],
         ],
         [
