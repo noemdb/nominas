@@ -122,7 +122,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel</title>
+    <title>{{env('APP_NAME')}} - @yield('title')</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="preload" href="{{ asset('fonts/Inter-Regular.ttf') }}" as="font" type="font/ttf" crossorigin>
 
