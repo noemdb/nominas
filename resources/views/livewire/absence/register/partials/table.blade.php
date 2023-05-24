@@ -1,4 +1,5 @@
-<table class="min-w-full divide-y divide-gray-200">
+<div class="overflow-x-scroll">
+    <table class="min-w-full divide-y divide-gray-200">
   <thead>
     <tr class="bg-gray-200">
       <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Empleado</th>
@@ -53,3 +54,4 @@
     </tr>
   </tbody>
 </table>
+</div>

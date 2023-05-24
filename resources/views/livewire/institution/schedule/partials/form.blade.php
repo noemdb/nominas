@@ -1,4 +1,4 @@
-<form class="max-w-md mx-2 p-6 bg-white rounded">
+<form class="mx-2 p-6 bg-white rounded">
     <h2 class="text-2xl font-bold mb-6">Registro de horario laboral</h2>
 
     <!-- Día -->

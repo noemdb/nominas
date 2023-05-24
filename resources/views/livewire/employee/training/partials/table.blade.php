@@ -1,44 +1,30 @@
-{{-- <div class="overflow-x-auto"> --}}
-    <table class="table-auto w-full  divide-y divide-gray-200">
-        <thead>
-            <tr class="bg-gray-50">
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Nombre completo</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Cédula de identidad</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cargo
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Teléfono</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Correo electrónico</th>
-                <th scope="col" class="relative px-6 py-3">
-                    <span class="sr-only">Editar</span>
-                </th>
-            </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
-            <tr>
-                <td class="px-6 py-4  text-sm font-medium text-gray-900">Juan Pérez</td>
-                <td class="px-6 py-4  text-sm text-gray-500">V-12345678</td>
-                <td class="px-6 py-4  text-sm text-gray-500">Gerente de Recursos Humanos</td>
-                <td class="px-6 py-4  text-sm text-gray-500">0412-1234567</td>
-                <td class="px-6 py-4  text-sm text-gray-500">juan.perez@empresa.com</td>
-                <td class="px-6 py-4  text-right text-sm font-medium">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Editar</a>
-                </td>
-            </tr>
-            <tr>
-                <td class="px-6 py-4  text-sm font-medium text-gray-900">María González</td>
-                <td class="px-6 py-4  text-sm text-gray-500">V-87654321</td>
-                <td class="px-6 py-4  text-sm text-gray-500">Directora Financiera</td>
-                <td class="px-6 py-4  text-sm text-gray-500">0412-9876543</td>
-                <td class="px-6 py-4  text-sm text-gray-500">maria.gonzalez@empresa.com</td>
-                <td class="px-6 py-4  text-right text-sm font-medium">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Editar</a>
-                </td>
-            </tr>
-            <!-- Más filas con datos de autoridades -->
-        </tbody>
+<div class="overflow-x-scroll">
+    <table class="min-w-full divide-y divide-gray-200">
+    <thead class="bg-gray-50">
+        <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Empleado </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Curso </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Duración </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Fecha </th>
+        </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+        <tr>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"> John Doe </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"> Introducción a Tailwind CSS </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"> 2 horas </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"> 12/05/2021 </td>
+        </tr>
+        <tr>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"> Jane Smith </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"> Diseño web responsivo </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"> 10 horas </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"> 05/06/2021 </td>
+        </tr> <!-- Más filas aquí -->
+    </tbody>
     </table>
-{{-- </div> --}}
+</div>

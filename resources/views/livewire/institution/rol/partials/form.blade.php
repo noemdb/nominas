@@ -1,5 +1,5 @@
-<form class="max-w-md mx-2 p-6 bg-white rounded">
-    
+<form class="mx-2 p-6 bg-white rounded">
+
 
     <!-- Nombre del rol -->
     <div class="mb-4">

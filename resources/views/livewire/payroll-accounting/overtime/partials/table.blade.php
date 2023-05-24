@@ -1,3 +1,4 @@
+<div class="overflow-x-scroll">
 <table class="min-w-full">
     <thead>
         <tr>
@@ -25,3 +26,4 @@
         <!-- agregar más filas aquí -->
     </tbody>
 </table>
+</div>

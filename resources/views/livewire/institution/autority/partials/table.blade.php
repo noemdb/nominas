@@ -1,4 +1,4 @@
-{{-- <div class="overflow-x-auto"> --}}
+<div class="overflow-x-auto">
     <table class="table-auto w-full  divide-y divide-gray-200">
         <thead>
             <tr class="bg-gray-50">
@@ -41,4 +41,4 @@
             <!-- Más filas con datos de autoridades -->
         </tbody>
     </table>
-{{-- </div> --}}
+</div>

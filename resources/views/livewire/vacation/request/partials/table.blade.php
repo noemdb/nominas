@@ -1,4 +1,5 @@
 <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+    <div class="overflow-x-scroll">
     <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-gray-50">
         <tr>
@@ -94,4 +95,5 @@
         </tr>
       </tbody>
     </table>
+  </div>
   </div>

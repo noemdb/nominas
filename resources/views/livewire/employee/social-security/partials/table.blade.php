@@ -1,4 +1,5 @@
 <div class="mx-auto mt-8">
+    <div class="overflow-x-scroll">
     <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-gray-50">
         <tr>
@@ -74,4 +75,5 @@
         </tr>
       </tbody>
     </table>
+    </div>
   </div>

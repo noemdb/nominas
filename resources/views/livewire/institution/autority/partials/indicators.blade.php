@@ -1,27 +1,11 @@
-<div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
-    <div class="px-6 py-4">
-        <div class="font-bold text-xl mb-2">
-            Solicitud de vacaciones
-        </div>
-        <p class="text-gray-700 text-base">
-            Información sobre cómo solicitar tus vacaciones
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Registration Data Help</h5>
+        <p class="card-text">
+            This card contains help information regarding the registration data of the authorities.
+            You can find information on how to register, what information is required, and where to find help if you
+            need it.
         </p>
-    </div>
-
-    <div class="border-b border-gray-200">
-        <dl class="divide-y divide-gray-200">
-
-            <div class="px-6 py-4 flex items-center">
-                <dt class="w-1/3 text-gray-700">
-                    Días de vacaciones
-                </dt>
-                <dd class="w-2/3 text-gray-900">
-                    15 días por año de servicio
-                </dd>
-            </div>
-
-            <!-- More list items here -->
-
-        </dl>
+        <a href="#" class="card-link">Learn more</a>
     </div>
 </div>

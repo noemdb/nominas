@@ -1,3 +1,4 @@
+<div class="overflow-x-scroll">
 <table class="min-w-full table-auto">
     <thead>
         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -40,3 +41,4 @@
         </tr>
     </tbody>
 </table>
+</div>

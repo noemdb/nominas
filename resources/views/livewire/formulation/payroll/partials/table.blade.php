@@ -1,3 +1,4 @@
+<div class="overflow-x-scroll">
 <table class="w-full border-collapse border border-gray-400">
   <thead>
     <tr class="bg-gray-200">
@@ -46,3 +47,4 @@
     <!-- Aquí puedes agregar más filas con los datos de los empleados -->
   </tbody>
 </table>
+</div>
