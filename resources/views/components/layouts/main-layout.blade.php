@@ -172,11 +172,13 @@
                         <x-icons.burger></x-icons.burger>
                     </button>
                 </div>
-                <div>
-                    <h1 class="mb-2 text-xl lowercase first-letter:uppercase lg:text-2xl">
+                <div class="flex flex-col gap-1">
+                    <h1 class="text-xl lowercase first-letter:uppercase lg:text-2xl">
                         {{$title}}
                     </h1>
-                    <x-breadcrumbs :paths="$paths" />
+                    @if ($paths)
+                        <x-breadcrumbs :paths="$paths" />
+                    @endif
                 </div>
                 <button class="w-8 h-8 bg-green-600 rounded-full flex justify-center items-center">
                     <h6 class="text-white/90">A</h6>
