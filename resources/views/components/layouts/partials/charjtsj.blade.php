@@ -17,6 +17,6 @@
 
 </div>
 
-@push('scripts')
-<script src={{asset("js/chart.js")}}></script>
-@endpush
+@prepend('scripts')
+    <script src={{asset("js/chart.js")}}></script>
+@endprepend
