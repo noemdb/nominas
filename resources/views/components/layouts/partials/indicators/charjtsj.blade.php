@@ -1,15 +1,15 @@
-<canvas id="{{$chartjs ?? null}}"></canvas>
+<canvas id="{{ $chartjs ?? null }}"></canvas>
 
 @push('scripts')
     <script>
-        var ctx = document.getElementById('{{$chartjs ?? null}}').getContext('2d');
+        var ctx = document.getElementById('{{ $chartjs ?? null }}').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: ['Doc. 1', 'oc. 2', 'oc. 3', 'oc. 4'],
                 datasets: [{
                     label: 'Employee Documentations',
-                    data: [{{$data ?? null}}],
+                    data: [{{ $data ?? null }}],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
