@@ -10,14 +10,14 @@
                 $porc = '80';
             @endphp
             {{-- <x-indicators.box.card  :title="$title" :description="$description"  :count="$count" :porc="$porc" /> --}}
-            <x-indicators.box.card>
+            {{-- <x-indicators.box.card> --}}
                 {{-- <x-slot name='title'>Índice de rotación de personal</x-slot> --}}
                 {{-- <x-slot name='description'>Este indicador mide el número de empleados que abandonan la empresa en un período determinado</x-slot> --}}
                 {{-- <x-slot name='count'>16</x-slot> --}}
                 {{-- <x-slot name='porc'>80</x-slot> --}}
-            </x-indicators.box.card>
+            {{-- </x-indicators.box.card> --}}
 
-            {{-- <div class="bg-white p-4 rounded-lg shadow">
+            <div class="bg-white p-4 rounded-lg shadow">
                 <h3 class="text-center text-xl text-gray-400 font-semibold mb-2">Índice de rotación de personal</h3>
                 <div class="text-blue-400 text-5xl font-medium block text-center p-4">
                     <span class="rounded-full border p-2 m-4 w-16 h-16">16</span>
@@ -27,7 +27,7 @@
                 <div class="w-full bg-gray-200 rounded-full mt-2">
                     <div class="bg-green-500 h-1 rounded-full sm:w-3/4 md:w-1/2 lg:w-1/4" style="width: 75%;"></div>
                 </div>
-            </div> --}}
+            </div>
 
             <div class="bg-white p-4 rounded-lg shadow">
                 <h3 class="text-center text-xl text-gray-400 font-semibold mb-2">Tiempo promedio de contratación</h3>
