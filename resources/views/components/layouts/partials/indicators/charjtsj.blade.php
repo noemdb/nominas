@@ -1,7 +1,6 @@
-
-
 <canvas id="{{$chartjs ?? null}}"></canvas>
-{{$chartjs ?? null}}
+
+@push('scripts')
     <script>
         var ctx = document.getElementById('{{$chartjs ?? null}}').getContext('2d');
         var myChart = new Chart(ctx, {
@@ -38,6 +37,5 @@
                 maintainAspectRatio: true
             }
         });
-
-
     </script>
+@endpush

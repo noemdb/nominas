@@ -5,7 +5,7 @@
 
     <hr class="my-4">
 
-    @include('components.layouts.partials.indicators.charjtsj')
+    @include('components.layouts.partials.charjtsj')
 
     <hr class="my-4">
 
@@ -14,8 +14,5 @@
     <hr class="my-4">
 
     @include('components.layouts.partials.indicators.vacations')
-
-
-
 
 </section>
