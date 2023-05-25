@@ -130,7 +130,6 @@
     <link rel="preload" href="{{ asset('fonts/Inter-Regular.ttf') }}" as="font" type="font/ttf" crossorigin>
 
     <script src="{{ asset('js/app.js') }}"></script>
-
     <style>
         @font-face {
             font-family: "Inter";

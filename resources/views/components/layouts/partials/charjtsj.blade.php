@@ -1,44 +1,22 @@
-<canvas id="{{$chartjs}}"></canvas>
+<h2 class="text-lg font-medium text-gray-800 mb-4">Indicadores de gestión de Empleados</h2>
+
+<div class="flex flex-col md:flex-row">
+
+    <div class="flex-1 p-2 m-2">
+        <div class="max-w-xl">
+            @php $chartjs = 'test-1'; $data="5, 9, 3, 6"; @endphp
+            @include('components.layouts.partials.indicators.charjtsj',['chartjs' => $chartjs, 'data' => $data])
+        </div>
+    </div>
+    <div class="flex-1 p-2 m-2">
+        <div class="max-w-xl">
+            @php $chartjs = 'test-2'; $data="2, 12, 4, 12"; @endphp
+            @include('components.layouts.partials.indicators.charjtsj',['chartjs' => $chartjs, 'data' => $data])
+        </div>
+    </div>
+
+</div>
 
 @push('scripts')
-    <script>
-
-        var ctx = document.getElementById('{{$chartjs}}').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Doc. 1', 'oc. 2', 'oc. 3', 'oc. 4'],
-                datasets: [{
-                    label: 'Employee Documentations',
-                    data: [{{$data ?? null}}],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                legend: {
-                    display: true
-                },
-                title: {
-                    display: true,
-                    text: 'Employee Documentations'
-                },
-                responsive: true,
-                maintainAspectRatio: true
-            }
-        });
-
-
-    </script>
+<script src={{asset("js/chart.js")}}></script>
 @endpush
