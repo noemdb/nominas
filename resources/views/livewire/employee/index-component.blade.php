@@ -1,3 +1,3 @@
 <div>
-    employees
+    @include('livewire.employee.indicators.main')
 </div>

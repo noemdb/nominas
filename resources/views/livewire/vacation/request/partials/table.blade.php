@@ -1,5 +1,5 @@
 <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-    <div class="overflow-x-scroll">
+    <div class="overflow-x-auto soft-scrollbar">
     <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-gray-50">
         <tr>

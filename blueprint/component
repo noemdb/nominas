@@ -1,1 +1,2 @@
 php artisan make:component Indicators/Box/Card
+php artisan make:component Indicators/Box/Cards

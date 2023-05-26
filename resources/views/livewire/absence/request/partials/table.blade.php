@@ -1,5 +1,5 @@
-<div class="overflow-x-scroll">
-<div class="overflow-x-scroll">
+<div class="overflow-x-auto soft-scrollbar">
+<div class="overflow-x-auto soft-scrollbar">
 <table class="w-full border-collapse border border-gray-400">
   <thead>
     <tr class="bg-gray-200">

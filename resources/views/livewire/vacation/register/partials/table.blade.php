@@ -1,4 +1,4 @@
-<div class="overflow-x-scroll">
+<div class="overflow-x-auto soft-scrollbar">
     <table class="min-w-full divide-y divide-gray-200">
     <thead>
       <tr class="bg-gray-50">

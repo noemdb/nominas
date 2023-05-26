@@ -16,6 +16,7 @@
             'label' => 'Empleados',
             'icon' => 'icons.user-group',
             'childrens' => [
+                ['label' => 'Inicio', 'route' => route('employees')],
                 ['label' => 'Información personal', 'route' => route('employees.personals')],
                 ['label' => 'Información laboral', 'route' => route('employees.informations')],
                 ['label' => 'Información salarial', 'route' => route('employees.salaries')],
