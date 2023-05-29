@@ -6,7 +6,7 @@
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Doc. 1', 'Doc. 2', 'Doc. 3', 'Doc. 4'],
+                labels: ['Frecuencia. 1', 'Frecuencia. 2', 'Frecuencia. 3', 'Frecuencia. 4'],
                 datasets: [{
                     label: 'Employee Documentations',
                     data: [{{ $data ?? null }}],
@@ -16,12 +16,6 @@
                         'rgba(255, 206, 86, 0.8)',
                         'rgba(75, 192, 192, 0.8)'
                     ],
-                    // borderColor: [
-                    //     'rgba(255, 99, 132, 1)',
-                    //     'rgba(54, 162, 235, 1)',
-                    //     'rgba(255, 206, 86, 1)',
-                    //     'rgba(75, 192, 192, 1)'
-                    // ],
                     borderWidth: 1
                 }]
             },
@@ -34,7 +28,18 @@
                     text: 'Employee Documentations'
                 },
                 responsive: true,
-                maintainAspectRatio: true
+                maintainAspectRatio: true,
+                // scales: {
+                //     xAxes: [
+                //     {
+                //     ticks: {
+                //             autoSkip: false,
+                //             maxRotation: 90,
+                //             minRotation: 90
+                //         }
+                //     }
+                //     ]
+                // }
             }
         });
     </script>

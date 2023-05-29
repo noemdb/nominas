@@ -1,15 +1,7 @@
-<section class="bg-gray-100 py-8">
+<section class="py-8">
     <div class="container mx-auto px-4">
-        <h2 class="text-2xl font-semibold mb-4">Indicadores de gestión</h2>
+        <h2 class="text-xl font-semibold mb-4">Indicadores - Empleados</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-
-            <x-indicators.box.card>
-                <x-slot name="title">Índice de rotación de personal</x-slot>
-                <x-slot name="footer">Este indicador mide el número de empleados que abandonan la empresa en un período determinado</x-slot>
-                <x-slot name="count">54</x-slot>
-                <x-slot name="unit">%</x-slot>
-                <x-slot name="porc">54</x-slot>
-            </x-indicators.box.card>
 
             <x-indicators.box.card>
                 <x-slot name="title">Tiempo promedio de contratación</x-slot>
@@ -41,6 +33,14 @@
                 <x-slot name="count">14</x-slot>
                 <x-slot name="unit">%</x-slot>
                 <x-slot name="porc">14</x-slot>
+            </x-indicators.box.card>
+
+            <x-indicators.box.card>
+                <x-slot name="title">Tasa de capacitación y formación</x-slot>
+                <x-slot name="footer">Tasa de capacitación y formación: este indicador mide la tasa de capacitación y formación con que cuentan los empleados. Una tasa alta puede indicar un compromiso con el desarrollo profesional de los empleados y una cultura de aprendizaje continuo.</x-slot>
+                <x-slot name="count">5</x-slot>
+                <x-slot name="unit">Títulos/Empleado</x-slot>
+                {{-- <x-slot name="porc">14</x-slot> --}}
             </x-indicators.box.card>
 
         </div>

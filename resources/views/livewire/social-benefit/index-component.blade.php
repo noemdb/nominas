@@ -1,3 +1,3 @@
 <div>
-    social-benefit
+    @include('livewire.social-benefit.indicators.main')
 </div>

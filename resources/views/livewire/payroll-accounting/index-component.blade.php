@@ -1,3 +1,3 @@
 <div>
-    payroll-accountings
+    @include('livewire.payroll-accounting.indicators.main')
 </div>

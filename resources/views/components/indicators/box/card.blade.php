@@ -3,7 +3,7 @@
         {{ $header }}
     @elseif ($title || $action)
         <div class="{{ $headerClasses }}">
-            <h3 class="text-center text-xl text-gray-400 font-semibold mb-2 w-full">{!! $title !!}</h3>
+            <h5 class="text-center text-lg text-gray-400 font-semibold mb-1 w-full">{!! $title !!}</h5>
             @if ($action)
                 {{ $action }}
             @endif
@@ -32,7 +32,20 @@
 
         <div class="text-sm text-gray-400 {{ $footerClasses }}">
 
-            {{ $footer }}
+            @if (Str::length($footer) <= 20)
+                {{ $footer }}
+            @else
+                <div x-data="{ isOpen: false }">
+
+                    <button @click="isOpen = !isOpen" class="border-b w-full py-2">
+                        {{ Str::limit($footer,20,'...') }}
+                        {{-- <x-icon name="dots-vertical" class="w-4 h-4 text-gray-500" /> --}}
+                    </button>
+                    <div x-show="isOpen" class="py-2">
+                        {{$footer}}
+                    </div>
+                </div>
+            @endif
 
             @if ($porc)
                 <div class="w-full bg-gray-200 rounded-full mt-2">

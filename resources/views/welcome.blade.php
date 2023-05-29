@@ -4,7 +4,7 @@
 
     <main class="">
 
-        @include('components.layouts.partials.indicators.main')
+        @include('dashboard.indicators.main')
 
     </main>
 

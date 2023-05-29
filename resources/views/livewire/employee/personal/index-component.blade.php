@@ -22,6 +22,10 @@
     <hr class="my-4">
 
     @include('livewire.employee.personal.partials.indicators')
+    {{-- @include('livewire.employee.indicators.partials.staffRotation') --}}
 
 </div>
 
+{{--
+
+    --}}

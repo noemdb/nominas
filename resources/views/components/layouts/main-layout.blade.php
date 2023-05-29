@@ -38,6 +38,7 @@
             'label' => 'Nómina',
             'icon' => 'icons.hand-cash',
             'childrens' => [
+                ['label' => 'Inicio', 'route' => route('payroll-accountings')],
                 ['label' => 'Salarios', 'route' => route('payroll-accountings.salaries')],
                 ['label' => 'Deducciones', 'route' => route('payroll-accountings.deductions')],
                 ['label' => 'Bonificaciones', 'route' => route('payroll-accountings.bonifications')],
@@ -53,6 +54,7 @@
             'label' => 'Prestaciones sociales',
             'icon' => 'icons.hand-heart',
             'childrens' => [
+                ['label' => 'Inicio', 'route' => route('social-benefits')],
                 ['label' => 'Registros', 'route' => route('social-benefits.registers')],
                 ['label' => 'Gestión de préstamos', 'route' => route('social-benefits.loan-managements')],
                 ['label' => 'Reportes y estadísticas', 'route' => route('social-benefits.reports')],
@@ -151,6 +153,10 @@
     @stack('styles')
 
     @livewireStyles
+
+    <wireui:scripts />
+    <script defer src="{{ asset('js/alpine.js') }}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 </head>
 
