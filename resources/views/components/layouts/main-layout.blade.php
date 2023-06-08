@@ -5,6 +5,7 @@
             'label' => 'instituciones',
             'icon' => 'icons.building',
             'childrens' => [
+                ['label' => 'Inicio', 'route' => route('institutions')],
                 ['label' => 'Autoridades', 'route' => route('institutions.autorities')],
                 ['label' => 'Bancos', 'route' => route('institutions.banks')],
                 ['label' => 'Horarios laborales', 'route' => route('institutions.schedules')],

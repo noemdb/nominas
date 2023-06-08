@@ -1,3 +1,3 @@
 <div>
-    instituciones
+    @include('livewire.institution.home.index')
 </div>
