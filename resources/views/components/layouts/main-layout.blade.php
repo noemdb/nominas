@@ -158,10 +158,12 @@
     <wireui:scripts />
     <script defer src="{{ asset('js/alpine.js') }}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-
 </head>
 
 <body class="antialiased text-neutral-800">
+
+    <x-notifications />
+
     <div class="flex relative">
         <x-sidebar name="main-nav">
             <div class="m-4 flex justify-between items-center">

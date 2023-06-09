@@ -26,8 +26,8 @@
 
                             {{-- @include('livewire.institution.home.modals.edit') --}}
 
-                            <x-button.circle wire:click="$toggle('showModal')" primary icon="clipboard-list" class="mx-1"/>
-                            <x-button.circle negative icon="x" class="mx-1"/>
+                            {{-- <x-button.circle wire:click="$toggle('showModal')" primary icon="clipboard-list" class="mx-1"/> --}}
+                            <x-button.circle wire:click="deleteQuestion({{$item->id}})" negative icon="x" class="mx-1"/>
 
                             {{-- <x-button.circle primary label="+" class="mx-1"/> --}}
 

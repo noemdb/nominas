@@ -22,7 +22,7 @@ class Institution extends Model
         'email'=>'Dirección de correo electrónico de la institución',
         'website'=>'Dirección del sitio web de la institución, si lo tiene',
         'foundation_date'=>'Fecha de fundación de la institución, si se conoce',
-        'legal_status'=>'Estado legal de la institución (por ejemplo, empresa, organización sin fines de lucro, etc.)',
+        'legal_status'=>'Estado legal de la institución',
         'tax_id'=>'Número de identificación fiscal de la institución, si se conoce',
         'registration_number'=>'Número de registro de la institución, si se conoce',
         'logo'=>'Imagen del logo de la institución, almacenada como un archivo en la base de datos o en un servidor de archivos externo',

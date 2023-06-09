@@ -5,7 +5,7 @@
     <div class="flex justify-between">
         <h2 class="mb-4 text-2xl font-bold">Instituciones registradas</h2>
         <div>
-            {{-- @include('livewire.institution.home.modals.create') --}}
+            @include('livewire.institution.home.modals.create')
         </div>
     </div>
 
