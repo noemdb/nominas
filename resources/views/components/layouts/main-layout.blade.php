@@ -161,9 +161,6 @@
 </head>
 
 <body class="antialiased text-neutral-800">
-
-    <x-notifications />
-
     <div class="flex relative">
         <x-sidebar name="main-nav">
             <div class="m-4 flex justify-between items-center">
