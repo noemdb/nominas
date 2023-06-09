@@ -49,12 +49,6 @@ class IndexComponent extends Component
         ];
     }
 
-
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-    }
-
     public function save()
     {
         $data = $this->validate();
