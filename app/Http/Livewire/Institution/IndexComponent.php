@@ -18,6 +18,14 @@ class IndexComponent extends Component
 
     public Institution $institution;
 
+    public function edit($id)
+    {
+        $this->institution = Institution::findOrFail($id);
+        $data = $this->validate();
+        $this->institution->save();
+        $this->showModal=true;
+    }
+
     protected $rules = [
         'institution.name' => 'required|string',
         'institution.type' => 'required|string',
