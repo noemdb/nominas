@@ -1,8 +1,12 @@
 <x-modal wire:model.defer="showModal">
-    <x-card title="Nueva Institución">
+    <x-card title="Institución">
 
         <p class="text-gray-600">
-            @include('livewire.institution.home.form.create')
+            @if ($institution)
+                @include('livewire.institution.home.form.create')
+            @else
+                @include('livewire.institution.home.form.edit')
+            @endif
         </p>
 
         <x-slot name="footer">

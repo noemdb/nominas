@@ -1,11 +1,11 @@
 <div>
 
-    <x-notifications />
+
 
     <div class="flex justify-between">
         <h2 class="mb-4 text-2xl font-bold">Instituciones registradas</h2>
         <div>
-            @include('livewire.institution.home.modals.create')
+            <x-button.circle wire:click="$toggle('showModal')" primary label="+" />
         </div>
     </div>
 
