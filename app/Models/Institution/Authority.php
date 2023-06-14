@@ -38,6 +38,11 @@ class Authority extends Model
     {
         return $this->belongsTo(Institution::class);
     }
+
+    public static function list_institution() /* usada para llenar los objetos de formularios select*/
+    {
+        return Institution::pluck('name', 'id');
+    }
 }
 
 /*

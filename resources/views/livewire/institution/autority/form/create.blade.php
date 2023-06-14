@@ -1,5 +1,9 @@
 <div>
     <div class="py-4">
+        @php $name = 'institution_id'; $model = 'authority.'.$name; $comment = $list_comment[$name]; @endphp
+        <x-native-select label="{{$comment}}" placeholder="Seleccione" :options="$list_institution" wire:model.defer="{{$model}}" />
+    </div>
+    <div class="py-4">
         @php
             $name = 'name';
             $model = 'authority.' . $name;
