@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire\Institution;
 // touch 'app/Http/Livewire/Institution/InstitutionRules.php'
-// touch 'app/Http/Livewire/Institution/WithSortingTrait.php'
+// touch 'app/Http/Livewire/Common/PaginateTrait.php'
 
+use App\Http\Livewire\Common\PaginateTrait;
+use App\Http\Livewire\Common\WithSortingTrait;
 use App\Models\Institution;
 use Livewire\Component;
 
@@ -18,14 +20,12 @@ class IndexComponent extends Component
 
     use InstitutionRules;
     use WithSortingTrait;
+    use PaginateTrait;
 
     public $showModal=false;
     public $list_comment;
     public $list_type;
     public $list_legal_status;
-
-    public $paginate = 10;
-    public $paginate_list = ['1','10','25','50','100','500','1000'];
 
     public $search = '';
     public function cleanSearch()

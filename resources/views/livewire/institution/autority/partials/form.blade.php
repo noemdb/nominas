@@ -1,3 +1,6 @@
+{{-- 'name','type','acronym','address','phone_number','email','website','foundation_date','legal_status','tax_id','registration_number','logo' --}}
+
+
 <div class="mb-3">
     <form class="p-8 bg-white rounded-lg shadow-lg">
         <div class="mb-4">

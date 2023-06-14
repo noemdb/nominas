@@ -1,44 +1,95 @@
-<div class="overflow-x-auto soft-scrollbar">
-    <table class="table-auto w-full  divide-y divide-gray-200">
+<div class="mb-4 flex justify-between">
+    <div class="px-2 w-3/4">
+        @php $name = 'search'; $model = 'institution.'.$name; @endphp
+        <div class="flex justify-between">
+            <div wire:loading class="text-black font-semibold fixed	 bottom-0 right-0 z-10 bg-white rounded border shadow mr-2 mb-2 dark:text-gray-100"> Cargando... </div>
+        </div>
+        @php $label = "Nombre, tipo, dirección o teléfono" @endphp
+        <x-input wire:model.debounce.500ms="{{$name}}" icon="search" label="{{$label}}" placeholder="{{$label}}" >
+            <x-slot name="append">
+                <div class="absolute inset-y-0 right-0 flex items-center p-0.5 text-gray-600">
+                    <x-icon name="x" class="w-4 h-4" wire:click="cleanSearch()"/>
+                </div>
+            </x-slot>
+        </x-input>
+    </div>
+    <div class="px-2 w-1/5">
+        <x-select label="Registros por página" wire:model="paginate" placeholder="páginas" :options="$paginate_list" />
+    </div>
+</div>
+
+<div class="overflow-x-auto">
+    <table class="table-auto w-full text-left whitespace-no-wrap">
         <thead>
-            <tr class="bg-gray-50">
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Nombre completo</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Cédula de identidad</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cargo
+            <tr>
+                <th class="px-4 py-2">ID</th>
+                <th class="px-4 py-2">
+                    <div class="flex justify-between">
+                        @php $name = 'name' @endphp
+                        <div>{{$list_comment[$name] ?? ''}}</div>
+                        @if($authorities->isNotEmpty())
+                            <x-elements.crud.sort-by field="{{$name}}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
+                        @endif
+                    </div>
                 </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Teléfono</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Correo electrónico</th>
-                <th scope="col" class="relative px-6 py-3">
-                    <span class="sr-only">Editar</span>
+                <th class="px-4 py-2">
+                    <div class="flex justify-between">
+                        @php $name = 'type' @endphp
+                        <div>{{$list_comment[$name] ?? ''}}</div>
+                        @if($authorities->isNotEmpty())
+                            <x-elements.crud.sort-by field="{{$name}}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
+                        @endif
+                    </div>
                 </th>
+                <th class="px-4 py-2">
+                    <div class="flex justify-between">
+                        @php $name = 'address' @endphp
+                        <div>{{$list_comment[$name] ?? ''}}</div>
+                        @if($authorities->isNotEmpty())
+                            <x-elements.crud.sort-by field="{{$name}}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
+                        @endif
+                    </div>
+                </th>
+                <th class="px-4 py-2">
+                    <div class="flex justify-between">
+                        @php $name = 'registration_number' @endphp
+                        <div>{{$list_comment[$name] ?? ''}}</div>
+                        @if($authorities->isNotEmpty())
+                            <x-elements.crud.sort-by field="{{$name}}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
+                        @endif
+                    </div>
+                </th>
+                <th class="px-4 py-2">Acción</th>
             </tr>
         </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
-            <tr>
-                <td class="px-6 py-4  text-sm font-medium text-gray-900">Juan Pérez</td>
-                <td class="px-6 py-4  text-sm text-gray-500">V-12345678</td>
-                <td class="px-6 py-4  text-sm text-gray-500">Gerente de Recursos Humanos</td>
-                <td class="px-6 py-4  text-sm text-gray-500">0412-1234567</td>
-                <td class="px-6 py-4  text-sm text-gray-500">juan.perez@empresa.com</td>
-                <td class="px-6 py-4  text-right text-sm font-medium">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Editar</a>
-                </td>
-            </tr>
-            <tr>
-                <td class="px-6 py-4  text-sm font-medium text-gray-900">María González</td>
-                <td class="px-6 py-4  text-sm text-gray-500">V-87654321</td>
-                <td class="px-6 py-4  text-sm text-gray-500">Directora Financiera</td>
-                <td class="px-6 py-4  text-sm text-gray-500">0412-9876543</td>
-                <td class="px-6 py-4  text-sm text-gray-500">maria.gonzalez@empresa.com</td>
-                <td class="px-6 py-4  text-right text-sm font-medium">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Editar</a>
-                </td>
-            </tr>
-            <!-- Más filas con datos de autoridades -->
+        <tbody>
+            @forelse ($authorities as $item)
+                <tr class="border-t border-gray-200">
+                    <td class="px-4 py-2">{{$loop->iteration}}</td>
+                    <td class="px-4 py-2">{{$item->name}}</td>
+                    <td class="px-4 py-2">{{$item->type}}</td>
+                    <td class="px-4 py-2">{{$item->address}}</td>
+                    <td class="px-4 py-2">{{$item->registration_number}}</td>
+                    <td class="px-4 py-2">
+                        <div class="flex">
+                            <x-button.circle wire:click="edit({{$item->id}})" primary icon="clipboard-list" class="mx-1"/>
+                            <x-button.circle wire:click="deleteQuestion({{$item->id}})" negative icon="x" class="mx-1"/>
+                        </div>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="4">
+                        No hay datos
+                    </td>
+                </tr>
+
+            @endforelse
+
+
         </tbody>
     </table>
+
+    {{ $authorities->links() }}
+
 </div>

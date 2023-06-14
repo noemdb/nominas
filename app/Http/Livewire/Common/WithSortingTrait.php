@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Institution;
+namespace App\Http\Livewire\Common;
 
 trait WithSortingTrait
 {
@@ -29,13 +29,6 @@ trait WithSortingTrait
         $this->sortBy = $sortBy;
         $this->sortDirection = ($sortDirection == 'asc') ? 'desc':'asc';
     }
-
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
-
-
 }
 
 ?>
