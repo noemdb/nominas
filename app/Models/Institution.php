@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Institution\Authority;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,6 +37,12 @@ class Institution extends Model
     {
         return ['Empresa','Organización sin fines de lucro','Fundación','Asociación'];
     }
+
+    public function authorities()
+    {
+        return $this->hasMany(Authority::class);
+    }
+
 }
 
 /*

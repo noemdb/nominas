@@ -24,6 +24,15 @@ class IndexComponent extends Component
     public $list_type;
     public $list_legal_status;
 
+    public $paginate = 10;
+    public $paginate_list = ['1','10','25','50','100','500','1000'];
+
+    public $search = '';
+    public function cleanSearch()
+    {
+        $this->search = null;
+    }
+
     public Institution $institution;
 
     public function edit($id)

@@ -1,0 +1,2 @@
+php artisan make:seeder InstitutionSeeder
+php artisan make:seeder AuthoritySeeder

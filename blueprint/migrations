@@ -1,1 +1,2 @@
 php artisan make:model 'Institution' -m
+php artisan make:model 'Institution\Authority' -m

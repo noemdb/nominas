@@ -4,11 +4,9 @@ namespace App\Http\Livewire\Institution;
 
 trait WithSortingTrait
 {
-    public $search = '';
+
     public $sortBy = '';
     public $sortDirection = 'asc';
-    public $paginate = 10;
-    public $paginate_list = ['1','10','25','50','100','500','1000'];
 
     public function sortBy($field)
     {
@@ -37,10 +35,7 @@ trait WithSortingTrait
         $this->resetPage();
     }
 
-    public function cleanSearch()
-    {
-        $this->search = null;
-    }
+
 }
 
 ?>

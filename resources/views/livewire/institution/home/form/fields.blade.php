@@ -31,7 +31,7 @@
 
     <div class="py-4">
         @php $name = 'website'; $model = 'institution.'.$name; $comment = $list_comment[$name]; @endphp
-        <x-input wire:model.defer="{{$model}}" label="{{$comment}}" prefix="https://www."/>
+        <x-input wire:model.defer="{{$model}}" label="{{$comment}}" placeholder="{{$comment}}"/>
     </div>
 
     <div class="py-4">
