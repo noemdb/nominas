@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('authorities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('institution_id')->constrained();
+            $table->foreignId('institution_id');
             $table->string('name')->comment('Nombre completo');
             $table->string('position')->comment('Cargo');
             $table->string('email')->comment('Dirección de correo electrónico');
