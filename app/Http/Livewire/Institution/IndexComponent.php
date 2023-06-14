@@ -24,13 +24,6 @@ class IndexComponent extends Component
     public $list_type;
     public $list_legal_status;
 
-    // public $sortBy,$sortDirection;
-    // public $search = '', $pages = 2, $paginate_list=['1','10','25','50','100','500','1000'];
-    // public function updatingSearch()
-    // {
-        // $this->resetPage();
-    // }
-
     public Institution $institution;
 
     public function edit($id)
@@ -65,7 +58,6 @@ class IndexComponent extends Component
         $this->list_comment = Institution::COLUMN_COMMENTS;
     }
 
-
     public function render()
     {
         $search = $this->search;
@@ -78,7 +70,7 @@ class IndexComponent extends Component
                 ->orWhere('address','like','%'.$search.'%')
                 ->orWhere('registration_number','like','%'.$search.'%')
                 ;})
-                : $institutions ; //dd($institutions);
+                : $institutions ;
 
         $institutions = ($this->sortBy && $this->sortDirection) ? $institutions->orderBy($this->sortBy,$this->sortDirection) : $institutions;
 
