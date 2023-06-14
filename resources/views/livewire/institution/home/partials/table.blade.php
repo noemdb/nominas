@@ -72,23 +72,9 @@
                     <td class="px-4 py-2">{{$item->registration_number}}</td>
                     <td class="px-4 py-2">
                         <div class="flex">
-                            {{-- <x-button.circle primary icon="pencil" /> --}}
-                            {{-- <x-button.circle  wire:click="openModal({{$item->id}})" warning icon="pencil" class="mx-1"/> --}}
-                            {{-- <x-button.circle  wire:click="openModal('{{$item->id}}')" warning icon="pencil" class="mx-1"/> --}}
-
-                            {{-- @include('livewire.institution.home.modals.edit') --}}
-
-                            {{-- <x-button.circle wire:click="$toggle('showModal')" primary icon="clipboard-list" class="mx-1"/> --}}
                             <x-button.circle wire:click="edit({{$item->id}})" primary icon="clipboard-list" class="mx-1"/>
                             <x-button.circle wire:click="deleteQuestion({{$item->id}})" negative icon="x" class="mx-1"/>
-
-                            {{-- <x-button.circle primary label="+" class="mx-1"/> --}}
-
                         </div>
-                        {{-- <x-button.circle wire:click="openModal({{$item->id}})" info icon="pencil" /> --}}
-                        {{-- <x-button.circle negative icon="x" /> --}}
-
-
                     </td>
                 </tr>
             @empty
@@ -106,23 +92,4 @@
 
     {{ $institutions->links() }}
 
-    {{-- @include('livewire.institution.home.modals.main') --}}
-
 </div>
-
-{{--
-
-name
-type
-acronym
-address
-phone_number
-email
-website
-foundation_date
-legal_status
-tax_id
-registration_number
-logo
-
---}}

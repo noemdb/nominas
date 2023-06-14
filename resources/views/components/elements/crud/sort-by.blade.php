@@ -1,9 +1,3 @@
-{{-- @props([
-    'field' => [],
-    'sortBy' => [],
-    'sortDirection' => []
-]) --}}
-
 <div>
 
     @if ($sortBy == $field)

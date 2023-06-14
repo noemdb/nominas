@@ -17,7 +17,6 @@
     <div class="py-4">
         @php $name = 'email'; $model = 'institution.'.$name; $comment = $list_comment[$name]; @endphp
         <x-input wire:model.defer="{{$model}}" label="{{$comment}}" placeholder="{{$comment}}" suffix="@mail.com"/>
-        {{-- <x-input class="pr-28" label="Email" placeholder="your email" suffix="@mail.com" /> --}}
     </div>
 
     <div class="py-4">
@@ -40,12 +39,6 @@
         <x-datetime-picker label="{{$comment}}" placeholder="{{$comment}}" wire:model.defer="{{$model}}" without-time="true" />
     </div>
 
-    {{-- <div class="py-4"> --}}
-        {{-- @php $name = 'legal_status'; $model = 'institution.'.$name; $comment = $list_comment[$name]; @endphp --}}
-        {{-- <x-native-select label="{{$comment}}" placeholder="{{$comment}}" :options="$list_legal_status" wire:model.defer="{{$model}}" /> --}}
-        {{-- <x-native-select label="{{$comment}}" placeholder="{{$comment}}" :options="$list_type" wire:model.defer="{{$model}}" /> --}}
-    {{-- </div> --}}
-
     <div class="py-4">
         @php $name = 'legal_status'; $model = 'institution.'.$name; $comment = $list_comment[$name]; @endphp
         <x-native-select label="{{$comment}}" placeholder="Seleccione" :options="$list_legal_status" wire:model.defer="{{$model}}" />
@@ -65,20 +58,3 @@
     <x-errors />
 
 </x-card>
-
-{{--
-
-name
-type
-acronym
-address
-phone_number
-email
-website
-foundation_date
-legal_status
-tax_id
-registration_number
-logo
-
---}}
