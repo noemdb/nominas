@@ -5,7 +5,8 @@
     <div class="flex justify-between">
         <h2 class="mb-4 text-2xl font-bold">Instituciones registradas</h2>
         <div>
-            <x-button.circle wire:click="$toggle('showModal')" primary label="+" />
+            {{-- <x-button.circle wire:click="$toggle('showModal')" primary label="+" /> --}}
+            <x-button.circle wire:click="openModal('create')" primary label="+" />
         </div>
     </div>
 

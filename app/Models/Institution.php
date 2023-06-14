@@ -43,6 +43,11 @@ class Institution extends Model
         return $this->hasMany(Authority::class);
     }
 
+    public function getStatusDeleteAttribute()
+    {
+        return $this->authorities->isEmpty();
+    }
+
 }
 
 /*

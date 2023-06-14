@@ -4,7 +4,7 @@
         <div class="flex justify-between">
             <div wire:loading class="text-black font-semibold fixed	 bottom-0 right-0 z-10 bg-white rounded border shadow mr-2 mb-2 dark:text-gray-100"> Cargando... </div>
         </div>
-        @php $label = "Nombre, tipo, dirección o teléfono" @endphp
+        @php $label = "Nombre, tipo, dirección o número de registro" @endphp
         <x-input wire:model.debounce.500ms="{{$name}}" icon="search" label="{{$label}}" placeholder="{{$label}}" >
             <x-slot name="append">
                 <div class="absolute inset-y-0 right-0 flex items-center p-0.5 text-gray-600">
@@ -13,10 +13,12 @@
             </x-slot>
         </x-input>
     </div>
-    <div class="px-2 w-1/5">
-        <x-select label="Registros por página" wire:model="paginate" placeholder="páginas" :options="$paginate_list" />
+    <div class="px-2 w-1/4">
+        <x-select label="Registros" title="Registros por página" wire:model="paginate" placeholder="páginas" :options="$paginate_list" />
     </div>
 </div>
+
+<x-errors />
 
 <div class="overflow-x-auto">
     <table class="table-auto w-full text-left whitespace-no-wrap">
@@ -66,14 +68,20 @@
             @forelse ($institutions as $item)
                 <tr class="border-t border-gray-200">
                     <td class="px-4 py-2">{{$loop->iteration}}</td>
-                    <td class="px-4 py-2">{{$item->name}}</td>
+                    <td class="px-4 py-2">
+                        {{$item->name}}
+                        @foreach ($item->authorities as $authority)
+                            <div class="text-xs text-gray-800">{{$loop->iteration}}. {{$authority->name}}</div>
+                        @endforeach
+                    </td>
                     <td class="px-4 py-2">{{$item->type}}</td>
                     <td class="px-4 py-2">{{$item->address}}</td>
                     <td class="px-4 py-2">{{$item->registration_number}}</td>
                     <td class="px-4 py-2">
                         <div class="flex">
-                            <x-button.circle wire:click="edit({{$item->id}})" primary icon="clipboard-list" class="mx-1"/>
-                            <x-button.circle wire:click="deleteQuestion({{$item->id}})" negative icon="x" class="mx-1"/>
+                            <x-button.circle wire:click="show({{$item->id}})" info icon="information-circle" class="mx-1"/>
+                            <x-button.circle wire:click="edit({{$item->id}})" warning icon="pencil-alt" class="mx-1"/>
+                            <x-button.circle wire:click="deleteQuestion({{$item->id}})" negative icon="x" class="mx-1" :disable="$item->status_delete"/>
                         </div>
                     </td>
                 </tr>

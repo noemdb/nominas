@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Institution;
 // touch 'app/Http/Livewire/Institution/InstitutionRules.php'
 // touch 'app/Http/Livewire/Common/PaginateTrait.php'
+// touch 'app/Http/Livewire/Common/FilterTrait.php'
 
 use App\Http\Livewire\Common\PaginateTrait;
 use App\Http\Livewire\Common\WithSortingTrait;
@@ -22,25 +23,24 @@ class IndexComponent extends Component
     use WithSortingTrait;
     use PaginateTrait;
 
-    public $showModal=false;
+    public $showModal = false, $modeCreate = false, $modeEdit = false, $modeShow = false;
     public $list_comment;
     public $list_type;
     public $list_legal_status;
 
-    public $search = '';
-    public function cleanSearch()
-    {
-        $this->search = null;
-    }
-
     public Institution $institution;
+    public $status_delete,$authorities;
 
     public function edit($id)
     {
         $this->institution = Institution::findOrFail($id);
-        $data = $this->validate();
-        $this->institution->save();
-        $this->showModal=true;
+        $this->openModal('edit');
+    }
+
+    public function show($id)
+    {
+        $this->institution = Institution::findOrFail($id);
+        $this->openModal('show');
     }
 
     public function save()
@@ -54,7 +54,7 @@ class IndexComponent extends Component
         $this->closeModal();
 
         $this->notification()->success(
-            $title = 'Felicitaciones!!!',
+            $title = 'Felicitaciones!',
             $description = 'Registro guardado exitósamente.'
         );
     }
@@ -90,9 +90,18 @@ class IndexComponent extends Component
         ]);
     }
 
-    public function openModal()
+    public function updatedShowModal()
+    {
+        $this->institution = New Institution;
+    }
+
+    public function openModal($mode)
     {
         $this->showModal = true;
+        $this->modeCreate = ($mode=='create') ? true : false ;
+        $this->modeEdit = ($mode=='edit') ? true : false ;
+        $this->modeShow = ($mode=='show') ? true : false ;
+        //dd($this->modeCreate,$this->modeEdit,$this->modeShow);
     }
 
     public function closeModal()
@@ -103,21 +112,30 @@ class IndexComponent extends Component
     public function deleteQuestion($id)
     {
         $this->institution = Institution::findOrFail($id);
-        $this->notification()->confirm([
-            'title'       => 'Estas seguro que desea realizar esta operación?',
-            'description' => 'Eliminar registro?',
-            'icon'        => 'question',
-            'closeButton'        => true,
-            'accept'      => [
-                'label'  => 'Aceptar',
-                'method' => 'delete',
-                'params' => $id,
-            ],
-            'reject' => [
-                'label'  => 'No, cancelar',
-                'method' => 'cancel',
-            ],
-        ]);
+
+        if ($this->institution->status_delete) {
+            $this->notification()->confirm([
+                'title'       => 'Estas seguro que desea realizar esta operación?',
+                'description' => 'Eliminar registro?',
+                'icon'        => 'question',
+                'closeButton'        => true,
+                'accept'      => [
+                    'label'  => 'Aceptar',
+                    'method' => 'delete',
+                    'params' => $id,
+                ],
+                'reject' => [
+                    'label'  => 'No, cancelar',
+                    'method' => 'cancel',
+                ],
+            ]);
+        } else {
+            $this->notification()->error(
+                $title = 'Error!, Esta operación no se puede realizar.',
+                $description = 'Este registro tiene asociado otros, en caso de borrar, se pierde también los registro asociados.'
+            );
+        }
+
     }
 
     public function cancel()
@@ -133,6 +151,7 @@ class IndexComponent extends Component
     public function delete($id)
     {
         $institution = Institution::findOrFail($id);
+
         $institution->delete();
         $this->institution = New Institution;
 
@@ -142,4 +161,6 @@ class IndexComponent extends Component
             'icon'        => 'success'
         ]);
     }
+
+
 }
