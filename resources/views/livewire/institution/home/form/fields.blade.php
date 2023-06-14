@@ -1,7 +1,7 @@
 <x-card>
     <div class="py-4">
         @php $name = 'name'; $model = 'institution.'.$name; $comment = $list_comment[$name]; @endphp
-        <x-input wire:model.defer="{{$model}}" label="{{$comment}}" placeholder="{{$comment}}" />
+        <x-input wire:model.defer="{{$model}}" label="{{$comment}}" placeholder="{{$comment}}" corner-hint="Ejemplo: John"/>
     </div>
 
     <div class="py-4">
@@ -16,7 +16,8 @@
 
     <div class="py-4">
         @php $name = 'email'; $model = 'institution.'.$name; $comment = $list_comment[$name]; @endphp
-        <x-input wire:model.defer="{{$model}}" label="{{$comment}}" placeholder="{{$comment}}" />
+        <x-input wire:model.defer="{{$model}}" label="{{$comment}}" placeholder="{{$comment}}" suffix="@mail.com"/>
+        {{-- <x-input class="pr-28" label="Email" placeholder="your email" suffix="@mail.com" /> --}}
     </div>
 
     <div class="py-4">
@@ -31,7 +32,7 @@
 
     <div class="py-4">
         @php $name = 'website'; $model = 'institution.'.$name; $comment = $list_comment[$name]; @endphp
-        <x-input wire:model.defer="{{$model}}" label="{{$comment}}" placeholder="{{$comment}}" />
+        <x-input wire:model.defer="{{$model}}" label="{{$comment}}" prefix="https://www."/>
     </div>
 
     <div class="py-4">

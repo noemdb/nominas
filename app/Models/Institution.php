@@ -14,17 +14,17 @@ class Institution extends Model
     use HasFactory;
 
     const COLUMN_COMMENTS = [
-        'name'=>'Nombre completo de la institución',
-        'type'=>'Tipo de la institución',
-        'acronym'=>'Acrónimo o sigla de la institución, si lo tiene',
-        'address'=>'Dirección física de la institución',
-        'phone_number'=>'Número de teléfono de la institución',
-        'email'=>'Dirección de correo electrónico de la institución',
+        'name'=>'Nombre',
+        'type'=>'Tipo',
+        'acronym'=>'Acrónimo o sigla, si lo tiene',
+        'address'=>'Dirección física',
+        'phone_number'=>'Núm. de teléf.',
+        'email'=>'Dirección de correo electrónico',
         'website'=>'Dirección del sitio web de la institución, si lo tiene',
         'foundation_date'=>'Fecha de fundación de la institución, si se conoce',
         'legal_status'=>'Estado legal de la institución',
         'tax_id'=>'Número de identificación fiscal de la institución, si se conoce',
-        'registration_number'=>'Número de registro de la institución, si se conoce',
+        'registration_number'=>'Núm. de registro',
         'logo'=>'Imagen del logo de la institución, almacenada como un archivo en la base de datos o en un servidor de archivos externo',
     ];
 
