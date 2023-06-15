@@ -11,6 +11,7 @@ php artisan make:controller 'Institution\Special\IndexController'
 
 php artisan make:controller 'Employee\IndexController'
 php artisan make:controller 'Employee\Personal\IndexController'
+php artisan make:controller 'Employee\Position\IndexController'
 php artisan make:controller 'Employee\Information\IndexController'
 php artisan make:controller 'Employee\Salary\IndexController'
 php artisan make:controller 'Employee\SocialSecurity\IndexController'
