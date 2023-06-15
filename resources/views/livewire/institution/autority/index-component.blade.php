@@ -1,4 +1,5 @@
 <div>
+    <x-notifications />
     @include('livewire.institution.autority.modals.main')
 
     <section class="mb-4 flex justify-between items-center">

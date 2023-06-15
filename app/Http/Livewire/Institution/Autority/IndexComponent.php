@@ -8,11 +8,13 @@ use App\Http\Livewire\Common\WithSortingTrait;
 use App\Http\Livewire\Institution\Autority\AuthorityRules;
 use App\Models\Institution\Authority;
 use Livewire\Component;
+use WireUi\Traits\Actions;
 
 class IndexComponent extends Component
 {
     use AuthorityRules;
     use WithSortingTrait;
+    use Actions;
 
     public Authority $authority;
     public $list_comment;
