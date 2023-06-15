@@ -9,6 +9,7 @@ php artisan make:livewire 'Institution/Special/IndexComponent'
 **********************************************************************************
 php artisan make:livewire 'Employee/IndexComponent'
 php artisan make:livewire 'Employee/Personal/IndexComponent'
+php artisan make:livewire 'Employee/Position/IndexComponent'
 php artisan make:livewire 'Employee/Information/IndexComponent'
 php artisan make:livewire 'Employee/Salary/IndexComponent'
 php artisan make:livewire 'Employee/SocialSecurity/IndexComponent'

@@ -8,9 +8,9 @@
                 ['label' => 'Inicio', 'route' => route('institutions')],
                 ['label' => 'Autoridades', 'route' => route('institutions.autorities')],
                 ['label' => 'Bancos', 'route' => route('institutions.banks')],
-                ['label' => 'Horarios laborales', 'route' => route('institutions.schedules')],
                 ['label' => 'Áreas', 'route' => route('institutions.areas')],
                 ['label' => 'Roles', 'route' => route('institutions.rols')],
+                ['label' => 'Horarios laborales', 'route' => route('institutions.schedules')],
                 // ['label' => 'Especiales', 'route' => route('institutions.specials')],
             ],
         ],
@@ -20,6 +20,7 @@
             'childrens' => [
                 ['label' => 'Inicio', 'route' => route('employees')],
                 ['label' => 'Información personal', 'route' => route('employees.personals')],
+                ['label' => 'Posición/Cargo', 'route' => route('employees.positions')],
                 ['label' => 'Información laboral', 'route' => route('employees.informations')],
                 ['label' => 'Información salarial', 'route' => route('employees.salaries')],
                 ['label' => 'Información de seguridad social', 'route' => route('employees.social')],

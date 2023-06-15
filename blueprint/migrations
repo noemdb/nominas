@@ -4,3 +4,7 @@ php artisan make:model 'Institution\Bank' -m
 php artisan make:model 'Institution\Schedule' -m
 php artisan make:model 'Institution\Area' -m
 php artisan make:model 'Institution\Rol' -m
+
+php artisan make:model 'Employee' -m
+php artisan make:model 'Employee\Personals' -m
+php artisan make:model 'Employee\Position' -m
