@@ -39,5 +39,10 @@ class IndexComponent extends Component
         $this->validate();
         $this->authority->save();
         $this->authority = new Authority;
+        $this->showModal = false;
+        $this->notification()->success(
+            $title = 'Felicitaciones!',
+            $description = 'Registro guardado exitósamente.'
+        );
     }
 }
