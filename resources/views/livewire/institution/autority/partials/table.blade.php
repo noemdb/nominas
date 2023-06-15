@@ -34,7 +34,7 @@
                 </th>
                 <th class="px-4 py-2">
                     <div class="flex justify-between">
-                        @php $name = 'type' @endphp
+                        @php $name = 'position' @endphp
                         <div>{{$list_comment[$name] ?? ''}}</div>
                         @if($authorities->isNotEmpty())
                             <x-elements.crud.sort-by field="{{$name}}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
@@ -43,7 +43,7 @@
                 </th>
                 <th class="px-4 py-2">
                     <div class="flex justify-between">
-                        @php $name = 'address' @endphp
+                        @php $name = 'profile_professional' @endphp
                         <div>{{$list_comment[$name] ?? ''}}</div>
                         @if($authorities->isNotEmpty())
                             <x-elements.crud.sort-by field="{{$name}}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
@@ -52,8 +52,8 @@
                 </th>
                 <th class="px-4 py-2">
                     <div class="flex justify-between">
-                        @php $name = 'registration_number' @endphp
-                        <div>{{$list_comment[$name] ?? ''}}</div>
+                        @php $name = 'finicial'; $name2 = 'ffinal' @endphp
+                        <div>{{$list_comment[$name] . ' - ' . $list_comment[$name2] ?? ''}}</div>
                         @if($authorities->isNotEmpty())
                             <x-elements.crud.sort-by field="{{$name}}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
                         @endif
@@ -67,9 +67,9 @@
                 <tr class="border-t border-gray-200">
                     <td class="px-4 py-2">{{$loop->iteration}}</td>
                     <td class="px-4 py-2">{{$item->name}}</td>
-                    <td class="px-4 py-2">{{$item->type}}</td>
-                    <td class="px-4 py-2">{{$item->address}}</td>
-                    <td class="px-4 py-2">{{$item->registration_number}}</td>
+                    <td class="px-4 py-2">{{$item->position}}</td>
+                    <td class="px-4 py-2">{{$item->profile_professional}}</td>
+                    <td class="px-4 py-2">{{$item->finicial}} - {{$item->ffinal}}</td>
                     <td class="px-4 py-2">
                         <div class="flex">
                             <x-button.circle wire:click="edit({{$item->id}})" primary icon="clipboard-list" class="mx-1"/>
