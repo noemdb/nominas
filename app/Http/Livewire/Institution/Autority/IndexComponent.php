@@ -45,4 +45,10 @@ class IndexComponent extends Component
             $description = 'Registro guardado exitósamente.'
         );
     }
+
+    public function edit($id)
+    {
+        $this->authority = Authority::findOrFail($id);
+        $this->showModal = true;
+    }
 }
