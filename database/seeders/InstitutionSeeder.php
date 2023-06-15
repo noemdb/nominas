@@ -22,17 +22,17 @@ class InstitutionSeeder extends Seeder
     {
         $faker = Factory::create('es_VE');
         for ($i=0; $i < 25; $i++) {
+            $acronimo = strtoupper(substr($faker->lexify('??'), 0, 5));
             DB::table('institutions')->insert([
-                // 'name' => Str::random(10),
-                'name' => $faker->name,
-                'type' => Str::random(10),
-                'acronym' => Str::random(5),
+                'name' => $faker->company,
+                'type' => $faker->word,
+                'acronym' => $acronimo,
                 'address' => $faker->address(),
                 'phone_number' => $faker->phoneNumber,
                 'email' => $faker->email,
                 'website' => $faker->url,
-                'foundation_date' => Carbon::today()->addDays(rand(1, 365))->format('Y-m-d'),
-                'legal_status' => Str::random(50),
+                'foundation_date' => $faker->dateTimeThisCentury()->format('Y-m-d'),
+                'legal_status' => $faker->word,
                 'tax_id' => $faker->randomNumber(4),
                 'registration_number' => $faker->randomNumber(6),
             ]);

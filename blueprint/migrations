@@ -1,2 +1,6 @@
 php artisan make:model 'Institution' -m
 php artisan make:model 'Institution\Authority' -m
+php artisan make:model 'Institution\Bank' -m
+php artisan make:model 'Institution\Schedule' -m
+php artisan make:model 'Institution\Area' -m
+php artisan make:model 'Institution\Rol' -m

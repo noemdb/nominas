@@ -1,3 +1,12 @@
+@php
+    $class['index']='hidden sm:table-cell';
+    $class['name']='';
+    $class['type']='hidden md:table-cell';
+    $class['address']='hidden lg:table-cell';
+    $class['registration_number']='hidden md:table-cell';
+    $class['action']='';
+@endphp
+
 <div class="mb-4 flex justify-between">
     <div class="px-2 w-3/4">
         @php $name = 'search'; $model = 'institution.'.$name; @endphp
@@ -18,71 +27,85 @@
     </div>
 </div>
 
-<x-errors />
+{{-- <x-errors /> --}}
 
 <div class="overflow-x-auto">
     <table class="table-auto w-full text-left whitespace-no-wrap">
         <thead>
             <tr>
-                <th class="px-4 py-2">ID</th>
-                <th class="px-4 py-2">
+                <th class="px-4 py-2 {{$class['index'] ?? null}}">
+                    ID
+                </th>
+                <th class="px-4 py-2 {{$class['name'] ?? null}}">
                     <div class="flex justify-between">
                         @php $name = 'name' @endphp
                         <div>{{$list_comment[$name] ?? ''}}</div>
                         @if($institutions->isNotEmpty())
-                            <x-elements.crud.sort-by field="{{$name}}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
+                            <div class="self-center"><x-elements.crud.sort-by field="{{$name}}" :sortBy="$sortBy" :sortDirection="$sortDirection" /></div>
                         @endif
                     </div>
                 </th>
-                <th class="px-4 py-2">
+                <th class="px-4 py-2 {{$class['type'] ?? null}}">
                     <div class="flex justify-between">
                         @php $name = 'type' @endphp
                         <div>{{$list_comment[$name] ?? ''}}</div>
                         @if($institutions->isNotEmpty())
-                            <x-elements.crud.sort-by field="{{$name}}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
+                            <div class="self-center"><x-elements.crud.sort-by field="{{$name}}" :sortBy="$sortBy" :sortDirection="$sortDirection" /></div>
                         @endif
                     </div>
                 </th>
-                <th class="px-4 py-2">
+                <th class="px-4 py-2 {{$class['address'] ?? null}}">
                     <div class="flex justify-between">
                         @php $name = 'address' @endphp
                         <div>{{$list_comment[$name] ?? ''}}</div>
                         @if($institutions->isNotEmpty())
-                            <x-elements.crud.sort-by field="{{$name}}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
+                            <div class="self-center"><x-elements.crud.sort-by field="{{$name}}" :sortBy="$sortBy" :sortDirection="$sortDirection" /></div>
                         @endif
                     </div>
                 </th>
-                <th class="px-4 py-2">
+                <th class="px-4 py-2 {{$class['registration_number'] ?? null}}">
                     <div class="flex justify-between">
                         @php $name = 'registration_number' @endphp
                         <div>{{$list_comment[$name] ?? ''}}</div>
                         @if($institutions->isNotEmpty())
-                            <x-elements.crud.sort-by field="{{$name}}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
+                            <div class="self-center"><x-elements.crud.sort-by field="{{$name}}" :sortBy="$sortBy" :sortDirection="$sortDirection" /></div>
                         @endif
                     </div>
                 </th>
-                <th class="px-4 py-2">Acción</th>
+                <th class="px-4 py-2 {{$class['action'] ?? null}}">
+                    Acción
+                </th>
             </tr>
         </thead>
         <tbody>
             @forelse ($institutions as $item)
                 <tr class="border-t border-gray-200">
-                    <td class="px-4 py-2">{{$loop->iteration}}</td>
-                    <td class="px-4 py-2">
+                    <td class="px-4 py-2 {{$class['index'] ?? null}}">
+                        {{$loop->iteration}}
+                    </td>
+                    <td class="px-4 py-2 {{$class['name'] ?? null}}">
                         {{$item->name}}
                         @foreach ($item->authorities as $authority)
                             <div class="text-xs text-gray-800">{{$loop->iteration}}. {{$authority->name}}</div>
                         @endforeach
                     </td>
-                    <td class="px-4 py-2">{{$item->type}}</td>
-                    <td class="px-4 py-2">{{$item->address}}</td>
-                    <td class="px-4 py-2">{{$item->registration_number}}</td>
-                    <td class="px-4 py-2">
-                        <div class="flex">
-                            <x-button.circle wire:click="show({{$item->id}})" info icon="information-circle" class="mx-1"/>
-                            <x-button.circle wire:click="edit({{$item->id}})" warning icon="pencil-alt" class="mx-1"/>
-                            <x-button.circle wire:click="deleteQuestion({{$item->id}})" negative icon="x" class="mx-1" :disable="$item->status_delete"/>
+                    <td class="px-4 py-2 {{$class['type'] ?? null}}">
+                        {{$item->type}}
+                    </td>
+                    <td class="px-4 py-2 {{$class['address'] ?? null}}">
+                        {{$item->address}}
+                    </td>
+                    <td class="px-4 py-2 {{$class['registration_number'] ?? null}}">
+                        {{$item->registration_number}}
+                    </td>
+                    <td class="px-4 py-2 {{$class['action'] ?? null}}">
+
+                        <div class="flex items-center space-x-end">
+                            <x-button sm wire:click="show({{$item->id}})" info icon="information-circle" class="px-4"/>
+                            <x-button sm wire:click="edit({{$item->id}})" warning icon="pencil-alt" class="px-4"/>
+                            <x-button sm wire:click="deleteQuestion({{$item->id}})" negative icon="x" class="px-4" />
                         </div>
+
                     </td>
                 </tr>
             @empty
@@ -91,7 +114,6 @@
                         No hay datos
                     </td>
                 </tr>
-
             @endforelse
 
 

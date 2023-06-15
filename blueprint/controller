@@ -4,6 +4,7 @@ php artisan make:controller 'Institution\IndexController'
 php artisan make:controller 'Institution\Autority\IndexController'
 php artisan make:controller 'Institution\Bank\IndexController'
 php artisan make:controller 'Institution\Schedule\IndexController'
+php artisan make:controller 'Institution\Area\IndexController'
 php artisan make:controller 'Institution\Rol\IndexController'
 php artisan make:controller 'Institution\Special\IndexController'
 

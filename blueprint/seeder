@@ -1,2 +1,6 @@
 php artisan make:seeder InstitutionSeeder
 php artisan make:seeder AuthoritySeeder
+php artisan make:seeder BankSeeder
+php artisan make:seeder ScheduleSeeder
+php artisan make:seeder AreaSeeder
+php artisan make:seeder RolSeeder

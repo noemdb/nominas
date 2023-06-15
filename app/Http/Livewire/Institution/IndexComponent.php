@@ -101,7 +101,6 @@ class IndexComponent extends Component
         $this->modeCreate = ($mode=='create') ? true : false ;
         $this->modeEdit = ($mode=='edit') ? true : false ;
         $this->modeShow = ($mode=='show') ? true : false ;
-        //dd($this->modeCreate,$this->modeEdit,$this->modeShow);
     }
 
     public function closeModal()

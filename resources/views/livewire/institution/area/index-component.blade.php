@@ -1,0 +1,3 @@
+<div>
+    Areas
+</div>
