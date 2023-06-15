@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div class="rounded-lg bg-gray-100 p-4">
+    <div class="p-2">
         @include('livewire.institution.home.partials.table')
     </div>
 
