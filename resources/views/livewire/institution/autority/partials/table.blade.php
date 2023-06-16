@@ -63,9 +63,6 @@
                             $name2 = 'ffinal';
                         @endphp
                         <div>{{ $list_comment[$name] . ' - ' . $list_comment[$name2] ?? '' }}</div>
-                        @if ($authorities->isNotEmpty())
-                            <x-elements.crud.sort-by field="{{ $name }}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
-                        @endif
                     </div>
                 </th>
                 <th class="px-4 py-2">Acción</th>
