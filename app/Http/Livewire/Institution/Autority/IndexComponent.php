@@ -4,17 +4,21 @@ namespace App\Http\Livewire\Institution\Autority;
 // touch 'app/Http/Livewire/Institution/AutorityRules.php'
 // touch 'app/Http/Livewire/Common/WithSortingTrait.php'
 
+use App\Http\Livewire\Common\PaginateTrait;
 use App\Http\Livewire\Common\WithSortingTrait;
 use App\Http\Livewire\Institution\Autority\AuthorityRules;
 use App\Models\Institution\Authority;
 use Livewire\Component;
+use Livewire\WithPagination;
 use WireUi\Traits\Actions;
 
 class IndexComponent extends Component
 {
     use AuthorityRules;
-    use WithSortingTrait;
     use Actions;
+    use WithSortingTrait;
+    use WithPagination;
+    use PaginateTrait;
 
     public Authority $authority;
     public $list_comment;
@@ -30,7 +34,22 @@ class IndexComponent extends Component
 
     public function render()
     {
-        $authorities = Authority::all();
+        $search = $this->search;
+        $authorities = Authority::select('authorities.*');
+
+        $authorities = (!empty($search)) ? $authorities->Where(
+            function ($query) use ($search) {
+                $query->orWhere('name', 'like', '%' . $search . '%');
+                $query->orWhere('position', 'like', '%' . $search . '%');
+                $query->orWhere('profile_professional', 'like', '%' . $search . '%');
+            }
+        )
+            : $authorities;
+
+        $authorities = ($this->sortBy && $this->sortDirection) ? $authorities->orderBy($this->sortBy, $this->sortDirection) : $authorities;
+
+        $authorities = $authorities->paginate($this->paginate);
+
         return view('livewire.institution.autority.index-component', ['authorities' => $authorities]);
     }
 

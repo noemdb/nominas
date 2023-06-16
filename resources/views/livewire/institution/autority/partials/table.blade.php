@@ -20,7 +20,7 @@
         </x-input>
     </div>
     <div class="px-2 w-1/5">
-        {{-- <x-select label="Registros por página" wire:model="paginate" placeholder="páginas" :options="$paginate_list" /> --}}
+        <x-select label="Registros por página" wire:model="paginate" placeholder="páginas" :options="$paginate_list" />
     </div>
 </div>
 
@@ -96,6 +96,6 @@
         </tbody>
     </table>
 
-    {{-- {{ $authorities->links() }} --}}
+    {{ $authorities->links() }}
 
 </div>
