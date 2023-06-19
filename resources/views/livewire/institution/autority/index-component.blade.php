@@ -4,7 +4,7 @@
 
     <section class="mb-4 flex justify-between items-center">
         <h2 class="text-2xl font-bold">Autoridades registradas</h2>
-        <x-button.circle wire:click="$toggle('showModal')" primary label="+" />
+        <x-button.circle wire:click="openModal('create')" primary label="+" />
     </section>
 
     @include('livewire.institution.autority.partials.table')

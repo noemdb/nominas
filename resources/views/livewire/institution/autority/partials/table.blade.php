@@ -76,10 +76,10 @@
                     <td class="px-4 py-2">{{ $item->profile_professional }}</td>
                     <td class="px-4 py-2">{{ $item->finicial }} - {{ $item->ffinal }}</td>
                     <td class="px-4 py-2">
-                        <div class="flex gap-4">
-                            <x-button.circle wire:click="edit({{ $item->id }})" primary icon="clipboard-list" />
-                            <x-button.circle wire:click="deleteQuestion({{ $item->id }})" negative
-                                icon="x" />
+                        <div class="flex items-center space-x-end">
+                            <x-button squared sm wire:click="show({{$item->id}})" info icon="information-circle" class="px-4 rounded-l"/>
+                            <x-button squared sm wire:click="edit({{$item->id}})" warning icon="pencil-alt" class="px-4"/>
+                            <x-button squared sm wire:click="deleteQuestion({{$item->id}})" negative icon="x" class="px-4 rounded-r" />
                         </div>
                     </td>
                 </tr>

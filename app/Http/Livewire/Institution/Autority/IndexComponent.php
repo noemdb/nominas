@@ -22,8 +22,11 @@ class IndexComponent extends Component
 
     public Authority $authority;
     public $list_comment;
-    public $showModal = false;
     public $list_institution;
+    public $showModal = false;
+    public $modeCreate = false;
+    public $modeEdit = false;
+    public $modeShow = false;
 
     public function mount()
     {
@@ -53,6 +56,20 @@ class IndexComponent extends Component
         return view('livewire.institution.autority.index-component', ['authorities' => $authorities]);
     }
 
+    public function openModal(string $mode)
+    {
+        $this->showModal = true;
+        $this->modeCreate = ($mode == 'create') ? true : false;
+        $this->modeEdit = ($mode == 'edit') ? true : false;
+        $this->modeShow = ($mode == 'show') ? true : false;
+    }
+
+    public function show($id)
+    {
+        $this->authority = Authority::findOrFail($id);
+        $this->openModal('show');
+    }
+
     public function save()
     {
         $this->validate();
@@ -68,7 +85,7 @@ class IndexComponent extends Component
     public function edit($id)
     {
         $this->authority = Authority::findOrFail($id);
-        $this->showModal = true;
+        $this->openModal('edit');
     }
 
     public function delete($id)
