@@ -1,10 +1,7 @@
 @php
     $class['index'] = 'hidden sm:table-cell';
     $class['name'] = '';
-    $class['position'] = 'hidden md:table-cell';
-    $class['profile_professional'] = 'hidden lg:table-cell';
-    $class['dates'] = 'hidden md:table-cell';
-    $class['action'] = '';
+    $class['description'] = 'hidden md:table-cell';
 @endphp
 
 <div class="mb-4 flex justify-between flex-col gap-4 md:flex-row">
@@ -48,33 +45,15 @@
                         @endif
                     </div>
                 </th>
-                <th class="px-2 py-1 {{ $class['position'] ?? null }}">
+                <th class="px-2 py-1 {{ $class['description'] ?? null }}">
                     <div class="flex justify-between">
-                        @php $name = 'position' @endphp
+                        @php $name = 'description' @endphp
                         <span>{{ $list_comment[$name] ?? '' }}</span>
                         @if ($areas->isNotEmpty())
                             <x-elements.crud.sort-by field="{{ $name }}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
                         @endif
                     </div>
                 </th>
-                <th class="px-2 py-1 {{ $class['profile_professional'] ?? null }}">
-                    <div class="flex justify-between">
-                        @php $name = 'profile_professional' @endphp
-                        <span>{{ $list_comment[$name] ?? '' }}</span>
-                        @if ($areas->isNotEmpty())
-                            <x-elements.crud.sort-by field="{{ $name }}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
-                        @endif
-                    </div>
-                </th>
-                {{-- <th class="px-2 py-1 {{ $class['dates'] ?? null }}">
-                    <div class="flex justify-between">
-                        @php
-                            $name = 'finicial';
-                            $name2 = 'ffinal';
-                        @endphp
-                        <span>{{ $list_comment[$name] . ' - ' . $list_comment[$name2] ?? '' }}</span>
-                    </div>
-                </th> --}}
                 <th class="px-2 py-1 {{ $class['action'] ?? null }}">
                     Acción
                 </th>
@@ -93,13 +72,7 @@
                             <span class="text-xs text-gray-400">{{ $item->institution->name ?? '' }}</span>
                         </div>
                     </td>
-                    <td class="px-2 py-1 {{ $class['position'] ?? null }}">{{ $item->position }}</td>
-                    <td class="px-2 py-1 {{ $class['profile_professional'] ?? null }}">
-                        {{ $item->profile_professional }}
-                    </td>
-                    {{-- <td class="px-2 py-1 {{ $class['dates'] ?? null }}">
-                        {{ $item->finicial }} - {{ $item->ffinal }}
-                    </td> --}}
+                    <td class="px-2 py-1 {{ $class['position'] ?? null }}">{{ $item->description }}</td>
                     <td class="px-2 py-1 {{ $class['action'] ?? null }}">
                         <div class="flex items-center space-x-end">
                             <x-button squared sm wire:click="show({{ $item->id }})" info icon="information-circle"
