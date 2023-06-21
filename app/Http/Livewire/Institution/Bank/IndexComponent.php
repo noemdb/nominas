@@ -21,6 +21,7 @@ class IndexComponent extends Component
     public Bank $bank;
     public $list_comment;
     public $list_institution;
+    public $list_account_type;
     public $showModal = false;
     public $modeCreate = false;
     public $modeEdit = false;
@@ -31,6 +32,7 @@ class IndexComponent extends Component
         $this->bank = new Bank;
         $this->list_institution = Bank::list_institution();
         $this->list_comment = Bank::COLUMN_COMMENTS;
+        $this->list_account_type = Bank::list_account_type();
     }
 
     public function render()
