@@ -1,7 +1,9 @@
 @php
     $class['index'] = 'hidden sm:table-cell';
     $class['name'] = '';
-    $class['description'] = 'hidden md:table-cell';
+    $class['account_number'] = 'hidden md:table-cell';
+    $class['account_type'] = 'hidden lg:table-cell';
+    $class['action'] = '';
 @endphp
 
 <div class="mb-4 flex justify-between flex-col gap-4 md:flex-row">
@@ -14,7 +16,7 @@
             class="text-black font-semibold fixed	 bottom-0 right-0 z-10 bg-white rounded border shadow mr-2 mb-2 dark:text-gray-100">
             Cargando...
         </span>
-        @php $label = "Nombre o descripción" @endphp
+        @php $label = "Nombre, número de cuenta, tipo de cuenta" @endphp
         <x-input wire:model.debounce.500ms="{{ $name }}" icon="search" label="{{ $label }}"
             placeholder="{{ $label }}">
             <x-slot name="append">
@@ -45,9 +47,18 @@
                         @endif
                     </div>
                 </th>
-                <th class="px-2 py-1 {{ $class['description'] ?? null }}">
+                <th class="px-2 py-1 {{ $class['account_number'] ?? null }}">
                     <div class="flex justify-between">
-                        @php $name = 'description' @endphp
+                        @php $name = 'account_number' @endphp
+                        <span>{{ $list_comment[$name] ?? '' }}</span>
+                        @if ($banks->isNotEmpty())
+                            <x-elements.crud.sort-by field="{{ $name }}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
+                        @endif
+                    </div>
+                </th>
+                <th class="px-2 py-1 {{ $class['account_type'] ?? null }}">
+                    <div class="flex justify-between">
+                        @php $name = 'account_type' @endphp
                         <span>{{ $list_comment[$name] ?? '' }}</span>
                         @if ($banks->isNotEmpty())
                             <x-elements.crud.sort-by field="{{ $name }}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
@@ -72,7 +83,10 @@
                             <span class="text-xs text-gray-400">{{ $item->institution->name ?? '' }}</span>
                         </div>
                     </td>
-                    <td class="px-2 py-1 {{ $class['position'] ?? null }}">{{ $item->description }}</td>
+                    <td class="px-2 py-1 {{ $class['account_number'] ?? null }}">{{ $item->account_number }}</td>
+                    <td class="px-2 py-1 {{ $class['account_type'] ?? null }}">
+                        {{ $item->account_type }}
+                    </td>
                     <td class="px-2 py-1 {{ $class['action'] ?? null }}">
                         <div class="flex items-center space-x-end">
                             <x-button squared sm wire:click="show({{ $item->id }})" info icon="information-circle"
