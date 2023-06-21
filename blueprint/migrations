@@ -6,5 +6,5 @@ php artisan make:model 'Institution\Area' -m
 php artisan make:model 'Institution\Rol' -m
 
 php artisan make:model 'Employee' -m
-php artisan make:model 'Employee\Personals' -m
+php artisan make:model 'Employee\Personal' -m
 php artisan make:model 'Employee\Position' -m

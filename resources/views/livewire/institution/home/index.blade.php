@@ -3,14 +3,14 @@
 
 
     <div class="flex justify-between">
-        <h2 class="mb-4 text-2xl font-bold">Instituciones registradas</h2>
+        <h2 class="mx-2 text-2xl font-bold">Instituciones registradas</h2>
         <div>
             {{-- <x-button.circle wire:click="$toggle('showModal')" primary label="+" /> --}}
             <x-button.circle wire:click="openModal('create')" primary label="+" />
         </div>
     </div>
 
-    <div class="p-2">
+    <div class="px-2">
         @include('livewire.institution.home.partials.table')
     </div>
 

@@ -7,7 +7,6 @@
     $class['action']='';
 @endphp
 
-
 {{-- <div class="mb-4 flex justify-between"> --}}
 <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
     <div class="col-span-1 sm:col-span-3">
@@ -24,11 +23,6 @@
                 </div>
             </x-slot>
 
-            {{-- <x-slot name="append">
-                <div class="absolute inset-y-0 right-0 flex items-center p-0.5 text-gray-600">
-                    <x-icon name="x" class="w-4 h-4" wire:click="cleanSearch()"/>
-                </div>
-            </x-slot> --}}
         </x-input>
     </div>
     <div class="col-span-1 sm:col-span-1">
