@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('institution_id');
             $table->string('name')->comment('Nombre completo');
+            $table->string('ci')->comment('N.Identificación');
             $table->string('position')->comment('Cargo');
             $table->string('email')->comment('Dirección de correo electrónico');
             $table->string('phone_number')->comment('número de teléfono');

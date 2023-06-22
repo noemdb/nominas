@@ -11,7 +11,7 @@ class Authority extends Model
     use HasFactory;
 
     protected $fillable = [
-        'institution_id', 'name', 'position', 'email', 'phone_number', 'address', 'profile_professional', 'finicial', 'ffinal', 'photo'
+        'institution_id', 'name','ci', 'position', 'email', 'phone_number', 'address', 'profile_professional', 'finicial', 'ffinal', 'photo'
     ];
 
     use HasFactory;
@@ -19,6 +19,7 @@ class Authority extends Model
     const COLUMN_COMMENTS = [
         'institution_id'=>'Institución',
         'name'=>'Nombre completo',
+        'ci'=>'N.Identificación',
         'position'=>'Cargo',
         'email'=>'Dir. de correo electrónico',
         'phone_number'=>'número de teléfono',

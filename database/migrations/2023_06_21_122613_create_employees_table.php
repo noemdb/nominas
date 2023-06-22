@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id()->comment('Identificador único para cada empleado');
-            $table->foreignId('institution_id')->constrained()->comment('Institución');
+            $table->foreignId('institution_id')->comment('Institución');
+            $table->string('name')->comment('Nombre completo');
+            $table->string('ci')->comment('N.Identificación');
             $table->date('hire_date')->comment('Fecha de contratación');
             $table->date('termination_date')->nullable()->comment('Fecha de finalalización');
             $table->enum('status', ['active', 'inactive', 'on leave'])->default('active')->comment('Estado actual');

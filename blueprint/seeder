@@ -5,5 +5,5 @@ php artisan make:seeder ScheduleSeeder
 php artisan make:seeder AreaSeeder
 php artisan make:seeder RolSeeder
 
-php artisan make:seeder Employee
-php artisan make:seeder Personal
+php artisan make:seeder EmployeeSeeder
+php artisan make:seeder PersonalSeeder

@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Institution\Area;
 use App\Http\Livewire\Common\PaginateTrait;
 use App\Http\Livewire\Common\WithSortingTrait;
 use App\Models\Institution\Area;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 use WireUi\Traits\Actions;
@@ -27,14 +28,15 @@ class IndexComponent extends Component
 
     public function mount()
     {
-        $this->area = new Area;
-        $this->list_institution = Area::list_institution();
-        $this->list_comment = Area::COLUMN_COMMENTS;
+        $this->area = new Area; //dd($this->area);
+        $this->list_institution = Area::list_institution(); //dd($this->list_institution);
+        $this->list_comment = Area::COLUMN_COMMENTS; // dd($this->list_comment);
     }
 
     public function render()
     {
         $search = $this->search;
+        // $tables = DB::select('SELECT name FROM sqlite_master WHERE type="table"'); dd($tables);
         $areas = Area::select('areas.*');
 
         $areas = (!empty($search)) ? $areas->Where(
@@ -45,9 +47,9 @@ class IndexComponent extends Component
         )
             : $areas;
 
-        $areas = ($this->sortBy && $this->sortDirection) ? $areas->orderBy($this->sortBy, $this->sortDirection) : $areas;
+        $areas = ($this->sortBy && $this->sortDirection) ? $areas->orderBy($this->sortBy, $this->sortDirection) : $areas; //dd($areas->get());
 
-        $areas = $areas->paginate($this->paginate);
+        $areas = $areas->paginate($this->paginate); //dd($areas);
         return view('livewire.institution.area.index-component', ['areas' => $areas]);
     }
 

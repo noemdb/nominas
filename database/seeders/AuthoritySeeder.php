@@ -23,6 +23,7 @@ class AuthoritySeeder extends Seeder
             DB::table('authorities')->insert([
                 'institution_id' => $faker->numberBetween(1,25),
                 'name' => $faker->name,
+                'ci' => $faker->randomNumber(8),
                 'position' =>$faker->word,
                 'email' => $faker->email,
                 'phone_number' => $faker->phoneNumber,
