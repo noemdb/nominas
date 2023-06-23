@@ -3,7 +3,7 @@
 
 
     <div class="flex justify-between">
-        <h2 class="mx-2 text-2xl font-bold">Empleados registrados</h2>
+        <h2 class="mx-2 text-2xl font-bold">Informaciones personales registradas</h2>
         <div>
             {{-- <x-button.circle wire:click="$toggle('showModal')" primary label="+" /> --}}
             <x-button.circle wire:click="openModal('create')" primary label="+" />
@@ -11,7 +11,7 @@
     </div>
 
     <div class="px-2">
-        @include('livewire.employee.home.partials.table')
+        @include('livewire.employee.personal.partials.table')
     </div>
 
     <hr class="my-4">
@@ -27,4 +27,3 @@
     {{-- @include('livewire.employee.autority.partials.indicators') --}}
 
 </div>
-
