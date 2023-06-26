@@ -10,11 +10,13 @@
             @include('livewire.institution.bank.show.info')
         @endif
 
-        <x-slot name="footer">
-            <div class="flex justify-end gap-x-4">
-                <x-button flat label="Calcelar" x-on:click="close" />
-                <x-button primary label="Guardar" wire:click="save" />
-            </div>
-        </x-slot>
+        @if ($modeCreate || $modeEdit)
+            <x-slot name="footer">
+                <div class="flex justify-end gap-x-4">
+                    <x-button flat label="Calcelar" x-on:click="close" />
+                    <x-button primary label="Guardar" wire:click="save" />
+                </div>
+            </x-slot>
+        @endif
     </x-card>
 </x-modal>
