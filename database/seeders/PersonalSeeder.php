@@ -19,6 +19,7 @@ class PersonalSeeder extends Seeder
     {
         $faker = Factory::create('es_VE');
         $arr = ['Esposo(a)','Hermano(a)','Padre','Madre','Otro'];
+        $arr_disability = ['Visual','Auditiva','Motora','Intelectual','Psicosocial'];
         for ($i=0; $i < 25; $i++) {
             DB::table('personals')->insert([
                 'employee_id' => $faker->numberBetween(1,25),
@@ -33,6 +34,7 @@ class PersonalSeeder extends Seeder
                 'emergency_contact_relationship' => $faker->randomElement($arr),
                 'emergency_contact_phone' => $faker->phoneNumber,
                 'emergency_contact_email' => $faker->email,
+                'disability' => $faker->randomElement($arr_disability),
                 'other_details' => $faker->text,
             ]);
         }

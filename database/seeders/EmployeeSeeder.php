@@ -25,7 +25,7 @@ class EmployeeSeeder extends Seeder
                 'name' => $faker->name,
                 'ci' => $faker->randomNumber(8),
                 'hire_date' =>Carbon::today()->addDays(rand(1, 365))->format('Y-m-d'),
-                'termination_date' =>Carbon::today()->addDays(rand(1, 365))->format('Y-m-d'),
+                // 'termination_date' =>Carbon::today()->addDays(rand(1, 365))->format('Y-m-d'),
                 'status' =>$faker->randomElement($arr),
                 'email' => $faker->email,
             ]);

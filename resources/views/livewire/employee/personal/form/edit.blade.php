@@ -4,6 +4,6 @@
 
 <div class="mt-2">
     <p class="text-sm leading-5 text-gray-500">
-        @include('livewire.employee.home.form.fields')
+        @include('livewire.employee.personal.form.fields')
     </p>
 </div>

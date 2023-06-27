@@ -61,7 +61,7 @@
             $model = 'employee.' . $name;
             $comment = $list_comment[$name];
         @endphp
-        <x-native-select label="{{ $comment }}" placeholder="Seleccione" :options="$list_status"
+        <x-native-select label="{{ $comment }}" placeholder="Seleccione" :options="$list_status" option-key-value
             wire:model.defer="{{ $model }}" />
     </div>
 

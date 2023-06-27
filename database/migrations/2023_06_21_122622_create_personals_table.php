@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('emergency_contact_relationship')->nullable()->comment('La relación de la persona de contacto de emergencia con el empleado');
             $table->string('emergency_contact_phone')->nullable()->comment('El número de teléfono de la persona de contacto de emergencia');
             $table->string('emergency_contact_email')->nullable()->comment('La dirección de correo electrónico de la persona de contacto de emergencia');
+            $table->string('disability')->nullable()->comment('Discapacidad');
             $table->text('other_details')->nullable()->comment('Cualquier otra información personal relevante');
             $table->timestamps();
         });

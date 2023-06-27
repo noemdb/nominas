@@ -30,7 +30,7 @@ class IndexComponent extends Component
     public $showModal = false, $modeCreate = false, $modeEdit = false, $modeShow = false;
     public $list_comment;
     public $list_institution,$list_employee;
-    public $list_relationship;
+    public $list_relationship,$list_disability;
 
     public Personal $personal;
     public $status_delete,$authorities;
@@ -72,6 +72,7 @@ class IndexComponent extends Component
         // $this->list_employee = Employee::list_employee();
         $this->list_employee = Collect();
         $this->list_relationship = Personal::list_relationship();
+        $this->list_disability = Personal::list_disability();
         $this->list_comment = Personal::COLUMN_COMMENTS; //dd($this->list_comment);
     }
 

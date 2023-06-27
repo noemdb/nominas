@@ -28,6 +28,7 @@ class Personal extends Model
         'emergency_contact_relationship'=>'La relación de la persona de contacto de emergencia con el empleado',
         'emergency_contact_phone'=>'El número de teléfono de la persona de contacto de emergencia',
         'emergency_contact_email'=>'La dirección de correo electrónico de la persona de contacto de emergencia',
+        'disability'=>'Discapacidad',
         'other_details'=>'Cualquier otra información personal relevante',
     ];
 
@@ -57,9 +58,12 @@ class Personal extends Model
     {
         return ['Esposo(a)','Hermano(a)','Padre','Madre','Otro'];
     }
+
+    public static function list_disability() /* usada para llenar los objetos de formularios select*/
+    {
+        return ['Visual','Auditiva','Motora','Intelectual','Psicosocial'];
+    }
 }
-
-
 /*
 
 'employee_id','address','city','state','zip_code','country','phone_number','home_phone','emergency_contact_name','emergency_contact_relationship','emergency_contact_phone','emergency_contact_email','other_details',

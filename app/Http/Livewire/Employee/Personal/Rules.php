@@ -14,12 +14,13 @@ trait Rules
         'personal.zip_code' => 'required|string',
         'personal.country' => 'required|string',
         'personal.phone_number' => 'required|string',
-        'personal.home_phone' => 'required|string',
-        'personal.emergency_contact_name' => 'required|string',
-        'personal.emergency_contact_relationship' => 'required|string',
-        'personal.emergency_contact_phone' => 'required|string',
-        'personal.emergency_contact_email' => 'required|email',
-        'personal.other_details' => 'required|string',
+        'personal.home_phone' => 'nullable|string',
+        'personal.emergency_contact_name' => 'nullable|string',
+        'personal.emergency_contact_relationship' => 'nullable|string',
+        'personal.emergency_contact_phone' => 'nullable|string',
+        'personal.emergency_contact_email' => 'nullable|email',
+        'personal.disability' => 'nullable|string',
+        'personal.other_details' => 'nullable|string',
     ];
 
     protected function validationAttributes()
@@ -37,6 +38,7 @@ trait Rules
             'personal.emergency_contact_relationship' => $this->list_comment['emergency_contact_relationship'],
             'personal.emergency_contact_phone' => $this->list_comment['emergency_contact_phone'],
             'personal.emergency_contact_email' => $this->list_comment['emergency_contact_email'],
+            'personal.disability' => $this->list_comment['disability'],
             'personal.other_details' => $this->list_comment['other_details'],
         ];
     }

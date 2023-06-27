@@ -1,10 +1,10 @@
 <ul class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-    @php unset($list_comment['institution_id'],$list_comment['position']); @endphp
+    @php unset($list_comment['employee_id']); @endphp
     @foreach ($list_comment as $k => $v)
         <li class="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">
             <div for="{{$k}}" class="font-semibold block text-sm text-gray-900 dark:text-white">{{$v}}</div>
-            <p id="{{$k}}" class="text-lg text-gray-500">
-                {{$employee->{$k} ?? null}}
+            <p id="{{$k}}" class="text-lg text-gray-500 h-8">
+                {{$personal->{$k} ?? null}}
             </p>
         </li>
     @endforeach
