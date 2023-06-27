@@ -1,7 +1,9 @@
 @php
     $class['index'] = 'hidden sm:table-cell';
-    $class['name'] = '';
-    $class['description'] = 'hidden md:table-cell';
+    $class['start_time'] = '';
+    $class['end_time'] = '';
+    $class['schedule_type'] = 'hidden md:table-cell';
+    $class['weekday'] = 'hidden lg:table-cell';
 @endphp
 
 <div class="mb-4 flex justify-between flex-col gap-4 md:flex-row">
@@ -36,18 +38,36 @@
                 <th class="px-2 py-1 {{ $class['index'] ?? null }}">
                     ID
                 </th>
-                <th class="px-2 py-1 {{ $class['name'] ?? null }}">
+                <th class="px-2 py-1 {{ $class['start_time'] ?? null }}">
                     <div class="flex justify-between">
-                        @php $name = 'name' @endphp
+                        @php $name = 'start_time' @endphp
                         <span>{{ $list_comment[$name] ?? '' }}</span>
                         @if ($schedules->isNotEmpty())
                             <x-elements.crud.sort-by field="{{ $name }}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
                         @endif
                     </div>
                 </th>
-                <th class="px-2 py-1 {{ $class['description'] ?? null }}">
+                <th class="px-2 py-1 {{ $class['end_time'] ?? null }}">
                     <div class="flex justify-between">
-                        @php $name = 'description' @endphp
+                        @php $name = 'end_time' @endphp
+                        <span>{{ $list_comment[$name] ?? '' }}</span>
+                        @if ($schedules->isNotEmpty())
+                            <x-elements.crud.sort-by field="{{ $name }}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
+                        @endif
+                    </div>
+                </th>
+                <th class="px-2 py-1 {{ $class['schedule_type'] ?? null }}">
+                    <div class="flex justify-between">
+                        @php $name = 'schedule_type' @endphp
+                        <span>{{ $list_comment[$name] ?? '' }}</span>
+                        @if ($schedules->isNotEmpty())
+                            <x-elements.crud.sort-by field="{{ $name }}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
+                        @endif
+                    </div>
+                </th>
+                <th class="px-2 py-1 {{ $class['weekday'] ?? null }}">
+                    <div class="flex justify-between">
+                        @php $name = 'weekday' @endphp
                         <span>{{ $list_comment[$name] ?? '' }}</span>
                         @if ($schedules->isNotEmpty())
                             <x-elements.crud.sort-by field="{{ $name }}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
@@ -66,13 +86,12 @@
                     <td class="px-2 py-1 {{ $class['index'] ?? null }}">
                         {{ $loop->iteration }}
                     </td>
-                    <td class="px-2 py-1 {{ $class['name'] ?? null }}">
-                        {{ $item->name }}
-                        <div>
-                            <span class="text-xs text-gray-400">{{ $item->area->name ?? '' }}</span>
-                        </div>
+                    <td class="px-2 py-1 {{ $class['start_time'] ?? null }}">{{ $item->start_time }}</td>
+                    <td class="px-2 py-1 {{ $class['end_time'] ?? null }}">{{ $item->end_time }}</td>
+                    <td class="px-2 py-1 {{ $class['schedule_type'] ?? null }}">{{ $item->schedule_type }}</td>
+                    <td class="px-2 py-1 {{ $class['weekday'] ?? null }}">
+                        {{ $item->weekday }}
                     </td>
-                    <td class="px-2 py-1 {{ $class['description'] ?? null }}">{{ $item->description }}</td>
                     <td class="px-2 py-1 {{ $class['action'] ?? null }}">
                         <div class="flex items-center space-x-end">
                             <x-button squared sm wire:click="show({{ $item->id }})" info icon="information-circle"
