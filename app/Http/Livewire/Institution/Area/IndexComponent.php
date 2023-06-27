@@ -42,7 +42,8 @@ class IndexComponent extends Component
         $areas = (!empty($search)) ? $areas->Where(
             function ($query) use ($search) {
                 $query->orWhere('name', 'like', '%' . $search . '%');
-                $query->orWhere('description', 'like', '%' . $search . '%');
+                $query->orWhere('account_number', 'like', '%' . $search . '%');
+                $query->orWhere('account_type', 'like', '%' . $search . '%');
             }
         )
             : $areas;
