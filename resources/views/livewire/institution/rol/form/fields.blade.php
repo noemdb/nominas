@@ -6,7 +6,7 @@
             $comment = $list_comment[$name];
         @endphp
         <x-native-select label="{{ $comment }}" placeholder="Seleccione" :options="$list_areas"
-            wire:model.defer="{{ $model }}" />
+            wire:model.defer="{{ $model }}" option-key-value />
     </div>
 
     <div class="py-4">
