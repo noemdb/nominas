@@ -21,7 +21,7 @@
 
     <div class="py-4">
         @php $name = 'type'; $model = 'institution.'.$name; $comment = $list_comment[$name]; @endphp
-        <x-native-select label="{{$comment}}" placeholder="Seleccione" :options="$list_type" wire:model.defer="{{$model}}" />
+        <x-native-select label="{{$comment}}" placeholder="Seleccione" :options="$list_type" wire:model.defer="{{$model}}" option-key-value />
     </div>
 
     <div class="py-4">
@@ -41,7 +41,7 @@
 
     <div class="py-4">
         @php $name = 'legal_status'; $model = 'institution.'.$name; $comment = $list_comment[$name]; @endphp
-        <x-native-select label="{{$comment}}" placeholder="Seleccione" :options="$list_legal_status" wire:model.defer="{{$model}}" />
+        <x-native-select label="{{$comment}}" placeholder="Seleccione" :options="$list_legal_status" wire:model.defer="{{$model}}" option-key-value />
     </div>
 
 

@@ -1,17 +1,18 @@
 <div>
     <div class="py-4">
         @php
-            $name = 'institution_id';
-            $model = 'area.' . $name;
+            $name = 'area_id';
+            $model = 'rol.' . $name;
             $comment = $list_comment[$name];
         @endphp
-        <x-native-select label="{{ $comment }}" placeholder="Seleccione" :options="$list_institution"
+        <x-native-select label="{{ $comment }}" placeholder="Seleccione" :options="$list_areas"
             wire:model.defer="{{ $model }}" option-key-value />
     </div>
+
     <div class="py-4">
         @php
             $name = 'name';
-            $model = 'area.' . $name;
+            $model = 'rol.' . $name;
             $comment = $list_comment[$name];
         @endphp
         <x-input wire:model.defer="{{ $model }}" label="{{ $comment }}" placeholder="{{ $comment }}"
@@ -21,7 +22,7 @@
     <div class="py-4">
         @php
             $name = 'description';
-            $model = 'area.' . $name;
+            $model = 'rol.' . $name;
             $comment = $list_comment[$name];
         @endphp
         <x-textarea wire:model.defer="{{ $model }}" label="{{ $comment }}"

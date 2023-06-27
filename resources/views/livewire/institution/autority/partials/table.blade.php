@@ -11,7 +11,7 @@
     <div class="w-full md:w-3/4">
         @php
             $name = 'search';
-            $model = 'institution.' . $name;
+            $model = 'authority.' . $name;
         @endphp
         <span wire:loading
             class="text-black font-semibold fixed	 bottom-0 right-0 z-10 bg-white rounded border shadow mr-2 mb-2 dark:text-gray-100">
