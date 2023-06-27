@@ -40,8 +40,10 @@ class IndexComponent extends Component
 
         $schedules = (!empty($search)) ? $schedules->Where(
             function ($query) use ($search) {
-                $query->orWhere('name', 'like', '%' . $search . '%');
-                $query->orWhere('description', 'like', '%' . $search . '%');
+                $query->orWhere('start_time', 'like', '%' . $search . '%');
+                $query->orWhere('end_time', 'like', '%' . $search . '%');
+                $query->orWhere('schedule_type', 'like', '%' . $search . '%');
+                $query->orWhere('weekday', 'like', '%' . $search . '%');
             }
         )
             : $schedules;
