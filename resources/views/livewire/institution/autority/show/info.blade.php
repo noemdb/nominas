@@ -5,7 +5,7 @@
             <div for="{{ $k }}" class="font-semibold block text-sm text-gray-900 dark:text-white">
                 {{ $v }}</div>
             <p id="{{ $k }}" class="text-lg text-gray-500">
-                {{ $institution->{$k} ?? null }}
+                {{ $authority->{$k} ?? null }}
             </p>
         </li>
     @endforeach
