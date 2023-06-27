@@ -12,7 +12,7 @@ use WireUi\Traits\Actions;
 class IndexComponent extends Component
 {
 
-    // use BankRules;
+    use BankRules;
     use Actions;
     use WithSortingTrait;
     use WithPagination;
