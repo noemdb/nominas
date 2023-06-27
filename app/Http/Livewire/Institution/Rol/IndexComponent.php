@@ -11,7 +11,7 @@ use WireUi\Traits\Actions;
 
 class IndexComponent extends Component
 {
-    // use BankRules;
+    // use RolRules;
     use Actions;
     use WithSortingTrait;
     use WithPagination;
@@ -49,5 +49,89 @@ class IndexComponent extends Component
 
         $rols = $rols->paginate($this->paginate);
         return view('livewire.institution.rol.index-component', ['rols' => $rols]);
+    }
+
+    public function openModal(string $mode)
+    {
+        $this->showModal = true;
+        $this->modeCreate = ($mode == 'create') ? true : false;
+        $this->modeEdit = ($mode == 'edit') ? true : false;
+        $this->modeShow = ($mode == 'show') ? true : false;
+    }
+
+    public function show($id)
+    {
+        $this->rol = Rol::findOrFail($id);
+        $this->openModal('show');
+    }
+
+    public function save()
+    {
+        $this->validate();
+        $this->rol->save();
+        $this->rol = new Rol;
+        $this->showModal = false;
+        $this->notification()->success(
+            $title = 'Felicitaciones!',
+            $description = 'Registro guardado exitósamente.'
+        );
+    }
+
+    public function edit($id)
+    {
+        $this->rol = Rol::findOrFail($id);
+        $this->openModal('edit');
+    }
+
+    public function delete($id)
+    {
+        $rol = Rol::findOrFail($id);
+
+        $rol->delete();
+        $this->rol = new Rol;
+
+        $this->notification([
+            'title'       => 'Felicitaciones!!!',
+            'description' => 'Operación realizada',
+            'icon'        => 'success'
+        ]);
+    }
+
+    public function cancel()
+    {
+        $this->notification([
+            'title'       => 'Has cancelado!',
+            'description' => 'Ningún cambio realizado',
+            'icon'        => 'info'
+        ]);
+        $this->rol = new Rol;
+    }
+
+    public function deleteQuestion($id)
+    {
+        $this->rol = Rol::findOrFail($id);
+
+        if ($this->rol->status_delete) {
+            $this->notification()->confirm([
+                'title'       => 'Estas seguro que desea realizar esta operación?',
+                'description' => 'Eliminar registro?',
+                'icon'        => 'question',
+                'closeButton'        => true,
+                'accept'      => [
+                    'label'  => 'Aceptar',
+                    'method' => 'delete',
+                    'params' => $id,
+                ],
+                'reject' => [
+                    'label'  => 'No, cancelar',
+                    'method' => 'cancel',
+                ],
+            ]);
+        } else {
+            $this->notification()->error(
+                $title = 'Error!, Esta operación no se puede realizar.',
+                $description = 'Este registro tiene asociado otros, en caso de borrar, se pierde también los registro asociados.'
+            );
+        }
     }
 }
