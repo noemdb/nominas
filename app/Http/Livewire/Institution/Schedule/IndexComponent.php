@@ -11,7 +11,7 @@ use WireUi\Traits\Actions;
 
 class IndexComponent extends Component
 {
-    // use ScheduleRules;
+    use ScheduleRules;
     use Actions;
     use WithSortingTrait;
     use WithPagination;
