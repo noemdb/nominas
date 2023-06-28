@@ -48,7 +48,7 @@
         @endphp
 
         <x-native-select label="{{ $comment }}" placeholder="Seleccione" :options="$list_type"
-            wire:model.defer="{{ $model }}" option-key-value />
+            wire:model.defer="{{ $model }}" />
     </div>
 
     <div class="py-4">
