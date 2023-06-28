@@ -15,7 +15,7 @@ trait RolRules
         return [
             'rol.area_id' => $this->list_comment['area_id'],
             'rol.name' => $this->list_comment['name'],
-            'rol.description' => $this->list_comment['name'],
+            'rol.description' => $this->list_comment['description'],
         ];
     }
 }
