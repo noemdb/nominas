@@ -7,3 +7,4 @@ php artisan make:seeder RolSeeder
 
 php artisan make:seeder EmployeeSeeder
 php artisan make:seeder PersonalSeeder
+php artisan make:seeder PositionSeeder

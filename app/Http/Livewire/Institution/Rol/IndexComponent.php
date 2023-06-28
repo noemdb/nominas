@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Institution\Rol;
 
 use App\Http\Livewire\Common\PaginateTrait;
 use App\Http\Livewire\Common\WithSortingTrait;
+use App\Models\Institution\Area;
 use App\Models\Institution\Rol;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -29,7 +30,7 @@ class IndexComponent extends Component
     {
         $this->rol = new Rol;
         $this->list_comment = Rol::COLUMN_COMMENTS;
-        $this->list_areas = Rol::list_area();
+        $this->list_areas = Area::list_area();
     }
 
     public function render()

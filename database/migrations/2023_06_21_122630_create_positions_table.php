@@ -15,12 +15,13 @@ return new class extends Migration
     {
         Schema::create('positions', function (Blueprint $table) {
             $table->id()->comment('Identificador único para cada posición');
-            $table->foreignId('area_id')->constrained()->comment('Área")');
-            $table->foreignId('rol_id')->constrained('roles')->comment('Rol');
+            $table->foreignId('employee_id')->comment('Empleado');
+            $table->foreignId('area_id')->comment('Área")');
+            $table->foreignId('rol_id')->comment('Rol');
             $table->string('name')->comment('Nombre');
             $table->text('description')->nullable()->comment('Descripción');
-            $table->date('start_date')->comment('Fecha de inicio');
-            $table->date('end_date')->nullable()->comment('Fecha de finalización');
+            $table->date('start')->comment('Fecha de inicio');
+            $table->date('end')->nullable()->comment('Fecha de finalización');
             $table->timestamps();
         });
     }

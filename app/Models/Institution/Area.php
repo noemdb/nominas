@@ -25,10 +25,11 @@ class Area extends Model
         return $this->belongsTo(Institution::class);
     }
 
-    public static function list_institution() /* usada para llenar los objetos de formularios select*/
+    public static function list_area() /* usada para llenar los objetos de formularios select*/
     {
-        return Institution::pluck('name', 'id');
+        return Area::pluck('name', 'id');
     }
+
 }
 
 /*

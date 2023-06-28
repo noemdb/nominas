@@ -1,33 +1,93 @@
 {{--
-    'employee_id','address','city','state','zip_code','country','phone_number','home_phone','emergency_contact_name',
-    'emergency_contact_relationship','emergency_contact_phone','emergency_contact_email','other_details',
+    /* 'employee_id','area_id','rol_id','name','description','start','end' */
 --}}
 <x-card>
+
     @if ($modeCreate)
         <div class="py-4">
             @php
                 $name = 'employee_id';
-                $model = 'personal.' . $name;
+                $model = 'position.' . $name;
                 $comment = $list_comment[$name];
             @endphp
             <x-native-select label="{{ $comment }}" placeholder="Seleccione" :options="$list_employee" option-key-value wire:model.defer="{{ $model }}" />
         </div>
+
+        <div class="py-4">
+            @php
+                $name = 'area_id';
+                $model = 'position.' . $name;
+                $comment = $list_comment[$name];
+            @endphp
+            <x-native-select label="{{ $comment }}" placeholder="Seleccione" :options="$list_area" option-key-value wire:model.defer="{{ $model }}" />
+        </div>
+
+        <div class="py-4">
+            @php
+                $name = 'rol_id';
+                $model = 'position.' . $name;
+                $comment = $list_comment[$name];
+            @endphp
+            <x-native-select label="{{ $comment }}" placeholder="Seleccione" :options="$list_rol" option-key-value wire:model.defer="{{ $model }}" />
+        </div>
+
     @endif
     @if ($modeEdit)
         <div class="py-4">
             @php
                 $name = 'employee_id';
-                $model = 'personal.' . $name;
+                $model = 'position.' . $name;
                 $comment = $list_comment[$name];
             @endphp
-            {{ ($personal->employee) ? $personal->employee->name : null}}
+            {{ ($position->employee) ? $position->employee->name : null}}
+            <div>
+                Área: {{ ($position->area) ? $position->area->name : null}} || Rol: {{ ($position->rol) ? $position->rol->name : null}}
+            </div>
         </div>
     @endif
 
     <div class="py-4">
         @php
+            $name = 'name';
+            $model = 'position.' . $name;
+            $comment = $list_comment[$name];
+        @endphp
+        <x-input wire:model.defer="{{ $model }}" label="{{ $comment }}" placeholder="{{ $comment }}" />
+    </div>
+
+    <div class="py-4">
+        @php
+            $name = 'description';
+            $model = 'position.' . $name;
+            $comment = $list_comment[$name];
+        @endphp
+        <x-textarea wire:model.defer="{{ $model }}" label="{{ $comment }}" placeholder="{{ $comment }}" />
+    </div>
+
+    <div class="py-4">
+        @php
+            $name = 'start';
+            $model = 'position.' . $name;
+            $comment = $list_comment[$name];
+        @endphp
+        <x-datetime-picker label="{{ $comment }}" placeholder="{{ $comment }}"
+            wire:model.defer="{{ $model }}" without-time="true" />
+    </div>
+
+    <div class="py-4">
+        @php
+            $name = 'end';
+            $model = 'position.' . $name;
+            $comment = $list_comment[$name];
+        @endphp
+        <x-datetime-picker label="{{ $comment }}" placeholder="{{ $comment }}"
+            wire:model.defer="{{ $model }}" without-time="true" />
+    </div>
+
+    {{-- <div class="py-4">
+        @php
             $name = 'address';
-            $model = 'personal.' . $name;
+            $model = 'position.' . $name;
             $comment = $list_comment[$name];
         @endphp
         <x-textarea wire:model.defer="{{ $model }}" label="{{ $comment }}" placeholder="{{ $comment }}" />
@@ -36,7 +96,7 @@
     <div class="py-4">
         @php
             $name = 'city';
-            $model = 'personal.' . $name;
+            $model = 'position.' . $name;
             $comment = $list_comment[$name];
         @endphp
         <x-input wire:model.defer="{{ $model }}" label="{{ $comment }}" placeholder="{{ $comment }}" />
@@ -45,7 +105,7 @@
     <div class="py-4">
         @php
             $name = 'state';
-            $model = 'personal.' . $name;
+            $model = 'position.' . $name;
             $comment = $list_comment[$name];
         @endphp
         <x-input wire:model.defer="{{ $model }}" label="{{ $comment }}" placeholder="{{ $comment }}" />
@@ -54,7 +114,7 @@
     <div class="py-4">
         @php
             $name = 'country';
-            $model = 'personal.' . $name;
+            $model = 'position.' . $name;
             $comment = $list_comment[$name];
         @endphp
         <x-input wire:model.defer="{{ $model }}" label="{{ $comment }}" placeholder="{{ $comment }}" />
@@ -63,7 +123,7 @@
     <div class="py-4">
         @php
             $name = 'zip_code';
-            $model = 'personal.' . $name;
+            $model = 'position.' . $name;
             $comment = $list_comment[$name];
         @endphp
         <x-inputs.maskable wire:model.defer="{{ $model }}" mask="#####" label="{{ $comment }}" placeholder="{{ $comment }}" />
@@ -72,7 +132,7 @@
     <div class="py-4">
         @php
             $name = 'phone_number';
-            $model = 'personal.' . $name;
+            $model = 'position.' . $name;
             $comment = $list_comment[$name];
         @endphp
         <x-inputs.maskable
@@ -86,7 +146,7 @@
     <div class="py-4">
         @php
             $name = 'home_phone';
-            $model = 'personal.' . $name;
+            $model = 'position.' . $name;
             $comment = $list_comment[$name];
         @endphp
         <x-inputs.maskable
@@ -100,7 +160,7 @@
     <div class="py-4">
         @php
             $name = 'emergency_contact_name';
-            $model = 'personal.' . $name;
+            $model = 'position.' . $name;
             $comment = $list_comment[$name];
         @endphp
         <x-input wire:model.defer="{{ $model }}" label="{{ $comment }}" placeholder="{{ $comment }}" />
@@ -109,7 +169,7 @@
     <div class="py-4">
         @php
             $name = 'emergency_contact_relationship';
-            $model = 'personal.' . $name;
+            $model = 'position.' . $name;
             $comment = $list_comment[$name];
         @endphp
         <x-native-select label="{{ $comment }}" placeholder="Seleccione" :options="$list_relationship"
@@ -119,7 +179,7 @@
     <div class="py-4">
         @php
             $name = 'emergency_contact_phone';
-            $model = 'personal.' . $name;
+            $model = 'position.' . $name;
             $comment = $list_comment[$name];
         @endphp
         <x-inputs.maskable
@@ -133,7 +193,7 @@
     <div class="py-4">
         @php
             $name = 'emergency_contact_email';
-            $model = 'personal.' . $name;
+            $model = 'position.' . $name;
             $comment = $list_comment[$name];
         @endphp
         <x-input wire:model.defer="{{$model}}" label="{{$comment}}" placeholder="{{$comment}}" suffix="@mail.com"/>
@@ -142,7 +202,7 @@
     <div class="py-4">
         @php
             $name = 'other_details';
-            $model = 'personal.' . $name;
+            $model = 'position.' . $name;
             $comment = $list_comment[$name];
         @endphp
         <x-textarea wire:model.defer="{{ $model }}" label="{{ $comment }}" placeholder="{{ $comment }}" />
@@ -151,11 +211,11 @@
     <div class="py-4">
         @php
             $name = 'disability';
-            $model = 'personal.' . $name;
+            $model = 'position.' . $name;
             $comment = $list_comment[$name];
         @endphp
         <x-native-select label="{{$comment}}" placeholder="Seleccione" :options="$list_disability" wire:model.defer="{{$model}}" />
-    </div>
+    </div> --}}
 
     <x-errors />
 

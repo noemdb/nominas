@@ -24,8 +24,8 @@ class Rol extends Model
         return $this->belongsTo(Area::class);
     }
 
-    public static function list_area() /* usada para llenar los objetos de formularios select*/
+    public static function list_rol() /* usada para llenar los objetos de formularios select*/
     {
-        return Area::pluck('name', 'id');
+        return Rol::pluck('name', 'id');
     }
 }
