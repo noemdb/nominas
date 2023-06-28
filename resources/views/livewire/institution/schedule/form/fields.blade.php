@@ -27,7 +27,7 @@
             $comment = $list_comment[$name];
         @endphp
         <x-time-picker wire:model.defer="{{ $model }}" label="{{ $comment }}"
-            placeholder="{{ $comment }}" />
+            placeholder="{{ $comment }}" format="24" />
     </div>
 
     <div class="py-4">
@@ -37,7 +37,7 @@
             $comment = $list_comment[$name];
         @endphp
         <x-time-picker wire:model.defer="{{ $model }}" label="{{ $comment }}"
-            placeholder="{{ $comment }}" />
+            placeholder="{{ $comment }}" format="24" />
     </div>
 
     <div class="py-4">
