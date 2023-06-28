@@ -37,6 +37,11 @@ class Schedule extends Model
     {
         return Area::pluck('name', 'id');
     }
+
+    public static function list_rols() /* usada para llenar los objetos de formularios select*/
+    {
+        return Area::pluck('name', 'id');
+    }
 }
 
 
