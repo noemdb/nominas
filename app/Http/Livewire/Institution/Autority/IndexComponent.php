@@ -43,6 +43,7 @@ class IndexComponent extends Component
         $authorities = (!empty($search)) ? $authorities->Where(
             function ($query) use ($search) {
                 $query->orWhere('name', 'like', '%' . $search . '%');
+                $query->orWhere('ci', 'like', '%' . $search . '%');
                 $query->orWhere('position', 'like', '%' . $search . '%');
                 $query->orWhere('profile_professional', 'like', '%' . $search . '%');
             }

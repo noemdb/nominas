@@ -17,7 +17,7 @@
             class="text-black font-semibold fixed	 bottom-0 right-0 z-10 bg-white rounded border shadow mr-2 mb-2 dark:text-gray-100">
             Cargando...
         </span>
-        @php $label = "Nombre, cargo, perfil profesional" @endphp
+        @php $label = "Nombre, CI, cargo, perfil profesional" @endphp
         <x-input wire:model.debounce.500ms="{{ $name }}" icon="search" label="{{ $label }}"
             placeholder="{{ $label }}">
             <x-slot name="append">
@@ -89,6 +89,7 @@
                     </td>
                     <td class="px-2 py-1 {{ $class['name'] ?? null }}">
                         {{ $item->name }}
+                        <div>{{$item->ci}}</div>
                         <div>
                             <span class="text-xs text-gray-400">{{ $item->institution->name ?? '' }}</span>
                         </div>
@@ -98,7 +99,7 @@
                         {{ $item->profile_professional }}
                     </td>
                     <td class="px-2 py-1 {{ $class['dates'] ?? null }}">
-                        {{ $item->finicial }} - {{ $item->ffinal }}
+                        {{ $item->finicial->format('d-m-Y') }} - {{ $item->ffinal->format('d-m-Y') }}
                     </td>
                     <td class="px-2 py-1 {{ $class['action'] ?? null }}">
                         <div class="flex items-center space-x-end">

@@ -20,6 +20,16 @@
 
     <div class="py-4">
         @php
+            $name = 'ci';
+            $model = 'authority.' . $name;
+            $comment = $list_comment[$name];
+        @endphp
+        <x-inputs.maskable wire:model.defer="{{ $model }}" label="{{ $comment }}" mask="##########"
+            placeholder="{{ $comment }}" />
+    </div>
+
+    <div class="py-4">
+        @php
             $name = 'position';
             $model = 'authority.' . $name;
             $comment = $list_comment[$name];

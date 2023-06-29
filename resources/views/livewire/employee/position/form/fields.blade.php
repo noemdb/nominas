@@ -84,6 +84,17 @@
             wire:model.defer="{{ $model }}" without-time="true" />
     </div>
 
+    <div class="py-4">
+        @php
+            $name = 'status';
+            $model = 'position.' . $name;
+            $comment = $list_comment[$name];
+        @endphp
+        <x-toggle wire:model.defer="model" label="{{ $comment }}" placeholder="{{ $comment }}" wire:model.defer="{{ $model }}"/>
+        {{-- <x-datetime-picker label="{{ $comment }}" placeholder="{{ $comment }}" --}}
+            {{-- wire:model.defer="{{ $model }}" without-time="true" /> --}}
+    </div>
+
     {{-- <div class="py-4">
         @php
             $name = 'address';

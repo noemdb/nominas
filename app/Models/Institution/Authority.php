@@ -14,6 +14,8 @@ class Authority extends Model
         'institution_id', 'name','ci', 'position', 'email', 'phone_number', 'address', 'profile_professional', 'finicial', 'ffinal', 'photo'
     ];
 
+    protected $dates = ['finicial','ffinal'];
+
     use HasFactory;
 
     const COLUMN_COMMENTS = [
@@ -26,7 +28,7 @@ class Authority extends Model
         'address'=>'Dirección',
         'profile_professional'=>'Perfíl profesional',
         'finicial'=>'F.Inicial',
-        'ffinal'=>'F.Inicial',
+        'ffinal'=>'F.Final',
         'photo'=>'Imagen',
     ];
 

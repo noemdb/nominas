@@ -8,7 +8,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class PositionSeeder extends Seeder
+class RequestSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,16 +19,22 @@ class PositionSeeder extends Seeder
     {
         $faker = Factory::create('es_VE');
         for ($i=0; $i < 25; $i++) {
-            DB::table('positions')->insert([
+            DB::table('requests')->insert([
                 'employee_id' => $faker->numberBetween(1,25),
-                'area_id' => $faker->numberBetween(1,25),
-                'rol_id' => $faker->numberBetween(1,25),
-                'name' =>$faker->name,
                 'description' =>$faker->paragraphs(3, true),
+                'days' =>$faker->numberBetween(1,25),
                 'start' => Carbon::today()->addDays(rand(1, 180))->format('Y-m-d'),
                 'end' => Carbon::today()->addDays(rand(180, 365))->format('Y-m-d'),
-                'status' =>$faker->numberBetween(0,1),
+                'payout' =>$faker->numberBetween(0,1),
             ]);
         }
     }
 }
+/*
+employee_id
+description
+days
+start
+end
+payout
+*/

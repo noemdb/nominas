@@ -14,6 +14,7 @@ trait Rules
         'position.description' => 'required|string',
         'position.start' => 'required|date',
         'position.end' => 'required|date',
+        'position.status' => 'required|boolean',
     ];
 
     protected function validationAttributes()
@@ -26,6 +27,7 @@ trait Rules
             'position.description' => $this->list_comment['description'],
             'position.start' => $this->list_comment['start'],
             'position.end' => $this->list_comment['end'],
+            'position.status' => $this->list_comment['status'],
 
         ];
     }

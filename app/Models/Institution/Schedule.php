@@ -15,17 +15,22 @@ class Schedule extends Model
 
     const COLUMN_COMMENTS = [
         'weekday'=>'Día de la semana',
+        'hours_worked'=>'Horas de trabajo',
         'start_time'=>'Hora de inicio',
         'end_time'=>'Hora de finalización',
         'schedule_type'=>'Tipo de horario(Diurno/Nocturno)',
         'area_id'=>'Área',
         'rol_id'=>'Rol',
+        'start'=>'F.Inicial',
+        'end'=>'F.Final',
         'notes'=>'Notas',
     ];
 
+    protected $dates = ['start','end'];
+
     public static function list_type() /* usada para llenar los objetos de formularios select*/
     {
-        return ['Diurno','Nocturno','Diurno/Nocturno'];
+        return ['Diurno','Nocturno','Diurno/Nocturno','Otro'];
     }
 
     public function institution()

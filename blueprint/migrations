@@ -9,3 +9,9 @@ php artisan make:model 'Employee' -m
 php artisan make:model 'Employee\Personal' -m
 php artisan make:model 'Employee\Position' -m
 php artisan make:model 'Employee\Information' -m
+php artisan make:model 'Employee\Attendance' -m
+
+php artisan make:model 'Vacation\Request' -m
+php artisan make:model 'Vacation\Planning' -m
+php artisan make:model 'Vacation\Approved' -m
+

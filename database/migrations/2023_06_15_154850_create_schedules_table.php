@@ -18,9 +18,12 @@ return new class extends Migration
             $table->string('weekday')->comment('Día de la semana');
             $table->time('start_time')->comment('Hora de inicio');
             $table->time('end_time')->comment('Hora de finalización');
+            $table->integer('hours_worked')->comment('Hora de trabajo');
             $table->string('schedule_type')->comment('Tipo de horario(Diurno/Nocturno)');
             $table->foreignId('area_id')->comment('Área');
             $table->foreignId('rol_id')->comment('Rol');
+            $table->date('start')->comment('F.Inicial');
+            $table->date('end')->comment('F.Final');
             $table->text('notes')->nullable()->comment('Notas');
             $table->timestamps();
         });

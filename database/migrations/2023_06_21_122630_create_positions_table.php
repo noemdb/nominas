@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('description')->nullable()->comment('Descripción');
             $table->date('start')->comment('Fecha de inicio');
             $table->date('end')->nullable()->comment('Fecha de finalización');
+            $table->boolean('status')->default(true)->comment('Activo/Inactivo');
             $table->timestamps();
         });
     }
