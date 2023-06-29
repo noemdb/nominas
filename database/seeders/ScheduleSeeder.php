@@ -22,8 +22,8 @@ class ScheduleSeeder extends Seeder
             // $hora = date('H:i', $timestamp);
             DB::table('schedules')->insert([
                 'weekday' => $faker->numberBetween(1,25),
-                'start_time' => $faker->time(),
-                'end_time' => $faker->time(),
+                'start_time' => $faker->dateTime()->format('H:i'),
+                'end_time' => $faker->dateTime()->format('H:i'),
                 'schedule_type' => $faker->word,
                 'area_id' => $faker->numberBetween(1,25),
                 'rol_id' => $faker->numberBetween(1,25),
