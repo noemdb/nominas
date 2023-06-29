@@ -9,6 +9,8 @@ php artisan make:seeder EmployeeSeeder
 php artisan make:seeder PersonalSeeder
 php artisan make:seeder PositionSeeder
 
+////////////////////////////////////
 
-
+php artisan make:seeder PlanningSeeder
 php artisan make:seeder RequestSeeder
+php artisan make:seeder ApprovedSeeder

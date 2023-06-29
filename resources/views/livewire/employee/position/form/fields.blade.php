@@ -1,9 +1,10 @@
 {{--
     /* 'employee_id','area_id','rol_id','name','description','start','end' */
 --}}
-<x-card>
+<x-card class="!py-2">
 
     @if ($modeCreate)
+
         <div class="py-4">
             @php
                 $name = 'employee_id';
@@ -13,7 +14,7 @@
             <x-native-select label="{{ $comment }}" placeholder="Seleccione" :options="$list_employee" option-key-value wire:model.defer="{{ $model }}" />
         </div>
 
-        <div class="py-4">
+        <div class="py-4 ">
             @php
                 $name = 'area_id';
                 $model = 'position.' . $name;
@@ -33,7 +34,7 @@
 
     @endif
     @if ($modeEdit)
-        <div class="py-4">
+        <div class="py-4 border rounded p-2 bg-gray-100 font-semibold text-gray-500">
             @php
                 $name = 'employee_id';
                 $model = 'position.' . $name;
