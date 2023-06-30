@@ -34,12 +34,14 @@ class IndexComponent extends Component
     public function render()
     {
         $search = $this->search;
-        $previousWorks = PreviousWork::select('previous_works.*');
+        $previousWorks = PreviousWork::select('previous_works.*')->join('employees', 'employees.id', '=', 'previous_works.employee_id');
 
         $previousWorks = (!empty($search)) ? $previousWorks->Where(
             function ($query) use ($search) {
-                $query->orWhere('name', 'like', '%' . $search . '%');
-                $query->orWhere('description', 'like', '%' . $search . '%');
+                $query->orWhere('employees.ci', 'like', '%' . $search . '%');
+                $query->orWhere('employees.name', 'like', '%' . $search . '%');
+                $query->orWhere('previous_works.company_name', 'like', '%' . $search . '%');
+                $query->orWhere('previous_works.position', 'like', '%' . $search . '%');
             }
         )
             : $previousWorks;

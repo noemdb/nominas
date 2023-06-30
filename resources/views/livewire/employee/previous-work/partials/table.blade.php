@@ -17,7 +17,7 @@
             class="text-black font-semibold fixed	 bottom-0 right-0 z-10 bg-white rounded border shadow mr-2 mb-2 dark:text-gray-100">
             Cargando...
         </span>
-        @php $label = "Nombre, número de cuenta, tipo de cuenta" @endphp
+        @php $label = "Nombre, cédula de identidad, empleador, cargo" @endphp
         <x-input wire:model.debounce.500ms="{{ $name }}" icon="search" label="{{ $label }}"
             placeholder="{{ $label }}">
             <x-slot name="append">
