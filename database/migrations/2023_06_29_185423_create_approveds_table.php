@@ -14,8 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('approveds', function (Blueprint $table) {
-            $table->id();
+            $table->id()->comment('Identificador');
+            $table->string('type')->comment('Tipo (Anuales, Colectivas)');
+            $table->foreignId('employee_id')->nullable()->comment('Empleado');
+            $table->foreignId('request_id')->nullable()->comment('Empleado');
+            $table->foreignId('formulation_id')->nullable()->comment('Fórmula');
+            $table->string('description')->nullable()->comment('Descripción');
             $table->timestamps();
+
         });
     }
 

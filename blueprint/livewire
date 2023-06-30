@@ -48,6 +48,7 @@ php artisan make:livewire 'SocialBenefit/Report/IndexComponent'
 php artisan make:livewire 'Vacation/IndexComponent'
 php artisan make:livewire 'Vacation/Request/IndexComponent'
 php artisan make:livewire 'Vacation/Register/IndexComponent'
+php artisan make:livewire 'Vacation/Approved/IndexComponent'
 php artisan make:livewire 'Vacation/Planning/IndexComponent'
 php artisan make:livewire 'Vacation/Report/IndexComponent'
 

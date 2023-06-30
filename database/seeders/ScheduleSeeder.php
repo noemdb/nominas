@@ -22,7 +22,7 @@ class ScheduleSeeder extends Seeder
         for ($i=0; $i < 25; $i++) {
             $arr = Schedule::list_type();
             DB::table('schedules')->insert([
-                'weekday' => $faker->numberBetween(1,25),
+                'weekday' => $faker->numberBetween(1,7),
                 'hours_worked' => $faker->numberBetween(1,8),
                 'start_time' => $faker->dateTime()->format('H:i'),
                 'end_time' => $faker->dateTime()->format('H:i'),

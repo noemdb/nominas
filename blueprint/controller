@@ -46,6 +46,7 @@ php artisan make:controller 'SocialBenefit\Report\IndexController'
 php artisan make:controller 'Vacation\IndexController'
 php artisan make:controller 'Vacation\Request\IndexController'
 php artisan make:controller 'Vacation\Register\IndexController'
+php artisan make:controller 'Vacation\Approved\IndexController'
 php artisan make:controller 'Vacation\Planning\IndexController'
 php artisan make:controller 'Vacation\Report\IndexController'
 

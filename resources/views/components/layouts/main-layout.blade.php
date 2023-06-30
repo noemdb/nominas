@@ -68,8 +68,8 @@
             'icon' => 'icons.calendar',
             'childrens' => [
                 ['label' => 'Solicitud', 'route' => route('vacations.requests')],
-                ['label' => 'Registro', 'route' => route('vacations.registers')],
-                ['label' => 'Planificación', 'route' => route('vacations.plannings')],
+                ['label' => 'Aprobación', 'route' => route('vacations.approveds')],
+                // ['label' => 'Planificación', 'route' => route('vacations.plannings')],
                 ['label' => 'Reportes y estadísticas', 'route' => route('vacations.reports')],
             ],
         ],

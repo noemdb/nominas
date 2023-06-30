@@ -59,6 +59,11 @@ class Employee extends Model
 }
 
 /*
+Method
+accrual_start_date: La fecha en que comienza la acumulación de días de vacaciones para el empleado, esta realacionada con hire_date
+*/
+
+/*
 'institution_id','hire_date','termination_date','status','email'
 
 institution_id
