@@ -1,5 +1,5 @@
 <x-modal wire:model.defer="showModal">
-    <x-card title="Bank">
+    <x-card title="Banco">
         @if ($modeCreate)
             @include('livewire.institution.bank.form.create')
         @endif
