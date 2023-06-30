@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Employee\PreviousWork;
 
 use App\Http\Livewire\Common\PaginateTrait;
 use App\Http\Livewire\Common\WithSortingTrait;
+use App\Models\Employee;
 use App\Models\Employee\PreviousWork;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -19,6 +20,7 @@ class IndexComponent extends Component
 
     public PreviousWork $previousWork;
     public $list_comment;
+    public $list_employee;
     public $showModal = false;
     public $modeCreate = false;
     public $modeEdit = false;
@@ -29,6 +31,7 @@ class IndexComponent extends Component
     {
         $this->previousWork = new PreviousWork;
         $this->list_comment = PreviousWork::COLUMN_COMMENTS;
+        $this->list_employee = Employee::list_employee();
     }
 
     public function render()
