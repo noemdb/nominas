@@ -1,13 +1,13 @@
 <x-modal wire:model.defer="showModal">
-    <x-card title="Banco">
+    <x-card title="Trabajos previos">
         @if ($modeCreate)
-            @include('livewire.institution.bank.form.create')
+            @include('livewire.employee.previous-work.form.create')
         @endif
         @if ($modeEdit)
-            @include('livewire.institution.bank.form.edit')
+            @include('livewire.employee.previous-work.form.edit')
         @endif
         @if ($modeShow)
-            @include('livewire.institution.bank.show.info')
+            @include('livewire.employee.previous-work.show.info')
         @endif
 
         @if ($modeCreate || $modeEdit)
