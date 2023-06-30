@@ -9,6 +9,7 @@ php artisan make:seeder EmployeeSeeder
 php artisan make:seeder PersonalSeeder
 php artisan make:seeder PositionSeeder
 php artisan make:seeder PreviousWorkSeeder
+php artisan make:seeder SocialSecuritySeeder
 
 ////////////////////////////////////
 

@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PersonalSeeder::class);
         $this->call(PositionSeeder::class);
         $this->call(PreviousWorkSeeder::class);
+        $this->call(SocialSecuritySeeder::class);
 
         ///////////////////////////////////
         $this->call(RequestSeeder::class);
