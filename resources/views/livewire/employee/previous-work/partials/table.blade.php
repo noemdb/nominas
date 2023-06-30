@@ -1,8 +1,9 @@
 @php
     $class['index'] = 'hidden sm:table-cell';
-    $class['name'] = '';
-    $class['account_number'] = 'hidden md:table-cell';
-    $class['account_type'] = 'hidden lg:table-cell';
+    $class['employee_id'] = '';
+    $class['company_name'] = '';
+    $class['position'] = 'hidden md:table-cell';
+    $class['dates'] = 'hidden lg:table-cell';
     $class['action'] = '';
 @endphp
 
@@ -38,31 +39,40 @@
                 <th class="px-2 py-1 {{ $class['index'] ?? null }}">
                     ID
                 </th>
-                <th class="px-2 py-1 {{ $class['name'] ?? null }}">
+                <th class="px-2 py-1 {{ $class['employee_id'] ?? null }}">
                     <div class="flex justify-between">
-                        @php $name = 'name' @endphp
+                        @php $name = 'employee_id' @endphp
                         <span>{{ $list_comment[$name] ?? '' }}</span>
                         @if ($previousWorks->isNotEmpty())
                             <x-elements.crud.sort-by field="{{ $name }}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
                         @endif
                     </div>
                 </th>
-                <th class="px-2 py-1 {{ $class['account_number'] ?? null }}">
+                <th class="px-2 py-1 {{ $class['company_name'] ?? null }}">
                     <div class="flex justify-between">
-                        @php $name = 'account_number' @endphp
+                        @php $name = 'company_name' @endphp
                         <span>{{ $list_comment[$name] ?? '' }}</span>
                         @if ($previousWorks->isNotEmpty())
                             <x-elements.crud.sort-by field="{{ $name }}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
                         @endif
                     </div>
                 </th>
-                <th class="px-2 py-1 {{ $class['account_type'] ?? null }}">
+                <th class="px-2 py-1 {{ $class['position'] ?? null }}">
                     <div class="flex justify-between">
-                        @php $name = 'account_type' @endphp
+                        @php $name = 'position' @endphp
                         <span>{{ $list_comment[$name] ?? '' }}</span>
                         @if ($previousWorks->isNotEmpty())
                             <x-elements.crud.sort-by field="{{ $name }}" :sortBy="$sortBy" :sortDirection="$sortDirection" />
                         @endif
+                    </div>
+                </th>
+                <th class="px-2 py-1 {{ $class['dates'] ?? null }}">
+                    <div class="flex justify-between">
+                        @php
+                            $name = 'start_date';
+                            $name2 = 'end_date';
+                        @endphp
+                        <span>{{ $list_comment[$name] . ' - ' . $list_comment[$name2] ?? '' }}</span>
                     </div>
                 </th>
                 <th class="px-2 py-1 {{ $class['action'] ?? null }}">
@@ -77,15 +87,15 @@
                     <td class="px-2 py-1 {{ $class['index'] ?? null }}">
                         {{ $loop->iteration }}
                     </td>
-                    <td class="px-2 py-1 {{ $class['name'] ?? null }}">
-                        {{ $item->name }}
-                        <div>
-                            <span class="text-xs text-gray-400">{{ $item->institution->name ?? '' }}</span>
-                        </div>
+                    <td class="px-2 py-1 {{ $class['employee_id'] ?? null }}">
+                        {{ $item->employee->name }}
                     </td>
-                    <td class="px-2 py-1 {{ $class['account_number'] ?? null }}">{{ $item->account_number }}</td>
-                    <td class="px-2 py-1 {{ $class['account_type'] ?? null }}">
-                        {{ $item->account_type }}
+                    <td class="px-2 py-1 {{ $class['company_name'] ?? null }}">
+                        {{ $item->company_name }}
+                    </td>
+                    <td class="px-2 py-1 {{ $class['position'] ?? null }}">{{ $item->position }}</td>
+                    <td class="px-2 py-1 {{ $class['dates'] ?? null }}">
+                        {{ $item->start_date }} | {{ $item->end_date }}
                     </td>
                     <td class="px-2 py-1 {{ $class['action'] ?? null }}">
                         <div class="flex items-center space-x-end">
