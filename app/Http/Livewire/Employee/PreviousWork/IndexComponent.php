@@ -12,7 +12,7 @@ use WireUi\Traits\Actions;
 
 class IndexComponent extends Component
 {
-    // use BankRules;
+    // use PreviousWorkRules;
     use Actions;
     use WithSortingTrait;
     use WithPagination;
@@ -53,5 +53,89 @@ class IndexComponent extends Component
 
         $previousWorks = $previousWorks->paginate($this->paginate);
         return view('livewire.employee.previous-work.index-component', ['previousWorks' => $previousWorks]);
+    }
+
+    public function openModal(string $mode)
+    {
+        $this->showModal = true;
+        $this->modeCreate = ($mode == 'create') ? true : false;
+        $this->modeEdit = ($mode == 'edit') ? true : false;
+        $this->modeShow = ($mode == 'show') ? true : false;
+    }
+
+    public function show($id)
+    {
+        $this->previousWork = PreviousWork::findOrFail($id);
+        $this->openModal('show');
+    }
+
+    public function save()
+    {
+        $this->validate();
+        $this->previousWork->save();
+        $this->previousWork = new PreviousWork;
+        $this->showModal = false;
+        $this->notification()->success(
+            $title = 'Felicitaciones!',
+            $description = 'Registro guardado exitósamente.'
+        );
+    }
+
+    public function edit($id)
+    {
+        $this->previousWork = PreviousWork::findOrFail($id);
+        $this->openModal('edit');
+    }
+
+    public function delete($id)
+    {
+        $previousWork = PreviousWork::findOrFail($id);
+
+        $previousWork->delete();
+        $this->previousWork = new PreviousWork;
+
+        $this->notification([
+            'title'       => 'Felicitaciones!!!',
+            'description' => 'Operación realizada',
+            'icon'        => 'success'
+        ]);
+    }
+
+    public function cancel()
+    {
+        $this->notification([
+            'title'       => 'Has cancelado!',
+            'description' => 'Ningún cambio realizado',
+            'icon'        => 'info'
+        ]);
+        $this->previousWork = new PreviousWork;
+    }
+
+    public function deleteQuestion($id)
+    {
+        $this->previousWork = PreviousWork::findOrFail($id);
+
+        if ($this->previousWork->status_delete) {
+            $this->notification()->confirm([
+                'title'       => 'Estas seguro que desea realizar esta operación?',
+                'description' => 'Eliminar registro?',
+                'icon'        => 'question',
+                'closeButton'        => true,
+                'accept'      => [
+                    'label'  => 'Aceptar',
+                    'method' => 'delete',
+                    'params' => $id,
+                ],
+                'reject' => [
+                    'label'  => 'No, cancelar',
+                    'method' => 'cancel',
+                ],
+            ]);
+        } else {
+            $this->notification()->error(
+                $title = 'Error!, Esta operación no se puede realizar.',
+                $description = 'Este registro tiene asociado otros, en caso de borrar, se pierde también los registro asociados.'
+            );
+        }
     }
 }
