@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Institution\Area;
 
 use App\Http\Livewire\Common\PaginateTrait;
 use App\Http\Livewire\Common\WithSortingTrait;
+use App\Models\Institution;
 use App\Models\Institution\Area;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -29,7 +30,7 @@ class IndexComponent extends Component
     public function mount()
     {
         $this->area = new Area; //dd($this->area);
-        $this->list_institution = Area::list_institution(); //dd($this->list_institution);
+        $this->list_institution = Institution::list_institution(); //dd($this->list_institution);
         $this->list_comment = Area::COLUMN_COMMENTS; // dd($this->list_comment);
     }
 
