@@ -87,8 +87,11 @@
                     <td class="px-2 py-1 {{ $class['index'] ?? null }}">
                         {{ $loop->iteration }}
                     </td>
-                    <td class="px-2 py-1 {{ $class['employee_id'] ?? null }}">
-                        {{ $item->employee->name }}
+                    <td class="px-2 py-1 flex flex-col {{ $class['employee_id'] ?? null }}">
+                        <span>
+                            {{ $item->employee->name }}
+                        </span>
+                        <span class="text-xs text-gray-400">{{$item->employee->ci}}</span>
                     </td>
                     <td class="px-2 py-1 {{ $class['company_name'] ?? null }}">
                         {{ $item->company_name }}
