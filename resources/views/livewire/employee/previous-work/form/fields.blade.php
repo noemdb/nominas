@@ -33,8 +33,8 @@
             $model = 'previous_works.' . $name;
             $comment = $list_comment[$name];
         @endphp
-        <x-time-picker wire:model.defer="{{ $model }}" label="{{ $comment }}"
-            placeholder="{{ $comment }}" format="24" />
+        <x-datetime-picker wire:model.defer="{{ $model }}" label="{{ $comment }}"
+            placeholder="{{ $comment }}" without-time="true" />
     </div>
 
     <div class="py-4">
@@ -43,8 +43,8 @@
             $model = 'previous_works.' . $name;
             $comment = $list_comment[$name];
         @endphp
-        <x-time-picker wire:model.defer="{{ $model }}" label="{{ $comment }}"
-            placeholder="{{ $comment }}" format="24" />
+        <x-datetime-picker wire:model.defer="{{ $model }}" label="{{ $comment }}"
+            placeholder="{{ $comment }}" without-time="true" />
     </div>
 
     <div class="py-4">
