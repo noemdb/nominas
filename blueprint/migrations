@@ -9,7 +9,25 @@ php artisan make:model 'Employee' -m
 php artisan make:model 'Employee\Personal' -m
 php artisan make:model 'Employee\Position' -m
 php artisan make:model 'Employee\Information' -m
+php artisan make:model 'Employee\PreviousWork' -m
+php artisan make:model 'Employee\SocialSecurity' -m
+php artisan make:model 'Employee\Training' -m
 php artisan make:model 'Employee\Attendance' -m
+
+php artisan make:model 'Payroll\Salary' -m
+php artisan make:model 'Payroll\Deduction' -m
+php artisan make:model 'Payroll\Bonification' -m
+php artisan make:model 'Payroll\Incentive' -m
+php artisan make:model 'Payroll\Overtime' -m
+php artisan make:model 'Payroll\Holidays' -m
+php artisan make:model 'Payroll\Tax' -m
+php artisan make:model 'Payroll\Vacation' -m
+
+php artisan make:model 'Calculation\Formulation' -m
+php artisan make:model 'Calculation\Variable' -m
+php artisan make:model 'Calculation\Term' -m
+php artisan make:model 'Calculation\Operand' -m
+php artisan make:model 'Calculation\Operator' -m
 
 php artisan make:model 'Vacation\Planning' -m
 php artisan make:model 'Vacation\Request' -m

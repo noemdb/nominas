@@ -5,24 +5,22 @@ php artisan make:livewire 'Institution/Rol/IndexComponent'
 php artisan make:livewire 'Institution/Area/IndexComponent'
 php artisan make:livewire 'Institution/Special/IndexComponent'
 
-
 **********************************************************************************
 php artisan make:livewire 'Employee/IndexComponent'
 php artisan make:livewire 'Employee/Personal/IndexComponent'
 php artisan make:livewire 'Employee/Position/IndexComponent'
 php artisan make:livewire 'Employee/Information/IndexComponent'
-php artisan make:livewire 'Employee/Salary/IndexComponent'
+php artisan make:livewire 'Employee/PreviousWork/IndexComponent'
 php artisan make:livewire 'Employee/SocialSecurity/IndexComponent'
 php artisan make:livewire 'Employee/Training/IndexComponent'
 php artisan make:livewire 'Employee/Documentation/IndexComponent'
-
+php artisan make:livewire 'Employee/Attendance/IndexComponent'
 
 **********************************************************************************
 php artisan make:livewire 'Formulation/IndexComponent'
 php artisan make:livewire 'Formulation/Payroll/IndexComponent'
 php artisan make:livewire 'Formulation/SocialBenefit/IndexComponent'
 php artisan make:livewire 'Formulation/Vacation/IndexComponent'
-
 
 **********************************************************************************
 php artisan make:livewire 'PayrollAccounting/IndexComponent'
@@ -36,13 +34,23 @@ php artisan make:livewire 'PayrollAccounting/Holiday/IndexComponent'
 php artisan make:livewire 'PayrollAccounting/Vacation/IndexComponent'
 php artisan make:livewire 'PayrollAccounting/PaymentVoucher/IndexComponent'
 
+**********************************************************************************
+php artisan make:livewire 'Payroll/IndexComponent'
+php artisan make:livewire 'Payroll/Salary/IndexComponent'
+php artisan make:livewire 'Payroll/Deduction/IndexComponent'
+php artisan make:livewire 'Payroll/Tax/IndexComponent'
+php artisan make:livewire 'Payroll/Bonification/IndexComponent'
+php artisan make:livewire 'Payroll/Incentive/IndexComponent'
+php artisan make:livewire 'Payroll/Overtime/IndexComponent'
+php artisan make:livewire 'Payroll/Holiday/IndexComponent'
+php artisan make:livewire 'Payroll/Vacation/IndexComponent'
+php artisan make:livewire 'Payroll/PaymentVoucher/IndexComponent'
 
 **********************************************************************************
 php artisan make:livewire 'SocialBenefit/IndexComponent'
 php artisan make:livewire 'SocialBenefit/Register/IndexComponent'
 php artisan make:livewire 'SocialBenefit/LoanManagement/IndexComponent'
 php artisan make:livewire 'SocialBenefit/Report/IndexComponent'
-
 
 **********************************************************************************
 php artisan make:livewire 'Vacation/IndexComponent'
@@ -52,14 +60,12 @@ php artisan make:livewire 'Vacation/Approved/IndexComponent'
 php artisan make:livewire 'Vacation/Planning/IndexComponent'
 php artisan make:livewire 'Vacation/Report/IndexComponent'
 
-
 **********************************************************************************
 php artisan make:livewire 'Absence/IndexComponent'
 php artisan make:livewire 'Absence/Request/IndexComponent'
 php artisan make:livewire 'Absence/Register/IndexComponent'
 php artisan make:livewire 'Absence/Policy/IndexComponent'
 php artisan make:livewire 'Absence/Report/IndexComponent'
-
 
 **********************************************************************************
 php artisan make:livewire 'Report/IndexComponent'
@@ -71,7 +77,6 @@ php artisan make:livewire 'Report/LegalCompliance/IndexComponent'
 php artisan make:livewire 'Report/SalaryComparison/IndexComponent'
 php artisan make:livewire 'Report/ProcessEfficiency/IndexComponent'
 php artisan make:livewire 'Report/Scheduled/IndexComponent'
-
 
 **********************************************************************************
 php artisan make:livewire 'Indicator/IndexComponent'

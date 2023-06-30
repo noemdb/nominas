@@ -21,7 +21,6 @@ return new class extends Migration
             $table->foreignId('formulation_id')->nullable()->comment('Fórmula');
             $table->string('description')->nullable()->comment('Descripción');
             $table->timestamps();
-
         });
     }
 

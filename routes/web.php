@@ -10,6 +10,7 @@ require(__DIR__ . '/app/institutions.php');
 require(__DIR__ . '/app/employees.php');
 require(__DIR__ . '/app/formulations.php');
 require(__DIR__ . '/app/payroll-accountings.php');
+// require(__DIR__ . '/app/payrolls.php');
 require(__DIR__ . '/app/social-benefits.php');
 require(__DIR__ . '/app/vacations.php');
 require(__DIR__ . '/app/absences.php');
