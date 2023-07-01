@@ -18,7 +18,7 @@ class IndexComponent extends Component
     use WithPagination;
     use PaginateTrait;
 
-    public PreviousWork $previous_works;
+    public PreviousWork $previous_work;
     public $list_comment;
     public $list_employee;
     public $showModal = false;
@@ -29,7 +29,7 @@ class IndexComponent extends Component
 
     public function mount()
     {
-        $this->previous_works = new PreviousWork;
+        $this->previous_work = new PreviousWork;
         $this->list_comment = PreviousWork::COLUMN_COMMENTS;
         $this->list_employee = Employee::list_employee();
     }
@@ -65,15 +65,15 @@ class IndexComponent extends Component
 
     public function show($id)
     {
-        $this->previous_works = PreviousWork::findOrFail($id);
+        $this->previous_work = PreviousWork::findOrFail($id);
         $this->openModal('show');
     }
 
     public function save()
     {
         $this->validate();
-        $this->previous_works->save();
-        $this->previous_works = new PreviousWork;
+        $this->previous_work->save();
+        $this->previous_work = new PreviousWork;
         $this->showModal = false;
         $this->notification()->success(
             $title = 'Felicitaciones!',
@@ -83,16 +83,16 @@ class IndexComponent extends Component
 
     public function edit($id)
     {
-        $this->previous_works = PreviousWork::findOrFail($id);
+        $this->previous_work = PreviousWork::findOrFail($id);
         $this->openModal('edit');
     }
 
     public function delete($id)
     {
-        $previous_works = PreviousWork::findOrFail($id);
+        $previous_work = PreviousWork::findOrFail($id);
 
-        $previous_works->delete();
-        $this->previous_works = new PreviousWork;
+        $previous_work->delete();
+        $this->previous_work = new PreviousWork;
 
         $this->notification([
             'title'       => 'Felicitaciones!!!',
@@ -108,14 +108,14 @@ class IndexComponent extends Component
             'description' => 'Ningún cambio realizado',
             'icon'        => 'info'
         ]);
-        $this->previous_works = new PreviousWork;
+        $this->previous_work = new PreviousWork;
     }
 
     public function deleteQuestion($id)
     {
-        $this->previous_works = PreviousWork::findOrFail($id);
+        $this->previous_work = PreviousWork::findOrFail($id);
 
-        if ($this->previous_works->status_delete) {
+        if ($this->previous_work->status_delete) {
             $this->notification()->confirm([
                 'title'       => 'Estas seguro que desea realizar esta operación?',
                 'description' => 'Eliminar registro?',

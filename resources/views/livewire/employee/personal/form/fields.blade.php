@@ -77,7 +77,7 @@
         @endphp
         <x-inputs.maskable
             label="{{$comment}}"
-            mask="##########"
+            mask="(###) ###-####"
             placeholder="{{$comment}}"
             wire:model.defer="{{ $model }}"
         />
@@ -91,7 +91,7 @@
         @endphp
         <x-inputs.maskable
             label="{{$comment}}"
-            mask="##########"
+            mask="(###) ###-####"
             placeholder="{{$comment}}"
             wire:model.defer="{{ $model }}"
         />
@@ -124,7 +124,7 @@
         @endphp
         <x-inputs.maskable
             label="{{$comment}}"
-            mask="##########"
+            mask="(###) ###-####"
             placeholder="{{$comment}}"
             wire:model.defer="{{ $model }}"
         />
