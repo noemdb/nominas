@@ -18,6 +18,7 @@ php artisan make:livewire 'Employee/Attendance/IndexComponent'
 
 **********************************************************************************
 php artisan make:livewire 'Formulation/IndexComponent'
+php artisan make:livewire 'Formulation/Report/IndexComponent'
 php artisan make:livewire 'Formulation/Payroll/IndexComponent'
 php artisan make:livewire 'Formulation/SocialBenefit/IndexComponent'
 php artisan make:livewire 'Formulation/Vacation/IndexComponent'

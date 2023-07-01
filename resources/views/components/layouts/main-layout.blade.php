@@ -33,9 +33,11 @@
             'label' => 'Formulaciones',
             'icon' => 'icons.math',
             'childrens' => [
-                ['label' => 'Nómina', 'route' => route('formulations.payrolls')],
-                ['label' => 'Prestaciones sociales', 'route' => route('formulations.social-benefits')],
-                ['label' => 'Vacaciones', 'route' => route('formulations.vacations')],
+                ['label' => 'Inicio', 'route' => route('formulations')],
+                ['label' => 'Reportes y estadísticas', 'route' => route('formulations.reports')],
+                // ['label' => 'Nómina', 'route' => route('formulations.payrolls')],
+                // ['label' => 'Prestaciones sociales', 'route' => route('formulations.social-benefits')],
+                // ['label' => 'Vacaciones', 'route' => route('formulations.vacations')],
             ],
         ],
         [

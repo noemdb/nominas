@@ -21,6 +21,7 @@ php artisan make:controller 'Employee\Attendance\IndexController'
 
 
 php artisan make:controller 'Formulation\IndexController'
+php artisan make:controller 'Formulation\Report\IndexController'
 php artisan make:controller 'Formulation\Payroll\IndexController'
 php artisan make:controller 'Formulation\SocialBenefit\IndexController'
 php artisan make:controller 'Formulation\Vacation\IndexController'
