@@ -8,7 +8,7 @@
                 $model = 'formulation.' . $name;
                 $comment = $list_comment[$name];
             @endphp
-            <x-native-select label="{{ $comment }}" placeholder="Seleccione" :options="$list_employee" option-key-value wire:model.defer="{{ $model }}" />
+            <x-native-select label="{{ $comment }}" placeholder="Seleccione" :options="$list_institution" option-key-value wire:model.defer="{{ $model }}" />
         </div>
     @endif
     @if ($modeEdit)
