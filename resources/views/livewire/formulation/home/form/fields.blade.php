@@ -8,7 +8,8 @@
                 $model = 'formulation.' . $name;
                 $comment = $list_comment[$name];
             @endphp
-            <x-native-select label="{{ $comment }}" placeholder="Seleccione" :options="$list_institution" option-key-value wire:model.defer="{{ $model }}" />
+            <x-native-select label="{{ $comment }}" placeholder="Seleccione" :options="$list_institution" option-key-value
+                wire:model.defer="{{ $model }}" />
         </div>
     @endif
     @if ($modeEdit)
@@ -19,7 +20,7 @@
                 $comment = $list_comment[$name];
             @endphp
             <div class="font-semibold text-gray-400">Institución:</div>
-            <div class="font-semibold">{{ ($formulation->institution) ? $formulation->institution->name : null}}</div>
+            <div class="font-semibold">{{ $formulation->institution ? $formulation->institution->name : null }}</div>
 
         </div>
     @endif
@@ -40,8 +41,7 @@
             $model = 'formulation.' . $name;
             $comment = $list_comment[$name];
         @endphp
-        <x-input wire:model.defer="{{ $model }}" label="{{ $comment }}" placeholder="{{ $comment }}"
-        />
+        <x-input wire:model.defer="{{ $model }}" label="{{ $comment }}" placeholder="{{ $comment }}" />
     </div>
 
     <div class="py-4">
@@ -50,8 +50,8 @@
             $model = 'formulation.' . $name;
             $comment = $list_comment[$name];
         @endphp
-        <x-textarea wire:model.defer="{{ $model }}" label="{{ $comment }}" placeholder="{{ $comment }}"
-        />
+        <x-textarea wire:model.defer="{{ $model }}" label="{{ $comment }}"
+            placeholder="{{ $comment }}" />
     </div>
 
     <div class="py-4">
@@ -60,8 +60,8 @@
             $model = 'formulation.' . $name;
             $comment = $list_comment[$name];
         @endphp
-        <x-textarea wire:model.defer="{{ $model }}" label="{{ $comment }}" placeholder="{{ $comment }}"
-        />
+        <x-textarea wire:model.defer="{{ $model }}" label="{{ $comment }}"
+            placeholder="{{ $comment }}" />
     </div>
 
     <x-errors />
