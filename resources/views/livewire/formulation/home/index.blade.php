@@ -1,7 +1,5 @@
 <div>
 
-
-
     <div class="flex justify-between">
         <h2 class="mx-2 text-2xl font-bold">Formulas registradas</h2>
         <div>
@@ -28,3 +26,20 @@
 
 </div>
 
+@once
+    @prepend('scripts')
+        <script src={{ asset('js/mathlive.js') }}></script>
+    @endprepend
+@endonce
+
+@once
+    @push('scripts')
+        <script defer>
+            const mathField = document.getElementById("latex")
+
+            mathField.addEventListener("input", (ev) => {
+                console.log(mathField.value)
+            });
+        </script>
+    @endpush
+@endonce
