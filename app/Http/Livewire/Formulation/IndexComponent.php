@@ -33,6 +33,13 @@ class IndexComponent extends Component
     public Formulation $formulation;
     public $status_delete,$authorities;
 
+    protected $listeners = ['latextChange' => 'handleLatexChange'];
+
+    public function handleLatexChange($latexValue) {
+        // TODO: validacion del latex
+        $this->formulation->latex = $latexValue;
+    }
+
     public function edit($id)
     {
         $this->formulation = Formulation::findOrFail($id);

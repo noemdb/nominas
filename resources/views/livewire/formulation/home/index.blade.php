@@ -39,6 +39,7 @@
 
             mathField.addEventListener("input", (ev) => {
                 console.log(mathField.value)
+                Livewire.emit('latextChange', mathField.value)
             });
         </script>
     @endpush
