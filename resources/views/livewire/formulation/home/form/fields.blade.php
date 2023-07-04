@@ -43,16 +43,6 @@
         <x-input wire:model.defer="{{ $model }}" label="{{ $comment }}" placeholder="{{ $comment }}" />
     </div>
 
-    <div class="py-4 flex flex-col gap-1">
-        @php
-            $name = 'latex';
-            $model = 'formulation.' . $name;
-            $comment = $list_comment[$name];
-        @endphp
-        <label class="text-sm">{{ $comment }}</label>
-        <math-field id="latex"></math-field>
-    </div>
-
     <div class="py-4">
         @php
             $name = 'description';
@@ -61,6 +51,16 @@
         @endphp
         <x-textarea wire:model.defer="{{ $model }}" label="{{ $comment }}"
             placeholder="{{ $comment }}" />
+    </div>
+
+    <div class="py-4 flex flex-col gap-1">
+        @php
+            $name = 'latex';
+            $model = 'formulation.' . $name;
+            $comment = $list_comment[$name];
+        @endphp
+        <label class="text-sm">{{ $comment }}</label>
+        <math-field wire:model.defer="{{ $model }}" id="latex"></math-field>
     </div>
 
     <x-errors />
