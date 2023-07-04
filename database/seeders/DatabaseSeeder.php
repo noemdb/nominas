@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PreviousWorkSeeder::class);
         $this->call(SocialSecuritySeeder::class);
         $this->call(TrainingSeeder::class);
+        $this->call(DocumentationSeeder::class);
 
         ///////////////////////////////////
         $this->call(FormulationSeeder::class);

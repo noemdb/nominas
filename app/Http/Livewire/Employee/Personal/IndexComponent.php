@@ -11,13 +11,6 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use WireUi\Traits\Actions;
 
-/*
-public function render()
-{
-    return view('livewire.personal.personal.index-component');
-}
-*/
-
 class IndexComponent extends Component
 {
     use WithPagination;

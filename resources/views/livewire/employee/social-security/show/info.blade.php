@@ -6,7 +6,7 @@
             <div for="{{ $k }}" class="font-semibold block text-sm text-gray-900 dark:text-white">
                 {{ $v }}</div>
             <p id="{{ $k }}" class="text-lg text-gray-500">
-                {{ $previous_works->{$k} ?? null }}
+                {{ $social_security->{$k} ?? null }}
             </p>
         </li>
     @endforeach

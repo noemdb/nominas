@@ -12,6 +12,7 @@ php artisan make:model 'Employee\Information' -m
 php artisan make:model 'Employee\PreviousWork' -m
 php artisan make:model 'Employee\SocialSecurity' -m
 php artisan make:model 'Employee\Training' -m
+php artisan make:model 'Employee\Documentation' -m
 php artisan make:model 'Employee\Attendance' -m
 
 php artisan make:model 'Payroll\Salary' -m

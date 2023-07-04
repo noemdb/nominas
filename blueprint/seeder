@@ -11,6 +11,7 @@ php artisan make:seeder PositionSeeder
 php artisan make:seeder PreviousWorkSeeder
 php artisan make:seeder SocialSecuritySeeder
 php artisan make:seeder TrainingSeeder
+php artisan make:seeder DocumentationSeeder
 
 ////////////////////////////////////
 

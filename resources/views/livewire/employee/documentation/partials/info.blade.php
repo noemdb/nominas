@@ -11,23 +11,24 @@
     </div>
 
     <div class="p-6">
-        <h2 class="text-center text-xl font-semibold text-gray-800 mb-4">Registro de Información Personal de los
-            Empleados</h2>
+        <h2 class="text-center text-xl font-semibold text-gray-800 mb-4">Registro de Información Personal de los Empleados</h2>
 
         <div class="w-full bg-white rounded-lg overflow-hidden">
             <div class="bg-white rounded-lg">
                 <div class="bg-gray-100 p-4">
-                    <h2 class="text-lg font-medium text-gray-800">Ayuda para registro de documentaciones de empleados
+                    <h2 class="text-lg font-medium text-gray-800">Ayuda para registro de datos personales de empleados
                     </h2>
                 </div>
                 <div class="p-4">
-                    <h2 class="text-lg font-medium text-gray-800 mb-2">¿Cómo manejar las documentaciones de los empleados?</h2>
-                    <p class="text-gray-700">Para manejar las documentaciones de los empleados, es importante mantener un registro
-                        actualizado de los documentos requeridos por la ley y la empresa, como la cédula de identidad, el
-                        certificado de antecedentes, la afiliación a la seguridad social, entre otros. Además, es importante revisar
-                        periódicamente la validez de los documentos para evitar documentos vencidos. Para facilitar la gestión de
-                        las documentaciones, se pueden utilizar herramientas digitales como sistemas de gestión de recursos humanos.
-                    </p>
+                    <p class="text-gray-700">Para registrar los datos personales de un empleado, sigue estos pasos:</p>
+                    <ol class="list-decimal list-inside mt-4">
+                        <li class="text-gray-700">Ingresa el nombre completo del empleado.</li>
+                        <li class="text-gray-700">Ingresa el número de identificación del empleado.</li>
+                        <li class="text-gray-700">Ingresa la fecha de nacimiento del empleado.</li>
+                        <li class="text-gray-700">Ingresa la dirección del empleado.</li>
+                        <li class="text-gray-700">Ingresa el número de teléfono del empleado.</li>
+                        <li class="text-gray-700">Guarda la información.</li>
+                    </ol>
                 </div>
             </div>
         </div>

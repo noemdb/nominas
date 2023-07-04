@@ -11,21 +11,24 @@
     </div>
 
     <div class="p-6">
-        <h2 class="text-lg font-medium text-gray-800">Ayuda para el registro de formación o capacitación de los empleados</h2>
+        <h2 class="text-center text-xl font-semibold text-gray-800 mb-4">Registro de Información Personal de los Empleados</h2>
 
         <div class="w-full bg-white rounded-lg overflow-hidden">
             <div class="bg-white rounded-lg">
-                {{-- <div class="bg-gray-100 p-4">                </div> --}}
-                <div class="p-4">
-                    <h2 class="text-lg font-medium text-gray-800 mb-2">¿Cómo registrar la formación de los empleados?
+                <div class="bg-gray-100 p-4">
+                    <h2 class="text-lg font-medium text-gray-800">Ayuda para registro de datos personales de empleados
                     </h2>
-                    <p class="text-gray-700">Para registrar la formación o capacitación de los empleados, simplemente
-                        completa el
-                        formulario de registro con los datos correspondientes, como el nombre del empleado, el nombre
-                        del curso o
-                        formación, la institución, la fecha de finalización y una descripción del curso. Luego, haz clic
-                        en el botón
-                        "Registrar" para enviar el formulario.</p>
+                </div>
+                <div class="p-4">
+                    <p class="text-gray-700">Para registrar los datos personales de un empleado, sigue estos pasos:</p>
+                    <ol class="list-decimal list-inside mt-4">
+                        <li class="text-gray-700">Ingresa el nombre completo del empleado.</li>
+                        <li class="text-gray-700">Ingresa el número de identificación del empleado.</li>
+                        <li class="text-gray-700">Ingresa la fecha de nacimiento del empleado.</li>
+                        <li class="text-gray-700">Ingresa la dirección del empleado.</li>
+                        <li class="text-gray-700">Ingresa el número de teléfono del empleado.</li>
+                        <li class="text-gray-700">Guarda la información.</li>
+                    </ol>
                 </div>
             </div>
         </div>
