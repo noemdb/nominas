@@ -6,6 +6,7 @@ namespace App\Http\Livewire\Formulation;
 use App\Http\Livewire\Common\PaginateTrait;
 use App\Http\Livewire\Common\WithSortingTrait;
 use App\Models\Calculation\Formulation;
+use App\Models\Employee;
 // use App\Models\Formulation;
 use App\Models\Institution;
 use Livewire\Component;
@@ -27,6 +28,7 @@ class IndexComponent extends Component
     public $list_comment;
     public $list_institution;
     public $list_status;
+    public $list_vars;
 
     public Formulation $formulation;
     public $status_delete,$authorities;
@@ -67,6 +69,7 @@ class IndexComponent extends Component
         $this->list_institution = Institution::list_institution(); //dd($this->list_institution);
         // $this->list_status = Formulation::list_status();
         $this->list_comment = Formulation::COLUMN_COMMENTS; //dd($this->list_comment);
+        $this->list_vars = Employee::VARS;
     }
 
     public function render()

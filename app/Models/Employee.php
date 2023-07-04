@@ -26,6 +26,8 @@ class Employee extends Model
         'position'=>'Cargo',
     ];
 
+    const VARS = ['a' => 'a', 'b' => 'b', 'c' => 'c', 'd' => 'd'];
+
     public function getInstitutionNameAttribute()
     {
         return ($this->institution) ? $this->institution->name : null ;
