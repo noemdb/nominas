@@ -24,7 +24,7 @@ class IndexComponent extends Component
     use WithSortingTrait;
     use PaginateTrait;
 
-    public $showModal = false, $modeCreate = false, $modeEdit = false, $modeShow = false;
+    public $showModal = false, $modeCreate = true, $modeEdit = false, $modeShow = false;
     public $list_comment;
     public $list_institution;
     public $list_status;
