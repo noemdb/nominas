@@ -38,8 +38,7 @@
             const mathField = document.getElementById("latex")
 
             mathField.addEventListener("input", (ev) => {
-                console.log(mathField.value)
-                Livewire.emit('latextChange', mathField.value)
+                Livewire.emit('latextChange', mathField.value);
             });
         </script>
     @endpush
