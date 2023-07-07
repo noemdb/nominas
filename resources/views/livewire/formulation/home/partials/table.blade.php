@@ -144,7 +144,9 @@
 
                     @php $name = 'description' @endphp
                     <td class="px-2 py-1 {{ $class[$name] ?? null }}">
-                        {{ $item->$name }}
+                        <span class="line-clamp-3">
+                            {{ $item->$name }}
+                        </span>
                     </td>
 
                     @php $name = 'action' @endphp
