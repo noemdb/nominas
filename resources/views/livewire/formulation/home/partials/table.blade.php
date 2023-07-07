@@ -2,8 +2,8 @@
     $class['index'] = 'hidden sm:table-cell';
     $class['institution_name'] = '';
     $class['name'] = '';
-    $class['latex'] = 'hidden md:table-cell';
-    $class['description'] = 'hidden lg:table-cell';
+    $class['latex'] = '';
+    $class['description'] = 'max-w-md hidden xl:table-cell';
     $class['action'] = '';
     /* 'institution_name','name','latex','description', */
 @endphp
@@ -78,7 +78,7 @@
                 </th>
 
                 @php $name = 'latex' @endphp
-                <th class="px-2 py-1 {{ $class[$name] ?? null }}">
+                <th class="w-auto px-2 py-1 {{ $class[$name] ?? null }}">
                     <div class="flex justify-between">
                         <div>{{ $list_comment[$name] ?? '' }}</div>
                         @if ($formulations->isNotEmpty())
