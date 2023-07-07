@@ -28,6 +28,22 @@ class Employee extends Model
 
     const VARS = ['a' => 'a', 'b' => 'b', 'c' => 'c', 'd' => 'd'];
 
+    public function a () {
+        return 5;
+    }
+
+    public function b () {
+        return 6;
+    }
+
+    public function c () {
+        return 7;
+    }
+
+    public function d () {
+        return 8;
+    }
+
     public function getInstitutionNameAttribute()
     {
         return ($this->institution) ? $this->institution->name : null ;
