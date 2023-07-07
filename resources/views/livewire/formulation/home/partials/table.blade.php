@@ -9,17 +9,16 @@
 @endphp
 
 {{-- <div class="mb-4 flex justify-between"> --}}
-<div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
-    <div class="col-span-1 sm:col-span-3">
+<div class="mb-4 flex justify-between flex-col gap-4 md:flex-row">
+    <div class="w-full md:w-3/4">
         @php
             $name = 'search';
             $model = 'formulation.' . $name;
         @endphp
-        <div class="flex justify-between">
-            <div wire:loading
-                class="text-black font-semibold fixed	 bottom-0 right-0 z-10 bg-white rounded border shadow mr-2 mb-2 dark:text-gray-100">
-                Cargando... </div>
-        </div>
+        <span wire:loading
+            class="text-black font-semibold fixed	 bottom-0 right-0 z-10 bg-white rounded border shadow mr-2 mb-2 dark:text-gray-100">
+            Cargando...
+        </span>
         @php $label = "Institución, nombre, descripción" @endphp
         <x-input wire:model.debounce.500ms="{{ $name }}" icon="search" label="{{ $label }}"
             placeholder="{{ $label }}">
@@ -32,16 +31,15 @@
 
         </x-input>
     </div>
-    <div class="col-span-1 sm:col-span-1">
-        <x-select label="Registros" title="Registros por página" wire:model="paginate" placeholder="páginas"
-            :options="$paginate_list" />
+    <div class="w-full md:w-1/5">
+        <x-select label="Registros por página" wire:model="paginate" placeholder="Páginas" :options="$paginate_list" />
     </div>
 </div>
 
 {{-- <x-errors /> --}}
 
 <div class="overflow-x-auto">
-    <table class="table-auto w-full text-left whitespace-no-wrap my-2">
+    <table class="mb-4 table-auto w-full text-left whitespace-no-wrap">
         <thead>
             {{-- 'institution_name','name','latex','description' --}}
 

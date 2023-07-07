@@ -18,8 +18,8 @@
                 $model = 'formulation.' . $name;
                 $comment = $list_comment[$name];
             @endphp
-            <div class="font-semibold text-gray-400">Institución:</div>
-            <div class="font-semibold">{{ $formulation->institution ? $formulation->institution->name : null }}</div>
+            <h6 class="font-semibold text-gray-400">Institución:</h6>
+            <p class="font-semibold">{{ $formulation->institution ? $formulation->institution->name : null }}</p>
 
         </div>
     @endif
