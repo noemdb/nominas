@@ -14,5 +14,10 @@ const mix = require("laravel-mix");
 mix.js("resources/js/app.js", "public/js")
     .js("resources/js/chart.js", "public/js/chart.js")
     .js("resources/js/alpine.js", "public/js/alpine.js")
+    .js("resources/js/mathlive.js", "public/js/mathlive.js")
+    .postCss(
+        "node_modules/mathlive/dist/mathlive-fonts.css",
+        "public/css/mathlive-fonts.css"
+    )
     .postCss("resources/css/app.css", "public/css", [require("tailwindcss")]);
 
