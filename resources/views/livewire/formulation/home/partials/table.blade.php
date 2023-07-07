@@ -137,7 +137,9 @@
 
                     @php $name = 'latex' @endphp
                     <td class="px-2 py-1 {{ $class[$name] ?? null }}">
-                        {{ $item->$name ?? null }}
+                        <math-field read-only>
+                            {{ $item->$name ?? '' }}
+                        </math-field>
                     </td>
 
                     @php $name = 'description' @endphp
