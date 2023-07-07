@@ -15,6 +15,10 @@ php artisan make:seeder DocumentationSeeder
 
 ////////////////////////////////////
 
+php artisan make:seeder SalarySeeder
+
+////////////////////////////////////
+
 php artisan make:seeder PlanningSeeder
 php artisan make:seeder RequestSeeder
 php artisan make:seeder ApprovedSeeder

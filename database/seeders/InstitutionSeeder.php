@@ -24,7 +24,7 @@ class InstitutionSeeder extends Seeder
         for ($i=0; $i < 25; $i++) {
             $acronimo = strtoupper(substr($faker->lexify('??'), 0, 5));
             DB::table('institutions')->insert([
-                'name' => $faker->company,
+                'name' => $faker->company(),
                 'type' => $faker->word,
                 'acronym' => $acronimo,
                 'address' => $faker->address(),

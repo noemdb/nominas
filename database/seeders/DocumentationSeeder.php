@@ -29,7 +29,8 @@ class DocumentationSeeder extends Seeder
                 'expiration_date' =>$faker->dateTimeThisCentury->format('Y-m-d'),
                 'issue_date' =>$faker->dateTimeThisCentury->format('Y-m-d'),
                 'country' => $faker->country,
-                'file' => $faker->image,
+                // 'file' => $faker->imageUrl(640, 480),
+                'file' => $faker->url(),
                 'comments' =>$faker->randomNumber(8),
             ]);
         }

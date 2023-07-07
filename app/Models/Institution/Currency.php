@@ -43,7 +43,7 @@ class Currency extends Model
         return $this->belongsTo(Institution::class);
     }
 
-    public static function list_currencies() /* usada para llenar los objetos de formularios select*/
+    public static function list_currency() /* usada para llenar los objetos de formularios select*/
     {
         return Currency::pluck('name', 'id');
     }

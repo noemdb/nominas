@@ -232,7 +232,7 @@
 		"/home/nuser/code/s2223/resources/views/livewire/administracion/mailer/table/show.blade.php",
 		"/home/nuser/code/s2223/resources/views/email/mailers/messege.blade.php",
 		"/home/nuser/code/s2223/resources/views/livewire/service/payment/button/credicard/steper/partials/representant.blade.php",
-		"/home/nuser/code/s2223/resources/views/livewire/service/payment/button/credicard/steper/partials/ammount_pay.blade.php",
+		"/home/nuser/code/s2223/resources/views/livewire/service/payment/button/credicard/steper/partials/amount_pay.blade.php",
 		"/home/nuser/code/s2223/resources/views/administracion/polls/options/index.blade.php",
 		"/home/nuser/code/s2223/resources/views/administracion/polls/questions/index.blade.php",
 		"/home/nuser/code/s2223/resources/views/livewire/administracion/poll/question/table/poll.blade.php",

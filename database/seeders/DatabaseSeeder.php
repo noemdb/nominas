@@ -32,6 +32,9 @@ class DatabaseSeeder extends Seeder
         $this->call(DocumentationSeeder::class);
 
         ///////////////////////////////////
+        $this->call(SalarySeeder::class);
+
+        ///////////////////////////////////
         $this->call(FormulationSeeder::class);
 
         ///////////////////////////////////

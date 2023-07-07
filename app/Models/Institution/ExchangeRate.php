@@ -9,7 +9,7 @@ class ExchangeRate extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'currency_id','currency_referential_id','date','ammount','source','status_official','observations'
+        'currency_id','currency_referential_id','date','amount','source','status_official','observations'
     ];
     protected $dates = ['date'];
 
@@ -17,11 +17,24 @@ class ExchangeRate extends Model
         'currency_id'=>'Moneda',
         'currency_referential_id'=>'Moneda Referencial',
         'date'=>'Fecha de la tasa de cambio',
-        'ammount'=>'Monto de la tasa de cambio',
+        'amount'=>'Monto de la tasa de cambio',
         'source'=>'Fuente de Información',
         'status_official'=>'Fuente Oficial',
         'observations'=>'Observaciones',
+        /////////////////////////////////
+        'currency_name'=>'Moneda',
+        'currency_referential_name'=>'Moneda Referencial',
     ];
+
+    public function getCurrencyNameAttribute()
+    {
+        return ($this->currency) ? $this->currency->name : null ;
+    }
+
+    public function getCurrencyReferentialNameAttribute()
+    {
+        return ($this->currency_referential) ? $this->currency_referential->name : null ;
+    }
 
     public static function list_rate_type() /* usada para llenar los objetos de formularios select*/
     {
@@ -33,9 +46,12 @@ class ExchangeRate extends Model
         return $this->belongsTo(Currency::class,'currency_id');
     }
 
-    public function currency_referential()
+    public function getCurrencyReferentialAttribute()
     {
-        return $this->belongsTo(Currency::class,'currency_referential_id');
+        //$currency = Currency::where('id',$this->currency_referential_id)->first(); //dd($currency);
+
+        return Currency::where('id',$this->currency_referential_id)->first();
+        // return $this->belongsTo(Currency::class,'currency_referential_id');
     }
 
     public static function list_currencies() /* usada para llenar los objetos de formularios select*/
@@ -45,12 +61,12 @@ class ExchangeRate extends Model
 }
 /*
 
-'currency_id','currency_referential_id','date','ammount','source','status_official','observations'
+'currency_id','currency_referential_id','date','amount','source','status_official','observations'
 
 currency_id
 currency_referential_id
 date
-ammount
+amount
 source
 status_official
 observations
