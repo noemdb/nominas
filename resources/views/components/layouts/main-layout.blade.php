@@ -8,6 +8,8 @@
                 ['label' => 'Inicio', 'route' => route('institutions')],
                 ['label' => 'Autoridades', 'route' => route('institutions.autorities')],
                 ['label' => 'Bancos', 'route' => route('institutions.banks')],
+                ['label' => 'Monedas', 'route' => route('institutions.currencies')],
+                ['label' => 'Tasas de Cambio', 'route' => route('institutions.exchange_rates')],
                 ['label' => 'Áreas', 'route' => route('institutions.areas')],
                 ['label' => 'Roles', 'route' => route('institutions.rols')],
                 ['label' => 'Horarios laborales', 'route' => route('institutions.schedules')],

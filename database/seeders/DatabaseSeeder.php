@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(InstitutionSeeder::class);
         $this->call(AuthoritySeeder::class);
         $this->call(BankSeeder::class);
+        $this->call(CurrencySeeder::class);
+        $this->call(ExchangeRateSeeder::class);
         $this->call(AreaSeeder::class);
         $this->call(RolSeeder::class);
         $this->call(ScheduleSeeder::class);

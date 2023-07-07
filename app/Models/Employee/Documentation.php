@@ -5,6 +5,7 @@ namespace App\Models\Employee;
 use App\Models\Employee;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Documentation extends Model
 {
@@ -47,9 +48,14 @@ class Documentation extends Model
         return ['Partida','Documento de Identidad','Certificaciones','Constancia','Comprobante','Comunicaciones y/o notificaciones','Otro documento que se considere relevante'];
     }
 
+    public function getFileExistAttribute()
+    {
+        return Storage::disk('employees')->exists($this->file);
+    }
+
     public function getFileUrlAttribute()
     {
-        return ($this->image) ? asset('storage/documentation/'.$this->image) : null;
+        return ($this->file_exist) ? asset('storage/employees/'.$this->file) : null;
     }
 }
 

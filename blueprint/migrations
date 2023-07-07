@@ -1,9 +1,13 @@
 php artisan make:model 'Institution' -m
 php artisan make:model 'Institution\Authority' -m
 php artisan make:model 'Institution\Bank' -m
+php artisan make:model 'Institution\Currency' -m
+php artisan make:model 'Institution\ExchangeRate' -m
 php artisan make:model 'Institution\Schedule' -m
 php artisan make:model 'Institution\Area' -m
 php artisan make:model 'Institution\Rol' -m
+
+
 
 php artisan make:model 'Employee' -m
 php artisan make:model 'Employee\Personal' -m
@@ -34,3 +38,8 @@ php artisan make:model 'Vacation\Planning' -m
 php artisan make:model 'Vacation\Request' -m
 php artisan make:model 'Vacation\Approved' -m
 
+items= collect();
+
+foreach employees
+
+$items->push('a',)

@@ -14,7 +14,7 @@ trait Rules
         'documentation.expiration_date' => 'nullable|date',
         'documentation.issue_date' => 'nullable|date',
         'documentation.country' => 'nullable|string',
-        'documentation.file' => 'nullable|nullable',
+        'documentation.file' => 'nullable|string',
         'documentation.comments' => 'nullable|string',
     ];
 

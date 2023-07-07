@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('country')->nullable()->comment('El país que emitió el documento, si es aplicable');
             $table->text('file')->nullable()->comment('Archivo adjjunto');
             $table->text('comments')->nullable()->comment('Cualquier comentario adicional sobre la documentación');
+            $table->timestamps();
         });
     }
 

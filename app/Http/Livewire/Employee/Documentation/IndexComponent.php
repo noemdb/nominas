@@ -7,7 +7,6 @@ use App\Http\Livewire\Common\PaginateTrait;
 use App\Http\Livewire\Common\WithSortingTrait;
 use App\Models\Employee;
 use App\Models\Employee\Documentation;
-use App\Models\Institution;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -24,7 +23,7 @@ class IndexComponent extends Component
 
     use WithFileUploads;
 
-    public $showModal = false, $modeCreate = false, $modeEdit = false, $modeShow = false;
+    public $showModal = false, $modeCreate = false, $modeEdit = false, $modeShow = false, $modeShowFile = false;
     public $list_comment;
     public $list_institution,$list_employee,$list_type;
     public $list_relationship,$list_disability;
@@ -32,22 +31,33 @@ class IndexComponent extends Component
     public Documentation $documentation;
     public $status_delete,$authorities;
 
-    public $image;
+    public $file_image;
+
+    public function updatedFileImage()
+    {
+        $this->valitateFileImage();
+    }
+
+    public function valitateFileImage()
+    {
+        $this->validate([
+            'file_image' => 'image|max:1024',
+            ],[],['file_image' => 'Archivo adjunto']);
+    }
 
     public function uploadFile()
     {
-        // $this->validate([
-        //     'documentation.file' => 'nullable|file|max:1024', // 1MB Max
-        // ]);
-
-        $this->documentation->file = ($this->documentation->file) ? $this->documentation->file->store('files','documentation') : $this->documentation->file;
+        if ($this->file_image) {
+            $this->documentation->file = ($this->file_image) ? $this->file_image->store('documentations','employees') : $this->documentation->file;
+            $this->file_image = null;
+        }
     }
 
     public function edit($id)
     {
         $this->documentation = Documentation::findOrFail($id);
-
         $this->openModal('edit');
+        $this->file_image = null;
     }
 
     public function show($id)
@@ -56,11 +66,20 @@ class IndexComponent extends Component
         $this->openModal('show');
     }
 
+    public function showFile($id)
+    {
+        $this->documentation = Documentation::findOrFail($id);
+        if ($this->documentation->file_exist) {
+            $this->openModal('showFile');
+        }
+
+    }
+
     public function save()
     {
+        $this->valitateFileImage();
+
         $data = $this->validate();
-
-
 
         $this->uploadFile();
 
@@ -82,7 +101,7 @@ class IndexComponent extends Component
         $this->list_employee = Employee::list_employee();
         $this->list_type = Documentation::list_type();
         $this->list_comment = Documentation::COLUMN_COMMENTS;
-        $this->image = null;
+        $this->file_image = null;
     }
 
     public function render()
@@ -121,6 +140,8 @@ class IndexComponent extends Component
         $this->modeCreate = ($mode=='create') ? true : false ;
         $this->modeEdit = ($mode=='edit') ? true : false ;
         $this->modeShow = ($mode=='show') ? true : false ;
+        $this->modeShowFile = ($mode=='showFile') ? true : false ;
+        $this->resetValidation();
     }
 
     public function closeModal()
@@ -131,7 +152,6 @@ class IndexComponent extends Component
     public function deleteQuestion($id)
     {
         $this->documentation = Documentation::findOrFail($id);
-
         if ($this->documentation->status_delete) {
             $this->notification()->confirm([
                 'title'       => 'Estas seguro que desea realizar esta operación?',
