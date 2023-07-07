@@ -137,7 +137,7 @@
 
                     @php $name = 'latex' @endphp
                     <td class="px-2 py-1 {{ $class[$name] ?? null }}">
-                        <math-field read-only>
+                        <math-field read-only class="{{ $loop->iteration % 2 == 0 ? 'bg-gray-100' : 'bg-white' }}">
                             {{ $item->$name ?? '' }}
                         </math-field>
                     </td>
