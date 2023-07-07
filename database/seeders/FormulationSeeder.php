@@ -17,12 +17,14 @@ class FormulationSeeder extends Seeder
     public function run()
     {
         $faker = Factory::create('es_VE');
-        for ($i=0; $i < 25; $i++) {
+        $latexs = ['\frac{a+b+c}{d}', '\frac{a}{b}\cdot c+12', '\frac{a+d}{b+c}', '\frac{123}{abc}'];
+
+        for ($i = 0; $i < 25; $i++) {
             DB::table('formulations')->insert([
-                'institution_id' => $faker->numberBetween(1,25),
+                'institution_id' => $faker->numberBetween(1, 25),
                 'name' => $faker->name,
-                'description' =>$faker->paragraphs(3, true),
-                'latex' =>$faker->paragraphs(3, true),
+                'description' => $faker->paragraphs(3, true),
+                'latex' => $faker->randomElement($latexs),
             ]);
         }
     }
