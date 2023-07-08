@@ -21,7 +21,7 @@ class BankSeeder extends Seeder
             $acronimo = strtoupper(substr($faker->lexify('??'), 0, 5));
             DB::table('banks')->insert([
                 'institution_id' => $faker->numberBetween(1,10), //Institución
-                'name' => $faker->name, //Nombre completo
+                'name' => $faker->company, //Nombre completo
                 'acronym' =>$acronimo, //Acrónimo
                 'branch' =>$faker->company, //Sucursal, si es aplicable
                 'account_number' =>$faker->text(30), //Número de cuenta

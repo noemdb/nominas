@@ -2,6 +2,8 @@
 
 namespace App\Models\Payroll;
 
+use App\Models\Employee;
+use App\Models\Institution\Currency;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,14 +12,15 @@ class Salary extends Model
     use HasFactory;
 
     protected $fillable = [
-        'employee_id','currency_id','date','amount','payment_status'
+        // 'employee_id','currency_id','date','amount','payment_status'
+        'employee_id','date','amount','payment_status'
     ];
 
     protected $dates = ['start','end'];
 
     const COLUMN_COMMENTS = [
         'employee_id'=>'Empleado',
-        'currency_id'=>'Moneda',
+        // 'currency_id'=>'Moneda',
         'date'=>'Fecha',
         'amount'=>'Monto',
         'payment_status'=>'Estado del pago',
@@ -29,6 +32,10 @@ class Salary extends Model
     public function employee()
     {
         return $this->belongsTo(Employee::class);
+    }
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
     }
     ////////////////////////////////////////////////////////////////////////////////////////
 

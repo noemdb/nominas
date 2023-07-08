@@ -23,7 +23,9 @@ return new class extends Migration
             $table->string('country')->comment('País');
             $table->string('phone_number')->nullable()->comment('N.Teléfono');
             $table->string('home_phone')->nullable()->comment('N.Teléfono del hogar');
-            $table->string('emergency_contact_name')->nullable()->comment('El nombre de la persona de contacto de emergencia');
+            $table->foreignId('bank_id')->nullable()->comment('Banco');
+            $table->string('bank_account_number',20)->comment('Número de cuenta bancaria');
+            $table->string('emergency_contact_name')->comment('El nombre de la persona de contacto de emergencia');
             $table->string('emergency_contact_relationship')->nullable()->comment('La relación de la persona de contacto de emergencia con el empleado');
             $table->string('emergency_contact_phone')->nullable()->comment('El número de teléfono de la persona de contacto de emergencia');
             $table->string('emergency_contact_email')->nullable()->comment('La dirección de correo electrónico de la persona de contacto de emergencia');

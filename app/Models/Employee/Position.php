@@ -13,7 +13,7 @@ class Position extends Model
     use HasFactory;
 
     protected $fillable = [
-        'employee_id','area_id','rol_id','name','description','start','end'
+        'employee_id','area_id','rol_id','name','description','contract_type','start','end','frequency_workday','workday','status'
     ];
 
     protected $dates = ['start','end'];
@@ -24,8 +24,11 @@ class Position extends Model
         'rol_id'=>'Rol',
         'name'=>'Nombre',
         'description'=>'Descripción',
+        'contract_type'=>'Tipo de contrato',
         'start'=>'Fecha de inicio',
         'end'=>'Fecha de finalización',
+        'frequency_workday'=>'Frecuencia de la jornada laboral',
+        'workday'=>'Jornada laboral',
         'status'=>'Activo/Inactivo',
         //--------------------------------------------
         'lapse'=>'Lapso',
@@ -85,20 +88,22 @@ class Position extends Model
         return true;
     }
 
+    public static function list_frequency_workday() /* usada para llenar los objetos de formularios select*/
+    {
+        return ['Mensual','Quincenal','Semanal','Diario','Trimestral','Cuatrimestral','Semestral','Otro'];
+    }
+
+    public static function list_contract_type() /* usada para llenar los objetos de formularios select*/
+    {
+        return ['Temporal', 'Indefinido', 'Por obra', 'Servicio'];
+    }
+
 
 }
 
 
 /*
 
-'employee_id','area_id','rol_id','name','description','start','end'
-
-employee_id
-area_id
-rol_id
-name
-description
-start
-end
+'employee_id','area_id','rol_id','name','description','start','end','frequency_workday','workday','status'
 
 */

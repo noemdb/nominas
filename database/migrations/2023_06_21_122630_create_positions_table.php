@@ -19,9 +19,12 @@ return new class extends Migration
             $table->foreignId('area_id')->comment('Área")');
             $table->foreignId('rol_id')->comment('Rol');
             $table->string('name')->comment('Nombre');
+            $table->string('contract_type')->comment('Tipo de contrato');
             $table->text('description')->nullable()->comment('Descripción');
             $table->date('start')->comment('Fecha de inicio');
             $table->date('end')->nullable()->comment('Fecha de finalización');
+            $table->string('frequency_workday')->nullable()->comment('Frecuencia de la jornada laboral');
+            $table->integer('workday')->nullable()->comment('Jornada laboral');
             $table->boolean('status')->default(true)->comment('Activo/Inactivo');
             $table->timestamps();
         });

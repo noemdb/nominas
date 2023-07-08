@@ -99,6 +99,28 @@
 
     <div class="py-4">
         @php
+            $name = 'bank_id';
+            $model = 'personal.' . $name;
+            $comment = $list_comment[$name];
+        @endphp
+        <x-native-select label="{{ $comment }}" placeholder="Seleccione" :options="$list_bank" option-key-value wire:model.defer="{{ $model }}" />
+    </div>
+    <div class="py-4">
+        @php
+            $name = 'bank_account_number';
+            $model = 'personal.' . $name;
+            $comment = $list_comment[$name];
+        @endphp
+        <x-inputs.maskable
+            label="{{$comment}}"
+            mask="####################"
+            placeholder="{{$comment}}"
+            wire:model.defer="{{ $model }}"
+        />
+    </div>
+
+    <div class="py-4">
+        @php
             $name = 'emergency_contact_name';
             $model = 'personal.' . $name;
             $comment = $list_comment[$name];

@@ -67,6 +67,15 @@
 
     <div class="py-4">
         @php
+            $name = 'contract_type';
+            $model = 'position.' . $name;
+            $comment = $list_comment[$name];
+        @endphp
+        <x-native-select label="{{ $comment }}" placeholder="Seleccione" :options="$list_contract_type" wire:model.defer="{{ $model }}" />
+    </div>
+
+    <div class="py-4">
+        @php
             $name = 'start';
             $model = 'position.' . $name;
             $comment = $list_comment[$name];
@@ -87,6 +96,28 @@
 
     <div class="py-4">
         @php
+            $name = 'frequency_workday';
+            $model = 'position.' . $name;
+            $comment = $list_comment[$name];
+        @endphp
+        <x-native-select label="{{ $comment }}" placeholder="Seleccione" :options="$list_frequency_workday" wire:model.defer="{{ $model }}" />
+    </div>
+
+    <div class="py-4">
+        @php
+            $name = 'workday';
+            $model = 'position.' . $name;
+            $comment = $list_comment[$name];
+        @endphp
+        <x-inputs.number
+            label="{{ $comment }}"
+            placeholder="{{ $comment }}"
+            wire:model.defer="{{ $model }}"
+        />
+    </div>
+
+    <div class="py-4">
+        @php
             $name = 'status';
             $model = 'position.' . $name;
             $comment = $list_comment[$name];
@@ -97,3 +128,5 @@
     <x-errors />
 
 </x-card>
+
+{{-- frequency_workday workday  --}}

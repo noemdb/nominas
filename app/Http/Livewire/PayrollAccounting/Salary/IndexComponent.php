@@ -52,7 +52,7 @@ class IndexComponent extends Component
 
         $salaries = ($this->sortBy && $this->sortDirection) ? $salaries->orderBy($this->sortBy, $this->sortDirection) : $salaries;
 
-        $salaries = $salaries->paginate($this->paginate);
+        $salaries = $salaries->paginate($this->paginate);//dd($salaries);
         return view('livewire.payroll-accounting.salary.index-component', ['salaries' => $salaries]);
     }
 

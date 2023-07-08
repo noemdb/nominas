@@ -31,7 +31,7 @@ class IndexComponent extends Component
 
     public $showModal = false, $modeCreate = false, $modeEdit = false, $modeShow = false;
     public $list_comment;
-    public $list_institution,$list_employee;
+    public $list_institution,$list_employee,$list_frequency_workday,$list_contract_type;
     public $list_area,$list_rol;
 
     public Position $position;
@@ -69,6 +69,8 @@ class IndexComponent extends Component
     {
         $this->position = New Position;
         $this->list_employee = Employee::list_employee();
+        $this->list_frequency_workday = Position::list_frequency_workday();
+        $this->list_contract_type = Position::list_contract_type();
         // $this->list_employee = Collect();
         $this->list_area = Area::list_area();
         $this->list_rol = Rol::list_rol();

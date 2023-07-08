@@ -10,7 +10,8 @@ class Personal extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'employee_id','address','city','state','zip_code','country','phone_number','home_phone','emergency_contact_name','emergency_contact_relationship','emergency_contact_phone','emergency_contact_email','other_details',
+        'employee_id','address','city','state','zip_code','country','phone_number','home_phone','emergency_contact_name',
+        'emergency_contact_relationship','emergency_contact_phone','emergency_contact_email','other_details',
     ];
 
     const COLUMN_COMMENTS = [
@@ -24,6 +25,8 @@ class Personal extends Model
         'country'=>'País',
         'phone_number'=>'N.Teléfono',
         'home_phone'=>'N.Teléfono del hogar',
+        'bank_id'=>'Banco',
+        'bank_account_number'=>'Número de cuenta bancaria',
         'emergency_contact_name'=>'El nombre de la persona de contacto de emergencia',
         'emergency_contact_relationship'=>'La relación de la persona de contacto de emergencia con el empleado',
         'emergency_contact_phone'=>'El número de teléfono de la persona de contacto de emergencia',

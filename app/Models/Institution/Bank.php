@@ -44,6 +44,11 @@ class Bank extends Model
     {
         return Institution::pluck('name', 'id');
     }
+
+    public static function list_bank() /* usada para llenar los objetos de formularios select*/
+    {
+        return Bank::pluck('name', 'id');
+    }
 }
 
 /*

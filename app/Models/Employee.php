@@ -11,7 +11,7 @@ class Employee extends Model
     use HasFactory;
 
     protected $fillable = [
-        'institution_id','name','ci','hire_date','termination_date','status','email'
+        'institution_id','name','ci','hire_date','termination_date','status','email',
     ];
 
     const COLUMN_COMMENTS = [

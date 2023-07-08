@@ -7,6 +7,7 @@ use App\Http\Livewire\Common\WithSortingTrait;
 use App\Models\Employee;
 use App\Models\Employee\Personal;
 use App\Models\Institution;
+use App\Models\Institution\Bank;
 use Livewire\Component;
 use Livewire\WithPagination;
 use WireUi\Traits\Actions;
@@ -22,7 +23,7 @@ class IndexComponent extends Component
 
     public $showModal = false, $modeCreate = false, $modeEdit = false, $modeShow = false;
     public $list_comment;
-    public $list_institution,$list_employee;
+    public $list_institution,$list_employee,$list_bank;
     public $list_relationship,$list_disability;
 
     public Personal $personal;
@@ -62,6 +63,7 @@ class IndexComponent extends Component
     {
         $this->personal = New Personal;
         $this->list_institution = Institution::list_institution(); //dd($this->list_institution);
+        $this->list_bank = Bank::list_bank(); //dd($this->list_institution);
         // $this->list_employee = Employee::list_employee();
         $this->list_employee = Collect();
         $this->list_relationship = Personal::list_relationship();
