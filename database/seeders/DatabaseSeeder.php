@@ -32,6 +32,8 @@ class DatabaseSeeder extends Seeder
         $this->call(DocumentationSeeder::class);
 
         ///////////////////////////////////
+        $this->call(BonificationSeeder::class);
+        $this->call(IncentiveSeeder::class);
         $this->call(SalarySeeder::class);
 
         ///////////////////////////////////
