@@ -4,6 +4,7 @@ namespace App\Http\Livewire\PayrollAccounting\Incentive;
 
 use App\Http\Livewire\Common\PaginateTrait;
 use App\Http\Livewire\Common\WithSortingTrait;
+use App\Models\Employee;
 use App\Models\Payroll\Incentive;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -19,7 +20,9 @@ class IndexComponent extends Component
 
     public Incentive $incentive;
     public $list_comment;
-    // public $list_institution;
+    public $list_employee;
+    public $list_type;
+    public $list_frequency;
     public $showModal = false;
     public $modeCreate = false;
     public $modeEdit = false;
@@ -28,8 +31,10 @@ class IndexComponent extends Component
     public function mount()
     {
         $this->incentive = new Incentive;
-        // $this->list_institution = Institution::list_institution();
         $this->list_comment = Incentive::COLUMN_COMMENTS;
+        $this->list_employee = Employee::list_employee();
+        $this->list_type = Incentive::list_type();
+        $this->list_frequency = Incentive::list_frecuency();
     }
     public function render()
     {
