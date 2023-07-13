@@ -38,14 +38,17 @@ class IndexComponent extends Component
     public function render()
     {
         $search = $this->search;
-        $salaries = Salary::select('salaries.*')->join('employees', 'employees.id', '=', 'salaries.employee_id');
+        $salaries = Salary::select('salaries.*')
+        ->join('employees', 'employees.id', '=', 'salaries.employee_id')
+        // ->join('institutions', 'institutions.id', '=', 'employees.institution_id')
+        ;
 
         $salaries = (!empty($search)) ? $salaries->Where(
             function ($query) use ($search) {
                 $query->orWhere('employees.ci', 'like', '%' . $search . '%');
                 $query->orWhere('employees.name', 'like', '%' . $search . '%');
-                $query->orWhere('salaries.company_name', 'like', '%' . $search . '%');
-                $query->orWhere('salaries.position', 'like', '%' . $search . '%');
+                // $query->orWhere('institutions.company_name', 'like', '%' . $search . '%');
+                // $query->orWhere('salaries.position', 'like', '%' . $search . '%');
             }
         )
             : $salaries;
