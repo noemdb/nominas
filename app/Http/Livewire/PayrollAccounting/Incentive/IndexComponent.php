@@ -34,13 +34,17 @@ class IndexComponent extends Component
     public function render()
     {
         $search = $this->search;
-        $incentives = Incentive::select('incentives.*');
+        $incentives = Incentive::select('incentives.*', 'employees.name as employee_name')->join('employees', 'employees.id', '=', 'incentives.employee_id');
 
         $incentives = (!empty($search)) ? $incentives->Where(
             function ($query) use ($search) {
-                $query->orWhere('name', 'like', '%' . $search . '%');
-                $query->orWhere('account_number', 'like', '%' . $search . '%');
-                $query->orWhere('account_type', 'like', '%' . $search . '%');
+                $query->orWhere('incentives.type', 'like', '%' . $search . '%');
+                $query->orWhere('incentives.description', 'like', '%' . $search . '%');
+                $query->orWhere('incentives.amount', 'like', '%' . $search . '%');
+                $query->orWhere('incentives.frequency', 'like', '%' . $search . '%');
+                $query->orWhere('incentives.date', 'like', '%' . $search . '%');
+                $query->orWhere('employees.name', 'like', '%' . $search . '%');
+                $query->orWhere('employees.id', 'like', '%' . $search . '%');
             }
         )
             : $incentives;
