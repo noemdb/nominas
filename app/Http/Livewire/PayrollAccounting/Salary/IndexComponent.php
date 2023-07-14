@@ -21,7 +21,7 @@ class IndexComponent extends Component
 
     public Salary $salary;
     public $list_comment;
-    public $list_employee,$list_currency;
+    public $list_employee,$list_currency,$list_frequency;
     public $showModal = false;
     public $modeCreate = false;
     public $modeEdit = false;
@@ -33,6 +33,7 @@ class IndexComponent extends Component
         $this->list_comment = Salary::COLUMN_COMMENTS;
         $this->list_employee = Employee::list_employee();
         $this->list_currency = Currency::list_currency();
+        $this->list_frequency = Salary::list_frequency();
     }
 
     public function render()

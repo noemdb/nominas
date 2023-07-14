@@ -4,6 +4,6 @@
     </h3>
 
     <div class="mt-2">
-        @include('livewire.institution.currency.form.fields')
+        @include('livewire.payroll-accounting.salary.form.fields')
     </div>
 </div>

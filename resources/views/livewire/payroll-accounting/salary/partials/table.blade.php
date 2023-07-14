@@ -7,7 +7,7 @@
     $class['payment_status'] = 'hidden lg:table-cell';
     $class['action'] = '';
 @endphp
-{{-- 'employee_id','currency_id','date','amount','payment_status' --}}
+{{-- 'employee_id','frequency','amount' --}}
 
 <div class="mb-4 flex justify-between flex-col gap-4 md:flex-row">
     <div class="w-full md:w-3/4">
@@ -37,7 +37,7 @@
 <div class="overflow-x-auto">
     <table class="table-auto w-full text-left whitespace-no-wrap my-1">
         <thead>
-            {{-- 'employee_id','currency_id','date','amount','payment_status' --}}
+            {{-- 'employee_id','frequency','amount' --}}
 
             <tr class="bg-gray-200 text-sm">
                 @php $name = 'index' @endphp
@@ -55,7 +55,7 @@
                     </div>
                 </th>
 
-                @php $name = 'date' @endphp
+                @php $name = 'frequency' @endphp
                 <th class="px-2 py-1 {{$class[$name] ?? null}}">
                     <div class="flex justify-between">
                         <div>{{$list_comment[$name] ?? ''}}</div>
@@ -75,16 +75,6 @@
                     </div>
                 </th>
 
-                @php $name = 'payment_status' @endphp
-                <th class="px-2 py-1 {{$class[$name] ?? null}}">
-                    <div class="flex justify-between">
-                        <div>{{$list_comment[$name] ?? ''}}</div>
-                        @if($salaries->isNotEmpty())
-                            <div class="self-center"><x-elements.crud.sort-by field="{{$name}}" :sortBy="$sortBy" :sortDirection="$sortDirection" /></div>
-                        @endif
-                    </div>
-                </th>
-
                 @php $name = 'action' @endphp
                 <th class="px-2 py-1 {{$class[$name] ?? null}}">
                     Acción
@@ -93,7 +83,7 @@
         </thead>
 
         <tbody>
-            {{-- 'employee_id','currency_id','date','amount','payment_status' --}}
+            {{-- 'employee_id','frequency','amount' --}}
             @forelse ($salaries as $item)
                 <tr class="border-t text-xs text-gray-600 border-gray-200 {{ ($loop->iteration % 2 == 0) ? 'bg-gray-100':'bg-white'}}">
                     @php $name = 'index' @endphp
@@ -108,7 +98,7 @@
                         <div class="">{{$employee->ci ?? null}}</div>
                     </td>
 
-                    @php $name = 'date' @endphp
+                    @php $name = 'frequency' @endphp
                     <td class="px-2 py-1 {{$class[$name] ?? null}}">
                         {{ $item->{$name} }}
                     </td>
@@ -120,10 +110,7 @@
                         <span>{{$currency->name ?? null}}</span>
                     </td>
 
-                    @php $name = 'payment_status' @endphp
-                    <td class="px-2 py-1 {{$class[$name] ?? null}}">
-                        {{ $item->{$name} }}
-                    </td>
+
 
                     @php $name = 'action' @endphp
                     <td class="px-2 py-1 {{$class[$name] ?? null}}">

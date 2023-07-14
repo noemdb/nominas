@@ -3,7 +3,7 @@
     @include('livewire.payroll-accounting.salary.modals.main')
 
     <section class="mb-4 flex justify-between items-center">
-        <h2 class="text-2xl font-bold">Salarios registrados..</h2>
+        <h2 class="text-2xl font-bold">Salarios registrados.</h2>
         <x-button.circle wire:click="openModal('create')" primary label="+" />
     </section>
 

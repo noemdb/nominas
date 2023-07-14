@@ -13,7 +13,8 @@ class Salary extends Model
 
     protected $fillable = [
         // 'employee_id','currency_id','date','amount','payment_status'
-        'employee_id','date','amount','payment_status'
+        // 'employee_id','date','frequency','amount','payment_status'
+        'employee_id','frequency','amount'
     ];
 
     protected $dates = ['start','end'];
@@ -21,9 +22,10 @@ class Salary extends Model
     const COLUMN_COMMENTS = [
         'employee_id'=>'Empleado',
         // 'currency_id'=>'Moneda',
-        'date'=>'Fecha',
+        // 'date'=>'Fecha',
         'amount'=>'Monto',
-        'payment_status'=>'Estado del pago',
+        'frequency'=>'Frecuencia',
+        // 'payment_status'=>'Estado del pago',
         //--------------------------------------------
         'employee_name'=>'Empleado',
     ];
@@ -64,7 +66,12 @@ class Salary extends Model
         return ['Pagado','Pendiente','Cancelado','Retenido','En revisión'];
     }
 
+    public static function list_frequency() /* usada para llenar los objetos de formularios select*/
+    {
+        return ['Mensual','Quincenal','Semanal','Diario','Por horas'];
+    }
 }
+
 
 /*
 'employee_id','currency_id','date','amount','payment_status'

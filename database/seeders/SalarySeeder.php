@@ -19,15 +19,15 @@ class SalarySeeder extends Seeder
     public function run()
     {
         $faker = Factory::create('es_VE');
-        $arr = Salary::list_payment_status();
+        $arr = Salary::list_frecuency();
         for ($i=0; $i < 25; $i++) {
             DB::table('salaries')->insert([
                 'employee_id' => $faker->numberBetween(1,25),
                 // 'currency_id' => $faker->numberBetween(1,2),
-                'date' =>Carbon::today()->addDays(rand(1, 180))->format('Y-m-d'),
+                // 'date' =>Carbon::today()->addDays(rand(1, 180))->format('Y-m-d'),
                 'amount' =>$faker->randomFloat(2, 0, 100),
-                'payment_status' => $faker->randomElement($arr),
-            ]);
+                'frequency' => $faker->randomElement($arr),
+            ]); //'employee_id','frequency','amount'
         }
     }
 }

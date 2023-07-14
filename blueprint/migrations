@@ -19,6 +19,8 @@ php artisan make:model 'Employee\Training' -m
 php artisan make:model 'Employee\Documentation' -m
 php artisan make:model 'Employee\Attendance' -m
 
+php artisan make:model 'Payroll\Level' -m
+php artisan make:model 'Payroll' -m
 php artisan make:model 'Payroll\Salary' -m
 php artisan make:model 'Payroll\Deduction' -m
 php artisan make:model 'Payroll\Bonification' -m
