@@ -1,15 +1,11 @@
 <div>
+    <x-notifications />
+    @include('livewire.payroll-accounting.incentive.modals.main')
 
-    <div class="rounded-lg bg-gray-100 p-4">
-        <h2 class="text-2xl font-bold mb-6">Incentivos registradas</h2>
-        @include('livewire.payroll-accounting.incentive.partials.table')
-    </div>
+    <section class="mb-4 flex justify-between items-center">
+        <h2 class="text-2xl font-bold">Incentivos registrados</h2>
+        <x-button.circle wire:click="openModal('create')" primary label="+" />
+    </section>
 
-    <hr class="my-4">
-
-    <div class="rounded-lg bg-gray-100 p-4">
-        <h2 class="text-2xl font-bold mb-6">Registrar nuevo Incentivos</h2>
-        @include('livewire.payroll-accounting.incentive.partials.form')
-    </div>
-
+    @include('livewire.payroll-accounting.incentive.partials.table')
 </div>
