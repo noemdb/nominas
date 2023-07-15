@@ -19,7 +19,7 @@ class SalarySeeder extends Seeder
     public function run()
     {
         $faker = Factory::create('es_VE');
-        $arr = Salary::list_frecuency();
+        $arr = Salary::list_frequency();
         for ($i=0; $i < 25; $i++) {
             DB::table('salaries')->insert([
                 'employee_id' => $faker->numberBetween(1,25),

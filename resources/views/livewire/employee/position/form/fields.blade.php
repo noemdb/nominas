@@ -96,6 +96,16 @@
 
     <div class="py-4">
         @php
+            $name = 'start_salary';
+            $model = 'position.' . $name;
+            $comment = $list_comment[$name];
+        @endphp
+        <x-datetime-picker label="{{ $comment }}" placeholder="{{ $comment }}"
+            wire:model.defer="{{ $model }}" without-time="true" />
+    </div>
+
+    <div class="py-4">
+        @php
             $name = 'frequency_workday';
             $model = 'position.' . $name;
             $comment = $list_comment[$name];

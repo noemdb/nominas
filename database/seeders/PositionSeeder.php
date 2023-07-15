@@ -31,6 +31,7 @@ class PositionSeeder extends Seeder
                 'contract_type' =>$faker->randomElement($arr_type),
                 'start' => Carbon::today()->addDays(rand(1, 180))->format('Y-m-d'),
                 'end' => Carbon::today()->addDays(rand(180, 365))->format('Y-m-d'),
+                'start_salary' => Carbon::today()->addDays(rand(1, 180))->format('Y-m-d'),
                 'status' =>$faker->numberBetween(0,1),
                 'frequency_workday' =>$faker->randomElement($arr),
                 'workday' =>$faker->numberBetween(1,100),

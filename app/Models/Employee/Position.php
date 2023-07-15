@@ -13,10 +13,10 @@ class Position extends Model
     use HasFactory;
 
     protected $fillable = [
-        'employee_id','area_id','rol_id','name','description','contract_type','start','end','frequency_workday','workday','status'
+        'employee_id','area_id','rol_id','name','description','contract_type','start','end','start_salary','frequency_workday','workday','status'
     ];
 
-    protected $dates = ['start','end'];
+    protected $dates = ['start','end','start_salary'];
 
     const COLUMN_COMMENTS = [
         'employee_id'=>'Empleado',
@@ -27,11 +27,13 @@ class Position extends Model
         'contract_type'=>'Tipo de contrato',
         'start'=>'Fecha de inicio',
         'end'=>'Fecha de finalización',
+        'start_salary'=>'Fecha de inicio de la contratación',
         'frequency_workday'=>'Frecuencia de la jornada laboral',
         'workday'=>'Jornada laboral',
         'status'=>'Activo/Inactivo',
         //--------------------------------------------
         'lapse'=>'Lapso',
+        'position_name'=>'Posición',
         'employee_name'=>'Empleado',
         'area_name'=>'Área',
         'rol_name'=>'Rol',

@@ -1,9 +1,10 @@
 @php
     $class['index']='hidden sm:table-cell';
     $class['employee_name']='';
-    $class['name']='hidden sm:table-cell';
+    $class['name']='';
     $class['description']='hidden xl:table-cell';
-    $class['lapse']='';
+    $class['lapse']='hidden md:table-cell';
+    $class['start_salary']='hidden sm:table-cell';
     $class['action']='';
     /* index, employee_id, name, description, lapse, action */
 @endphp
@@ -44,7 +45,7 @@
                     ID
                 </th>
 
-                @php $name = 'employee_name' @endphp
+                @php $name = 'position_name' @endphp
                 <th class="px-2 py-1 {{$class[$name] ?? null}}">
                     <div class="flex justify-between">
                         <div>{{$list_comment[$name] ?? ''}}</div>
@@ -84,6 +85,16 @@
                     </div>
                 </th>
 
+                @php $name = 'start_salary' @endphp
+                <th class="px-2 py-1 {{$class[$name] ?? null}}">
+                    <div class="flex justify-between">
+                        <div>{{$list_comment[$name] ?? ''}}</div>
+                        @if($positions->isNotEmpty())
+                            <div class="self-center"><x-elements.crud.sort-by field="{{$name}}" :sortBy="$sortBy" :sortDirection="$sortDirection" /></div>
+                        @endif
+                    </div>
+                </th>
+
                 @php $name = 'action' @endphp
                 <th class="px-2 py-1 {{$class[$name] ?? null}}">
                     Acción
@@ -99,7 +110,7 @@
                         {{$loop->iteration}}
                     </td>
 
-                    @php $name = 'employee_name' @endphp
+                    @php $name = 'position_name' @endphp
                     <td class="px-2 py-1 {{$class[$name] ?? null}}">
                         {{$item->$name}}
                         <div class="text-xs text-gray-400">{{($item->area) ? $item->area->name : null}} || {{($item->rol) ? $item->rol->name : null}}</div>
@@ -116,8 +127,13 @@
                     </td>
 
                     @php $name = 'lapse' @endphp
-                    <td class="px-2 py-1 {{$class[$name] ?? null}}">
+                    <td class="px-2 py-1 {{$class[$name] ?? null}} whitespace-nowrap">
                         {{$item->$name}}
+                    </td>
+
+                    @php $name = 'start_salary' @endphp
+                    <td class="px-2 py-1 {{$class[$name] ?? null}}">
+                        {{$item->{$name}->format('d-m-Y')}}
                     </td>
 
                     @php $name = 'action' @endphp
