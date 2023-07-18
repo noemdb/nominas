@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('type')->comment('El tipo de bonificación que se está otorgando (por ejemplo, bonificación por desempeño, bonificación por objetivo alcanzado, bonificación por antigüedad, etc.)');
             $table->string('description')->nullable()->comment('Una breve descripción del tipo de bonificación que se está otorgando');
             $table->decimal('amount', 10, 2)->comment('La cantidad de la bonificación otorgada al empleado');
+            $table->foreignId('formulation_id')->nullable()->comment('La fórmula utilizada para calcular la cantidad');
             $table->string('frequency')->comment('La frecuencia con la que se otorga la bonificación (por ejemplo, anual, semestral, trimestral, mensual, etc.)');
             $table->date('date')->comment('La fecha en que se otorga la bonificación');
+            $table->boolean('status')->default(false)->comment('Activo/Desactivo');
             $table->timestamps();
         });
     }

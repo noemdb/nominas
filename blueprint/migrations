@@ -25,6 +25,7 @@ php artisan make:model 'Payroll\Salary' -m
 php artisan make:model 'Payroll\Deduction' -m
 php artisan make:model 'Payroll\Bonification' -m
 php artisan make:model 'Payroll\Incentive' -m
+php artisan make:model 'Payroll\Subsidy' -m
 php artisan make:model 'Payroll\Overtime' -m
 php artisan make:model 'Payroll\Holidays' -m
 php artisan make:model 'Payroll\Tax' -m
