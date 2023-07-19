@@ -1,5 +1,6 @@
 php artisan make:seeder InstitutionSeeder
 php artisan make:seeder AuthoritySeeder
+php artisan make:seeder PayrollSeeder
 php artisan make:seeder BankSeeder
 php artisan make:seeder ScheduleSeeder
 php artisan make:seeder AreaSeeder
@@ -15,6 +16,7 @@ php artisan make:seeder DocumentationSeeder
 
 ////////////////////////////////////
 
+php artisan make:seeder SettlementSeeder
 php artisan make:seeder SalarySeeder
 php artisan make:seeder BonificationSeeder
 php artisan make:seeder IncentiveSeeder

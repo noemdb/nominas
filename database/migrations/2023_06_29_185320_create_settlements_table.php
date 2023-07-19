@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('payrolls', function (Blueprint $table) {
+        Schema::create('settlements', function (Blueprint $table) {
             $table->id()->comment('Identificador único para cada registro de nómina');
             $table->foreignId('employee_id')->comment('El identificador único del empleado asociado con esta nómina (clave foránea a la tabla "employees")');
-            $table->string('level_id')->comment('El nivel de nómina (por ejemplo, Presidencia, Gerencia, Supervisión, Trabajador, Obrero.)');
-            $table->string('type')->comment('El tipo de nómina (por ejemplo, nómina semanal, quincenal, mensual, etc.)');
             $table->date('date')->comment('La fecha de la nómina');
             $table->decimal('gross_salary', 10, 2)->comment('El salario bruto del empleado');
             $table->decimal('net_salary', 10, 2)->comment('El salario neto del empleado');
@@ -37,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payrolls');
+        Schema::dropIfExists('settlements');
     }
 };

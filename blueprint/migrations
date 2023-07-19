@@ -1,4 +1,5 @@
 php artisan make:model 'Institution' -m
+php artisan make:model 'Institution\Payroll'
 php artisan make:model 'Institution\Authority' -m
 php artisan make:model 'Institution\Bank' -m
 php artisan make:model 'Institution\Currency' -m
@@ -21,6 +22,7 @@ php artisan make:model 'Employee\Attendance' -m
 
 php artisan make:model 'Payroll\Level' -m
 php artisan make:model 'Payroll' -m
+php artisan make:model 'Payroll\Settlement' -m
 php artisan make:model 'Payroll\Salary' -m
 php artisan make:model 'Payroll\Deduction' -m
 php artisan make:model 'Payroll\Bonification' -m

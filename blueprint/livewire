@@ -1,5 +1,6 @@
 php artisan make:livewire 'Institution/IndexComponent'
 php artisan make:livewire 'Institution/Autority/IndexComponent'
+php artisan make:livewire 'Institution/Payroll/IndexComponent'
 php artisan make:livewire 'Institution/Bank/IndexComponent'
 php artisan make:livewire 'Institution/Currency/IndexComponent'
 php artisan make:livewire 'Institution/ExchangeRate/IndexComponent'
@@ -28,6 +29,7 @@ php artisan make:livewire 'Formulation/Vacation/IndexComponent'
 
 **********************************************************************************
 php artisan make:livewire 'PayrollAccounting/IndexComponent'
+php artisan make:livewire 'PayrollAccounting/Settlement/IndexComponent'
 php artisan make:livewire 'PayrollAccounting/Salary/IndexComponent'
 php artisan make:livewire 'PayrollAccounting/Deduction/IndexComponent'
 php artisan make:livewire 'PayrollAccounting/Tax/IndexComponent'

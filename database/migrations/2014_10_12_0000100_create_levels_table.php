@@ -22,6 +22,7 @@ return new class extends Migration
         });
 
         $data = [
+            [ 'name' => 'Único', 'description' => 'Único'],
             [ 'name' => 'General', 'description' => 'Nómina General, todos los trabajadores'],
             [ 'name' => 'Alto nivel', 'description' => 'Nómina de Alto nivel'],
             [ 'name' => 'Presidencia', 'description' => 'Nómina del Presidente'],

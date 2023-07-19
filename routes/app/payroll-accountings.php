@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 //INI payroll-accountings
 use App\Http\Controllers\PayrollAccounting\IndexController as PayrollAccountingIndexController;
+use App\Http\Controllers\PayrollAccounting\Settlement\IndexController as PayrollAccountingSettlementIndexController;
 use App\Http\Controllers\PayrollAccounting\Salary\IndexController as PayrollAccountingSalaryIndexController;
 use App\Http\Controllers\PayrollAccounting\Deduction\IndexController as PayrollAccountingDeductionIndexController;
 use App\Http\Controllers\PayrollAccounting\Tax\IndexController as PayrollAccountingTaxIndexController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\PayrollAccounting\Vacation\IndexController as PayrollAc
 use App\Http\Controllers\PayrollAccounting\PaymentVoucher\IndexController as PayrollAccountingPaymentVoucherIndexController;
 
 Route::get('/payroll-accountings', [PayrollAccountingIndexController::class, 'index'])->name('payroll-accountings');
+Route::get('/payroll-accountings/settlements', [PayrollAccountingSettlementIndexController::class, 'index'])->name('payroll-accountings.settlements');
 Route::get('/payroll-accountings/salaries', [PayrollAccountingSalaryIndexController::class, 'index'])->name('payroll-accountings.salaries');
 Route::get('/payroll-accountings/deductions', [PayrollAccountingDeductionIndexController::class, 'index'])->name('payroll-accountings.deductions');
 Route::get('/payroll-accountings/taxes', [PayrollAccountingTaxIndexController::class, 'index'])->name('payroll-accountings.taxes');

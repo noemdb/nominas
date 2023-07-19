@@ -26,7 +26,6 @@ return new class extends Migration
             $table->boolean('taxable')->default(true)->comment('Un indicador de si la deducción es imponible para fines fiscales, lo que significa que se considera como ingreso sujeto a impuestos');
             $table->boolean('mandatory')->default(true)->comment('Un indicador de si la deducción es obligatoria para todos los empleados');
             $table->boolean('post_tax')->default(false)->comment('Un indicador de si la deducción se aplica después de impuestos');
-            $table->boolean('post_tax')->default(false)->comment('Un indicador de si la deducción se aplica después de impuestos');
             $table->boolean('tax_exempt')->default(false)->comment('Un indicador de si la deducción está exenta de impuestos');
             $table->decimal('employer_contribution', 10, 2)->nullable()->comment('La contribución del empleador a la deducción, si corresponde');
             $table->decimal('employee_contribution', 10, 2)->nullable()->comment('La contribución del empleado a la deducción, si corresponde');

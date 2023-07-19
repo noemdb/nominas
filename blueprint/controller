@@ -1,6 +1,7 @@
 php artisan make:controller 'Welcome\HomeController'
 
 php artisan make:controller 'Institution\IndexController'
+php artisan make:controller 'Institution\Payroll\IndexController'
 php artisan make:controller 'Institution\Autority\IndexController'
 php artisan make:controller 'Institution\Bank\IndexController'
 php artisan make:controller 'Institution\Currency\IndexController'
@@ -30,6 +31,7 @@ php artisan make:controller 'Formulation\Vacation\IndexController'
 
 
 php artisan make:controller 'PayrollAccounting\IndexController'
+php artisan make:controller 'PayrollAccounting\Settlement\IndexController'
 php artisan make:controller 'PayrollAccounting\Salary\IndexController'
 php artisan make:controller 'PayrollAccounting\Deduction\IndexController'
 php artisan make:controller 'PayrollAccounting\Tax\IndexController'

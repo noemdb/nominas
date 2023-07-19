@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         $this->call(InstitutionSeeder::class);
+        $this->call(PayrollSeeder::class);
         $this->call(AuthoritySeeder::class);
         $this->call(BankSeeder::class);
         $this->call(CurrencySeeder::class);
@@ -34,6 +35,7 @@ class DatabaseSeeder extends Seeder
         ///////////////////////////////////
         $this->call(BonificationSeeder::class);
         $this->call(IncentiveSeeder::class);
+        $this->call(SettlementSeeder::class);
         $this->call(SalarySeeder::class);
 
         ///////////////////////////////////

@@ -6,9 +6,10 @@
             'icon' => 'icons.building',
             'childrens' => [
                 ['label' => 'Inicio', 'route' => route('institutions')],
+                ['label' => 'Monedas', 'route' => route('institutions.currencies')],
                 ['label' => 'Autoridades', 'route' => route('institutions.autorities')],
                 ['label' => 'Bancos', 'route' => route('institutions.banks')],
-                ['label' => 'Monedas', 'route' => route('institutions.currencies')],
+                ['label' => 'Procesos de nóminas', 'route' => route('institutions.payrolls')],
                 ['label' => 'Tasas de Cambio', 'route' => route('institutions.exchange_rates')],
                 ['label' => 'Áreas', 'route' => route('institutions.areas')],
                 ['label' => 'Roles', 'route' => route('institutions.rols')],
@@ -47,6 +48,7 @@
             'icon' => 'icons.hand-cash',
             'childrens' => [
                 ['label' => 'Inicio', 'route' => route('payroll-accountings')],
+                ['label' => 'Liquidación', 'route' => route('payroll-accountings.settlements')],
                 ['label' => 'Salarios', 'route' => route('payroll-accountings.salaries')],
                 ['label' => 'Deducciones', 'route' => route('payroll-accountings.deductions')],
                 ['label' => 'Bonificaciones', 'route' => route('payroll-accountings.bonifications')],
