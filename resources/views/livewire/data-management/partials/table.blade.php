@@ -14,7 +14,7 @@
                 @endif
             </th>
             <th wire:click="sortBy('current_position_info')" class="px-6 py-3 cursor-pointer">
-                Cargo
+                Área/Roll
                 @if ($sortField === 'current_position_info')
                     <span>{!! $sortDirection === 'asc' ? '&#8593;' : '&#8595;' !!}</span>
                 @endif

@@ -69,8 +69,7 @@ class WorkersManager extends Component
             'worker.pension_fund' => 'nullable|string|max:255',
             'worker.is_active' => 'boolean',
         ];
-    }    
-    
+    }
     
     public function create()
     {
@@ -98,6 +97,7 @@ class WorkersManager extends Component
         ];
         $this->isEdit = false;
         $this->showModal = true;
+        $this->resetErrorBag();
     }
     
     public function edit($id)
@@ -129,11 +129,11 @@ class WorkersManager extends Component
         ];
         
         $this->showModal = true;
+        $this->resetErrorBag();
     }
     
     public function save()
     {
-        //dd($this->worker);
         $this->validate();
         
         if ($this->isEdit) {
@@ -175,6 +175,7 @@ class WorkersManager extends Component
         
         $this->showModal = false;
         $this->successNotification();
+        $this->resetErrorBag();
     }
     
     public function confirmDelete($id)
@@ -199,26 +200,32 @@ class WorkersManager extends Component
     {
         $this->showModal = false;
         $this->confirmingDelete = false;
+        $this->resetErrorBag();
     }
 
     public function render()
     {
-        return view('livewire.data-management.workers-manager', [
-            'workers' => Worker::where('first_name', 'like', "%{$this->search}%")
-                ->orWhere('identification', 'like', "%{$this->search}%")
-                ->orderBy($this->sortField, $this->sortDirection)
-                ->paginate($this->perPage),
-        ]);
-    }
+        $workers = Worker::select('workers.*')
+            ->leftJoin('positions', 'workers.id', '=', 'positions.worker_id')
+            ->where('positions.is_active', true)
+            ->leftJoin('areas', 'positions.area_id', '=', 'areas.id')
+            ->leftJoin('rols', 'positions.rol_id', '=', 'rols.id')
+            ->where(fn($query) => $query
+                ->where('workers.first_name', 'like', "%{$this->search}%")
+                ->orWhere('workers.identification', 'like', "%{$this->search}%")
+                ->orWhere('areas.name', 'like', "%{$this->search}%")
+            );
 
-    public function successNotification(): void
-    {
-        $this->notification()->send([
-            'icon' => 'success',
-            'title' => 'Realizado!',
-            'description' => 'Accion ejecutada.',
+        $sortField = $this->sortField === 'current_position_info' 
+            ? "CONCAT(areas.name, ' - ', rols.name)" 
+            : $this->sortField;
+
+        $workers->orderByRaw("$sortField {$this->sortDirection}");
+
+        return view('livewire.data-management.workers-manager', [
+            'workers' => $workers->paginate($this->perPage),
         ]);
-    }
+    }     
 
     public function updatingPerPage()
     {
@@ -238,6 +245,20 @@ class WorkersManager extends Component
             $this->sortField = $field;
             $this->sortDirection = 'asc';
         }
+    }
+
+    public function clearSearch()
+    {
+        $this->search = '';
+    }
+
+    public function successNotification(): void
+    {
+        $this->notification()->send([
+            'icon' => 'success',
+            'title' => 'Realizado!',
+            'description' => 'Accion ejecutada.',
+        ]);
     }
 }
 

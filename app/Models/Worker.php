@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Worker extends Model
 {
@@ -32,7 +33,8 @@ class Worker extends Model
 
     public function positions()
     {
-        return $this->hasOne(Position::class);
+        // return $this->hasOne(Position::class);
+        return $this->hasMany(Position::class);
     }
 
     // Relación con Position
@@ -40,6 +42,7 @@ class Worker extends Model
     {
         return $this->hasOne(Position::class);
     }
+    
 
     public function getCurrentPositionAttribute()
     {
@@ -74,5 +77,16 @@ class Worker extends Model
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function currentPositionInfo(): Attribute
+    {
+        return Attribute::get(function () {
+            $position = $this->positions()->where('is_active', true)->latest()->first();
+            if ($position && $position->area && $position->rol) {
+                return "{$position->area->name} - {$position->rol->name}";
+            }
+            return 'Sin posición actual';
+        });
     }
 }
