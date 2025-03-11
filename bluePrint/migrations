@@ -1,0 +1,53 @@
+
+php artisan make:model 'app\Prompts' -m
+
+php artisan make:migration add_username_to_users --table=users
+
+hp artisan make:model Message -m
+
+en laravel
+
+asisteme para generar todo lo necesario, migracion, model, ect
+
+php artisan make:model Institution -mfcr [datos de la institucion]
+php artisan make:model Area -mfcr [datos del area segun estructura organiativa: name,description, etc]
+php artisan make:model Rol -mfcr [datos de los roles segun estructura organiativa: name,description, etc]
+php artisan make:model Worker -mfcr [datos del trabajador: name,ident., etc]
+php artisan make:model Position -mfcr [datos del cargo que ocupara el trabajador: area_id, rol_id, worker_id, etc]
+
+
+los trabajadores estan dividos en una estructura
+
+los áreas son los siguientes:
+	1. Dirección
+	2. Subdirección
+	3. Coordinación
+	4. Jefatura
+	5. Docente
+	6. Asistencia
+	7. Obrero
+
+los roles son los siguientes:
+
+	1. Dirección General
+	2. Concejo Directivo
+	3.1 Dirección Academica
+	3.2 Dirección Administrativa
+
+	4 Subdirecciones
+	5 Coordinadores
+
+	6.1 Jefes de Área
+	6.2 Jefes de Año (Profesores Guía)
+
+	7.1 Docentes de Aula
+	7.2 Docentes por Hora
+	7.3 Docentes Suplentes
+
+	8.1 Asistentes Administrativos
+	8.2 Auxiliares Administrativos
+
+	9.1 Obrero
+	9.2 Chofer
+	9.3 Jardinero
+	9.4 Limpieza

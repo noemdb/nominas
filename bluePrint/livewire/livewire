@@ -1,0 +1,7 @@
+php artisan make:livewire InteractionComponent
+
+
+php artisan make:livewire 'DataManagement\WorkerForm'
+php artisan make:livewire 'DataManagement\WorkersList'
+php artisan make:livewire 'DataManagement\DeleteWorkerComponent'
+php artisan make:livewire 'DataManagement\WorkersManager'
