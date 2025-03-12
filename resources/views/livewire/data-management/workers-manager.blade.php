@@ -44,7 +44,7 @@
             </div>
             
             <!-- Contenido del modal con scroll -->
-            <div class="overflow-y-auto p-6 flex-grow">
+            <div class="overflow-y-auto p-2 flex-grow">
                 @include('livewire.data-management.partials.form')
             </div>
             
