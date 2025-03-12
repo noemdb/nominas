@@ -1,4 +1,4 @@
-{{-- <div x-data="{ tab: 'contacto' }" x-cloak> --}}
+
 <div x-data="{ tab: localStorage.getItem('activeTab') || 'contacto' }"
     x-init="$watch('tab', value => localStorage.setItem('activeTab', value))"  x-cloak>
 
@@ -23,6 +23,18 @@
             :class="tab === 'financiera' ? 'border-b-2 border-blue-500 text-blue-500 font-semibold' : 'text-gray-600'"
             class="px-4 py-2 focus:outline-none transition">
             Financiera
+        </button>
+
+        <button @click="tab = 'user'"
+            :class="tab === 'user' ? 'border-b-2 border-blue-500 text-blue-500 font-semibold' : 'text-gray-600'"
+            class="px-4 py-2 focus:outline-none transition">
+            Usuario
+        </button>
+
+        <button @click="tab = 'position'"
+            :class="tab === 'position' ? 'border-b-2 border-blue-500 text-blue-500 font-semibold' : 'text-gray-600'"
+            class="px-4 py-2 focus:outline-none transition">
+            Posición
         </button>
     </div>
 
@@ -55,15 +67,32 @@
             </div>
         </template>
 
+        <!-- Información del Usuario -->
+        <template x-if="tab === 'user'">
+            <div>
+                @include('livewire.data-management.partials.user')
+            </div>
+        </template>
+
+        <!-- Información de la posición -->
+        <template x-if="tab === 'position'">
+            <div>
+                @include('livewire.data-management.partials.user')
+            </div>
+        </template>
+
+        {{-- <x-wireui-errors /> --}}
+
         <!-- Botones -->
         <div class="mt-8 flex justify-end space-x-3">
-            <a href="{{ route('workers.index') }}"
-                class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md transition">
-                Cancelar
-            </a>
-            <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition">
+
+            <x-wireui-button white label="Cancelar" wire:click="closeModal" onclick="event.preventDefault();"/>
+
+            <x-wireui-button type="submit" :label="$isEdit ? 'Actualizar' : 'Registrar'" />
+
+            {{-- <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition">
                 {{ $isEdit ? 'Actualizar' : 'Registrar' }}
-            </button>
+            </button> --}}
         </div>
     </form>
 </div>

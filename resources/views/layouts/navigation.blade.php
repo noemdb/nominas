@@ -55,9 +55,8 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-
-                <x-dropdown>
-                    
+                
+                <x-wireui-dropdown>
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->name }}</div>
@@ -69,21 +68,15 @@
                             </div>
                         </button>
                     </x-slot>
+                
+                    <x-wireui-dropdown.item label="Perfil de usuario" :href="route('profile.edit')"/>
 
-                    <x-dropdown-link :href="route('profile.edit')">
-                        {{ __('Perfil de usuario') }}
-                    </x-dropdown-link>
-                    <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-
-                        <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                                            this.closest('form').submit();">
-                            {{ __('Salir') }}
-                        </x-dropdown-link>
+                        <x-wireui-dropdown.item separator label="Salir" :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();"/>
                     </form>
-                </x-dropdown>
+
+                </x-wireui-dropdown>
             </div>
         </div>
     </div>

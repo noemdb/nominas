@@ -42,6 +42,13 @@ class WorkersManager extends Component
         'pension_fund' => '',
         'is_active' => true
     ];
+
+    public $user = [
+        'name' => '',
+        'username' => '',
+        'email' => '',
+        'password' => ''
+    ];
     
     public $confirmingDelete = false;
     public $deleteId = null;
@@ -68,6 +75,8 @@ class WorkersManager extends Component
             'worker.social_security_number' => 'required|string|max:50',
             'worker.pension_fund' => 'nullable|string|max:255',
             'worker.is_active' => 'boolean',
+            'user.name' => 'required',
+            'user.username' => 'required',
         ];
     }
     
@@ -107,6 +116,7 @@ class WorkersManager extends Component
         
         $workerModel = Worker::findOrFail($id);
         $this->worker = [
+            'id' => $workerModel->id,
             'first_name' => $workerModel->first_name,
             'last_name' => $workerModel->last_name,
             'identification' => $workerModel->identification,

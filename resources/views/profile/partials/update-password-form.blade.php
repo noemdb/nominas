@@ -42,7 +42,7 @@
                     x-transition
                     x-init="setTimeout(() => show = false, 2000)"
                 >
-                    <x-alert title="Acción realizada!" positive solid />
+                    <x-wireui-alert title="Acción realizada!" positive solid />
                 </div>
                 
             @endif

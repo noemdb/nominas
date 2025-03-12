@@ -2,7 +2,7 @@
     <div class="w-1/3">
 
         <div class="relative w-full">
-            <x-input
+            <x-wireui-input
                 icon="user"
                 wire:model.live.debounce.300ms="search"
                 label="Filtrar"

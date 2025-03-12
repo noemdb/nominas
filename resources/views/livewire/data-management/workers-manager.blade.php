@@ -3,10 +3,13 @@
         <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">
             Gestión de Trabajadores...
         </h1>
-        <button wire:click="create"
+        {{-- <button wire:click="create"
+            onclick="event.preventDefault();"
             class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition">
             Registrar Trabajador
-        </button>
+        </button> --}}
+
+        <x-wireui-button icon="plus" label="Registrar Trabajador" wire:click="create"/>
     </div>
 
     <!-- Filtros y búsqueda -->
@@ -24,21 +27,7 @@
 
     <!-- Modal para crear/editar trabajador -->
     @if($showModal)
-    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-2xl w-full">
-            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
-                {{ $isEdit ? 'Editar Trabajador' : 'Registrar Nuevo Trabajador' }}
-            </h3>
-            
-            @include('livewire.data-management.partials.form')
-
-        </div>
-    </div>
-    @endif
-
-    <!-- Modal para crear/editar trabajador -->
-    @if($showModal)
-    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" wire:key="post-{{ $isEdit ? 'edit-'.$worker['id'] : 'create' }}">
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl flex flex-col max-h-[90vh]">
             <!-- Encabezado del modal -->
             <div class="p-6 border-b border-gray-200 dark:border-gray-700">
