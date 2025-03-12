@@ -33,6 +33,11 @@ class Position extends Model
         return $this->belongsTo(Worker::class);
     }
 
+    public function getFullNameAttribute()
+    {
+        return trim(($this->area?->name ?? '') . ' ' . ($this->rol?->name ?? ''));
+    }
+
     public static function boot()
     {
         parent::boot();

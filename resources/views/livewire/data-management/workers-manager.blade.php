@@ -1,14 +1,8 @@
 <div class="max-w-7xl mx-auto p-6 lg:p-8">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-            Gestión de Trabajadores...
+            Gestión de Trabajadores
         </h1>
-        {{-- <button wire:click="create"
-            onclick="event.preventDefault();"
-            class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition">
-            Registrar Trabajador
-        </button> --}}
-
         <x-wireui-button icon="plus" label="Registrar Trabajador" wire:click="create"/>
     </div>
 
@@ -51,9 +45,7 @@
         </div>
     </div>
     @endif
-
-
-
+    
     <!-- Modal de confirmación de eliminación -->
     @includeWhen($confirmingDelete, 'livewire.data-management.modal.confirmingDelete')
 </div>

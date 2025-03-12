@@ -15,6 +15,8 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <link rel="webside icon" href="{{asset('image/icon.png')}}" type="png">
         
     </head>
     <body class="antialiased">

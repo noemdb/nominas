@@ -3,17 +3,17 @@
     x-init="$watch('tab', value => localStorage.setItem('activeTab', value))"  x-cloak>
 
     <!-- Navegación de Pestañas -->
-    <div class="flex space-x-4 border-b border-gray-200 dark:border-gray-700 mb-6">
-        <button @click="tab = 'contacto'"
-            :class="tab === 'contacto' ? 'border-b-2 border-blue-500 text-blue-500 font-semibold' : 'text-gray-600'"
-            class="px-4 py-2 focus:outline-none transition">
-            Contacto
-        </button>
+    <div class="flex space-x-4 border-b border-gray-200 dark:border-gray-700 mb-6">        
         <button @click="tab = 'personal'"
             :class="tab === 'personal' ? 'border-b-2 border-blue-500 text-blue-500 font-semibold' : 'text-gray-600'"
             class="px-4 py-2 focus:outline-none transition">
             Personal
-        </button>        
+        </button>  
+        <button @click="tab = 'contacto'"
+            :class="tab === 'contacto' ? 'border-b-2 border-blue-500 text-blue-500 font-semibold' : 'text-gray-600'"
+            class="px-4 py-2 focus:outline-none transition">
+            Contacto
+        </button>      
         <button @click="tab = 'laboral'"
             :class="tab === 'laboral' ? 'border-b-2 border-blue-500 text-blue-500 font-semibold' : 'text-gray-600'"
             class="px-4 py-2 focus:outline-none transition">
@@ -77,11 +77,17 @@
         <!-- Información de la posición -->
         <template x-if="tab === 'position'">
             <div>
-                @include('livewire.data-management.partials.user')
+
+                {{-- <livewire:data-management.positions-manager worker_id={{$isEdit ? $worker['id'] : null}}/>   --}}
+
+                <livewire:data-management.positions-manager worker_id="{{$isEdit ? $worker['id'] : null}}" />  
+
+                {{-- livewire:data-management.positions-manager --}}
+                
             </div>
         </template>
 
-        {{-- <x-wireui-errors /> --}}
+        <x-wireui-errors />
 
         <!-- Botones -->
         <div class="mt-8 flex justify-end space-x-3">
@@ -90,9 +96,6 @@
 
             <x-wireui-button type="submit" :label="$isEdit ? 'Actualizar' : 'Registrar'" />
 
-            {{-- <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition">
-                {{ $isEdit ? 'Actualizar' : 'Registrar' }}
-            </button> --}}
         </div>
     </form>
 </div>

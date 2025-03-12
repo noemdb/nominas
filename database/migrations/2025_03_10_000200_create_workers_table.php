@@ -25,14 +25,14 @@ return new class extends Migration
             $table->string('nationality')->nullable(); // Nacionalidad
             $table->date('hire_date'); // Fecha de ingreso
             $table->decimal('base_salary', 10, 2)->default(0.00); // Salario base
-            $table->enum('contract_type', ['Fijo', 'Temporal', 'Contratado']); // Tipo de contrato
-            $table->enum('payment_method', ['Transferencia', 'Cheque', 'Efectivo'])->default('Transferencia'); // Método de pago
+            $table->string('contract_type'); // Tipo de contrato
+            $table->string('payment_method'); // Método de pago
             $table->string('bank_name')->nullable(); // Nombre del banco
             $table->string('bank_account_number')->nullable(); // Número de cuenta bancaria
             $table->string('tax_identification_number')->nullable(); // RIF o equivalente
             $table->string('social_security_number')->nullable(); // Número de seguro social
             $table->string('pension_fund')->nullable(); // Fondo de pensiones (si aplica)
-            $table->boolean('is_active')->default(true); // Estado del trabajador (Activo/Inactivo)
+            $table->boolean('is_active')->nullable()->default(true); // Estado del trabajador (Activo/Inactivo)
             $table->timestamps();
         });
     }

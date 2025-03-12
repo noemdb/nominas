@@ -2,6 +2,7 @@
 
 namespace App\Livewire\DataManagement;
 
+use App\Models\User;
 use App\Models\Worker;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -20,6 +21,9 @@ class WorkersManager extends Component
     public $showModal = false;
     public $isEdit = false;
     public $workerId = null;
+
+    public $confirmingDelete = false;
+    public $deleteId = null;
     
     public $worker = [
         'first_name' => '',
@@ -50,9 +54,6 @@ class WorkersManager extends Component
         'password' => ''
     ];
     
-    public $confirmingDelete = false;
-    public $deleteId = null;
-    
     protected function rules()
     {
         return [
@@ -62,7 +63,7 @@ class WorkersManager extends Component
             'worker.email' => 'required|email|max:255|unique:workers,email,' . ($this->workerId ?? ''),
             'worker.phone' => 'required|string|max:20',
             'worker.birth_date' => 'required|date',
-            'worker.gender' => 'required|in:Masculino,Femenino,Otro',
+            'worker.gender' => 'required',
             'worker.marital_status' => 'required',
             'worker.nationality' => 'required|string|max:100',
             'worker.hire_date' => 'required|date',
@@ -74,9 +75,10 @@ class WorkersManager extends Component
             'worker.tax_identification_number' => 'required|string|max:50',
             'worker.social_security_number' => 'required|string|max:50',
             'worker.pension_fund' => 'nullable|string|max:255',
-            'worker.is_active' => 'boolean',
-            'user.name' => 'required',
+            'worker.is_active' => 'nullable|boolean',
             'user.username' => 'required',
+            // 'user.name' => 'required',
+            // 'user.email' => 'required',
         ];
     }
     
@@ -105,6 +107,7 @@ class WorkersManager extends Component
             'is_active' => true
         ];
         $this->isEdit = false;
+        $this->clearModels();
         $this->showModal = true;
         $this->resetErrorBag();
     }
@@ -113,6 +116,7 @@ class WorkersManager extends Component
     {
         $this->workerId = $id;
         $this->isEdit = true;
+        $this->clearModels();
         
         $workerModel = Worker::findOrFail($id);
         $this->worker = [
@@ -137,6 +141,13 @@ class WorkersManager extends Component
             'pension_fund' => $workerModel->pension_fund,
             'is_active' => $workerModel->is_active
         ];
+
+        $userId = $workerModel->user_id;
+        $UserModel = User::find($userId);
+
+        $this->user = $UserModel 
+            ? array_merge($UserModel->only(['name', 'username', 'email']), ['password' => null])
+            : [];
         
         $this->showModal = true;
         $this->resetErrorBag();
@@ -144,12 +155,16 @@ class WorkersManager extends Component
     
     public function save()
     {
+        // dd($this->worker);
         $this->validate();
         
         if ($this->isEdit) {
             $workerModel = Worker::findOrFail($this->workerId);
+            $userId = $workerModel->user_id;
+            $UserModel = User::findOrFail($userId);
         } else {
             $workerModel = new Worker();
+            $UserModel = new User();
         }
         
         // Asignar todos los campos del formulario al modelo
@@ -182,8 +197,20 @@ class WorkersManager extends Component
         $workerModel->is_active = $this->worker['is_active'];
         
         $workerModel->save();
+
+        $UserModel->name = $workerModel->full_name;
+        $UserModel->email = $workerModel->email;
+        $UserModel->username = $this->user['username'];
+        $UserModel->password = $this->user['password'] !== null 
+            ? bcrypt($this->user['password']) 
+            : $UserModel->password;
+        $UserModel->save();
+
+        $workerModel->user_id = $UserModel->id;
+        $workerModel->save();
         
         $this->showModal = false;
+        $this->clearModels();
         $this->successNotification();
         $this->resetErrorBag();
     }
@@ -201,8 +228,7 @@ class WorkersManager extends Component
         
         $this->confirmingDelete = false;
         $this->deleteId = null;
-        
-        session()->flash('message', 'Trabajador eliminado correctamente.');
+        $this->clearModels();
         $this->successNotification();
     }
     
@@ -217,9 +243,9 @@ class WorkersManager extends Component
     {
         $workers = Worker::select('workers.*')
             ->leftJoin('positions', 'workers.id', '=', 'positions.worker_id')
-            ->where('positions.is_active', true)
             ->leftJoin('areas', 'positions.area_id', '=', 'areas.id')
             ->leftJoin('rols', 'positions.rol_id', '=', 'rols.id')
+            // ->where('positions.is_active', true)
             ->where(fn($query) => $query
                 ->where('workers.first_name', 'like', "%{$this->search}%")
                 ->orWhere('workers.identification', 'like', "%{$this->search}%")
@@ -260,6 +286,12 @@ class WorkersManager extends Component
     public function clearSearch()
     {
         $this->search = '';
+    }
+
+    public function clearModels()
+    {
+        array_walk($this->worker, function(&$value) { $value = null; });
+        array_walk($this->user, function(&$value) { $value = null; });
     }
 
     public function successNotification(): void

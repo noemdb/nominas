@@ -8,8 +8,8 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        {{-- <link rel="preconnect" href="https://fonts.bunny.net"> --}}
+        {{-- <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
 
         <!-- Livewire -->
         @livewireStyles
@@ -24,6 +24,8 @@
         <style>
             [x-cloak] { display: none !important; }
         </style>
+
+        <link rel="webside icon" href="{{asset('image/icon.png')}}" type="png">
 
     </head>
     <body class="font-sans antialiased">

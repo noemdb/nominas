@@ -1,7 +1,7 @@
 <!-- Información Financiera -->
 <div class="mb-8">
     <h2
-        class="text-lg font-medium text-gray-800 dark:text-gray-200 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">
+        class="text-end font-extralight text-md text-gray-800 dark:text-gray-400 mb-1 border-b border-gray-200 dark:border-gray-700">
         Información Financiera y Fiscal
     </h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -12,9 +12,10 @@
             </label>
             <select wire:model="worker.payment_method" id="payment_method"
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white">
-                <option value="bank_transfer">Transferencia Bancaria</option>
-                <option value="check">Cheque</option>
-                <option value="cash">Efectivo</option>
+                <option selected>Seleccione</option>
+                <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+                <option value="Cheque">Cheque</option>
+                <option value="Efectivo">Efectivo</option>
             </select>
             @error('worker.payment_method')
                 <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -22,7 +23,7 @@
         </div>
 
         <!-- Banco -->
-        <div x-data="{}" x-show="$wire.worker.payment_method === 'bank_transfer'">
+        <div x-data="{}" x-show="$wire.worker.payment_method === 'Transferencia Bancaria'">
             <label for="bank_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Banco
             </label>
@@ -34,7 +35,7 @@
         </div>
 
         <!-- Número de Cuenta -->
-        <div x-data="{}" x-show="$wire.worker.payment_method === 'bank_transfer'">
+        <div x-data="{}" x-show="$wire.worker.payment_method === 'Transferencia Bancaria'">
             <label for="bank_account_number" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Número de Cuenta
             </label>

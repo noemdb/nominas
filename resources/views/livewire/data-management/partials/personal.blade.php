@@ -1,7 +1,7 @@
 <!-- Información Personal -->
 <div class="mb-8">
     <h2
-        class="text-lg font-medium text-gray-800 dark:text-gray-200 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">
+        class="text-end font-extralight text-md text-gray-800 dark:text-gray-400 mb-1 border-b border-gray-200 dark:border-gray-700">
         Información Personal
     </h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -43,48 +43,72 @@
 
         <!-- Fecha de Nacimiento -->
         <div>
-            <label for="birth_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+
+            <x-wireui-input
+                label="Fecha de Nacimiento"
+                placeholder="Fecha de Nacimiento"
+                wire:model="worker.birth_date"
+                id="worker.birth_date" :name="Str::random(10)"
+                type="date"
+            />
+
+            {{-- <label for="birth_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Fecha de Nacimiento
             </label>
             <input wire:model="worker.birth_date" type="date" id="birth_date"
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white">
             @error('worker.birth_date')
                 <span class="text-red-500 text-sm">{{ $message }}</span>
-            @enderror
+            @enderror --}}
+
+            {{-- <x-wireui-datetime-picker
+                wire:model="worker.birth_date"
+                label="Fecha de Nacimiento"
+                placeholder="Fecha de Nacimiento"
+                parse-format="YYYY-MM-DD"
+                without-time
+            /> --}}
         </div>
 
         <!-- Género -->
         <div>
+
+            {{-- 
             <label for="gender" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Género
             </label>
             <select wire:model="worker.gender" id="gender"
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white">
-                <option disabled selected>Seleccione un género</option>
-                <option value="male">Masculino</option>
-                <option value="female">Femenino</option>
-                <option value="other">Otro</option>
+                <option selected>Seleccione</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Otro">Otro</option>
             </select>
             @error('worker.gender')
                 <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
+            --}}
+
+            <x-wireui-native-select label="Género" wire:model="worker.gender">
+                <<option selected>Seleccione</option>
+                <option>Masculino</option>
+                <option>Femenino</option>
+                <option>Otro</option>
+            </x-wireui-native-select>
+
         </div>
 
         <!-- Estado Civil -->
         <div>
-            <label for="marital_status" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Estado Civil
-            </label>
-            <select wire:model="worker.marital_status" id="marital_status"
-                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white">
-                <option value="single">Soltero/a</option>
-                <option value="married">Casado/a</option>
-                <option value="divorced">Divorciado/a</option>
-                <option value="widowed">Viudo/a</option>
-            </select>
-            @error('worker.marital_status')
-                <span class="text-red-500 text-sm">{{ $message }}</span>
-            @enderror
+
+            <x-wireui-native-select label="Estado Civil" wire:model="worker.marital_status">
+                <option selected>Seleccione</option>
+                <option>Soltero/a</option>
+                <option>Casado/a</option>
+                <option>Divorciado/a</option>
+                <option>Viudo/a</option>
+            </x-wireui-native-select>
+
         </div>
 
         <!-- Nacionalidad -->
@@ -98,5 +122,6 @@
                 <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
         </div>
+        
     </div>
 </div>
