@@ -51,10 +51,17 @@ Route::middleware('auth','verified')->group(function () {
 
 require __DIR__.'/auth.php';
 
-
 Livewire::setScriptRoute(function ($handle) {
-    return Route::get(env('APP_URL_PRE','null').'/livewire/livewire.js', $handle);
+    return Route::get('/livewire/livewire.js', $handle);
 });
 Livewire::setUpdateRoute(function ($handle) {
-    return Route::post(env('APP_URL_PRE','null').'/livewire/update', $handle);
+    return Route::post('/livewire/update', $handle);
 });
+
+
+// Livewire::setScriptRoute(function ($handle) {
+//     return Route::get(env('APP_URL_PRE','null').'/livewire/livewire.js', $handle);
+// });
+// Livewire::setUpdateRoute(function ($handle) {
+//     return Route::post(env('APP_URL_PRE','null').'/livewire/update', $handle);
+// });
