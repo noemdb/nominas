@@ -13,11 +13,11 @@
     </div>
 
     <!-- Contenido de la Pestaña Seleccionada -->
-    <div class="w-full md:w-3/4 p-6 bg-white rounded-sm {{ $activePosition ? 'bg-gray-100 dark:bg-gray-700' : 'dark:bg-gray-800' }}">
+    <div class="w-full md:w-3/4 p-2 bg-white rounded-sm {{ $activePosition ? 'bg-gray-100 dark:bg-gray-700' : 'dark:bg-gray-800' }}">
         @if ($activePosition)
-            <div class="space-y-4">                
+            <div class="space-y-2">                
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-2">
                     <div>
                         <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">
                             Área: <span class="text-gray-700 dark:text-gray-300">{{ $activePosition->area->name }}</span>
@@ -48,12 +48,9 @@
 
             <div class="flex justify-end items-end">
                 <div>
-                    <button wire:click="editPosition({{ $activePosition->id }})" class="px-2 py-1 text-white bg-yellow-500 rounded hover:bg-yellow-600 dark:bg-yellow-700 dark:hover:bg-yellow-800">
-                        Editar
-                    </button>
-                    <button wire:click="deletePosition({{ $activePosition->id }})" class="px-2 py-1 ml-2 text-white bg-red-500 rounded hover:bg-red-600 dark:bg-red-700 dark:hover:bg-red-800">
-                        Eliminar
-                    </button>
+                    @php $worker = $position->worker; @endphp
+                    <x-wireui-mini-button warning icon="pencil" wire:click="editPosition({{ $activePosition->id }})"  />
+                    <x-wireui-mini-button negative icon="trash" :disabled="$worker->is_active" wire:click="deletePosition({{ $activePosition->id }})" />
                 </div>
             </div>
 

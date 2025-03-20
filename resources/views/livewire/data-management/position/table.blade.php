@@ -16,21 +16,15 @@
         @forelse ($positions as $position)
             <tr class="border-b border-gray-200 dark:border-gray-700">
                 <td class="px-4 py-2">{{ $position->id }}</td>
-                <td class="px-4 py-2">{{ $position->worker->name }}</td>
+                <td class="px-4 py-2">{{ $position->worker->fullname }}</td>
                 <td class="px-4 py-2">{{ $position->area->name }}</td>
                 <td class="px-4 py-2">{{ $position->rol->name }}</td>
                 <td class="px-4 py-2">{{ $position->start_date }}</td>
                 <td class="px-4 py-2">{{ $position->end_date }}</td>
-                <td class="px-4 py-2">{{ $position->is_active ? 'Sí' : 'No' }}</td>
+                <td class="px-4 py-2">{{ $position->is_active ? 'Si' : 'No' }}</td>
                 <td class="px-4 py-2">
-                    <button wire:click="edit({{ $position->id }})"
-                        class="px-2 py-1 text-white bg-yellow-500 rounded hover:bg-yellow-600 dark:bg-yellow-700 dark:hover:bg-yellow-800">
-                        Editar
-                    </button>
-                    <button wire:click="delete({{ $position->id }})"
-                        class="px-2 py-1 ml-2 text-white bg-red-500 rounded hover:bg-red-600 dark:bg-red-700 dark:hover:bg-red-800">
-                        Eliminar
-                    </button>
+                    <x-wireui-mini-button warning icon="pencil" wire:click="editPosition({{ $position->id }})" />
+                    <x-wireui-mini-button negative icon="trash" :disabled="!$position->is_active" wire:click="deletePosition({{ $position->id }})" />
                 </td>
             </tr>
         @empty

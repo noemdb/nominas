@@ -39,7 +39,7 @@
             <tr class="border-t border-gray-200 dark:border-gray-700">
                 <td class="px-6 py-4">{{ $worker->full_name ?? null}}</td>
                 <td class="px-6 py-4">{{ $worker->identification }}</td>
-                <td class="px-6 py-4 {{ (! $worker->status_positions) ? 'text-gray-400' : null}}">{{ $worker->current_position_info}}</td>
+                <td class="px-6 py-4 {{ (! $worker->status_positions) ? 'text-gray-400' : null}}">{{ $worker->last_position_info}}</td>
                 <td class="px-6 py-4">{{ number_format($worker->base_salary, 2, ',', '.') }}</td>
                 <td class="px-6 py-4">
                     <span
@@ -48,8 +48,36 @@
                     </span>
                 </td>
                 <td class="px-6 py-4 space-x-2 flex">
-                    <x-wireui-mini-button warning flat icon="pencil" wire:click="edit({{ $worker->id }})" />
-                    <x-wireui-mini-button negative flat icon="trash" :disabled="$worker->is_active" wire:click="confirmDelete({{ $worker->id }})" />
+                    <x-wireui-mini-button warning icon="pencil" wire:click="edit({{ $worker->id }})" />
+                    <x-wireui-mini-button negative icon="trash" :disabled="$worker->is_active" wire:click="confirmDelete({{ $worker->id }})" />
+                    <x-wireui-mini-button positive icon="user" wire:click="setModePosition({{ $worker->id }})" />
+
+                    @if($showModalPosition && $workerId === $worker->id)
+                        <!-- Modal para crear/editar posiciones -->
+                        <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" wire:key="modal-{{ $isEdit ? 'edit-'.$workerId : 'create' }}">
+                            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-fit flex flex-col">
+                                <!-- Encabezado del modal -->
+                                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                                    <div class="flex justify-between items-center">
+                                        <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                            {{ $isEdit ? 'Posiciones del Trabajador' : 'Registrar una Nueva Posicion' }}
+                                        </h3>
+                                        <button wire:click="closeModal" class="text-gray-400 hover:text-gray-500">
+                                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Contenido del modal con scroll -->
+                                <div class="overflow-y-auto p-4 flex-grow">
+                                    <livewire:data-management.positions-manager worker_id="{{$isEdit ? $workerId : null}}" :key="$isEdit ? 'mode-positions-edit'.$workerId : 'mode-positions-create'"/> 
+                                </div>
+                                
+                            </div>
+                        </div>                        
+                    @endif
                 </td>
             </tr>
         @endforeach

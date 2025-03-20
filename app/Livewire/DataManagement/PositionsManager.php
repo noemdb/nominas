@@ -8,14 +8,19 @@ use App\Models\Rol;
 use App\Models\Worker;
 use Livewire\Component;
 use Livewire\WithPagination;
+use WireUi\Traits\WireUiActions;
 
 class PositionsManager extends Component
 {
 
     use WithPagination;
+    use WireUiActions;
 
     public $areas, $rols, $workers;
     public $position_id, $start_date, $end_date, $observations, $is_active, $area_id, $rol_id, $worker_id;
+
+    public $confirmingDelete = false;
+    public $deleteId = null;
 
     // Nuevo atributo para almacenar el worker_id recibido como parámetro
     public $selected_worker,$selected_worker_id, $activePosition = null;
@@ -40,13 +45,8 @@ class PositionsManager extends Component
         $this->workers = Worker::all();
 
         // Asignar el worker_id recibido como parámetro
-        $this->selected_worker_id = $worker_id;
         $this->selected_worker = Worker::find($worker_id);
-    }
-
-    public function setActivePosition($id)
-    {
-        $this->activePosition = Position::find($id);
+        $this->selected_worker_id = ($this->selected_worker) ? $worker_id : null;
     }
 
     public function render()
@@ -67,11 +67,9 @@ class PositionsManager extends Component
 
     public function createPosition()
     {
-        $this->resetInputFields();
+        $this->resetInputFieldsPosition();
         $this->isOpenPosition = true;
         $this->isEditPosition = false;
-
-        // Pre-seleccionar el worker_id en el formulario si está filtrando por un trabajador
         if ($this->selected_worker_id) {
             $this->worker_id = $this->selected_worker_id;
         }
@@ -79,7 +77,7 @@ class PositionsManager extends Component
 
     public function editPosition($id)
     {
-        $position = Position::findOrFail($id); 
+        $position = Position::findOrFail($id); //dd($position);
         $this->position_id = $position->id;
         $this->start_date = $position->start_date;
         $this->end_date = $position->end_date;
@@ -93,39 +91,42 @@ class PositionsManager extends Component
         $this->isEditPosition = true;
     }
 
+    public function closePosition()
+    {
+        $this->worker_id = false;
+        $this->isOpenPosition = false;
+        $this->isEditPosition = false;
+    }
+
     public function storePosition()
     {
-        $this->validate();
+        $this->validate(); 
+        $arr = [
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
+            'observations' => $this->observations,
+            'is_active' => $this->is_active,
+            'area_id' => $this->area_id,
+            'rol_id' => $this->rol_id,
+            'worker_id' => $this->worker_id,
+        ]; //dd($arr);
 
         try {
             if ($this->isEditPosition) {
-                Position::where('id', $this->position_id)->update([
-                    'start_date' => $this->start_date,
-                    'end_date' => $this->end_date,
-                    'observations' => $this->observations,
-                    'is_active' => $this->is_active,
-                    'area_id' => $this->area_id,
-                    'rol_id' => $this->rol_id,
-                    'worker_id' => $this->worker_id,
-                ]);
-                session()->flash('message', 'Cargo actualizado exitosamente.');
+                $position = Position::where('id', $this->position_id)->update($arr);
             } else {
-                Position::create([
-                    'start_date' => $this->start_date,
-                    'end_date' => $this->end_date,
-                    'observations' => $this->observations,
-                    'is_active' => $this->is_active,
-                    'area_id' => $this->area_id,
-                    'rol_id' => $this->rol_id,
-                    'worker_id' => $this->worker_id,
-                ]);
-                session()->flash('message', 'Cargo creado exitosamente.');
+                $position = Position::create($arr);
             }
         } catch (\Exception $e) {
             session()->flash('error', $e->getMessage());
         }
 
-        $this->closeModal();
+        // dd($position);
+
+        $this->resetInputFieldsPosition();
+        $this->successNotification();
+        $this->resetErrorBag();
+        $this->closeModalPosition();
     }
 
     public function deletePosition($id)
@@ -134,13 +135,19 @@ class PositionsManager extends Component
         session()->flash('message', 'Cargo eliminado exitosamente.');
     }
 
-    public function closeModal()
+    public function confirmDeletePosition($id)
     {
-        $this->isOpenPosition = false;
-        $this->resetInputFields();
+        $this->confirmingDelete = true;
+        $this->deleteId = $id;
     }
 
-    private function resetInputFields()
+    public function closeModalPosition()
+    {
+        $this->isOpenPosition = false;
+        $this->resetInputFieldsPosition();
+    }
+
+    private function resetInputFieldsPosition()
     {
         $this->position_id = null;
         $this->start_date = null;
@@ -150,6 +157,15 @@ class PositionsManager extends Component
         $this->area_id = null;
         $this->rol_id = null;
         $this->worker_id = $this->selected_worker_id; // Mantener el worker_id seleccionado
+    }
+
+    public function successNotification(): void
+    {
+        $this->notification()->send([
+            'icon' => 'success',
+            'title' => 'Realizado!',
+            'description' => 'Accion ejecutada.',
+        ]);
     }
 
 }

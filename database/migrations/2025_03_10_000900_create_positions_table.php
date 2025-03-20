@@ -16,7 +16,7 @@ return new class extends Migration
             $table->date('start_date'); // Inicio
             $table->date('end_date'); // Fin
             $table->text('observations')->nullable(); // Observaciones
-            $table->boolean('is_active')->default(true); // Estado del trabajador (Activo/Inactivo)
+            $table->boolean('is_active')->nullable()->default(true); // Estado del trabajador (Activo/Inactivo)
             $table->foreignId('area_id')->constrained()->onDelete('cascade');
             $table->foreignId('rol_id')->constrained()->onDelete('cascade');
             $table->foreignId('worker_id')->nullable()->constrained()->onDelete('cascade');

@@ -18,6 +18,12 @@ class Position extends Model
         'worker_id', // Asegúrate de incluir worker_id aquí
     ];
 
+    protected $casts = [
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
+        'is_active' => 'boolean',
+    ];
+
     public function area()
     {
         return $this->belongsTo(Area::class);

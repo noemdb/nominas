@@ -69,6 +69,25 @@ class Worker extends Model
             : 'N/A';
     }
 
+    public function getLastPositionAttribute()
+    {
+        return 
+        $this->position()
+            ->latest('start_date')
+            ->first();
+    }
+
+    public function getLastPositionInfoAttribute(): string
+    {
+        // Buscamos la posición activa más reciente
+        $position = $this->last_position;
+
+        // Formateamos la información
+        return $position 
+            ? "{$position->area->name} - {$position->rol->name} [{$position->start_date->format('d-m-Y')} - {$position->end_date->format('d-m-Y')}] "
+            : 'N/A';
+    }
+
     public function getStatusPositionsAttribute()
     {
         return ($this->current_position) ? true : false;

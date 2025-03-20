@@ -30,12 +30,6 @@
             class="px-4 py-2 focus:outline-none transition">
             Usuario
         </button>
-
-        <button @click="tab = 'position'"
-            :class="tab === 'position' ? 'border-b-2 border-blue-500 text-blue-500 font-semibold' : 'text-gray-600'"
-            class="px-4 py-2 focus:outline-none transition">
-            Posición
-        </button>
     </div>
 
     <form wire:submit.prevent="save" class="space-y-6">
@@ -71,19 +65,6 @@
         <template x-if="tab === 'user'">
             <div>
                 @include('livewire.data-management.partials.user')
-            </div>
-        </template>
-
-        <!-- Información de la posición -->
-        <template x-if="tab === 'position'">
-            <div>
-
-                {{-- <livewire:data-management.positions-manager worker_id={{$isEdit ? $worker['id'] : null}}/>   --}}
-
-                <livewire:data-management.positions-manager worker_id="{{$isEdit ? $worker['id'] : null}}" />  
-
-                {{-- livewire:data-management.positions-manager --}}
-                
             </div>
         </template>
 

@@ -21,7 +21,7 @@
 
     <!-- Modal para crear/editar trabajador -->
     @if($showModal)
-    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" wire:key="post-{{ $isEdit ? 'edit-'.$worker['id'] : 'create' }}">
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" wire:key="modal-{{ $isEdit ? 'edit-'.$worker['id'] : 'create' }}">
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl flex flex-col max-h-[90vh]">
             <!-- Encabezado del modal -->
             <div class="p-6 border-b border-gray-200 dark:border-gray-700">
@@ -38,14 +38,16 @@
             </div>
             
             <!-- Contenido del modal con scroll -->
-            <div class="overflow-y-auto p-2 flex-grow">
+            <div class="overflow-y-auto p-4 flex-grow">
                 @include('livewire.data-management.partials.form')
             </div>
             
         </div>
     </div>
     @endif
+
     
+
     <!-- Modal de confirmación de eliminación -->
     @includeWhen($confirmingDelete, 'livewire.data-management.modal.confirmingDelete')
 </div>

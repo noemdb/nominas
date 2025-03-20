@@ -20,10 +20,21 @@ class WorkersManager extends Component
     
     public $showModal = false;
     public $isEdit = false;
+    public $showModalPosition = false;
     public $workerId = null;
 
     public $confirmingDelete = false;
     public $deleteId = null;
+
+    public function setModePosition($id)
+    {
+        $workerModel = Worker::findOrFail($id);
+        $this->workerId = $id;
+        $this->isEdit = true;
+        $this->clearModels();
+        $this->showModalPosition = true;        
+        $this->resetErrorBag();
+    }
     
     public $worker = [
         'first_name' => '',
@@ -235,6 +246,7 @@ class WorkersManager extends Component
     public function closeModal()
     {
         $this->showModal = false;
+        $this->showModalPosition = false;
         $this->confirmingDelete = false;
         $this->resetErrorBag();
     }
@@ -302,5 +314,6 @@ class WorkersManager extends Component
             'description' => 'Accion ejecutada.',
         ]);
     }
+    
 }
 
