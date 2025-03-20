@@ -19,8 +19,8 @@ class Position extends Model
     ];
 
     protected $casts = [
-        'start_date' => 'datetime',
-        'end_date' => 'datetime',
+        // 'start_date' => 'datetime',
+        // 'end_date' => 'datetime',
         'is_active' => 'boolean',
     ];
 
@@ -61,5 +61,11 @@ class Position extends Model
                 }
             }
         });
+    }
+
+    public function isCurrent()
+    {
+        $now = now();
+        return $now->greaterThanOrEqualTo($this->start_date) && $now->lessThanOrEqualTo($this->end_date);
     }
 }

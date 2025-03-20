@@ -76,7 +76,7 @@
                         @foreach ($workers as $worker)
                             <option value="{{ $worker->id }}"
                                 {{ $selected_worker_id == $worker->id ? 'selected' : '' }}>
-                                {{ $worker->name }}
+                                {{ $worker->fullname }}
                             </option>
                         @endforeach
                     </select>

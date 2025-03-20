@@ -39,7 +39,7 @@
             <tr class="border-t border-gray-200 dark:border-gray-700">
                 <td class="px-6 py-4">{{ $worker->full_name ?? null}}</td>
                 <td class="px-6 py-4">{{ $worker->identification }}</td>
-                <td class="px-6 py-4 {{ (! $worker->status_positions) ? 'text-gray-400' : null}}">{{ $worker->last_position_info}}</td>
+                <td class="px-6 py-4 {{ (! $worker->status_positions) ? 'text-gray-00' : null}}"><div>{{ $worker->last_position_name}}</div> <div class=" text-sm">{{ $worker->last_position_range}}</div></td>
                 <td class="px-6 py-4">{{ number_format($worker->base_salary, 2, ',', '.') }}</td>
                 <td class="px-6 py-4">
                     <span
@@ -50,7 +50,7 @@
                 <td class="px-6 py-4 space-x-2 flex">
                     <x-wireui-mini-button warning icon="pencil" wire:click="edit({{ $worker->id }})" />
                     <x-wireui-mini-button negative icon="trash" :disabled="$worker->is_active" wire:click="confirmDelete({{ $worker->id }})" />
-                    <x-wireui-mini-button positive icon="user" wire:click="setModePosition({{ $worker->id }})" />
+                    <x-wireui-mini-button positive icon="newspaper" wire:click="setModePosition({{ $worker->id }})" />
 
                     @if($showModalPosition && $workerId === $worker->id)
                         <!-- Modal para crear/editar posiciones -->

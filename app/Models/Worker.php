@@ -77,14 +77,25 @@ class Worker extends Model
             ->first();
     }
 
-    public function getLastPositionInfoAttribute(): string
+    public function getLastPositionNameAttribute(): string
     {
         // Buscamos la posición activa más reciente
         $position = $this->last_position;
 
         // Formateamos la información
         return $position 
-            ? "{$position->area->name} - {$position->rol->name} [{$position->start_date->format('d-m-Y')} - {$position->end_date->format('d-m-Y')}] "
+            ? "{$position->area->name} - {$position->rol->name}"
+            : 'N/A';
+    }
+
+    public function getLastPositionRangeAttribute(): string
+    {
+        // Buscamos la posición activa más reciente
+        $position = $this->last_position;
+
+        // Formateamos la información
+        return $position 
+            ? "{$position->start_date} - {$position->end_date}"
             : 'N/A';
     }
 

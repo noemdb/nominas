@@ -26,6 +26,14 @@ class WorkersManager extends Component
     public $confirmingDelete = false;
     public $deleteId = null;
 
+    public $isLoaded = false;
+    
+    public function setLoaded()
+    {
+        $this->isLoaded = true;
+        $this->dispatch('component-loaded');
+    }
+
     public function setModePosition($id)
     {
         $workerModel = Worker::findOrFail($id);

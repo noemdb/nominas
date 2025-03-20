@@ -6,9 +6,8 @@
             class="w-full px-3 py-2 border rounded dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200">
             <option value="">Selecciona un trabajador</option>
             @foreach ($workers as $worker)
-                <option value="{{ $worker->id }}"
-                    {{ $selected_worker_id == $worker->id ? 'selected' : '' }}>
-                    {{ $worker->name }}
+                <option value="{{ $worker->id }}">
+                    {{ $worker->fullname }}
                 </option>
             @endforeach
         </select>

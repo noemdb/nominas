@@ -1,5 +1,8 @@
 <div> 
 
+    <!-- Estado de carga (Spinner) -->
+    {{-- @include('components.loading') --}}
+
     <!-- Información sobre el Filtro -->
     @if ($selected_worker_id)
         <div class="p-1 mb-1">
