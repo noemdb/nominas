@@ -114,8 +114,8 @@ return [
     |
     */
 
-    'inject_assets' => true,
-    // 'inject_assets' => false,
+    // 'inject_assets' => true,
+    'inject_assets' => false,
 
     /*
     |---------------------------------------------------------------------------
