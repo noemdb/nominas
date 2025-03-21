@@ -11,7 +11,7 @@
         {{-- <link rel="preconnect" href="https://fonts.bunny.net"> --}}
         {{-- <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
 
-        <!-- Livewire -->
+        <!-- CustomLivewireStyles -->
         @livewireStyles
 
         @wireUiScripts
@@ -28,9 +28,13 @@
         <link rel="webside icon" href="{{asset('image/icon.png')}}" type="png">
 
     </head>
+
     <body class="font-sans antialiased">
+
         <x-wireui-notifications />
+
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -46,13 +50,14 @@
             <main>
                 {{ $slot }}
             </main>
-        </div>
 
-        
+        </div>        
 
         @livewireScripts
-        {{-- @livewireScriptConfig  --}}
 
+        <!-- CustomLivewireJS -->
         @yield('scripts')
+
     </body>
+
 </html>
