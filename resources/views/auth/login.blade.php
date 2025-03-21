@@ -90,7 +90,7 @@
                             required
                             value="{{ old('username') }}"
                             required autofocus
-                            class="w-full rounded-md bg-[#1c1c1c] border-gray-800 text-white placeholder:text-gray-500 focus:border-[#2b725e] focus:ring focus:ring-[#2b725e] focus:ring-opacity-50"
+                            class="w-full rounded-md bg-gray-600 border-gray-800 text-white placeholder:text-gray-500 focus:border-[#2b725e] focus:ring focus:ring-[#2b725e] focus:ring-opacity-50"
                         />
                     </div>
                     <div class="space-y-2">
