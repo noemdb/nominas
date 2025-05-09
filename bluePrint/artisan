@@ -1,0 +1,2 @@
+php artisan make:seeder AreaSeeder
+php artisan make:seeder RolSeeder
