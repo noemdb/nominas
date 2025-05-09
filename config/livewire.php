@@ -129,11 +129,7 @@ return [
 
     // 'inject_assets' => true,
     'inject_assets' => false,
-
     // 'asset_url' => env('ASSET_URL'),
-
-    'asset_url' => env('ASSET_URL', env('APP_URL')),
-    'asset_url' => env('LIVEWIRE_ASSET_URL', '/nominas/livewire/livewire.js'),
 
 
 
