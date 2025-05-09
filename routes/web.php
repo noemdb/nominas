@@ -8,7 +8,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\WorkerController;
 use Illuminate\Support\Facades\Route;
-use Livewire\Livewire;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,24 +49,4 @@ Route::middleware('auth', 'verified')->group(function () {
 
 require __DIR__ . '/auth.php';
 
-Livewire::setScriptRoute(function ($handle) {
-    return Route::get(env('APP_URL_PRE', 'null') . '/livewire/livewire.js', $handle);
-});
-Livewire::setUpdateRoute(function ($handle) {
-    return Route::post(env('APP_URL_PRE', 'null') . '/livewire/update', $handle);
-});
-
-// Livewire::setScriptRoute(function ($handle) {
-//     return Route::get(env('APP_URL_PRE', 'null') . '/livewire/livewire.js', $handle);
-// });
-// Livewire::setUpdateRoute(function ($handle) {
-//     return Route::post(env('APP_URL_PRE', 'null') . '/livewire/update', $handle);
-// });
-
-
-// Livewire::setScriptRoute(function ($handle) {
-//     return Route::get(env('APP_URL_PRE','null').'/livewire/livewire.js', $handle);
-// });
-// Livewire::setUpdateRoute(function ($handle) {
-//     return Route::post(env('APP_URL_PRE','null').'/livewire/update', $handle);
-// });
+require __DIR__ . '/livewire.php';
