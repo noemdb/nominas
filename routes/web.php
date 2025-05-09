@@ -50,9 +50,10 @@ Route::middleware('auth', 'verified')->group(function () {
 
 require __DIR__ . '/auth.php';
 
-Livewire::setScriptRoute(function ($handle) {
-    return Route::get(env('APP_URL_PRE', 'null') . '/livewire/livewire.js', $handle);
-});
+// Livewire::setScriptRoute(function ($handle) {
+    // return Route::get(env('APP_URL_PRE', 'null') . '/livewire/livewire.js', $handle);
+    // return Route::get('/nominas/livewire/livewire.js', $handle);
+// });
 
 // Livewire::setScriptRoute(function ($handle) {
 //     return Route::get(env('APP_URL_PRE', 'null') . '/livewire/livewire.js', $handle);
