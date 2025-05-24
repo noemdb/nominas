@@ -39,6 +39,9 @@ Route::middleware('auth', 'verified')->group(function () {
 
     Route::get('/data-management', [DataManagementController::class, 'data_management'])->name('data-management');
 
+    Route::get('/comportamiento', function () {
+        return view('comportamiento');
+    })->name('comportamiento');
 
     Route::resource('institutions', InstitutionController::class);
     Route::resource('areas', AreaController::class);

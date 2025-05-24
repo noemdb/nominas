@@ -16,7 +16,10 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link :href="route('data-management')" :active="request()->routeIs('data-management')">
-                        {{ __('Registro y Actualización') }}
+                        {{ __('Gestión de Datos') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('comportamiento')" :active="request()->routeIs('comportamiento')">
+                        {{ __('Comportamiento Laboral') }}
                     </x-nav-link>
 
                     {{--
@@ -98,7 +101,10 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('data-management')" :active="request()->routeIs('data-management')">
-                {{ __('Registro y Actualización') }}
+                {{ __('Gestión de Datos') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('comportamiento')" :active="request()->routeIs('comportamiento')">
+                {{ __('Comportamiento Laboral') }}
             </x-responsive-nav-link>
 
             {{--
