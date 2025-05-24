@@ -4,34 +4,44 @@
             <tr>
                 <th wire:click="sortBy('first_name')"
                     class="hidden px-6 py-3 text-gray-600 cursor-pointer dark:text-gray-400 sm:table-cell">
-                    Nombre
-                    @if ($sortField === 'first_name')
-                        <span>{!! $sortDirection === 'asc' ? '&#8593;' : '&#8595;' !!}</span>
-                    @endif
+                    <div class="flex items-center space-x-1">
+                        <span>Nombre</span>
+                        @if ($sortField === 'first_name')
+                            <span>{!! $sortDirection === 'asc' ? '&#8593;' : '&#8595;' !!}</span>
+                        @endif
+                    </div>
                 </th>
                 <th wire:click="sortBy('identification')" class="hidden px-6 py-3 cursor-pointer sm:table-cell">
-                    Cédula
-                    @if ($sortField === 'identification')
-                        <span>{!! $sortDirection === 'asc' ? '&#8593;' : '&#8595;' !!}</span>
-                    @endif
+                    <div class="flex items-center space-x-1">
+                        <span>Cédula</span>
+                        @if ($sortField === 'identification')
+                            <span>{!! $sortDirection === 'asc' ? '&#8593;' : '&#8595;' !!}</span>
+                        @endif
+                    </div>
                 </th>
                 <th wire:click="sortBy('current_position_info')" class="hidden px-6 py-3 cursor-pointer sm:table-cell">
-                    Área/Roll
-                    @if ($sortField === 'current_position_info')
-                        <span>{!! $sortDirection === 'asc' ? '&#8593;' : '&#8595;' !!}</span>
-                    @endif
+                    <div class="flex items-center space-x-1">
+                        <span>Área/Roll</span>
+                        @if ($sortField === 'current_position_info')
+                            <span>{!! $sortDirection === 'asc' ? '&#8593;' : '&#8595;' !!}</span>
+                        @endif
+                    </div>
                 </th>
                 <th wire:click="sortBy('base_salary')" class="hidden px-6 py-3 cursor-pointer sm:table-cell">
-                    Salario
-                    @if ($sortField === 'base_salary')
-                        <span>{!! $sortDirection === 'asc' ? '&#8593;' : '&#8595;' !!}</span>
-                    @endif
+                    <div class="flex items-center space-x-1">
+                        <span>Salario</span>
+                        @if ($sortField === 'base_salary')
+                            <span>{!! $sortDirection === 'asc' ? '&#8593;' : '&#8595;' !!}</span>
+                        @endif
+                    </div>
                 </th>
                 <th wire:click="sortBy('is_active')" class="hidden px-6 py-3 cursor-pointer sm:table-cell">
-                    Estado
-                    @if ($sortField === 'is_active')
-                        <span>{!! $sortDirection === 'asc' ? '&#8593;' : '&#8595;' !!}</span>
-                    @endif
+                    <div class="flex items-center space-x-1">
+                        <span>Estado</span>
+                        @if ($sortField === 'is_active')
+                            <span>{!! $sortDirection === 'asc' ? '&#8593;' : '&#8595;' !!}</span>
+                        @endif
+                    </div>
                 </th>
                 <th class="hidden px-6 py-3 sm:table-cell">Acciones</th>
             </tr>
@@ -40,19 +50,23 @@
             @foreach ($workers as $worker)
                 <tr class="border-t border-gray-200 dark:border-gray-700">
                     <td class="block px-6 py-4 sm:table-cell">
-                        <span class="font-bold sm:hidden">Nombre:</span> {{ $worker->full_name ?? null }}
+                        <span class="font-bold sm:hidden">Nombre:</span>
+                        <span class="truncate block max-w-[200px]">{{ $worker->full_name ?? null }}</span>
                     </td>
                     <td class="block px-6 py-4 sm:table-cell">
-                        <span class="font-bold sm:hidden">Cédula:</span> {{ $worker->identification }}
+                        <span class="font-bold sm:hidden">Cédula:</span>
+                        <span class="truncate block max-w-[150px]">{{ $worker->identification }}</span>
                     </td>
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Área/Roll:</span>
-                        <div class="truncate">{{ $worker->last_position_name }}</div>
-                        <div class="text-sm truncate">{{ $worker->last_position_range }}</div>
+                        <div class="truncate max-w-[200px]">{{ $worker->last_position_name }}</div>
+                        <div class="text-sm truncate max-w-[200px]">{{ $worker->last_position_range }}</div>
                     </td>
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Salario:</span>
-                        {{ number_format($worker->base_salary, 2, ',', '.') }}
+                        <span class="truncate block max-w-[150px]">
+                            {{ number_format($worker->base_salary, 2, ',', '.') }}
+                        </span>
                     </td>
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Estado:</span>
@@ -61,28 +75,35 @@
                             {{ $worker->is_active ? 'Activo' : 'Inactivo' }}
                         </span>
                     </td>
-                    <td class="flex px-6 py-4 space-x-2 sm:table-cell md:block">
-
+                    <td class="flex px-6 py-4 space-x-2 sm:table-cell">
                         <span class="font-bold sm:hidden">Acciones:</span>
                         <div class="flex flex-row rounded-md shadow-sm" role="group">
-                            <x-wireui-mini-button warning icon="pencil"
+                            <x-wireui-mini-button
+                                warning
+                                icon="pencil"
                                 class="rounded-t-md sm:rounded-l-md sm:rounded-tr-none sm:rounded-br-none"
                                 wire:click="edit({{ $worker->id }})"
                                 wire:loading.attr="disabled"
-                                wire:target="edit({{ $worker->id }})" />
-                            <x-wireui-mini-button negative icon="trash"
+                                wire:target="edit({{ $worker->id }})"
+                                x-tooltip.raw="Editar trabajador" />
+                            <x-wireui-mini-button
+                                negative
+                                icon="trash"
                                 class="sm:rounded-none"
                                 :disabled="$worker->is_active"
                                 wire:click="confirmDelete({{ $worker->id }})"
                                 wire:loading.attr="disabled"
-                                wire:target="confirmDelete({{ $worker->id }})" />
-                            <x-wireui-mini-button positive icon="newspaper"
+                                wire:target="confirmDelete({{ $worker->id }})"
+                                x-tooltip.raw="Eliminar trabajador" />
+                            <x-wireui-mini-button
+                                positive
+                                icon="newspaper"
                                 class="rounded-b-md sm:rounded-r-md sm:rounded-tl-none sm:rounded-bl-none"
                                 wire:click="setModePosition({{ $worker->id }})"
                                 wire:loading.attr="disabled"
-                                wire:target="setModePosition({{ $worker->id }})" />
+                                wire:target="setModePosition({{ $worker->id }})"
+                                x-tooltip.raw="Gestionar posiciones" />
                         </div>
-
                     </td>
                 </tr>
             @endforeach

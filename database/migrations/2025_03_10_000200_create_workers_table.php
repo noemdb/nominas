@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -34,7 +35,18 @@ return new class extends Migration
             $table->string('pension_fund')->nullable(); // Fondo de pensiones (si aplica)
             $table->boolean('is_active')->nullable()->default(true); // Estado del trabajador (Activo/Inactivo)
             $table->timestamps();
+
+            // Índices para optimizar búsquedas y ordenamiento
+            $table->index(['first_name', 'last_name']);
+            $table->index('identification');
+            $table->index('email');
+            $table->index('is_active');
+            $table->index('hire_date');
+            $table->index('base_salary');
         });
+
+        // Agregar índices FULLTEXT después de crear la tabla
+        DB::statement('ALTER TABLE workers ADD FULLTEXT INDEX workers_search_index (first_name, last_name, identification, email)');
     }
 
     /**

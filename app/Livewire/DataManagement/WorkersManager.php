@@ -7,17 +7,19 @@ use App\Models\Worker;
 use Livewire\Component;
 use Livewire\WithPagination;
 use WireUi\Traits\WireUiActions;
+use App\Traits\Loggable;
 
 class WorkersManager extends Component
 {
     use WithPagination;
     use WireUiActions;
+    use Loggable;
 
     public $search = '';
     public $perPage = 10;
     public $sortField = 'first_name';
     public $sortDirection = 'asc';
-    
+
     public $showModal = false;
     public $isEdit = false;
     public $showModalPosition = false;
@@ -27,7 +29,7 @@ class WorkersManager extends Component
     public $deleteId = null;
 
     public $isLoaded = false;
-    
+
     public function setLoaded()
     {
         $this->isLoaded = true;
@@ -40,10 +42,10 @@ class WorkersManager extends Component
         $this->workerId = $id;
         $this->isEdit = true;
         $this->clearModels();
-        $this->showModalPosition = true;        
+        $this->showModalPosition = true;
         $this->resetErrorBag();
     }
-    
+
     public $worker = [
         'first_name' => '',
         'last_name' => '',
@@ -72,7 +74,7 @@ class WorkersManager extends Component
         'email' => '',
         'password' => ''
     ];
-    
+
     protected function rules()
     {
         return [
@@ -100,7 +102,7 @@ class WorkersManager extends Component
             // 'user.email' => 'required',
         ];
     }
-    
+
     public function create()
     {
         $this->reset(['worker', 'workerId', 'isEdit']);
@@ -130,13 +132,13 @@ class WorkersManager extends Component
         $this->showModal = true;
         $this->resetErrorBag();
     }
-    
+
     public function edit($id)
     {
         $this->workerId = $id;
         $this->isEdit = true;
         $this->clearModels();
-        
+
         $workerModel = Worker::findOrFail($id);
         $this->worker = [
             'id' => $workerModel->id,
@@ -164,28 +166,28 @@ class WorkersManager extends Component
         $userId = $workerModel->user_id;
         $UserModel = User::find($userId);
 
-        $this->user = $UserModel 
+        $this->user = $UserModel
             ? array_merge($UserModel->only(['name', 'username', 'email']), ['password' => null])
             : [];
-        
+
         $this->showModal = true;
         $this->resetErrorBag();
     }
-    
+
     public function save()
     {
-        // dd($this->worker);
         $this->validate();
-        
+
         if ($this->isEdit) {
             $workerModel = Worker::findOrFail($this->workerId);
             $userId = $workerModel->user_id;
             $UserModel = User::findOrFail($userId);
+            $oldData = $workerModel->toArray();
         } else {
             $workerModel = new Worker();
             $UserModel = new User();
         }
-        
+
         // Asignar todos los campos del formulario al modelo
         $workerModel->first_name = $this->worker['first_name'];
         $workerModel->last_name = $this->worker['last_name'];
@@ -200,7 +202,7 @@ class WorkersManager extends Component
         $workerModel->base_salary = $this->worker['base_salary'];
         $workerModel->contract_type = $this->worker['contract_type'];
         $workerModel->payment_method = $this->worker['payment_method'];
-        
+
         // Campos bancarios (solo si el método de pago es transferencia bancaria)
         if ($this->worker['payment_method'] === 'bank_transfer') {
             $workerModel->bank_name = $this->worker['bank_name'];
@@ -209,48 +211,70 @@ class WorkersManager extends Component
             $workerModel->bank_name = null;
             $workerModel->bank_account_number = null;
         }
-        
+
         $workerModel->tax_identification_number = $this->worker['tax_identification_number'];
         $workerModel->social_security_number = $this->worker['social_security_number'];
         $workerModel->pension_fund = $this->worker['pension_fund'];
         $workerModel->is_active = $this->worker['is_active'];
-        
-        $workerModel->save();
 
-        $UserModel->name = $workerModel->full_name;
-        $UserModel->email = $workerModel->email;
-        $UserModel->username = $this->user['username'];
-        $UserModel->password = $this->user['password'] !== null 
-            ? bcrypt($this->user['password']) 
-            : $UserModel->password;
-        $UserModel->save();
+        try {
+            $workerModel->save();
 
-        $workerModel->user_id = $UserModel->id;
-        $workerModel->save();
-        
-        $this->showModal = false;
-        $this->clearModels();
-        $this->successNotification();
-        $this->resetErrorBag();
+            $UserModel->name = $workerModel->full_name;
+            $UserModel->email = $workerModel->email;
+            $UserModel->username = $this->user['username'];
+            $UserModel->password = $this->user['password'] !== null
+                ? bcrypt($this->user['password'])
+                : $UserModel->password;
+            $UserModel->save();
+
+            $workerModel->user_id = $UserModel->id;
+            $workerModel->save();
+
+            if ($this->isEdit) {
+                $this->logUpdate($oldData, $workerModel->toArray());
+            } else {
+                $this->logCreation($workerModel->toArray());
+            }
+
+            $this->reset(['worker', 'user', 'workerId', 'isEdit', 'showModal']);
+            $this->successNotification();
+            $this->resetErrorBag();
+        } catch (\Exception $e) {
+            $this->logError('Error al guardar trabajador: ' . $e->getMessage(), [
+                'worker_data' => $this->worker,
+                'user_data' => $this->user
+            ]);
+            throw $e;
+        }
     }
-    
+
     public function confirmDelete($id)
     {
         $this->confirmingDelete = true;
         $this->deleteId = $id;
     }
-    
+
     public function deleteWorker()
     {
-        $worker = Worker::findOrFail($this->deleteId);
-        $worker->delete();
-        
-        $this->confirmingDelete = false;
-        $this->deleteId = null;
-        $this->clearModels();
-        $this->successNotification();
+        try {
+            $worker = Worker::findOrFail($this->deleteId);
+            $workerData = $worker->toArray();
+            $worker->delete();
+
+            $this->logDeletion($workerData);
+            $this->confirmingDelete = false;
+            $this->deleteId = null;
+            $this->clearModels();
+            $this->successNotification();
+        } catch (\Exception $e) {
+            $this->logError('Error al eliminar trabajador: ' . $e->getMessage(), [
+                'worker_id' => $this->deleteId
+            ]);
+            throw $e;
+        }
     }
-    
+
     public function closeModal()
     {
         $this->showModal = false;
@@ -261,33 +285,55 @@ class WorkersManager extends Component
 
     public function render()
     {
-        $workers = Worker::select('workers.*')
-            ->leftJoin('positions', 'workers.id', '=', 'positions.worker_id')
-            ->leftJoin('areas', 'positions.area_id', '=', 'areas.id')
-            ->leftJoin('rols', 'positions.rol_id', '=', 'rols.id')
-            // ->where('positions.is_active', true)
-            ->where(fn($query) => $query
-                ->where('workers.first_name', 'like', "%{$this->search}%")
-                ->orWhere('workers.identification', 'like', "%{$this->search}%")
-                ->orWhere('areas.name', 'like', "%{$this->search}%")
-            );
+        $query = Worker::with(['positions' => function ($query) {
+            $query->with(['area', 'rol'])
+                ->where('is_active', true)
+                ->latest('start_date');
+        }])
+            ->when($this->search, function ($query) {
+                $searchTerms = explode(' ', $this->search);
+                $query->where(function ($q) use ($searchTerms) {
+                    foreach ($searchTerms as $term) {
+                        $q->where(function ($subQuery) use ($term) {
+                            // Búsqueda usando LIKE como fallback
+                            $subQuery->where('first_name', 'like', "%{$term}%")
+                                ->orWhere('last_name', 'like', "%{$term}%")
+                                ->orWhere('identification', 'like', "%{$term}%")
+                                ->orWhere('email', 'like', "%{$term}%")
+                                ->orWhereHas('positions.area', function ($q) use ($term) {
+                                    $q->where('name', 'like', "%{$term}%");
+                                });
+                        });
+                    }
+                });
+            });
 
-        $sortField = $this->sortField === 'current_position_info' 
-            ? "CONCAT(areas.name, ' - ', rols.name)" 
-            : $this->sortField;
-
-        $workers->orderByRaw("$sortField {$this->sortDirection}");
+        // Aplicar ordenamiento
+        if ($this->sortField === 'current_position_info') {
+            $query->orderByRaw("(
+                SELECT CONCAT(areas.name, ' - ', rols.name)
+                FROM positions
+                JOIN areas ON positions.area_id = areas.id
+                JOIN rols ON positions.rol_id = rols.id
+                WHERE positions.worker_id = workers.id
+                AND positions.is_active = true
+                ORDER BY positions.start_date DESC
+                LIMIT 1
+            ) {$this->sortDirection}");
+        } else {
+            $query->orderBy($this->sortField, $this->sortDirection);
+        }
 
         return view('livewire.data-management.workers-manager', [
-            'workers' => $workers->paginate($this->perPage),
+            'workers' => $query->paginate($this->perPage),
         ]);
-    }     
+    }
 
     public function updatingPerPage()
     {
         $this->resetPage();
     }
-    
+
     public function updatingSearch()
     {
         $this->resetPage();
@@ -310,8 +356,12 @@ class WorkersManager extends Component
 
     public function clearModels()
     {
-        array_walk($this->worker, function(&$value) { $value = null; });
-        array_walk($this->user, function(&$value) { $value = null; });
+        array_walk($this->worker, function (&$value) {
+            $value = null;
+        });
+        array_walk($this->user, function (&$value) {
+            $value = null;
+        });
     }
 
     public function successNotification(): void
@@ -322,6 +372,4 @@ class WorkersManager extends Component
             'description' => 'Accion ejecutada.',
         ]);
     }
-    
 }
-

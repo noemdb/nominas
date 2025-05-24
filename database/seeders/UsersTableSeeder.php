@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
 
         User::create([
             'name' => 'Admin User',
-            'username' => 'admin',
+            'username' => 'admon',
             'email' => 'admin@example.com',
             'password' => Hash::make('admon'), // Cambia la contraseña por seguridad
             'email_verified_at' => now(),
