@@ -122,35 +122,35 @@
             <x-responsive-nav-link :href="route('comportamiento')" :active="request()->routeIs('comportamiento')">
                 {{ __('Comportamiento Laboral') }}
             </x-responsive-nav-link>
-
-            {{--
-            <x-responsive-nav-link :href="route('benefits')" :active="request()->routeIs('benefits')">
-                {{ __('Beneficios Adicionales') }}
+            <x-responsive-nav-link :href="route('setup.discounts.index')" :active="request()->routeIs('*setup.discounts*')">
+                {{ __('Descuentos') }}
             </x-responsive-nav-link>
-
-            <x-responsive-nav-link :href="route('legal-benefits')" :active="request()->routeIs('legal-benefits')">
-                {{ __('Prestaciones Legales') }}
-            </x-responsive-nav-link>
-
-            <x-responsive-nav-link :href="route('deductions')" :active="request()->routeIs('deductions')">
+            <x-responsive-nav-link :href="route('setup.deductions.index')" :active="request()->routeIs('*setup.deductions*')">
                 {{ __('Deducciones') }}
             </x-responsive-nav-link>
-
-            <x-responsive-nav-link :href="route('payments')" :active="request()->routeIs('payments')">
-                {{ __('Gestión de Pagos') }}
+            <x-responsive-nav-link :href="route('setup.bonuses.index')" :active="request()->routeIs('*setup.bonuses*')">
+                {{ __('Bonificaciones') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('setup.payrolls.index')" :active="request()->routeIs('*setup.payrolls*')">
+                {{ __('Nóminas') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('vacations')" :active="request()->routeIs('vacations')">
-                {{ __('Control de Vacaciones') }}
-            </x-responsive-nav-link>
+            {{--
+            <x-nav-link :href="route('setup.discounts.index')" :active="request()->routeIs('*setup.discounts*')">
+                {{ __('Descuentos') }}
+            </x-nav-link>
 
-            <x-responsive-nav-link :href="route('reports')" :active="request()->routeIs('reports')">
-                {{ __('Reportes') }}
-            </x-responsive-nav-link>
+            <x-nav-link :href="route('setup.deductions.index')" :active="request()->routeIs('*setup.deductions*')">
+                {{ __('Deducciones') }}
+            </x-nav-link>
 
-            <x-responsive-nav-link :href="route('settings')" :active="request()->routeIs('settings')">
-                {{ __('Configuración') }}
-            </x-responsive-nav-link>
+            <x-nav-link :href="route('setup.bonuses.index')" :active="request()->routeIs('*setup.bonuses*')">
+                {{ __('Bonificaciones') }}
+            </x-nav-link>
+
+            <x-nav-link :href="route('setup.payrolls.index')" :active="request()->routeIs('*setup.payrolls*')">
+                {{ __('Nóminas') }}
+            </x-nav-link>
             --}}
         </div>
 
