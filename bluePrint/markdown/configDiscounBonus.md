@@ -87,7 +87,10 @@ El sistema debe manejar la configuración de descuentos, deducciones y bonificac
 -   **Pruebas (Opcional pero Recomendado):** Considera escribir pruebas unitarias para los servicios de cálculo y las reglas de aplicabilidad, y pruebas de características para los componentes Livewire.
 -   **Estructura de Carpetas:** Organiza el código de manera lógica dentro de `app/Http/Livewire`, `app/Models`, `app/Services`, etc.
 -   **Notificaciones:** Al finalizar el procesamiento de una nómina, considera un sistema de notificación (flash messages con Livewire o notificaciones de Laravel).
--   **UI/UX (Livewire/Tailwind):** Los componentes Livewire deben tener una interfaz de usuario clara y funcional, estilizada con Tailwind CSS. Considera la reactividad de Livewire para mejorar la experiencia del usuario al registrar comportamientos o configurar elementos.
+-   **UI/UX (Livewire/Tailwind/wireiu):** Los componentes Livewire deben tener una interfaz de usuario clara y funcional, estilizada con Tailwind CSS incororando elementos de wireui. Considera la reactividad de Livewire para mejorar la experiencia del usuario al registrar comportamientos o configurar elementos.
+    -. Considera el layout principal de todo el sistema resources/views/layouts/app
+    -. Considera el patrón de diseño de la aplicación presente en resources/views/data_management.blade.php
+    -. Considera el navbar principal resources/layouts/navigation.blade.php
 
 **Flujo de Trabajo Sugerido para el Asistente:**
 

@@ -6,7 +6,11 @@ use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\Setup\BonusController;
+use App\Http\Controllers\Setup\DeductionController;
+use App\Http\Controllers\Setup\DiscountController;
 use App\Http\Controllers\WorkerController;
+use App\Http\Controllers\Setup\PayrollController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,6 +52,21 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::resource('rols', RolController::class);
     Route::resource('workers', WorkerController::class);
     Route::resource('positions', PositionController::class);
+
+    // Sección: Setup Routes
+    Route::prefix('setup')->name('setup.')->group(function () {
+        // Discounts
+        Route::resource('discounts', DiscountController::class);
+
+        // Deductions
+        Route::resource('deductions', DeductionController::class);
+
+        // Bonuses
+        Route::resource('bonuses', BonusController::class);
+
+        // Payrolls
+        Route::resource('payrolls', PayrollController::class);
+    });
 });
 
 require __DIR__ . '/auth.php';

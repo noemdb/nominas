@@ -44,10 +44,15 @@ class Position extends Model
         return trim(($this->area?->name ?? '') . ' ' . ($this->rol?->name ?? ''));
     }
 
+    public function getFullName2Attribute()
+    {
+        return trim(($this->area?->name ?? '') . ' [' . ($this->rol?->name ?? '') . ']');
+    }
+
     public static function boot()
     {
         parent::boot();
-        
+
         // Evita duplicados de worker_id
         static::creating(function ($position) {
             if ($position->worker_id) {
@@ -55,7 +60,7 @@ class Position extends Model
                     ->where('end_date', '>', now())
                     ->where('is_active', true)
                     ->exists();
-                    
+
                 if ($exists) {
                     throw new \Exception('Este trabajador ya tiene un cargo activo');
                 }

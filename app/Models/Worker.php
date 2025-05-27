@@ -11,11 +11,26 @@ class Worker extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'first_name', 'last_name', 'identification', 'email', 'phone', 
-        'birth_date', 'gender', 'marital_status', 'nationality', 
-        'hire_date', 'base_salary', 'contract_type', 'payment_method',
-        'bank_name', 'bank_account_number', 'tax_identification_number', 
-        'social_security_number', 'pension_fund', 'is_active'
+        'user_id',
+        'first_name',
+        'last_name',
+        'identification',
+        'email',
+        'phone',
+        'birth_date',
+        'gender',
+        'marital_status',
+        'nationality',
+        'hire_date',
+        'base_salary',
+        'contract_type',
+        'payment_method',
+        'bank_name',
+        'bank_account_number',
+        'tax_identification_number',
+        'social_security_number',
+        'pension_fund',
+        'is_active'
     ];
 
     protected $casts = [
@@ -42,12 +57,12 @@ class Worker extends Model
     {
         return $this->hasOne(Position::class);
     }
-    
+
 
     public function getCurrentPositionAttribute()
     {
-        return 
-        $this->position()
+        return
+            $this->position()
             ->where('is_active', true)
             ->where('start_date', '<=', now())
             ->where(function ($query) {
@@ -64,15 +79,15 @@ class Worker extends Model
         $position = $this->current_position;
 
         // Formateamos la información
-        return $position 
+        return $position
             ? "{$position->area->name} - {$position->rol->name}"
             : 'N/A';
     }
 
     public function getLastPositionAttribute()
     {
-        return 
-        $this->position()
+        return
+            $this->position()
             ->latest('start_date')
             ->first();
     }
@@ -83,7 +98,7 @@ class Worker extends Model
         $position = $this->last_position;
 
         // Formateamos la información
-        return $position 
+        return $position
             ? "{$position->area->name} - {$position->rol->name}"
             : 'N/A';
     }
@@ -94,7 +109,7 @@ class Worker extends Model
         $position = $this->last_position;
 
         // Formateamos la información
-        return $position 
+        return $position
             ? "{$position->start_date} - {$position->end_date}"
             : 'N/A';
     }
@@ -118,5 +133,13 @@ class Worker extends Model
             }
             return 'Sin posición actual';
         });
+    }
+
+    public static function getSelectOptions()
+    {
+        return self::all()->map(fn($worker) => [
+            'label' => $worker->full_name,
+            'value' => $worker->id
+        ]);
     }
 }

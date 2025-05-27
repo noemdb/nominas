@@ -10,7 +10,21 @@ class Institution extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'description', 'address', 'phone', 
-        'email', 'website', 'director_name', 'founded_year'
+        'name',
+        'description',
+        'address',
+        'phone',
+        'email',
+        'website',
+        'director_name',
+        'founded_year'
     ];
+
+    public static function getSelectOptions()
+    {
+        return self::all()->map(fn($institution) => [
+            'label' => $institution->name,
+            'value' => $institution->id
+        ]);
+    }
 }

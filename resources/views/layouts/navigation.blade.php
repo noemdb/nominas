@@ -22,6 +22,22 @@
                         {{ __('Comportamiento Laboral') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('setup.discounts.index')" :active="request()->routeIs('*setup.discounts*')">
+                        {{ __('Descuentos') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('setup.deductions.index')" :active="request()->routeIs('*setup.deductions*')">
+                        {{ __('Deducciones') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('setup.bonuses.index')" :active="request()->routeIs('*setup.bonuses*')">
+                        {{ __('Bonificaciones') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('setup.payrolls.index')" :active="request()->routeIs('*setup.payrolls*')">
+                        {{ __('Nóminas') }}
+                    </x-nav-link>
+
                     {{--
                     <x-nav-link :href="route('benefits')" :active="request()->routeIs('benefits')">
                         {{ __('Beneficios Adicionales') }}

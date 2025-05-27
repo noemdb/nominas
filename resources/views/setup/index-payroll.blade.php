@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('Comportamiento Laboral') }}
+            {{ __('Nóminas') }}
         </h2>
     </x-slot>
 
@@ -9,7 +9,7 @@
         <div class="mx-auto sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
                 <div class="p-4 text-gray-900 dark:text-gray-100">
-                    <livewire:comportamiento.behaviors-manager />
+                    @livewire('setup.index-payroll')
                 </div>
             </div>
         </div>
