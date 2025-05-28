@@ -3,9 +3,9 @@
 namespace App\Livewire\Setup;
 
 use App\Models\Payroll;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
-use WireUi\Traits\Actions;
 use WireUi\Traits\WireUiActions;
 
 class IndexPayroll extends Component
@@ -17,6 +17,7 @@ class IndexPayroll extends Component
     public $sortDirection = 'asc';
     public $showModal = false;
     public $showCalculateModal = false;
+    public $showDetailsModal = false;
     public $editing = false;
     public $payrollId = null;
     public $payrollName;
@@ -33,6 +34,7 @@ class IndexPayroll extends Component
     public $status_active = true;
     public $status_public = false;
     public $status_approved = false;
+    public $payroll;
 
     protected $rules = [
         'name' => 'required|string|max:255',
@@ -102,7 +104,7 @@ class IndexPayroll extends Component
             'status_active' => $this->status_active,
             'status_public' => $this->status_public,
             'status_approved' => $this->status_approved,
-            'num_days' => \Carbon\Carbon::parse($this->date_start)->diffInDays($this->date_end) + 1,
+            'num_days' => Carbon::parse($this->date_start)->diffInDays($this->date_end) + 1,
         ];
         if ($this->editing) {
             Payroll::find($this->payrollId)->update($data);
@@ -133,9 +135,34 @@ class IndexPayroll extends Component
         ]);
     }
 
+    public function viewDetails($id)
+    {
+        $payroll = Payroll::findOrFail($id);
+        $this->payrollId = $id;
+        $this->payrollName = $payroll->name;
+        $this->dateStart = $payroll->date_start;
+        $this->dateEnd = $payroll->date_end;
+        $this->payroll = $payroll;
+        $this->showDetailsModal = true;
+    }
+
+    public function closeDetailsModal()
+    {
+        $this->showDetailsModal = false;
+        $this->reset([
+            'payrollId',
+            'payrollName',
+            'dateStart',
+            'dateEnd',
+            'payroll'
+        ]);
+    }
+
     public function closeModal()
     {
         $this->showModal = false;
+        $this->showCalculateModal = false;
+        $this->showDetailsModal = false;
         $this->reset([
             'name',
             'date_start',
@@ -164,6 +191,27 @@ class IndexPayroll extends Component
             $this->sortField = $field;
             $this->sortDirection = 'asc';
         }
+    }
+
+    public function confirmDelete($id): void
+    {
+        $payroll = Payroll::findOrFail($id);
+        $this->dialog()->confirm([
+            'title' => '¿Eliminar Nómina?',
+            'description' => "¿Está seguro de eliminar la nómina '{$payroll->name}'? Esta acción no se puede deshacer.",
+            'acceptLabel' => 'Sí, eliminar',
+            'rejectLabel' => 'No, cancelar',
+            'method' => 'delete',
+            'params' => $id,
+            'accept' => [
+                'label' => 'Sí, eliminar',
+                'color' => 'negative'
+            ],
+            'reject' => [
+                'label' => 'No, cancelar',
+                'color' => 'gray'
+            ]
+        ]);
     }
 
     public function delete($id)
@@ -211,6 +259,37 @@ class IndexPayroll extends Component
         );
 
         $this->closeCalculateModal();
+    }
+
+    public function confirmClone($id): void
+    {
+        $payroll = Payroll::findOrFail($id);
+        $this->dialog()->confirm([
+            'title' => '¿Clonar Nómina?',
+            'description' => "¿Está seguro de clonar la nómina '{$payroll->name}'? Se creará una nueva nómina con los mismos datos pero con estados iniciales.",
+            'acceptLabel' => 'Sí, clonar',
+            'rejectLabel' => 'No, cancelar',
+            'method' => 'clone',
+            'params' => $id,
+        ]);
+    }
+
+    public function clone($id)
+    {
+        $payroll = Payroll::findOrFail($id);
+
+        // Crear una nueva nómina basada en la existente
+        $newPayroll = $payroll->replicate();
+        $newPayroll->name = $payroll->name . ' (Copia)';
+        $newPayroll->status_active = true;
+        $newPayroll->status_public = false;
+        $newPayroll->status_approved = false;
+        $newPayroll->save();
+
+        $this->notification()->success(
+            'Nómina Clonada',
+            'La nómina ha sido clonada correctamente.'
+        );
     }
 
     public function render()

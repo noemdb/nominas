@@ -64,13 +64,65 @@ class Discount extends Model
         'type',
         'amount',
         'percentage',
-        'name_function'
+        'name_function',
+        'status_exchange'
     ];
 
     protected $casts = [
         'amount' => 'decimal:2',
         'percentage' => 'decimal:2',
+        'status_exchange' => 'boolean',
     ];
+
+    /**
+     * Las nóminas a las que está asociado el descuento
+     */
+    public function payrolls()
+    {
+        return $this->belongsToMany(Payroll::class, 'payroll_discount')
+            ->withPivot(['amount', 'status_active'])
+            ->withTimestamps();
+    }
+
+    /**
+     * Obtiene las nóminas activas donde está aplicado el descuento
+     */
+    public function activePayrolls()
+    {
+        return $this->payrolls()->wherePivot('status_active', true);
+    }
+
+    /**
+     * Scope para filtrar descuentos por tipo
+     */
+    public function scopeOfType($query, $type)
+    {
+        return $query->where('type', $type);
+    }
+
+    /**
+     * Scope para filtrar descuentos fijos
+     */
+    public function scopeFixed($query)
+    {
+        return $query->where('type', 'fijo');
+    }
+
+    /**
+     * Scope para filtrar descuentos variables
+     */
+    public function scopeVariable($query)
+    {
+        return $query->where('type', 'variable');
+    }
+
+    /**
+     * Scope para filtrar descuentos por ámbito
+     */
+    public function scopeByScope($query, $scope)
+    {
+        return $query->whereNotNull($scope . '_id');
+    }
 
     public function institution()
     {

@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -17,6 +18,7 @@ class InstitutionSeeder extends Seeder
             'website' => 'https://inea.edu.ve',
             'director_name' => 'Dr. Juan Pérez',
             'founded_year' => 1985,
+            'code' => 'CFLA',
         ]);
     }
 }

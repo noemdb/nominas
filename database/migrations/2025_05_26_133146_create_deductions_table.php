@@ -23,6 +23,7 @@ return new class extends Migration
             $table->enum('type', ['fijo', 'variable']);
             $table->decimal('amount', 10, 2)->nullable();
             $table->decimal('percentage', 5, 2)->nullable();
+            $table->boolean('status_exchange')->default(false);
             $table->string('name_function')->nullable();
             $table->timestamps();
         });

@@ -25,7 +25,8 @@ class Deduction extends Model
         'type',
         'amount',
         'percentage',
-        'name_function'
+        'name_function',
+        'status_exchange'
     ];
 
     const TYPES = [

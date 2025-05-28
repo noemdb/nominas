@@ -20,6 +20,10 @@ class DatabaseSeeder extends Seeder
             AreaSeeder::class,
             RolSeeder::class,
             PositionsTableSeeder::class,
+            PayrollSeeder::class,
+            DiscountSeeder::class,
+            DeductionSeeder::class,
+            BonusSeeder::class,
         ]);
     }
 }

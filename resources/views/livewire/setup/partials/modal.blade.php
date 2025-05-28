@@ -32,7 +32,7 @@
                         />
                 </div>
 
-                <!-- Monto/Porcentaje -->
+                <!-- Monto/Variable -->
                 <div class="sm:col-span-2">
                     @if($type === 'fijo')
                         <x-wireui-input
@@ -43,16 +43,9 @@
                             placeholder="Ingrese el monto"
                             required
                         />
-                    @else
+                    @endif
+                    @if($type === 'variable')
                         <div class="flex gap-2">
-                            {{-- <x-wireui-input
-                                wire:model="percentage"
-                                type="number"
-                                step="0.01"
-                                label="Porcentaje"
-                                placeholder="Ingrese el porcentaje"
-                                required
-                            /> --}}
                             <x-wireui-select
                                 wire:model="name_function"
                                 label="Función de cálculo"

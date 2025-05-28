@@ -47,8 +47,9 @@
                 <tr class="border-t border-gray-200 dark:border-gray-700">
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Nombre:</span>
-                        <div class="truncate block max-w-[200px]">
+                        <div class=" text-wrap block max-w-[200px]">
                             <div class="text-sm font-medium text-gray-200">{{ $payroll->name }}</div>
+                            <small class="text-xs text-gray-400"">{{ $payroll->description }}</small>
                         </div>
                     </td>
                     <td class="block px-6 py-4 sm:table-cell">
@@ -113,13 +114,29 @@
                         <span class="font-bold sm:hidden">Acciones:</span>
                         <div class="flex flex-row rounded-md shadow-sm" role="group">
                             <x-wireui-mini-button
+                                info
+                                icon="eye"
+                                class="rounded-t-md sm:rounded-l-md sm:rounded-tr-none sm:rounded-br-none"
+                                wire:click="viewDetails({{ $payroll->id }})"
+                                wire:loading.attr="disabled"
+                                wire:target="viewDetails({{ $payroll->id }})"
+                                x-tooltip.raw="Ver detalles" />
+                            <x-wireui-mini-button
                                 primary
                                 icon="calculator"
-                                class="rounded-t-md sm:rounded-l-md sm:rounded-tr-none sm:rounded-br-none"
+                                class="sm:rounded-none"
                                 wire:click="calculate({{ $payroll->id }})"
                                 wire:loading.attr="disabled"
                                 wire:target="calculate({{ $payroll->id }})"
                                 x-tooltip.raw="Calcular nómina" />
+                            <x-wireui-mini-button
+                                secondary
+                                icon="document-duplicate"
+                                class="sm:rounded-none"
+                                wire:click="confirmClone({{ $payroll->id }})"
+                                wire:loading.attr="disabled"
+                                wire:target="confirmClone({{ $payroll->id }})"
+                                x-tooltip.raw="Clonar nómina" />
                             <x-wireui-mini-button
                                 warning
                                 icon="pencil"
@@ -132,9 +149,9 @@
                                 negative
                                 icon="trash"
                                 class="rounded-b-md sm:rounded-r-md sm:rounded-tl-none sm:rounded-bl-none"
-                                wire:click="delete({{ $payroll->id }})"
+                                wire:click="confirmDelete({{ $payroll->id }})"
                                 wire:loading.attr="disabled"
-                                wire:target="delete({{ $payroll->id }})"
+                                wire:target="confirmDelete({{ $payroll->id }})"
                                 x-tooltip.raw="Eliminar nómina" />
                         </div>
                     </td>

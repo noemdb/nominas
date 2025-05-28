@@ -4,4 +4,5 @@
     @include('livewire.setup.partials.payroll-table')
     @includeWhen($showModal, 'livewire.setup.partials.payroll-modal')
     @includeWhen($showCalculateModal, 'livewire.setup.partials.payroll-calculate-modal')
+    @includeWhen($showDetailsModal, 'livewire.setup.partials.payroll-details-modal')
 </div>

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->decimal('amount', 10, 2)->nullable();
             $table->decimal('percentage', 5, 2)->nullable();
             $table->string('name_function')->nullable();
+            $table->boolean('status_exchange')->default(false);
             $table->timestamps();
         });
     }
