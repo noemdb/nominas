@@ -63,7 +63,6 @@
                             <th class="hidden px-6 py-3 sm:table-cell">Faltas</th>
                             <th class="hidden px-6 py-3 sm:table-cell">Permisos</th>
                             <th class="hidden px-6 py-3 sm:table-cell">Retardos</th>
-                            {{-- <th class="hidden px-6 py-3 sm:table-cell">Bono/Descuento</th> --}}
                             <th wire:click="sortBy('status')" class="hidden px-6 py-3 cursor-pointer sm:table-cell">
                                 <div class="flex items-center space-x-1">
                                     <span>Estado</span>
@@ -102,17 +101,6 @@
                                     <span class="font-bold sm:hidden">Retardos:</span>
                                     <span>{{ $behavior->delays }}</span>
                                 </td>
-                                {{-- <td class="block px-6 py-4 sm:table-cell">
-                                    <span class="font-bold sm:hidden">Bono/Descuento:</span>
-                                    <div>
-                                        @if($behavior->bonus > 0)
-                                            <span class="text-green-600">+{{ number_format($behavior->bonus, 2) }}</span>
-                                        @endif
-                                        @if($behavior->discount > 0)
-                                            <span class="text-red-600">-{{ number_format($behavior->discount, 2) }}</span>
-                                        @endif
-                                    </div>
-                                </td> --}}
                                 <td class="block px-6 py-4 sm:table-cell">
                                     <span class="font-bold sm:hidden">Estado:</span>
                                     <span class="px-2 py-1 rounded-full text-xs

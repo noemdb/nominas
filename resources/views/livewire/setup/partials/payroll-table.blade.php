@@ -45,6 +45,7 @@
         <tbody>
             @foreach ($payrolls as $payroll)
                 <tr class="border-t border-gray-200 dark:border-gray-700">
+
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Nombre:</span>
                         <div class=" text-wrap block max-w-[200px]">
@@ -52,14 +53,17 @@
                             <small class="text-xs text-gray-400"">{{ $payroll->description }}</small>
                         </div>
                     </td>
+
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Fecha Inicio:</span>
                         <span class="truncate block max-w-[150px]">{{ $payroll->date_start->format('Y-m-d') }}</span>
                     </td>
+
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Fecha Fin:</span>
                         <span class="truncate block max-w-[150px]">{{ $payroll->date_end->format('Y-m-d') }}</span>
                     </td>
+
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Días:</span>
                         <span class="truncate block max-w-[150px]">{{ $payroll->num_days }}</span>
@@ -114,60 +118,60 @@
 
                     <td class="flex px-6 py-4 space-x-2 sm:table-cell">
                         <span class="font-bold sm:hidden">Acciones:</span>
-                        <div class="flex flex-row rounded-md shadow-sm" role="group">
-                            <x-wireui-mini-button
-                                info
+                        <x-wireui-dropdown>
+                            <x-slot name="trigger">
+                                <x-wireui-button flat icon="ellipsis-vertical" />
+                            </x-slot>
+
+                            <x-wireui-dropdown.item
                                 icon="eye"
-                                class="rounded-t-md sm:rounded-l-md sm:rounded-tr-none sm:rounded-br-none"
+                                label="Ver detalles"
                                 wire:click="viewDetails({{ $payroll->id }})"
                                 wire:loading.attr="disabled"
-                                wire:target="viewDetails({{ $payroll->id }})"
-                                x-tooltip.raw="Ver detalles" />
-                            <x-wireui-mini-button
-                                warning
+                                wire:target="viewDetails({{ $payroll->id }})" />
+
+                            <x-wireui-dropdown.item
                                 icon="pencil"
-                                class="sm:rounded-none"
+                                label="Editar nómina"
                                 wire:click="edit({{ $payroll->id }})"
                                 wire:loading.attr="disabled"
-                                wire:target="edit({{ $payroll->id }})"
-                                x-tooltip.raw="Editar nómina" />
+                                wire:target="edit({{ $payroll->id }})" />
 
-                            <x-wireui-mini-button
-                                pink
+                            {{-- <x-wireui-dropdown.separator /> --}}
+
+                            <x-wireui-dropdown.item
                                 icon="server-stack"
-                                class="sm:rounded-none"
+                                label="Generar Estructura"
                                 wire:click="generateStructure({{ $payroll->id }})"
                                 wire:loading.attr="disabled"
-                                wire:target="generateStructure({{ $payroll->id }})"
-                                x-tooltip.raw="Generar Estructura de Datos" />
+                                wire:target="generateStructure({{ $payroll->id }})" />
 
-                            <x-wireui-mini-button
-                                primary
+                            <x-wireui-dropdown.item
                                 icon="calculator"
-                                class="sm:rounded-none"
+                                label="Calcular nómina"
                                 wire:click="calculate({{ $payroll->id }})"
                                 wire:loading.attr="disabled"
-                                wire:target="calculate({{ $payroll->id }})"
-                                x-tooltip.raw="Calcular nómina" />
+                                wire:target="calculate({{ $payroll->id }})" />
 
-                            <x-wireui-mini-button
-                                lime
+                            {{-- <x-wireui-dropdown.separator /> --}}
+
+                            <x-wireui-dropdown.item
                                 icon="document-duplicate"
-                                class="sm:rounded-none"
+                                label="Clonar nómina"
                                 wire:click="confirmClone({{ $payroll->id }})"
                                 wire:loading.attr="disabled"
-                                wire:target="confirmClone({{ $payroll->id }})"
-                                x-tooltip.raw="Clonar nómina" />
+                                wire:target="confirmClone({{ $payroll->id }})" />
 
-                                <x-wireui-mini-button
-                                negative
+                            {{-- <x-wireui-dropdown.separator /> --}}
+
+                            <x-wireui-dropdown.item
                                 icon="trash"
-                                class="rounded-b-md sm:rounded-r-md sm:rounded-tl-none sm:rounded-bl-none"
+                                label="Eliminar nómina"
                                 wire:click="confirmDelete({{ $payroll->id }})"
                                 wire:loading.attr="disabled"
                                 wire:target="confirmDelete({{ $payroll->id }})"
-                                x-tooltip.raw="Eliminar nómina" />
-                        </div>
+                                class="text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400" />
+                        </x-wireui-dropdown>
                     </td>
 
                 </tr>
