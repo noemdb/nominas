@@ -103,7 +103,12 @@
                                             </span>
                                         </div>
                                         @if($discount->description)
-                                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ $discount->description }}</p>
+                                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                                {{ $discount->description }}
+                                                @if($discount->institution_name)
+                                                    <div class="text-xs text-gray-500 dark:text-gray-400">Institución: {{ $discount->institution_name }}</div>
+                                                @endif
+                                            </p>
                                         @endif
                                     </div>
                                 @empty
@@ -130,7 +135,12 @@
                                             </span>
                                         </div>
                                         @if($discount->description)
-                                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ $discount->description }}</p>
+                                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                                {{ $discount->description }}
+                                                @if($discount->area_name)
+                                                    <div class="text-xs text-gray-500 dark:text-gray-400">Área: {{ $discount->area_name }}</div>
+                                                @endif
+                                            </p>
                                         @endif
                                     </div>
                                 @empty
@@ -157,7 +167,12 @@
                                             </span>
                                         </div>
                                         @if($discount->description)
-                                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ $discount->description }}</p>
+                                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                                {{ $discount->description }}
+                                                @if($discount->rol_name)
+                                                    <div class="text-xs text-gray-500 dark:text-gray-400">Rol: {{ $discount->rol_name }}</div>
+                                                @endif
+                                            </p>
                                         @endif
                                     </div>
                                 @empty
@@ -184,7 +199,12 @@
                                             </span>
                                         </div>
                                         @if($discount->description)
-                                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ $discount->description }}</p>
+                                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                                {{ $discount->description }}
+                                                @if($discount->worker_name)
+                                                    <div class="text-xs text-gray-500 dark:text-gray-400">Trabajador: {{ $discount->worker_name }}</div>
+                                                @endif
+                                            </p>
                                         @endif
                                     </div>
                                 @empty
@@ -202,9 +222,130 @@
                     x-transition:leave="transition ease-in duration-150"
                     x-transition:leave-start="opacity-100 transform scale-100"
                     x-transition:leave-end="opacity-0 transform scale-95">
-                    <div class="p-3 bg-white rounded-lg shadow dark:bg-gray-800">
-                        <div class="text-sm text-center text-gray-500 dark:text-gray-400">
-                            <p>No hay deducciones registradas para esta nómina.</p>
+                    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                        <!-- Deducciones por Institución -->
+                        <div class="p-3 bg-white rounded-lg shadow dark:bg-gray-800">
+                            <div class="flex items-center mb-2 space-x-2">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">Deducciones por Institución</h4>
+                            </div>
+                            <div class="space-y-2">
+                                @forelse($payroll->deductions->whereNotNull('institution_id') as $deduction)
+                                    <div class="p-2 text-sm rounded-lg bg-gray-50 dark:bg-gray-700">
+                                        <div class="flex items-center justify-between">
+                                            <span class="font-medium text-gray-900 dark:text-gray-100">{{ $deduction->name }}</span>
+                                            <span class="text-xs font-semibold {{ $deduction->type === 'fijo' ? 'text-blue-600 dark:text-blue-400' : 'text-purple-600 dark:text-purple-400' }}">
+                                                {{ $deduction->type === 'fijo' ? number_format($deduction->amount, 2) : $deduction->name_function }}
+                                            </span>
+                                        </div>
+                                        @if($deduction->description)
+                                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                                {{ $deduction->description }}
+                                            </p>
+                                        @endif
+                                    </div>
+                                @empty
+                                    <p class="text-xs text-center text-gray-500 dark:text-gray-400">No hay deducciones por institución</p>
+                                @endforelse
+                            </div>
+                        </div>
+
+                        <!-- Deducciones por Área -->
+                        <div class="p-3 bg-white rounded-lg shadow dark:bg-gray-800">
+                            <div class="flex items-center mb-2 space-x-2">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                </svg>
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">Deducciones por Área</h4>
+                            </div>
+                            <div class="space-y-2">
+                                @forelse($payroll->deductions->whereNotNull('area_id') as $deduction)
+                                    <div class="p-2 text-sm rounded-lg bg-gray-50 dark:bg-gray-700">
+                                        <div class="flex items-center justify-between">
+                                            <span class="font-medium text-gray-900 dark:text-gray-100">{{ $deduction->name }}</span>
+                                            <span class="text-xs font-semibold {{ $deduction->type === 'fijo' ? 'text-blue-600 dark:text-blue-400' : 'text-purple-600 dark:text-purple-400' }}">
+                                                {{ $deduction->type === 'fijo' ? number_format($deduction->amount, 2) : $deduction->name_function }}
+                                            </span>
+                                        </div>
+                                        @if($deduction->description)
+                                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                                {{ $deduction->description }}
+                                                @if($deduction->area_name)
+                                                    <div class="text-xs text-gray-500 dark:text-gray-400">Área: {{ $deduction->area_name }}</div>
+                                                @endif
+                                            </p>
+                                        @endif
+                                    </div>
+                                @empty
+                                    <p class="text-xs text-center text-gray-500 dark:text-gray-400">No hay deducciones por área</p>
+                                @endforelse
+                            </div>
+                        </div>
+
+                        <!-- Deducciones por Rol -->
+                        <div class="p-3 bg-white rounded-lg shadow dark:bg-gray-800">
+                            <div class="flex items-center mb-2 space-x-2">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">Deducciones por Rol</h4>
+                            </div>
+                            <div class="space-y-2">
+                                @forelse($payroll->deductions->whereNotNull('rol_id') as $deduction)
+                                    <div class="p-2 text-sm rounded-lg bg-gray-50 dark:bg-gray-700">
+                                        <div class="flex items-center justify-between">
+                                            <span class="font-medium text-gray-900 dark:text-gray-100">{{ $deduction->name }}</span>
+                                            <span class="text-xs font-semibold {{ $deduction->type === 'fijo' ? 'text-blue-600 dark:text-blue-400' : 'text-purple-600 dark:text-purple-400' }}">
+                                                {{ $deduction->type === 'fijo' ? number_format($deduction->amount, 2) : $deduction->name_function }}
+                                            </span>
+                                        </div>
+                                        @if($deduction->description)
+                                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                                {{ $deduction->description }}
+                                                @if($deduction->rol_name)
+                                                    <div class="text-xs text-gray-500 dark:text-gray-400">Rol: {{ $deduction->rol_name }}</div>
+                                                @endif
+                                            </p>
+                                        @endif
+                                    </div>
+                                @empty
+                                    <p class="text-xs text-center text-gray-500 dark:text-gray-400">No hay deducciones por rol</p>
+                                @endforelse
+                            </div>
+                        </div>
+
+                        <!-- Deducciones por Trabajador -->
+                        <div class="p-3 bg-white rounded-lg shadow dark:bg-gray-800">
+                            <div class="flex items-center mb-2 space-x-2">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">Deducciones por Trabajador</h4>
+                            </div>
+                            <div class="space-y-2">
+                                @forelse($payroll->deductions->whereNotNull('worker_id') as $deduction)
+                                    <div class="p-2 text-sm rounded-lg bg-gray-50 dark:bg-gray-700">
+                                        <div class="flex items-center justify-between">
+                                            <span class="font-medium text-gray-900 dark:text-gray-100">{{ $deduction->name }}</span>
+                                            <span class="text-xs font-semibold {{ $deduction->type === 'fijo' ? 'text-blue-600 dark:text-blue-400' : 'text-purple-600 dark:text-purple-400' }}">
+                                                {{ $deduction->type === 'fijo' ? number_format($deduction->amount, 2) : $deduction->name_function }}
+                                            </span>
+                                        </div>
+                                        @if($deduction->description)
+                                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                                {{ $deduction->description }}
+                                                @if($deduction->worker_name)
+                                                    <div class="text-xs text-gray-500 dark:text-gray-400 first-line: border-top">Trabajador: {{ $deduction->worker_name }}</div>
+                                                @endif
+                                            </p>
+                                        @endif
+                                    </div>
+                                @empty
+                                    <p class="text-xs text-center text-gray-500 dark:text-gray-400">No hay deducciones por trabajador</p>
+                                @endforelse
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -216,9 +357,133 @@
                     x-transition:leave="transition ease-in duration-150"
                     x-transition:leave-start="opacity-100 transform scale-100"
                     x-transition:leave-end="opacity-0 transform scale-95">
-                    <div class="p-3 bg-white rounded-lg shadow dark:bg-gray-800">
-                        <div class="text-sm text-center text-gray-500 dark:text-gray-400">
-                            <p>No hay bonificaciones registradas para esta nómina.</p>
+                    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                        <!-- Bonificaciones por Institución -->
+                        <div class="p-3 bg-white rounded-lg shadow dark:bg-gray-800">
+                            <div class="flex items-center mb-2 space-x-2">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">Bonificaciones por Institución</h4>
+                            </div>
+                            <div class="space-y-2">
+                                @forelse($payroll->bonuses->whereNotNull('institution_id') as $bonus)
+                                    <div class="p-2 text-sm rounded-lg bg-gray-50 dark:bg-gray-700">
+                                        <div class="flex items-center justify-between">
+                                            <span class="font-medium text-gray-900 dark:text-gray-100">{{ $bonus->name }}</span>
+                                            <span class="text-xs font-semibold {{ $bonus->type === 'fijo' ? 'text-blue-600 dark:text-blue-400' : 'text-purple-600 dark:text-purple-400' }}">
+                                                {{ $bonus->type === 'fijo' ? number_format($bonus->amount, 2) : $bonus->name_function }}
+                                            </span>
+                                        </div>
+                                        @if($bonus->description)
+                                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                                {{ $bonus->description }}
+                                                @if($bonus->institution_name)
+                                                    <div class="text-xs text-gray-500 dark:text-gray-400">Institución: {{ $bonus->institution_name }}</div>
+                                                @endif
+                                            </p>
+                                        @endif
+                                    </div>
+                                @empty
+                                    <p class="text-xs text-center text-gray-500 dark:text-gray-400">No hay bonificaciones por institución</p>
+                                @endforelse
+                            </div>
+                        </div>
+
+                        <!-- Bonificaciones por Área -->
+                        <div class="p-3 bg-white rounded-lg shadow dark:bg-gray-800">
+                            <div class="flex items-center mb-2 space-x-2">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                </svg>
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">Bonificaciones por Área</h4>
+                            </div>
+                            <div class="space-y-2">
+                                @forelse($payroll->bonuses->whereNotNull('area_id') as $bonus)
+                                    <div class="p-2 text-sm rounded-lg bg-gray-50 dark:bg-gray-700">
+                                        <div class="flex items-center justify-between">
+                                            <span class="font-medium text-gray-900 dark:text-gray-100">{{ $bonus->name }}</span>
+                                            <span class="text-xs font-semibold {{ $bonus->type === 'fijo' ? 'text-blue-600 dark:text-blue-400' : 'text-purple-600 dark:text-purple-400' }}">
+                                                {{ $bonus->type === 'fijo' ? number_format($bonus->amount, 2) : $bonus->name_function }}
+                                            </span>
+                                        </div>
+                                        @if($bonus->description)
+                                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                                {{ $bonus->description }}
+                                                @if($bonus->area_name)
+                                                    <div class="text-xs text-gray-500 dark:text-gray-400">Área: {{ $bonus->area_name }}</div>
+                                                @endif
+                                            </p>
+                                        @endif
+                                    </div>
+                                @empty
+                                    <p class="text-xs text-center text-gray-500 dark:text-gray-400">No hay bonificaciones por área</p>
+                                @endforelse
+                            </div>
+                        </div>
+
+                        <!-- Bonificaciones por Rol -->
+                        <div class="p-3 bg-white rounded-lg shadow dark:bg-gray-800">
+                            <div class="flex items-center mb-2 space-x-2">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">Bonificaciones por Rol</h4>
+                            </div>
+                            <div class="space-y-2">
+                                @forelse($payroll->bonuses->whereNotNull('rol_id') as $bonus)
+                                    <div class="p-2 text-sm rounded-lg bg-gray-50 dark:bg-gray-700">
+                                        <div class="flex items-center justify-between">
+                                            <span class="font-medium text-gray-900 dark:text-gray-100">{{ $bonus->name }}</span>
+                                            <span class="text-xs font-semibold {{ $bonus->type === 'fijo' ? 'text-blue-600 dark:text-blue-400' : 'text-purple-600 dark:text-purple-400' }}">
+                                                {{ $bonus->type === 'fijo' ? number_format($bonus->amount, 2) : $bonus->name_function }}
+                                            </span>
+                                        </div>
+                                        @if($bonus->description)
+                                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                                {{ $bonus->description }}
+                                                @if($bonus->rol_name)
+                                                    <div class="text-xs text-gray-500 dark:text-gray-400">Rol: {{ $bonus->rol_name }}</div>
+                                                @endif
+                                            </p>
+                                        @endif
+                                    </div>
+                                @empty
+                                    <p class="text-xs text-center text-gray-500 dark:text-gray-400">No hay bonificaciones por rol</p>
+                                @endforelse
+                            </div>
+                        </div>
+
+                        <!-- Bonificaciones por Trabajador -->
+                        <div class="p-3 bg-white rounded-lg shadow dark:bg-gray-800">
+                            <div class="flex items-center mb-2 space-x-2">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">Bonificaciones por Trabajador</h4>
+                            </div>
+                            <div class="space-y-2">
+                                @forelse($payroll->bonuses->whereNotNull('worker_id') as $bonus)
+                                    <div class="p-2 text-sm rounded-lg bg-gray-50 dark:bg-gray-700">
+                                        <div class="flex items-center justify-between">
+                                            <span class="font-medium text-gray-900 dark:text-gray-100">{{ $bonus->name }}</span>
+                                            <span class="text-xs font-semibold {{ $bonus->type === 'fijo' ? 'text-blue-600 dark:text-blue-400' : 'text-purple-600 dark:text-purple-400' }}">
+                                                {{ $bonus->type === 'fijo' ? number_format($bonus->amount, 2) : $bonus->name_function }}
+                                            </span>
+                                        </div>
+                                        @if($bonus->description)
+                                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                                {{ $bonus->description }}
+                                                @if($bonus->worker_name)
+                                                    <div class="text-xs text-gray-500 dark:text-gray-400">Trabajador: {{ $bonus->worker_name }}</div>
+                                                @endif
+                                            </p>
+                                        @endif
+                                    </div>
+                                @empty
+                                    <p class="text-xs text-center text-gray-500 dark:text-gray-400">No hay bonificaciones por trabajador</p>
+                                @endforelse
+                            </div>
                         </div>
                     </div>
                 </div>

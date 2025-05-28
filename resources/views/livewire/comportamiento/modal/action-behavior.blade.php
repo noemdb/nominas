@@ -74,7 +74,7 @@
             </div>
 
             <!-- Bono -->
-            <div>
+            {{-- <div>
                 <x-wireui-input
                     type="number"
                     wire:model="behavior.bonus"
@@ -83,10 +83,10 @@
                     step="0.01"
                     required
                 />
-            </div>
+            </div> --}}
 
             <!-- Descuento -->
-            <div>
+            {{-- <div>
                 <x-wireui-input
                     type="number"
                     wire:model="behavior.discount"
@@ -95,7 +95,7 @@
                     step="0.01"
                     required
                 />
-            </div>
+            </div> --}}
 
             <!-- Estado -->
             <div>

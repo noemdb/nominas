@@ -29,5 +29,14 @@ class DiscountSeeder extends Seeder
             'amount' => 50.00,
             'status_exchange' => false,
         ]);
+
+        Discount::create([
+            'name' => 'Descuento por préstamo',
+            'description' => 'Descuento fijo mensual por adelanto de salario.',
+            'worker_id' => 12,
+            'type' => 'fijo',
+            'amount' => 50.00,
+            'status_exchange' => false,
+        ]);
     }
 }

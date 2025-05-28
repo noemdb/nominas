@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payroll_discount', function (Blueprint $table) {
+        Schema::create('payroll_deduction', function (Blueprint $table) {
             $table->id();
             $table->foreignId('payroll_id')->constrained()->onDelete('cascade');
-            $table->foreignId('discount_id')->constrained()->onDelete('cascade');
+            $table->foreignId('deduction_id')->constrained()->onDelete('cascade');
             $table->decimal('amount', 10, 2)->nullable();
             $table->boolean('status_active')->default(true);
             $table->timestamps();
 
             // Índices
-            $table->unique(['payroll_id', 'discount_id']);
+            $table->unique(['payroll_id', 'deduction_id']);
             $table->index('status_active');
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payroll_discount');
+        Schema::dropIfExists('payroll_deduction');
     }
 };

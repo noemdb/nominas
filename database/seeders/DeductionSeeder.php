@@ -31,5 +31,14 @@ class DeductionSeeder extends Seeder
             'amount' => 100.00,
             'status_exchange' => false,
         ]);
+
+        Deduction::create([
+            'name' => 'Fondo para la reserva y seguridad industrial',
+            'description' => 'Aporte mensual al reserva.',
+            'rol_id' => 10,
+            'type' => 'fijo',
+            'amount' => 100.00,
+            'status_exchange' => false,
+        ]);
     }
 }

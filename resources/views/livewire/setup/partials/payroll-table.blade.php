@@ -64,6 +64,7 @@
                         <span class="font-bold sm:hidden">Días:</span>
                         <span class="truncate block max-w-[150px]">{{ $payroll->num_days }}</span>
                     </td>
+
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Estados:</span>
                         <div class="flex items-center space-x-2">
@@ -110,6 +111,7 @@
                             </div>
                         </div>
                     </td>
+
                     <td class="flex px-6 py-4 space-x-2 sm:table-cell">
                         <span class="font-bold sm:hidden">Acciones:</span>
                         <div class="flex flex-row rounded-md shadow-sm" role="group">
@@ -122,22 +124,6 @@
                                 wire:target="viewDetails({{ $payroll->id }})"
                                 x-tooltip.raw="Ver detalles" />
                             <x-wireui-mini-button
-                                primary
-                                icon="calculator"
-                                class="sm:rounded-none"
-                                wire:click="calculate({{ $payroll->id }})"
-                                wire:loading.attr="disabled"
-                                wire:target="calculate({{ $payroll->id }})"
-                                x-tooltip.raw="Calcular nómina" />
-                            <x-wireui-mini-button
-                                secondary
-                                icon="document-duplicate"
-                                class="sm:rounded-none"
-                                wire:click="confirmClone({{ $payroll->id }})"
-                                wire:loading.attr="disabled"
-                                wire:target="confirmClone({{ $payroll->id }})"
-                                x-tooltip.raw="Clonar nómina" />
-                            <x-wireui-mini-button
                                 warning
                                 icon="pencil"
                                 class="sm:rounded-none"
@@ -145,7 +131,35 @@
                                 wire:loading.attr="disabled"
                                 wire:target="edit({{ $payroll->id }})"
                                 x-tooltip.raw="Editar nómina" />
+
                             <x-wireui-mini-button
+                                pink
+                                icon="server-stack"
+                                class="sm:rounded-none"
+                                wire:click="generateStructure({{ $payroll->id }})"
+                                wire:loading.attr="disabled"
+                                wire:target="generateStructure({{ $payroll->id }})"
+                                x-tooltip.raw="Generar Estructura de Datos" />
+
+                            <x-wireui-mini-button
+                                primary
+                                icon="calculator"
+                                class="sm:rounded-none"
+                                wire:click="calculate({{ $payroll->id }})"
+                                wire:loading.attr="disabled"
+                                wire:target="calculate({{ $payroll->id }})"
+                                x-tooltip.raw="Calcular nómina" />
+
+                            <x-wireui-mini-button
+                                lime
+                                icon="document-duplicate"
+                                class="sm:rounded-none"
+                                wire:click="confirmClone({{ $payroll->id }})"
+                                wire:loading.attr="disabled"
+                                wire:target="confirmClone({{ $payroll->id }})"
+                                x-tooltip.raw="Clonar nómina" />
+
+                                <x-wireui-mini-button
                                 negative
                                 icon="trash"
                                 class="rounded-b-md sm:rounded-r-md sm:rounded-tl-none sm:rounded-bl-none"
@@ -155,6 +169,7 @@
                                 x-tooltip.raw="Eliminar nómina" />
                         </div>
                     </td>
+
                 </tr>
             @endforeach
             @if ($payrolls->count() === 0)

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('deductions', function (Blueprint $table) {
+        Schema::create('bonuses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->text('description');
@@ -24,6 +24,7 @@ return new class extends Migration
             $table->decimal('amount', 10, 2)->nullable();
             $table->decimal('percentage', 5, 2)->nullable();
             $table->boolean('status_exchange')->default(false);
+            $table->boolean('status_active')->default(true);
             $table->string('name_function')->nullable();
             $table->timestamps();
         });
@@ -34,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('deductions');
+        Schema::dropIfExists('bonuses');
     }
 };

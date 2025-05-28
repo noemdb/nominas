@@ -21,13 +21,15 @@ class Bonus extends Model
         'amount',
         'percentage',
         'name_function',
-        'status_exchange'
+        'status_exchange',
+        'status_active'
     ];
 
     protected $casts = [
         'amount' => 'decimal:2',
         'percentage' => 'decimal:2',
         'status_exchange' => 'boolean',
+        'status_active' => 'boolean',
     ];
 
     /**
@@ -112,5 +114,37 @@ class Bonus extends Model
     public function worker()
     {
         return $this->belongsTo(Worker::class);
+    }
+
+    /**
+     * Obtiene el nombre de la institución
+     */
+    public function getInstitutionNameAttribute()
+    {
+        return $this->institution ? $this->institution->name : null;
+    }
+
+    /**
+     * Obtiene el nombre del área
+     */
+    public function getAreaNameAttribute()
+    {
+        return $this->area ? $this->area->name : null;
+    }
+
+    /**
+     * Obtiene el nombre del rol
+     */
+    public function getRolNameAttribute()
+    {
+        return $this->rol ? $this->rol->name : null;
+    }
+
+    /**
+     * Obtiene el nombre del trabajador
+     */
+    public function getWorkerNameAttribute()
+    {
+        return $this->worker ? $this->worker->full_name : null;
     }
 }

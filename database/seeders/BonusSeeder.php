@@ -33,5 +33,14 @@ class BonusSeeder extends Seeder
             'amount' => 100.00,
             'status_exchange' => false,
         ]);
+
+        Bonus::create([
+            'name' => 'Bono de productividad. Dirección y Coordinaciones Académicas',
+            'description' => 'Bono variable según rendimiento mensual.',
+            'area_id' => 4,
+            'type' => 'fijo',
+            'amount' => 100.00,
+            'status_exchange' => false,
+        ]);
     }
 }

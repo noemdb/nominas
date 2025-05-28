@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('percentage', 5, 2)->nullable();
             $table->string('name_function')->nullable();
             $table->boolean('status_exchange')->default(false);
+            $table->boolean('status_active')->default(true);
 
             // Claves foráneas para los diferentes ámbitos
             $table->foreignId('institution_id')->nullable()->constrained()->nullOnDelete();

@@ -50,4 +50,14 @@ class WorkerBehavior extends Model
     {
         return $this->hasMany(WorkerBehaviorHistory::class);
     }
+
+    /**
+     * Las nóminas asociadas a este comportamiento
+     */
+    public function payrolls()
+    {
+        return $this->belongsToMany(Payroll::class, 'payroll_worker_behavior')
+            ->withPivot(['bonus_amount', 'discount_amount', 'status_active'])
+            ->withTimestamps();
+    }
 }

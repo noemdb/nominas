@@ -292,6 +292,39 @@ class IndexPayroll extends Component
         );
     }
 
+    public function generateStructure($id)
+    {
+        $payroll = Payroll::findOrFail($id);
+
+        // Confirmar antes de proceder
+        $this->dialog()->confirm([
+            'title' => 'Generar Estructura de Datos',
+            'description' => "¿Está seguro de generar la estructura de datos para la nómina '{$payroll->name}'? Esta acción creará registros en las tablas de conceptos y comportamientos.",
+            'acceptLabel' => 'Sí, generar',
+            'rejectLabel' => 'No, cancelar',
+            'method' => 'confirmGenerateStructure',
+            'params' => $id,
+        ]);
+    }
+
+    public function confirmGenerateStructure($id)
+    {
+        $payroll = Payroll::findOrFail($id);
+        $result = $payroll->generateDataStructure();
+
+        if ($result['success']) {
+            $this->notification()->success(
+                'Estructura Generada',
+                'La estructura de datos ha sido generada correctamente.'
+            );
+        } else {
+            $this->notification()->error(
+                'Error',
+                $result['message']
+            );
+        }
+    }
+
     public function render()
     {
         return view('livewire.setup.index-payroll', [
