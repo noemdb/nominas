@@ -123,7 +123,7 @@ trait PayrollTraitManage
                         'observations' => 'Generado automáticamente al crear la estructura de la nómina',
                         'bonus' => 0,
                         'discount' => 0,
-                        'status' => 'approved',
+                        'status' => 'Pendiente',
                         'approved_by' => $userId,
                         'approved_at' => Carbon::now()
                     ]);

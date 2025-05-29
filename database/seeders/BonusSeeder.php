@@ -21,8 +21,10 @@ class BonusSeeder extends Seeder
             'institution_id' => 1,
             'type' => 'fijo',
             'percentage' => 5.00,
+            'amount' => 5.00,
             'name_function' => 'prima_antiguedad',
             'status_exchange' => false,
+            'status_active' => true,
         ]);
 
         Bonus::create([
@@ -31,8 +33,10 @@ class BonusSeeder extends Seeder
             'institution_id' => 1,
             'type' => 'fijo',
             'percentage' => 10.00,
+            'amount' => 10.00,
             'name_function' => 'prima_jerarquia',
-            'status_exchange' => false,
+            'status_exchange' => true,
+            'status_active' => true,
         ]);
 
         Bonus::create([
@@ -41,8 +45,10 @@ class BonusSeeder extends Seeder
             'institution_id' => 1,
             'type' => 'fijo',
             'percentage' => 8.00,
+            'amount' => 8.00,
             'name_function' => 'prima_estudios',
             'status_exchange' => false,
+            'status_active' => true,
         ]);
     }
 }

@@ -19,7 +19,8 @@ class DiscountSeeder extends Seeder
             'description' => 'Aplicado por días no laborados sin justificación válida.',
             'institution_id' => 1,
             'type' => 'fijo',
-            'percentage' => 100.00, // 100% del día no laborado
+            'percentage' => 34.00, // 100% del día no laborado
+            'amount' => 100.00, // 100% del día no laborado
             'status_exchange' => false,
             'status_active' => true,
         ]);

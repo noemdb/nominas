@@ -2,6 +2,7 @@
 
 namespace App\Livewire\DataManagement;
 
+use App\Models\Payroll;
 use App\Models\User;
 use App\Models\Worker;
 use Livewire\Component;
@@ -19,6 +20,7 @@ class WorkersManager extends Component
     public $perPage = 10;
     public $sortField = 'first_name';
     public $sortDirection = 'asc';
+    public $payrollOptions = [];
 
     public $showModal = false;
     public $isEdit = false;
@@ -371,5 +373,11 @@ class WorkersManager extends Component
             'title' => 'Realizado!',
             'description' => 'Accion ejecutada.',
         ]);
+    }
+
+    public function mount()
+    {
+        $this->payrollOptions = Payroll::getSelectOptions();
+        $this->setLoaded();
     }
 }

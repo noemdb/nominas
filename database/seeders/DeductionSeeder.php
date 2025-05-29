@@ -19,6 +19,7 @@ class DeductionSeeder extends Seeder
             'institution_id' => 1,
             'type' => 'fijo',
             'percentage' => 4.00,
+            'amount' => 4.00,
             'name_function' => 'deduccion_sso',
             'status_exchange' => false,
         ]);
@@ -29,6 +30,7 @@ class DeductionSeeder extends Seeder
             'institution_id' => 1,
             'type' => 'fijo',
             'percentage' => 1.00,
+            'amount' => 1.00,
             'name_function' => 'deduccion_paro_forzoso',
             'status_exchange' => false,
         ]);
@@ -39,6 +41,7 @@ class DeductionSeeder extends Seeder
             'institution_id' => 1,
             'type' => 'fijo',
             'percentage' => 1.00,
+            'amount' => 1.00,
             'name_function' => 'deduccion_faov',
             'status_exchange' => false,
         ]);
