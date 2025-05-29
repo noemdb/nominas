@@ -19,6 +19,8 @@ class IndexDiscount extends Component
     public $sortField = 'name';
     public $sortDirection = 'asc';
     public $showModal = false;
+    public $showDetailsModal = false;
+    public $discountDetails = null;
     public $editing = false;
     public $name;
     public $description;
@@ -30,10 +32,16 @@ class IndexDiscount extends Component
     public $rol_id;
     public $position_id;
     public $worker_id;
+    public $status_active = false;
+    public $status_exchange = false;
+    public $filterPayrollId = null;
+    public $filterStatusActive = null;
+    public $filterStatusExchange = null;
     public $institutionOptions = [];
     public $areaOptions = [];
     public $rolOptions = [];
     public $workerOptions = [];
+    public $payrollOptions = [];
     public $discountTypeOptions = [];
     public $discountfunctionOptions = [];
 
@@ -48,12 +56,17 @@ class IndexDiscount extends Component
         'rol_id' => 'nullable|exists:rols,id',
         'position_id' => 'nullable|exists:positions,id',
         'worker_id' => 'nullable|exists:workers,id',
+        'status_exchange' => 'boolean',
+        'status_active' => 'boolean',
     ];
 
     protected $queryString = [
         'search' => ['except' => ''],
         'sortField' => ['except' => 'name'],
         'sortDirection' => ['except' => 'asc'],
+        'filterPayrollId' => ['except' => null],
+        'filterStatusActive' => ['except' => null],
+        'filterStatusExchange' => ['except' => null],
     ];
 
     public function create()
@@ -79,6 +92,8 @@ class IndexDiscount extends Component
         $this->rol_id = $discount->rol_id;
         $this->position_id = $discount->position_id;
         $this->worker_id = $discount->worker_id;
+        $this->status_active = $discount->status_active;
+        $this->status_exchange = $discount->status_exchange;
         $this->showModal = true;
     }
 
@@ -112,6 +127,8 @@ class IndexDiscount extends Component
                 'rol_id' => $this->rol_id,
                 'position_id' => $this->position_id,
                 'worker_id' => $this->worker_id,
+                'status_active' => $this->status_active,
+                'status_exchange' => $this->status_exchange,
             ]);
             session()->flash('message', 'Discount updated successfully.');
         } else {
@@ -126,6 +143,8 @@ class IndexDiscount extends Component
                 'rol_id' => $this->rol_id,
                 'position_id' => $this->position_id,
                 'worker_id' => $this->worker_id,
+                'status_active' => $this->status_active,
+                'status_exchange' => $this->status_exchange,
             ]);
             session()->flash('message', 'Discount created successfully.');
         }
@@ -137,7 +156,8 @@ class IndexDiscount extends Component
     public function closeModal()
     {
         $this->showModal = false;
-        $this->reset(['name', 'description', 'type', 'amount', 'name_function', 'institution_id', 'area_id', 'rol_id', 'position_id', 'worker_id', 'editing']);
+        $this->showDetailsModal = false;
+        $this->reset(['name', 'description', 'type', 'amount', 'name_function', 'institution_id', 'area_id', 'rol_id', 'position_id', 'worker_id', 'editing', 'status_exchange']);
         $this->resetValidation();
     }
 
@@ -156,13 +176,75 @@ class IndexDiscount extends Component
         }
     }
 
+    public function confirmDelete($id): void
+    {
+        $discount = \App\Models\Discount::findOrFail($id);
+        $this->dialog()->confirm([
+            'title' => '¿Eliminar Descuento?',
+            'description' => "¿Está seguro de eliminar el descuento '$discount->name'? Esta acción no se puede deshacer.",
+            'acceptLabel' => 'Sí, eliminar',
+            'rejectLabel' => 'No, cancelar',
+            'method' => 'delete',
+            'params' => $id,
+            'accept' => [
+                'label' => 'Sí, eliminar',
+                'color' => 'negative'
+            ],
+            'reject' => [
+                'label' => 'No, cancelar',
+                'color' => 'gray'
+            ]
+        ]);
+    }
+
     public function delete($id)
     {
-        $discount = Discount::find($id);
+        $discount = \App\Models\Discount::find($id);
         if ($discount) {
             $discount->delete();
-            session()->flash('message', 'Discount deleted successfully.');
+            $this->notification()->success(
+                'Descuento Eliminado',
+                'El descuento ha sido eliminado correctamente.'
+            );
         }
+    }
+
+    public function confirmClone($id): void
+    {
+        $discount = \App\Models\Discount::findOrFail($id);
+        $this->dialog()->confirm([
+            'title' => '¿Clonar Descuento?',
+            'description' => "¿Está seguro de clonar el descuento '$discount->name'? Se creará un nuevo descuento con los mismos datos pero con estados iniciales.",
+            'acceptLabel' => 'Sí, clonar',
+            'rejectLabel' => 'No, cancelar',
+            'method' => 'cloneDiscount',
+            'params' => $id,
+            'accept' => [
+                'label' => 'Sí, clonar',
+                'color' => 'primary'
+            ],
+            'reject' => [
+                'label' => 'No, cancelar'
+            ]
+        ]);
+    }
+
+    public function cloneDiscount($id)
+    {
+        $discount = \App\Models\Discount::findOrFail($id);
+
+        // Crear un nuevo descuento basado en el existente
+        $newDiscount = $discount->replicate();
+        $newDiscount->name = $discount->name . ' (Copia)';
+        $newDiscount->status_active = false; // Set initial status to inactive
+        // You might want to reset other fields as needed for a new discount clone
+
+        $newDiscount->save();
+
+        $this->notification()->success(
+            'Descuento Clonado',
+            'El descuento ha sido clonado correctamente.'
+        );
     }
 
     public function mount()
@@ -173,6 +255,7 @@ class IndexDiscount extends Component
         $this->workerOptions = Worker::getSelectOptions();
         $this->discountfunctionOptions = Discount::FUNCTIONS;
         $this->discountTypeOptions = Discount::TYPES;
+        $this->payrollOptions = \App\Models\Payroll::getSelectOptions();
     }
 
     public function render()
@@ -183,10 +266,33 @@ class IndexDiscount extends Component
                     $query->where('name', 'like', '%' . $this->search . '%')
                         ->orWhere('description', 'like', '%' . $this->search . '%');
                 })
+                ->when($this->filterPayrollId, function ($query) {
+                    $query->whereHas('payrolls', function ($q) {
+                        $q->where('payrolls.id', $this->filterPayrollId);
+                    });
+                })
+                ->when(isset($this->filterStatusActive), function ($query) {
+                    $query->where('status_active', $this->filterStatusActive);
+                })
+                ->when(isset($this->filterStatusExchange), function ($query) {
+                    $query->where('status_exchange', $this->filterStatusExchange);
+                })
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate(10),
             'sortField' => $this->sortField,
             'sortDirection' => $this->sortDirection
         ]);
+    }
+
+    public function viewDetails($id)
+    {
+        $this->discountDetails = Discount::findOrFail($id);
+        $this->showDetailsModal = true;
+    }
+
+    public function closeDetailsModal()
+    {
+        $this->showDetailsModal = false;
+        $this->discountDetails = null;
     }
 }

@@ -5,10 +5,10 @@
         </h2>
     </x-slot>
 
-    <div class="py-6">
-        <div class="mx-auto sm:px-6 lg:px-8">
-            <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
-                <div class="p-4 text-gray-900 dark:text-gray-100">
+    <div class="flex-1 w-full h-full py-6">
+        <div class="h-full mx-auto sm:px-6 lg:px-8">
+            <div class="h-full overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
+                <div class="h-full p-4 text-gray-900 dark:text-gray-100">
                     @livewire('setup.index-payroll')
                 </div>
             </div>

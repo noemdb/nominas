@@ -60,4 +60,12 @@ class WorkerBehavior extends Model
             ->withPivot(['bonus_amount', 'discount_amount', 'status_active'])
             ->withTimestamps();
     }
+
+    /**
+     * Check if the behavior is used in any payroll.
+     */
+    public function isUsedInPayroll()
+    {
+        return $this->payrolls()->exists();
+    }
 }

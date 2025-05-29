@@ -62,6 +62,24 @@
                     @endif
                 </div>
 
+                <!-- Status Exchange -->
+                <div class="sm:col-span-2">
+                    <x-wireui-toggle
+                        wire:model="status_exchange"
+                        label="En moneda referencial [USD]"
+                        description="Activar para indicar que la deducción será expresada en moneda de referencia [USD]"
+                    />
+                </div>
+
+                <!-- Status Active -->
+                <div class="sm:col-span-2">
+                    <x-wireui-toggle
+                        wire:model="status_active"
+                        label="Activo"
+                        description="Activar para que la deducción esté disponible para su uso en nóminas."
+                    />
+                </div>
+
                 <!-- Descripción -->
                 <div class="sm:col-span-2">
                     <x-wireui-textarea

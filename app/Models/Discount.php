@@ -95,6 +95,14 @@ class Discount extends Model
     }
 
     /**
+     * Check if the discount is used in any payroll.
+     */
+    public function isUsedInPayroll()
+    {
+        return $this->payrolls()->exists();
+    }
+
+    /**
      * Scope para filtrar descuentos por tipo
      */
     public function scopeOfType($query, $type)

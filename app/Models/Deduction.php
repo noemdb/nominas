@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Payroll;
 
 class Deduction extends Model
 {
@@ -12,6 +13,7 @@ class Deduction extends Model
     protected $casts = [
         'amount' => 'decimal:2',
         'percentage' => 'decimal:2',
+        'status_exchange' => 'boolean',
         'status_active' => 'boolean',
     ];
 
@@ -130,5 +132,21 @@ class Deduction extends Model
     public function getWorkerNameAttribute()
     {
         return $this->worker ? $this->worker->full_name : null;
+    }
+
+    /**
+     * Get the payrolls that the deduction belongs to.
+     */
+    public function payrolls()
+    {
+        return $this->belongsToMany(Payroll::class, 'payroll_deduction');
+    }
+
+    /**
+     * Check if the deduction is used in any payroll.
+     */
+    public function isUsedInPayroll()
+    {
+        return $this->payrolls()->exists();
     }
 }

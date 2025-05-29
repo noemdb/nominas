@@ -13,30 +13,37 @@ class DiscountSeeder extends Seeder
      */
     public function run(): void
     {
+        // Descuento por inasistencia injustificada
         Discount::create([
-            'name' => 'Descuento por inasistencia',
-            'description' => 'Aplicado por días no laborados sin justificación.',
+            'name' => 'Descuento por inasistencia injustificada',
+            'description' => 'Aplicado por días no laborados sin justificación válida.',
             'institution_id' => 1,
             'type' => 'fijo',
-            'amount' => 100.00,
+            'percentage' => 100.00, // 100% del día no laborado
+            'status_exchange' => false,
+            'status_active' => true,
         ]);
 
+        // Descuento por adelanto de salario (préstamo)
         Discount::create([
-            'name' => 'Descuento por préstamo',
-            'description' => 'Descuento fijo mensual por adelanto de salario.',
+            'name' => 'Descuento por adelanto de salario',
+            'description' => 'Descuento mensual por concepto de préstamo o adelanto otorgado al trabajador.',
             'institution_id' => 1,
             'type' => 'fijo',
             'amount' => 50.00,
             'status_exchange' => false,
+            'status_active' => true,
         ]);
 
+        // Descuento personalizado por adelanto a un trabajador específico (ej: ID 12)
         Discount::create([
-            'name' => 'Descuento por préstamo',
-            'description' => 'Descuento fijo mensual por adelanto de salario.',
+            'name' => 'Descuento personal por adelanto',
+            'description' => 'Aplicado directamente al trabajador por adelanto de salario.',
             'worker_id' => 12,
             'type' => 'fijo',
             'amount' => 50.00,
             'status_exchange' => false,
+            'status_active' => true,
         ]);
     }
 }

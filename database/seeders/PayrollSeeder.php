@@ -25,18 +25,18 @@ class PayrollSeeder extends Seeder
             'status_approved' => false,
         ]);
 
-        Payroll::create([
-            'name' => 'Nómina Segunda Quincena Mayo 2025',
-            'date_start' => '2025-05-16',
-            'date_end' => '2025-05-31',
-            'num_days' => 16,
-            'description' => 'Nómina de la segunda quincena de mayo 2025.',
-            'observations' => 'Contiene deducción IVSS y FAOV.',
-            'status_exchange' => false,
-            'status_active' => true,
-            'status_public' => false,
-            'status_approved' => true,
-        ]);
+        // Payroll::create([
+        //     'name' => 'Nómina Segunda Quincena Mayo 2025',
+        //     'date_start' => '2025-05-16',
+        //     'date_end' => '2025-05-31',
+        //     'num_days' => 16,
+        //     'description' => 'Nómina de la segunda quincena de mayo 2025.',
+        //     'observations' => 'Contiene deducción IVSS y FAOV.',
+        //     'status_exchange' => false,
+        //     'status_active' => true,
+        //     'status_public' => false,
+        //     'status_approved' => true,
+        // ]);
 
         Payroll::create([
             'name' => 'Nómina Especial Abril 2025',

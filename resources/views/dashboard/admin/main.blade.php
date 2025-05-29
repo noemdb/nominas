@@ -38,7 +38,7 @@
             <div>
                 <strong class="block font-medium text-gray-800 dark:text-gray-200">Beneficios Adicionales (Otras subvenciones)</strong>
                 <span class="text-sm text-gray-600 dark:text-gray-400">
-                    Gestiona beneficios complementarios como: Bonificaciones especiales, Ayudas para vivienda, subsidios para alimentación (diferentes al beneficio obligatorio de alimentación), apoyo para gastos educativos, compensaciones por uso de vehículo propio, Otras asignaciones especiales que mejoren las condiciones económicas del trabajador, etc.
+                    Gestiona beneficios complementarios como: Asignaciones especiales, Ayudas para vivienda, subsidios para alimentación (diferentes al beneficio obligatorio de alimentación), apoyo para gastos educativos, compensaciones por uso de vehículo propio, Otras asignaciones especiales que mejoren las condiciones económicas del trabajador, etc.
                 </span>
             </div>
         </li>
@@ -79,7 +79,7 @@
                 <strong class="block font-medium text-gray-800 dark:text-gray-200">Gestión de Pagos</strong>
                 <span class="text-sm text-gray-600 dark:text-gray-400">Registra y gestiona pago de sueldos/salarios, bonos y otros conceptos.</span>
             </div>
-        </li>        
+        </li>
 
         <!-- Vacaciones -->
         <li class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800">

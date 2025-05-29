@@ -16,30 +16,32 @@ class BonusSeeder extends Seeder
     public function run(): void
     {
         Bonus::create([
-            'name' => 'Bono de alimentación',
-            'description' => 'Asignación mensual para cubrir alimentación.',
+            'name' => 'Prima de antigüedad',
+            'description' => 'Beneficio adicional por años de servicio en la institución. 5% del salario base por cada año trabajado.',
             'institution_id' => 1,
             'type' => 'fijo',
-            'amount' => 100.00,
-            'percentage' => null,
+            'percentage' => 5.00,
+            'name_function' => 'prima_antiguedad',
             'status_exchange' => false,
         ]);
 
         Bonus::create([
-            'name' => 'Bono de productividad',
-            'description' => 'Bono variable según rendimiento mensual.',
+            'name' => 'Prima de jerarquía',
+            'description' => 'Compensación económica por el cargo o nivel jerárquico (coordinador, director, etc). 10% del salario base.',
             'institution_id' => 1,
             'type' => 'fijo',
-            'amount' => 100.00,
+            'percentage' => 10.00,
+            'name_function' => 'prima_jerarquia',
             'status_exchange' => false,
         ]);
 
         Bonus::create([
-            'name' => 'Bono de productividad. Dirección y Coordinaciones Académicas',
-            'description' => 'Bono variable según rendimiento mensual.',
-            'area_id' => 4,
+            'name' => 'Prima por estudios',
+            'description' => 'Incentivo mensual por estudios de cuarto nivel (especialización, maestría, doctorado). 8% del salario base.',
+            'institution_id' => 1,
             'type' => 'fijo',
-            'amount' => 100.00,
+            'percentage' => 8.00,
+            'name_function' => 'prima_estudios',
             'status_exchange' => false,
         ]);
     }

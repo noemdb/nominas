@@ -20,6 +20,9 @@ class BehaviorsManager extends Component
     public $perPage = 10;
     public $sortField = 'date';
     public $sortDirection = 'desc';
+    public $filterPayrollId = null;
+    public $filterStatus = null;
+    public $payrollOptions = [];
 
     public $showModal = false;
     public $isEdit = false;
@@ -42,6 +45,19 @@ class BehaviorsManager extends Component
         'discount' => 0,
         'status' => 'pending'
     ];
+
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'sortField' => ['except' => 'date'],
+        'sortDirection' => ['except' => 'desc'],
+        'filterPayrollId' => ['except' => null],
+        'filterStatus' => ['except' => null],
+    ];
+
+    public function mount()
+    {
+        $this->payrollOptions = \App\Models\Payroll::getSelectOptions();
+    }
 
     public function setLoaded()
     {
@@ -181,6 +197,14 @@ class BehaviorsManager extends Component
                         });
                     }
                 });
+            })
+            ->when($this->filterPayrollId, function ($query) {
+                $query->whereHas('payrolls', function ($q) {
+                    $q->where('payrolls.id', $this->filterPayrollId);
+                });
+            })
+            ->when($this->filterStatus, function ($query) {
+                $query->where('status', $this->filterStatus);
             });
 
         $query->orderBy($this->sortField, $this->sortDirection);

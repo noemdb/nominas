@@ -1,5 +1,5 @@
 <div class="mb-4">
-    <x-wireui-input wire:model.debounce.300ms="search" placeholder="Buscar asignaciones..." class="w-full" />
+    <x-wireui-input wire:model.debounce.300ms="search" placeholder="Buscar descuentos..." class="w-full" />
     <div class="grid grid-cols-1 gap-4 mt-4 sm:grid-cols-3">
         <div>
             <x-wireui-select

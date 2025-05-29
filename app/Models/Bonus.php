@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Payroll;
 
 class Bonus extends Model
 {
@@ -146,5 +147,23 @@ class Bonus extends Model
     public function getWorkerNameAttribute()
     {
         return $this->worker ? $this->worker->full_name : null;
+    }
+
+    /**
+     * Get the payrolls that the bonus belongs to.
+     */
+    public function payrolls()
+    {
+        return $this->belongsToMany(Payroll::class, 'payroll_bonus');
+    }
+
+    /**
+     * Check if the bonus is used in any payroll.
+     */
+    public function isUsedInPayroll()
+    {
+        // Assuming a 'payroll_bonus' table exists and links bonuses to payrolls
+        // You might need to adjust the table name or logic based on your actual database structure
+        return $this->payrolls()->exists();
     }
 }

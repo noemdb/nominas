@@ -31,7 +31,7 @@
                     </x-nav-link>
 
                     <x-nav-link :href="route('setup.bonuses.index')" :active="request()->routeIs('*setup.bonuses*')">
-                        {{ __('Bonificaciones') }}
+                        {{ __('Asignaciones') }}
                     </x-nav-link>
 
                     <x-nav-link :href="route('setup.payrolls.index')" :active="request()->routeIs('*setup.payrolls*')">
@@ -129,7 +129,7 @@
                 {{ __('Deducciones') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('setup.bonuses.index')" :active="request()->routeIs('*setup.bonuses*')">
-                {{ __('Bonificaciones') }}
+                {{ __('Asignaciones') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('setup.payrolls.index')" :active="request()->routeIs('*setup.payrolls*')">
                 {{ __('Nóminas') }}
@@ -145,7 +145,7 @@
             </x-nav-link>
 
             <x-nav-link :href="route('setup.bonuses.index')" :active="request()->routeIs('*setup.bonuses*')">
-                {{ __('Bonificaciones') }}
+                {{ __('Asignaciones') }}
             </x-nav-link>
 
             <x-nav-link :href="route('setup.payrolls.index')" :active="request()->routeIs('*setup.payrolls*')">

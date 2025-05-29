@@ -12,10 +12,9 @@
 
                     @livewire('setup.index-discount')
 
-                    {{-- <livewire:data-management.workers-manager /> --}}
-
                 </div>
             </div>
         </div>
     </div>
+
 </x-app-layout>

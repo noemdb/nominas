@@ -69,6 +69,15 @@
                     />
                 </div>
 
+                <!-- Status Active -->
+                <div class="sm:col-span-2">
+                    <x-wireui-toggle
+                        wire:model="status_active"
+                        label="Activo"
+                        description="Activar para que la bonificación esté disponible para su uso en nóminas."
+                    />
+                </div>
+
                 <!-- Descripción -->
                 <div class="sm:col-span-2">
                     <x-wireui-textarea

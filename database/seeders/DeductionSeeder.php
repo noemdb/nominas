@@ -14,30 +14,32 @@ class DeductionSeeder extends Seeder
     public function run(): void
     {
         Deduction::create([
-            'name' => 'Seguro Social (IVSS)',
-            'description' => 'Deducción legal obligatoria para el IVSS.',
+            'name' => 'S.S.O (Seguro Social Obligatorio)',
+            'description' => 'Aporte del trabajador al sistema de seguridad social. Equivale al 4% del salario base.',
             'institution_id' => 1,
             'type' => 'fijo',
-            'amount' => 100.00,
-            'amount' => null,
+            'percentage' => 4.00,
+            'name_function' => 'deduccion_sso',
             'status_exchange' => false,
         ]);
 
         Deduction::create([
-            'name' => 'Fondo de Ahorro Habitacional (FAOV)',
-            'description' => 'Aporte mensual al fondo habitacional.',
+            'name' => 'Rég. Prest. de Empleo (Paro Forzoso)',
+            'description' => 'Contribución al régimen de desempleo. 1% del salario base.',
             'institution_id' => 1,
             'type' => 'fijo',
-            'amount' => 100.00,
+            'percentage' => 1.00,
+            'name_function' => 'deduccion_paro_forzoso',
             'status_exchange' => false,
         ]);
 
         Deduction::create([
-            'name' => 'Fondo para la reserva y seguridad industrial',
-            'description' => 'Aporte mensual al reserva.',
-            'rol_id' => 10,
+            'name' => 'FAOV (Ley de Política Habitacional)',
+            'description' => 'Aporte obligatorio del trabajador para vivienda. 1% del salario base.',
+            'institution_id' => 1,
             'type' => 'fijo',
-            'amount' => 100.00,
+            'percentage' => 1.00,
+            'name_function' => 'deduccion_faov',
             'status_exchange' => false,
         ]);
     }

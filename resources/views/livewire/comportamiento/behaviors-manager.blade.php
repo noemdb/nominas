@@ -1,4 +1,4 @@
-<div class="p-6 mx-auto lg:p-8">
+<div>
     <div class="flex flex-col items-center justify-between mb-6 space-y-4 sm:flex-row sm:space-y-0">
         <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">
             Gestión de Comportamiento Laboral
@@ -7,10 +7,9 @@
     </div>
 
     <!-- Filtros y búsqueda -->
-    <div class="flex items-center justify-between mb-4">
-        <div class="w-1/3">
+    <div class="flex flex-col mb-4 space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
+        <div class="w-full sm:w-1/3">
             <div class="relative w-full">
-
                 <x-wireui-input
                     icon="magnifying-glass"
                     wire:model.live.debounce.300ms="search"
@@ -29,6 +28,34 @@
                         &times;
                     </button>
                 @endif
+            </div>
+        </div>
+        <div class="grid w-full grid-cols-1 gap-4 sm:w-2/3 sm:grid-cols-2">
+            <div>
+                <x-wireui-select
+                    wire:model.live="filterPayrollId"
+                    label="Nómina"
+                    placeholder="Filtrar por nómina"
+                    :options="$payrollOptions"
+                    option-value="value"
+                    option-label="label"
+                    clearable
+                />
+            </div>
+            <div>
+                <x-wireui-select
+                    wire:model.live="filterStatus"
+                    label="Estado"
+                    placeholder="Filtrar por estado"
+                    :options="[
+                        ['value' => 'pending', 'label' => 'Pendiente'],
+                        ['value' => 'approved', 'label' => 'Aprobado'],
+                        ['value' => 'rejected', 'label' => 'Rechazado']
+                    ]"
+                    option-value="value"
+                    option-label="label"
+                    clearable
+                />
             </div>
         </div>
         <div class="flex items-center space-x-2">

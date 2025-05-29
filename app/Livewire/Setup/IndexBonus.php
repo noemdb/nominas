@@ -30,13 +30,23 @@ class IndexBonus extends Component
     public $rol_id;
     public $position_id;
     public $worker_id;
+    public $status_active = false;
     public $status_exchange = false;
+    public $filterPayrollId = null;
+    public $filterStatusActive = null;
+    public $filterStatusExchange = null;
     public $institutionOptions = [];
     public $areaOptions = [];
     public $rolOptions = [];
     public $workerOptions = [];
+    public $payrollOptions = [];
     public $bonusTypeOptions = [];
     public $bonusfunctionOptions = [];
+
+    public $isLoaded = false;
+
+    public $showDetailsModal = false;
+    public $bonusDetails = null;
 
     protected $rules = [
         'name' => 'required|min:3',
@@ -50,6 +60,7 @@ class IndexBonus extends Component
         'position_id' => 'nullable|exists:positions,id',
         'worker_id' => 'nullable|exists:workers,id',
         'status_exchange' => 'boolean',
+        'status_active' => 'boolean',
     ];
 
     protected $queryString = [
@@ -116,6 +127,7 @@ class IndexBonus extends Component
                 'position_id' => $this->position_id,
                 'worker_id' => $this->worker_id,
                 'status_exchange' => $this->status_exchange,
+                'status_active' => $this->status_active,
             ]);
             $this->notification()->success(
                 'Bonificación Actualizada',
@@ -134,6 +146,7 @@ class IndexBonus extends Component
                 'position_id' => $this->position_id,
                 'worker_id' => $this->worker_id,
                 'status_exchange' => $this->status_exchange,
+                'status_active' => $this->status_active,
             ]);
             $this->notification()->success(
                 'Bonificación Creada',
@@ -148,8 +161,21 @@ class IndexBonus extends Component
     public function closeModal()
     {
         $this->showModal = false;
+        $this->showDetailsModal = false;
         $this->reset(['name', 'description', 'type', 'amount', 'name_function', 'institution_id', 'area_id', 'rol_id', 'position_id', 'worker_id', 'editing', 'status_exchange']);
         $this->resetValidation();
+    }
+
+    public function viewDetails($id)
+    {
+        $this->bonusDetails = Bonus::findOrFail($id);
+        $this->showDetailsModal = true;
+    }
+
+    public function closeDetailsModal()
+    {
+        $this->showDetailsModal = false;
+        $this->bonusDetails = null;
     }
 
     public function updatingSearch()
@@ -167,13 +193,75 @@ class IndexBonus extends Component
         }
     }
 
+    public function confirmDelete($id): void
+    {
+        $bonus = Bonus::findOrFail($id);
+        $this->dialog()->confirm([
+            'title' => '¿Eliminar Bonificación?',
+            'description' => "¿Está seguro de eliminar la bonificación '$bonus->name'? Esta acción no se puede deshacer.",
+            'acceptLabel' => 'Sí, eliminar',
+            'rejectLabel' => 'No, cancelar',
+            'method' => 'delete',
+            'params' => $id,
+            'accept' => [
+                'label' => 'Sí, eliminar',
+                'color' => 'negative'
+            ],
+            'reject' => [
+                'label' => 'No, cancelar',
+                'color' => 'gray'
+            ]
+        ]);
+    }
+
     public function delete($id)
     {
         $bonus = Bonus::find($id);
         if ($bonus) {
             $bonus->delete();
-            session()->flash('message', 'Bonus deleted successfully.');
+            $this->notification()->success(
+                'Bonificación Eliminada',
+                'La bonificación ha sido eliminada correctamente.'
+            );
         }
+    }
+
+    public function confirmClone($id): void
+    {
+        $bonus = Bonus::findOrFail($id);
+        $this->dialog()->confirm([
+            'title' => '¿Clonar Bonificación?',
+            'description' => "¿Está seguro de clonar la bonificación '$bonus->name'? Se creará una nueva bonificación con los mismos datos pero con estados iniciales.",
+            'acceptLabel' => 'Sí, clonar',
+            'rejectLabel' => 'No, cancelar',
+            'method' => 'cloneBonus',
+            'params' => $id,
+            'accept' => [
+                'label' => 'Sí, clonar',
+                'color' => 'primary'
+            ],
+            'reject' => [
+                'label' => 'No, cancelar'
+            ]
+        ]);
+    }
+
+    public function cloneBonus($id)
+    {
+        $bonus = Bonus::findOrFail($id);
+
+        // Crear una nueva bonificación basada en la existente
+        $newBonus = $bonus->replicate();
+        $newBonus->name = $bonus->name . ' (Copia)';
+        $newBonus->status_active = false; // Set initial status to inactive
+        // You might want to reset other fields as needed for a new bonus clone
+
+        $newBonus->save();
+
+        $this->notification()->success(
+            'Bonificación Clonada',
+            'La bonificación ha sido clonada correctamente.'
+        );
     }
 
     public function mount()
@@ -184,6 +272,7 @@ class IndexBonus extends Component
         $this->workerOptions = Worker::getSelectOptions();
         $this->bonusfunctionOptions = Bonus::FUNCTIONS;
         $this->bonusTypeOptions = Bonus::TYPES;
+        $this->payrollOptions = \App\Models\Payroll::getSelectOptions();
     }
 
     public function render()
@@ -193,6 +282,17 @@ class IndexBonus extends Component
                 ->when($this->search, function ($query) {
                     $query->where('name', 'like', '%' . $this->search . '%')
                         ->orWhere('description', 'like', '%' . $this->search . '%');
+                })
+                ->when($this->filterPayrollId, function ($query) {
+                    $query->whereHas('payrolls', function ($q) {
+                        $q->where('payrolls.id', $this->filterPayrollId);
+                    });
+                })
+                ->when(isset($this->filterStatusActive), function ($query) {
+                    $query->where('status_active', $this->filterStatusActive);
+                })
+                ->when(isset($this->filterStatusExchange), function ($query) {
+                    $query->where('status_exchange', $this->filterStatusExchange);
                 })
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate(10),
