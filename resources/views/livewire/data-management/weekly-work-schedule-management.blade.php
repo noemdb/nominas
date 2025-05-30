@@ -30,51 +30,61 @@
         </div>
     </div>
 
-    <!-- Table Section -->
-    <div class="overflow-hidden bg-white rounded-lg shadow-sm dark:bg-gray-800">
-        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead class="bg-gray-50 dark:bg-gray-700">
-                <tr>
-                    <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Cargo</th>
-                    <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Día</th>
-                    <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Horas</th>
-                    <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Estado</th>
-                    <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Acciones</th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                @forelse($schedules as $schedule)
-                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
-                        <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-gray-300">
-                            {{ collect($positionOptions)->firstWhere('value', $schedule->position_id)['label'] ?? 'N/A' }}
-                        </td>
-                        <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-gray-300">{{ $schedule->getDayNameInSpanish() }}</td>
-                        <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-gray-300">{{ number_format($schedule->planned_hours, 2) }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $schedule->is_active ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' }}">
-                                {{ $schedule->is_active ? 'Activo' : 'Inactivo' }}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
-                            <x-wireui-button icon="pencil" wire:click="edit({{ $schedule->id }})" flat />
-                            <x-wireui-button icon="trash" wire:click="confirmDelete({{ $schedule->id }})" flat negative />
-                        </td>
-                    </tr>
-                @empty
+   <!-- Table Section -->
+<div class="overflow-x-auto">
+    <div class="inline-block min-w-full align-middle">
+        <div class="overflow-hidden bg-white rounded-lg shadow-sm dark:bg-gray-800">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead class="bg-gray-50 dark:bg-gray-700">
                     <tr>
-                        <td colspan="5" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
-                            No se encontraron horarios registrados.
-                        </td>
+                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Cargo</th>
+                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Día</th>
+                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Horas</th>
+                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Estado</th>
+                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Acciones</th>
                     </tr>
-                @endforelse
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                    @forelse($schedules as $schedule)
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                            <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-gray-300">
+                                {{ collect($positionOptions)->firstWhere('value', $schedule->position_id)['label'] ?? 'N/A' }}
+                            </td>
+                            <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-gray-300">
+                                {{ $schedule->getDayNameInSpanish() }}
+                            </td>
+                            <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-gray-300">
+                                {{ number_format($schedule->planned_hours, 2) }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $schedule->is_active ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' }}">
+                                    {{ $schedule->is_active ? 'Activo' : 'Inactivo' }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+                                <x-wireui-button icon="pencil" wire:click="edit({{ $schedule->id }})" flat />
+                                <x-wireui-button icon="trash" wire:click="confirmDelete({{ $schedule->id }})" flat negative />
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                                No se encontraron horarios registrados.
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
+</div>
 
-    <!-- Pagination -->
-    <div class="mt-6">
-        {{ $schedules->links() }}
-    </div>
+<!-- Pagination -->
+<div class="mt-6">
+    {{ $schedules->links() }}
+</div>
+
+
 
     <!-- Form Modal -->
     @if($showModal)
