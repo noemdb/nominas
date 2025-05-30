@@ -55,6 +55,16 @@
                             {{ $discountDetails->status_active ? 'Activo' : 'Inactivo' }}
                         </span>
                     </p>
+                    <p class="flex items-center space-x-2">
+                        <span class="w-32 text-sm font-medium text-gray-500 dark:text-gray-400">Período:</span>
+                        <span class="text-sm text-gray-900 dark:text-gray-100">
+                            @if($discountDetails->start_date && $discountDetails->end_date)
+                                Del {{ $discountDetails->start_date->translatedFormat('d \d\e F \d\e Y') }} al {{ $discountDetails->end_date->translatedFormat('d \d\e F \d\e Y') }}
+                            @else
+                                <span class="text-gray-400">Sin período definido</span>
+                            @endif
+                        </span>
+                    </p>
                 </div>
             </div>
 

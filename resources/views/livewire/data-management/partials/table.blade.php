@@ -35,6 +35,14 @@
                         @endif
                     </div>
                 </th>
+                <th wire:click="sortBy('hire_date')" class="hidden px-6 py-3 cursor-pointer sm:table-cell">
+                    <div class="flex items-center space-x-1">
+                        <span>Antigüedad</span>
+                        @if ($sortField === 'hire_date')
+                            <span>{!! $sortDirection === 'asc' ? '&#8593;' : '&#8595;' !!}</span>
+                        @endif
+                    </div>
+                </th>
                 <th wire:click="sortBy('is_active')" class="hidden px-6 py-3 cursor-pointer sm:table-cell">
                     <div class="flex items-center space-x-1">
                         <span>Estado</span>
@@ -51,21 +59,27 @@
                 <tr class="border-t border-gray-200 dark:border-gray-700">
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Nombre:</span>
-                        <span class="truncate block max-w-[200px]">{{ $worker->full_name ?? null }}</span>
+                        <span class="">{{ $worker->full_name ?? null }}</span>
                     </td>
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Cédula:</span>
-                        <span class="truncate block max-w-[150px]">{{ $worker->identification }}</span>
+                        <span class="sm:truncate sm:block sm:max-w-[150px]">{{ $worker->identification }}</span>
                     </td>
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Área/Roll:</span>
-                        <div class="truncate max-w-[200px]">{{ $worker->last_position_name }}</div>
+                        <div class="">{{ $worker->last_position_name }}</div>
                         <div class="text-sm truncate max-w-[200px]">{{ $worker->last_position_range }}</div>
                     </td>
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Salario:</span>
                         <span class="truncate block max-w-[150px]">
                             {{ number_format($worker->base_salary, 2, ',', '.') }}
+                        </span>
+                    </td>
+                    <td class="block px-6 py-4 sm:table-cell">
+                        <span class="font-bold sm:hidden">Antigüedad:</span>
+                        <span class="truncate block max-w-[200px]">
+                            {{ $worker->formatted_seniority }}
                         </span>
                     </td>
                     <td class="block px-6 py-4 sm:table-cell">

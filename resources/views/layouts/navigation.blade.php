@@ -18,6 +18,11 @@
                     <x-nav-link :href="route('data-management')" :active="request()->routeIs('data-management')">
                         {{ __('Gestión de Datos') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('setup.weekly-schedules.index')" :active="request()->routeIs('*setup.weekly-schedules*')">
+                        {{ __('Horarios Semanales') }}
+                    </x-nav-link>
+
                     <x-nav-link :href="route('comportamiento')" :active="request()->routeIs('comportamiento')">
                         {{ __('Comportamiento Laboral') }}
                     </x-nav-link>

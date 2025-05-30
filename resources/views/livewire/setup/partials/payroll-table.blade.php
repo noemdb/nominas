@@ -18,14 +18,14 @@
                         @endif
                     </div>
                 </th>
-                <th wire:click="sortBy('num_days')" class="hidden px-6 py-3 cursor-pointer sm:table-cell">
+                {{-- <th wire:click="sortBy('num_days')" class="hidden px-6 py-3 cursor-pointer sm:table-cell">
                     <div class="flex items-center space-x-1">
                         <span>Días</span>
                         @if ($sortField === 'num_days')
                             <span>{!! $sortDirection === 'asc' ? '&#8593;' : '&#8595;' !!}</span>
                         @endif
                     </div>
-                </th>
+                </th> --}}
                 <th class="hidden px-6 py-3 sm:table-cell">
                     <div class="flex items-center space-x-1">
                         <span>Conceptos</span>
@@ -54,16 +54,19 @@
 
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Período:</span>
-                        <div class="truncate block max-w-[200px]">
-                            <div class="text-sm">{{ $payroll->date_start->format('Y-m-d') }}</div>
-                            <div class="text-sm">{{ $payroll->date_end->format('Y-m-d') }}</div>
+                        <div class="text-sm text-gray-500 max-w-[200px]">
+                            Del {{ $payroll->date_start->translatedFormat('d \d\e F \d\e Y') }} al {{ $payroll->date_end->translatedFormat('d \d\e F \d\e Y') }}
+                            <div class="mt-1 font-medium text-md text-primary-600 dark:text-primary-400">
+                                {{ $payroll->num_days }} {{ Str::plural('día', $payroll->num_days) }}
+                            </div>
+                            <small class="text-xs text-gray-400"">{{ $payroll->date_end->diffForHumans() }}</small>
                         </div>
                     </td>
 
-                    <td class="block px-6 py-4 sm:table-cell">
+                    {{-- <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Días:</span>
                         <span class="truncate block max-w-[150px]">{{ $payroll->num_days }}</span>
-                    </td>
+                    </td> --}}
 
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold text-gray-700 sm:hidden dark:text-gray-300">Conceptos:</span>
@@ -185,10 +188,6 @@
 
                         <x-wireui-dropdown icon="arrow-up" position="left" icon="bars-3">
 
-                            {{-- <x-slot name="trigger">
-                                <x-wireui-button label="Opciones" primary />
-                            </x-slot> --}}
-
                             <x-wireui-dropdown.item
                             label="Ver detalles"
                             icon="eye"
@@ -219,6 +218,15 @@
                             wire:target="generateStructure({{ $payroll->id }})" />
 
                             <x-wireui-dropdown.item
+                            separator
+                            icon="trash"
+                            label="Limpiar Estructura"
+                            wire:click="confirmClearStructure({{ $payroll->id }})"
+                            wire:loading.attr="disabled"
+                            wire:target="confirmClearStructure({{ $payroll->id }})"
+                            class="text-orange-600 hover:text-orange-700 dark:text-orange-500 dark:hover:text-orange-400" />
+
+                            <x-wireui-dropdown.item
                             icon="calculator"
                             label="Calcular nómina"
                             wire:click="calculate({{ $payroll->id }})"
@@ -226,69 +234,14 @@
                             wire:target="calculate({{ $payroll->id }})" />
 
                             <x-wireui-dropdown.item
-                            separator
-                            icon="trash"
-                            label="Eliminar nómina"
-                            wire:click="confirmDelete({{ $payroll->id }})"
+                            icon="document"
+                            label="Reportes"
+                            {{-- wire:click="calculate({{ $payroll->id }})" --}}
                             wire:loading.attr="disabled"
-                            wire:target="confirmDelete({{ $payroll->id }})"
-                            class="text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400" />
+                            wire:target="calculate({{ $payroll->id }})" />
 
                         </x-wireui-dropdown>
 
-                        {{--
-                        <span class="font-bold sm:hidden">Acciones:</span>
-                        <x-wireui-dropdown icon="arrow-up" position="top">
-
-                            <x-slot name="trigger">
-                                <x-wireui-button label="Opciones" primary />
-                            </x-slot>
-
-                            <x-wireui-dropdown.item
-                                icon="eye"
-                                label="Ver detalles"
-                                wire:click="viewDetails({{ $payroll->id }})"
-                                wire:loading.attr="disabled"
-                                wire:target="viewDetails({{ $payroll->id }})" />
-
-                            <x-wireui-dropdown.item
-                                icon="pencil"
-                                label="Editar nómina"
-                                wire:click="edit({{ $payroll->id }})"
-                                wire:loading.attr="disabled"
-                                wire:target="edit({{ $payroll->id }})" />
-
-                            <x-wireui-dropdown.item
-                                separator
-                                icon="server-stack"
-                                label="Generar Estructura"
-                                wire:click="generateStructure({{ $payroll->id }})"
-                                wire:loading.attr="disabled"
-                                wire:target="generateStructure({{ $payroll->id }})" />
-
-                            <x-wireui-dropdown.item
-                                icon="calculator"
-                                label="Calcular nómina"
-                                wire:click="calculate({{ $payroll->id }})"
-                                wire:loading.attr="disabled"
-                                wire:target="calculate({{ $payroll->id }})" />
-
-                            <x-wireui-dropdown.item
-                                icon="document-duplicate"
-                                label="Clonar nómina"
-                                wire:click="confirmClone({{ $payroll->id }})"
-                                wire:loading.attr="disabled"
-                                wire:target="confirmClone({{ $payroll->id }})" />
-
-                            <x-wireui-dropdown.item
-                                icon="trash"
-                                label="Eliminar nómina"
-                                wire:click="confirmDelete({{ $payroll->id }})"
-                                wire:loading.attr="disabled"
-                                wire:target="confirmDelete({{ $payroll->id }})"
-                                class="text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400" />
-                        </x-wireui-dropdown>
-                        --}}
                     </td>
 
                 </tr>

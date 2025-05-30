@@ -78,6 +78,28 @@
                     />
                 </div>
 
+                <!-- Fechas de vigencia -->
+                <div class="sm:col-span-2">
+                    <h4 class="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Período de vigencia</h4>
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <x-wireui-input
+                            wire:model="start_date"
+                            type="date"
+                            label="Fecha de inicio"
+                            placeholder="Seleccione la fecha de inicio"
+                        />
+                        <x-wireui-input
+                            wire:model="end_date"
+                            type="date"
+                            label="Fecha de fin"
+                            placeholder="Seleccione la fecha de fin"
+                        />
+                    </div>
+                    <div class="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Descuentos sin fecha definida (f.Inicial y f.final son nulos) se consideran vigentes indefinidamente.
+                    </div>
+                </div>
+
                 <!-- Descripción -->
                 <div class="sm:col-span-2">
                     <x-wireui-textarea

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Carbon\Carbon;
 
 class Worker extends Model
 {
@@ -112,6 +113,69 @@ class Worker extends Model
         return $position
             ? "{$position->start_date} - {$position->end_date}"
             : 'N/A';
+    }
+
+    /**
+     * Calcula la antigüedad del trabajador desde su fecha de ingreso
+     *
+     * @return array Array con los años, meses y días de antigüedad
+     */
+    public function getSeniorityAttribute(): array
+    {
+        if (!$this->hire_date) {
+            return [
+                'years' => 0,
+                'months' => 0,
+                'days' => 0,
+                'formatted' => 'Sin fecha de ingreso'
+            ];
+        }
+
+        $hireDate = Carbon::parse($this->hire_date);
+        $now = Carbon::now();
+
+        // Si la fecha de ingreso es en el futuro, retornar 0
+        if ($hireDate->isFuture()) {
+            return [
+                'years' => 0,
+                'months' => 0,
+                'days' => 0,
+                'formatted' => 'Fecha de ingreso futura'
+            ];
+        }
+
+        $years = $now->diffInYears($hireDate);
+        $months = $now->copy()->subYears($years)->diffInMonths($hireDate);
+        $days = $now->copy()->subYears($years)->subMonths($months)->diffInDays($hireDate);
+
+        // Formatear la antigüedad en español
+        $parts = [];
+        if ($years > 0) {
+            $parts[] = $years . ' ' . ($years === 1 ? 'año' : 'años');
+        }
+        if ($months > 0) {
+            $parts[] = $months . ' ' . ($months === 1 ? 'mes' : 'meses');
+        }
+        if ($days > 0) {
+            $parts[] = $days . ' ' . ($days === 1 ? 'día' : 'días');
+        }
+
+        return [
+            'years' => $years,
+            'months' => $months,
+            'days' => $days,
+            'formatted' => !empty($parts) ? implode(', ', $parts) : '0 días'
+        ];
+    }
+
+    /**
+     * Obtiene la antigüedad formateada del trabajador
+     *
+     * @return string Antigüedad formateada (ej: "2 años, 3 meses, 15 días")
+     */
+    public function getFormattedSeniorityAttribute(): string
+    {
+        return $this->seniority['formatted'];
     }
 
     public function getStatusPositionsAttribute()

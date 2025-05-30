@@ -66,7 +66,9 @@ class Discount extends Model
         'percentage',
         'name_function',
         'status_exchange',
-        'status_active'
+        'status_active',
+        'start_date',
+        'end_date'
     ];
 
     protected $casts = [
@@ -74,6 +76,8 @@ class Discount extends Model
         'percentage' => 'decimal:2',
         'status_exchange' => 'boolean',
         'status_active' => 'boolean',
+        'start_date' => 'date',
+        'end_date' => 'date',
     ];
 
     /**

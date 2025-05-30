@@ -23,6 +23,8 @@ class DiscountSeeder extends Seeder
             'amount' => 100.00, // 100% del día no laborado
             'status_exchange' => false,
             'status_active' => true,
+            'start_date' => '2025-04-01',
+            'end_date' => '2025-06-31',
         ]);
 
         // Descuento por adelanto de salario (préstamo)
@@ -34,6 +36,8 @@ class DiscountSeeder extends Seeder
             'amount' => 50.00,
             'status_exchange' => false,
             'status_active' => true,
+            'start_date' => '2025-04-01',
+            'end_date' => '2025-06-31',
         ]);
 
         // Descuento personalizado por adelanto a un trabajador específico (ej: ID 12)
@@ -45,6 +49,8 @@ class DiscountSeeder extends Seeder
             'amount' => 50.00,
             'status_exchange' => false,
             'status_active' => true,
+            'start_date' => '2025-04-01',
+            'end_date' => '2025-06-31',
         ]);
     }
 }

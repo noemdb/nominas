@@ -11,6 +11,7 @@ use App\Http\Controllers\Setup\DeductionController;
 use App\Http\Controllers\Setup\DiscountController;
 use App\Http\Controllers\WorkerController;
 use App\Http\Controllers\Setup\PayrollController;
+use App\Http\Controllers\Setup\WeeklyWorkScheduleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,6 +67,9 @@ Route::middleware('auth', 'verified')->group(function () {
 
         // Payrolls
         Route::resource('payrolls', PayrollController::class);
+
+        // Weekly Schedules
+        Route::resource('weekly-schedules', WeeklyWorkScheduleController::class);
     });
 });
 

@@ -73,6 +73,18 @@
                 />
             </div>
 
+            <!-- Horas Laboradas -->
+            <div>
+                <x-wireui-input
+                    type="number"
+                    wire:model="behavior.labor_hours"
+                    label="Horas Laboradas"
+                    min="0"
+                    step="0.01"
+                    required
+                />
+            </div>
+
             <!-- Estado -->
             <div>
                 <x-wireui-select

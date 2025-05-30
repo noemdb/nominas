@@ -32,6 +32,11 @@
                 </th>
                 <th class="hidden px-6 py-3 sm:table-cell">
                     <div class="flex items-center space-x-1">
+                        <span>Período</span>
+                    </div>
+                </th>
+                <th class="hidden px-6 py-3 sm:table-cell">
+                    <div class="flex items-center space-x-1">
                         <span>Aplicabilidad</span>
                     </div>
                 </th>
@@ -86,6 +91,16 @@
                             <span class="ml-2 text-sm text-gray-500">
                                 {{ $discount->status_exchange ? 'USD' : 'Bs.' }}
                             </span>
+                        </div>
+                    </td>
+                    <td class="block px-6 py-4 sm:table-cell">
+                        <span class="font-bold sm:hidden">Período:</span>
+                        <div class="text-sm text-gray-500 max-w-[200px]">
+                            @if($discount->start_date && $discount->end_date)
+                                Del {{ $discount->start_date->translatedFormat('d \d\e F \d\e Y') }} al {{ $discount->end_date->translatedFormat('d \d\e F \d\e Y') }}
+                            @else
+                                <span class="text-gray-400">Sin período definido</span>
+                            @endif
                         </div>
                     </td>
                     <td class="block px-6 py-4 sm:table-cell">

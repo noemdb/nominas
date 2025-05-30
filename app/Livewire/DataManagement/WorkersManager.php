@@ -32,22 +32,6 @@ class WorkersManager extends Component
 
     public $isLoaded = false;
 
-    public function setLoaded()
-    {
-        $this->isLoaded = true;
-        $this->dispatch('component-loaded');
-    }
-
-    public function setModePosition($id)
-    {
-        $workerModel = Worker::findOrFail($id);
-        $this->workerId = $id;
-        $this->isEdit = true;
-        $this->clearModels();
-        $this->showModalPosition = true;
-        $this->resetErrorBag();
-    }
-
     public $worker = [
         'first_name' => '',
         'last_name' => '',
@@ -379,5 +363,69 @@ class WorkersManager extends Component
     {
         $this->payrollOptions = Payroll::getSelectOptions();
         $this->setLoaded();
+    }
+
+    public function getWorkerSeniorityProperty()
+    {
+        if (empty($this->worker['hire_date'])) {
+            return [
+                'years' => 0,
+                'months' => 0,
+                'days' => 0,
+                'formatted' => 'Sin fecha de ingreso'
+            ];
+        }
+
+        $hireDate = \Carbon\Carbon::parse($this->worker['hire_date']);
+        $now = \Carbon\Carbon::now();
+
+        // Si la fecha de ingreso es en el futuro, retornar 0
+        if ($hireDate->isFuture()) {
+            return [
+                'years' => 0,
+                'months' => 0,
+                'days' => 0,
+                'formatted' => 'Fecha de ingreso futura'
+            ];
+        }
+
+        $years = $now->diffInYears($hireDate);
+        $months = $now->copy()->subYears($years)->diffInMonths($hireDate);
+        $days = $now->copy()->subYears($years)->subMonths($months)->diffInDays($hireDate);
+
+        // Formatear la antigüedad en español
+        $parts = [];
+        if ($years > 0) {
+            $parts[] = $years . ' ' . ($years === 1 ? 'año' : 'años');
+        }
+        if ($months > 0) {
+            $parts[] = $months . ' ' . ($months === 1 ? 'mes' : 'meses');
+        }
+        if ($days > 0) {
+            $parts[] = $days . ' ' . ($days === 1 ? 'día' : 'días');
+        }
+
+        return [
+            'years' => $years,
+            'months' => $months,
+            'days' => $days,
+            'formatted' => !empty($parts) ? implode(', ', $parts) : '0 días'
+        ];
+    }
+
+    public function setLoaded()
+    {
+        $this->isLoaded = true;
+        $this->dispatch('component-loaded');
+    }
+
+    public function setModePosition($id)
+    {
+        $workerModel = Worker::findOrFail($id);
+        $this->workerId = $id;
+        $this->isEdit = true;
+        $this->clearModels();
+        $this->showModalPosition = true;
+        $this->resetErrorBag();
     }
 }

@@ -22,7 +22,8 @@ class WorkerBehavior extends Model
         'discount',
         'status',
         'approved_by',
-        'approved_at'
+        'approved_at',
+        'labor_hours'
     ];
 
     protected $casts = [
@@ -33,7 +34,8 @@ class WorkerBehavior extends Model
         'delays' => 'integer',
         'bonus' => 'decimal:2',
         'discount' => 'decimal:2',
-        'approved_at' => 'datetime'
+        'approved_at' => 'datetime',
+        'labor_hours' => 'decimal:2'
     ];
 
     public function worker()

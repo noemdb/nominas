@@ -50,15 +50,35 @@ trait PayrollTraitManage
      */
     protected function generatePayrollConcepts()
     {
-        // Obtener todos los conceptos activos filtrados por status_exchange
-        $query = function ($query) {
+        // Consulta base para deducciones y bonificaciones (sin validación de fechas)
+        $baseQuery = function ($query) {
             $query->where('status_active', true)
                 ->where('status_exchange', $this->status_exchange);
         };
 
-        $discounts = Discount::where($query)->get();
-        $deductions = Deduction::where($query)->get();
-        $bonuses = Bonus::where($query)->get();
+        // Consulta específica para descuentos (incluye validación de fechas)
+        $discountQuery = function ($query) {
+            $query->where('status_active', true)
+                ->where('status_exchange', $this->status_exchange)
+                ->where(function ($q) {
+                    // Descuentos sin fecha definida (vigentes indefinidamente)
+                    $q->whereNull('start_date')
+                        ->whereNull('end_date')
+                        // O descuentos vigentes en la fecha de la nómina
+                        ->orWhere(function ($q) {
+                            $q->where('start_date', '<=', $this->date_end)
+                                ->where(function ($q) {
+                                    $q->whereNull('end_date')
+                                        ->orWhere('end_date', '>=', $this->date_start);
+                                });
+                        });
+                });
+        };
+
+        // Obtener conceptos usando las consultas específicas
+        $discounts = Discount::where($discountQuery)->get();
+        $deductions = Deduction::where($baseQuery)->get();
+        $bonuses = Bonus::where($baseQuery)->get();
 
         // Preparar los datos para syncWithoutDetaching
         $discountData = $discounts->mapWithKeys(function ($discount) {
@@ -160,5 +180,34 @@ trait PayrollTraitManage
 
         // Usar syncWithoutDetaching para evitar duplicados
         $this->workerBehaviors()->syncWithoutDetaching($behaviorData);
+    }
+
+    /**
+     * Elimina los registros de conceptos (descuentos, deducciones, bonificaciones) asociados a la nómina
+     *
+     * @return array Resultado del proceso
+     */
+    public function clearPayrollConcepts()
+    {
+        try {
+            DB::beginTransaction();
+
+            // Eliminar las relaciones de conceptos
+            $this->discounts()->detach();
+            $this->deductions()->detach();
+            $this->bonuses()->detach();
+
+            DB::commit();
+            return [
+                'success' => true,
+                'message' => 'Conceptos de la nómina eliminados correctamente'
+            ];
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return [
+                'success' => false,
+                'message' => 'Error al eliminar los conceptos de la nómina: ' . $e->getMessage()
+            ];
+        }
     }
 }

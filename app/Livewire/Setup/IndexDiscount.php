@@ -34,6 +34,8 @@ class IndexDiscount extends Component
     public $worker_id;
     public $status_active = false;
     public $status_exchange = false;
+    public $start_date;
+    public $end_date;
     public $filterPayrollId = null;
     public $filterStatusActive = null;
     public $filterStatusExchange = null;
@@ -58,6 +60,8 @@ class IndexDiscount extends Component
         'worker_id' => 'nullable|exists:workers,id',
         'status_exchange' => 'boolean',
         'status_active' => 'boolean',
+        'start_date' => 'nullable|date',
+        'end_date' => 'nullable|date|after_or_equal:start_date',
     ];
 
     protected $queryString = [
@@ -72,7 +76,7 @@ class IndexDiscount extends Component
     public function create()
     {
         $this->resetValidation();
-        $this->reset(['name', 'description', 'type', 'amount', 'name_function', 'institution_id', 'area_id', 'rol_id', 'position_id', 'worker_id']);
+        $this->reset(['name', 'description', 'type', 'amount', 'name_function', 'institution_id', 'area_id', 'rol_id', 'position_id', 'worker_id', 'start_date', 'end_date']);
         $this->editing = false;
         $this->showModal = true;
     }
@@ -94,6 +98,8 @@ class IndexDiscount extends Component
         $this->worker_id = $discount->worker_id;
         $this->status_active = $discount->status_active;
         $this->status_exchange = $discount->status_exchange;
+        $this->start_date = $discount->start_date?->format('Y-m-d');
+        $this->end_date = $discount->end_date?->format('Y-m-d');
         $this->showModal = true;
     }
 
@@ -115,49 +121,40 @@ class IndexDiscount extends Component
             return;
         }
 
+        $data = [
+            'name' => $this->name,
+            'description' => $this->description,
+            'type' => $this->type,
+            'amount' => $this->type === 'fijo' ? $this->amount : null,
+            'name_function' => $this->type === 'variable' ? $this->name_function : null,
+            'institution_id' => $this->institution_id,
+            'area_id' => $this->area_id,
+            'rol_id' => $this->rol_id,
+            'position_id' => $this->position_id,
+            'worker_id' => $this->worker_id,
+            'status_active' => $this->status_active,
+            'status_exchange' => $this->status_exchange,
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
+        ];
+
         if ($this->editing) {
-            Discount::find($this->editing)->update([
-                'name' => $this->name,
-                'description' => $this->description,
-                'type' => $this->type,
-                'amount' => $this->type === 'fijo' ? $this->amount : null,
-                'name_function' => $this->type === 'variable' ? $this->name_function : null,
-                'institution_id' => $this->institution_id,
-                'area_id' => $this->area_id,
-                'rol_id' => $this->rol_id,
-                'position_id' => $this->position_id,
-                'worker_id' => $this->worker_id,
-                'status_active' => $this->status_active,
-                'status_exchange' => $this->status_exchange,
-            ]);
+            Discount::find($this->editing)->update($data);
             session()->flash('message', 'Discount updated successfully.');
         } else {
-            Discount::create([
-                'name' => $this->name,
-                'description' => $this->description,
-                'type' => $this->type,
-                'amount' => $this->type === 'fijo' ? $this->amount : null,
-                'name_function' => $this->type === 'variable' ? $this->name_function : null,
-                'institution_id' => $this->institution_id,
-                'area_id' => $this->area_id,
-                'rol_id' => $this->rol_id,
-                'position_id' => $this->position_id,
-                'worker_id' => $this->worker_id,
-                'status_active' => $this->status_active,
-                'status_exchange' => $this->status_exchange,
-            ]);
+            Discount::create($data);
             session()->flash('message', 'Discount created successfully.');
         }
 
         $this->showModal = false;
-        $this->reset(['name', 'description', 'type', 'amount', 'name_function', 'institution_id', 'area_id', 'rol_id', 'position_id', 'worker_id', 'editing']);
+        $this->reset(['name', 'description', 'type', 'amount', 'name_function', 'institution_id', 'area_id', 'rol_id', 'position_id', 'worker_id', 'editing', 'start_date', 'end_date']);
     }
 
     public function closeModal()
     {
         $this->showModal = false;
         $this->showDetailsModal = false;
-        $this->reset(['name', 'description', 'type', 'amount', 'name_function', 'institution_id', 'area_id', 'rol_id', 'position_id', 'worker_id', 'editing', 'status_exchange']);
+        $this->reset(['name', 'description', 'type', 'amount', 'name_function', 'institution_id', 'area_id', 'rol_id', 'position_id', 'worker_id', 'editing', 'status_exchange', 'start_date', 'end_date']);
         $this->resetValidation();
     }
 

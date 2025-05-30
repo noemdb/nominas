@@ -22,7 +22,11 @@ return new class extends Migration
             $table->boolean('status_exchange')->default(false);
             $table->boolean('status_active')->default(true);
 
-            // Claves foráneas para los diferentes ámbitos
+            // 👇 Rango en el que el descuento se aplica
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+
+            // Aplicabilidad
             $table->foreignId('institution_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('area_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('rol_id')->nullable()->constrained()->nullOnDelete();

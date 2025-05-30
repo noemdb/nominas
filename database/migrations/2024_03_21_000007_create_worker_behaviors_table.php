@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('absences')->default(0)->comment('Días de inasistencia sin justificación');
             $table->integer('permissions')->default(0)->comment('Días de permiso con autorización');
             $table->integer('delays')->default(0)->comment('Cantidad de retardos');
+            $table->decimal('labor_hours', 6, 2)->default(0)->comment('Horas laboradas en el período');
             $table->text('observations')->nullable()->comment('Observaciones adicionales sobre el comportamiento');
             $table->decimal('bonus', 10, 2)->default(0)->comment('Bonificación por buen comportamiento');
             $table->decimal('discount', 10, 2)->default(0)->comment('Descuento por faltas o retardos');

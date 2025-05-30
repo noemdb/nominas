@@ -1,6 +1,6 @@
 <div>
     <div class="flex flex-col items-center justify-between mb-6 space-y-4 sm:flex-row sm:space-y-0">
-        <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">
+        <h1 class="text-2xl font-semibold text-gray-400 dark:text-gray-200">
             Gestión de Comportamiento Laboral
         </h1>
         <x-wireui-button icon="plus" label="Registrar Comportamiento" wire:click="create" />
@@ -90,6 +90,7 @@
                             <th class="hidden px-6 py-3 sm:table-cell">Faltas</th>
                             <th class="hidden px-6 py-3 sm:table-cell">Permisos</th>
                             <th class="hidden px-6 py-3 sm:table-cell">Retardos</th>
+                            <th class="hidden px-6 py-3 sm:table-cell">Horas Laboradas</th>
                             <th wire:click="sortBy('status')" class="hidden px-6 py-3 cursor-pointer sm:table-cell">
                                 <div class="flex items-center space-x-1">
                                     <span>Estado</span>
@@ -127,6 +128,10 @@
                                 <td class="block px-6 py-4 sm:table-cell">
                                     <span class="font-bold sm:hidden">Retardos:</span>
                                     <span>{{ $behavior->delays }}</span>
+                                </td>
+                                <td class="block px-6 py-4 sm:table-cell">
+                                    <span class="font-bold sm:hidden">Horas Laboradas:</span>
+                                    <span>{{ number_format($behavior->labor_hours, 2) }} hrs</span>
                                 </td>
                                 <td class="block px-6 py-4 sm:table-cell">
                                     <span class="font-bold sm:hidden">Estado:</span>

@@ -13,6 +13,9 @@ class IndexPayroll extends Component
     use WithPagination, WireUiActions;
 
     public $search = '';
+    public $dateStartFilter = '';
+    public $dateEndFilter = '';
+    public $currencyFilter = '';
     public $sortField = 'name';
     public $sortDirection = 'asc';
     public $showModal = false;
@@ -50,6 +53,9 @@ class IndexPayroll extends Component
 
     protected $queryString = [
         'search' => ['except' => ''],
+        'dateStartFilter' => ['except' => ''],
+        'dateEndFilter' => ['except' => ''],
+        'currencyFilter' => ['except' => ''],
         'sortField' => ['except' => 'name'],
         'sortDirection' => ['except' => 'asc'],
     ];
@@ -325,13 +331,73 @@ class IndexPayroll extends Component
         }
     }
 
+    public function confirmClearStructure($id): void
+    {
+        $payroll = Payroll::findOrFail($id);
+        $this->dialog()->confirm([
+            'title' => 'Limpiar Estructura de Datos',
+            'description' => "¿Está seguro de limpiar la estructura de datos de la nómina '{$payroll->name}'? Esta acción eliminará todos los conceptos asociados y no se puede deshacer.",
+            'acceptLabel' => 'Sí, limpiar',
+            'rejectLabel' => 'No, cancelar',
+            'method' => 'clearStructure',
+            'params' => $id,
+            'accept' => [
+                'label' => 'Sí, limpiar',
+                'color' => 'negative'
+            ],
+            'reject' => [
+                'label' => 'No, cancelar',
+                'color' => 'gray'
+            ]
+        ]);
+    }
+
+    public function clearStructure($id)
+    {
+        $payroll = Payroll::findOrFail($id);
+        $result = $payroll->clearPayrollConcepts();
+
+        if ($result['success']) {
+            $this->notification()->success(
+                'Estructura Limpiada',
+                'La estructura de datos ha sido limpiada correctamente.'
+            );
+        } else {
+            $this->notification()->error(
+                'Error',
+                $result['message']
+            );
+        }
+    }
+
+    public function clearFilters()
+    {
+        $this->reset([
+            'search',
+            'dateStartFilter',
+            'dateEndFilter',
+            'currencyFilter'
+        ]);
+    }
+
     public function render()
     {
         return view('livewire.setup.index-payroll', [
             'payrolls' => Payroll::query()
                 ->when($this->search, function ($query) {
-                    $query->where('name', 'like', '%' . $this->search . '%')
-                        ->orWhere('description', 'like', '%' . $this->search . '%');
+                    $query->where(function ($q) {
+                        $q->where('name', 'like', '%' . $this->search . '%')
+                            ->orWhere('description', 'like', '%' . $this->search . '%');
+                    });
+                })
+                ->when($this->dateStartFilter, function ($query) {
+                    $query->where('date_start', '>=', $this->dateStartFilter);
+                })
+                ->when($this->dateEndFilter, function ($query) {
+                    $query->where('date_end', '<=', $this->dateEndFilter);
+                })
+                ->when($this->currencyFilter !== null && $this->currencyFilter !== '', function ($query) {
+                    $query->where('status_exchange', $this->currencyFilter);
                 })
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate(10),
