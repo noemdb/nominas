@@ -250,29 +250,39 @@
                     : ($hasHours ? 'bg-gray-50 dark:bg-gray-800' : 'bg-gray-100 dark:bg-gray-700');
                 $cursorClass = $isSelected ? 'cursor-default' : 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700';
             @endphp
-           <button
-                                    type="button"
-                                    wire:click="selectDay('{{ $key }}')"
-                                    class="relative w-full p-2 text-center transition-colors duration-200 border rounded-lg {{ $bgColor }} {{ $cursorClass }} dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 min-w-0 break-words"
-                                    @if($isSelected) disabled @endif
-                                >
-                                    <div class="text-sm font-medium text-gray-900 dark:text-gray-100">
-                                        {{ $label }}
-                                    </div>
-                                    @if($schedule)
-                                        <div class="mt-1 text-xs font-semibold {{ $isSelected ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400' }}">
-                                            {{ number_format($schedule->planned_hours, 2) }}h
-                                        </div>
-                                        @if($schedule->observations)
-                                            <div class="mt-1 text-xs text-gray-500 truncate dark:text-gray-400" title="{{ $schedule->observations }}">
-                                                {{ Str::limit($schedule->observations, 20) }}
-                                            </div>
-                                        @endif
-                                    @endif
-                                    @if($isSelected)
-                                        <div class="absolute top-0 right-0 w-2 h-2 transform translate-x-1/2 -translate-y-1/2 bg-blue-500 rounded-full"></div>
-                                    @endif
-                                </button>
+<button
+    type="button"
+    wire:click="selectDay('{{ $key }}')"
+    class="relative w-full p-2 text-center transition-colors duration-200 border rounded-lg {{ $bgColor }} {{ $cursorClass }} dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 min-w-0 break-words"
+    @if($isSelected) disabled @endif
+>
+    {{-- Día del calendario (visible según tamaño de pantalla) --}}
+    <div class="text-sm font-medium text-gray-900 dark:text-gray-100 sm:hidden">
+        {{ $label }}
+    </div>
+    <div class="hidden text-sm font-medium text-gray-900 dark:text-gray-100 sm:block">
+        {{ mb_substr($label, 0, 3) }}
+    </div>
+
+    {{-- Horas --}}
+    @if($schedule)
+        <div class="mt-1 text-xs font-semibold {{ $isSelected ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400' }}">
+            {{ number_format($schedule->planned_hours, 2) }}h
+        </div>
+        @if($schedule->observations)
+            <div class="mt-1 text-xs text-gray-500 truncate dark:text-gray-400" title="{{ $schedule->observations }}">
+                {{ Str::limit($schedule->observations, 20) }}
+            </div>
+        @endif
+    @endif
+
+    {{-- Indicador de día seleccionado --}}
+    @if($isSelected)
+        <div class="absolute top-0 right-0 w-2 h-2 transform translate-x-1/2 -translate-y-1/2 bg-blue-500 rounded-full"></div>
+    @endif
+</button>
+
+
         @endforeach
     </div>
 @endif
