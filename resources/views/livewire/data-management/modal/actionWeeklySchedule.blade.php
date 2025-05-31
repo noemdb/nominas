@@ -228,76 +228,61 @@
                     </div>
                 </div>
 
-                <!-- Vista de Calendario -->
-                <div class="p-4 bg-white rounded-lg shadow-sm dark:bg-gray-700/50">
-                    <!-- Encabezado del Calendario -->
-                    <div class="grid grid-cols-2 gap-2 text-center sm:grid-cols-7">
-                        @foreach($daysOfWeek as $key => $label)
-                            <div class="p-2 text-sm font-medium text-gray-500 dark:text-gray-400 min-w-0 break-words">
-                                {{ substr($label, 0, 3) }}
-                            </div>
-                        @endforeach
-                    </div>
+                <!-- Encabezado del Calendario solo para pantallas grandes -->
+<div class="hidden sm:grid grid-cols-7 gap-2 text-center">
+    @foreach($daysOfWeek as $key => $label)
+        <div class="p-2 text-sm font-medium text-gray-500 dark:text-gray-400 min-w-0 break-words">
+            {{ mb_substr($label, 0, 3) }}
+        </div>
+    @endforeach
+</div>
 
-                <!-- Vista de Calendario -->
-<div class="p-4 bg-white rounded-lg shadow-sm dark:bg-gray-700/50">
-    <!-- Encabezado del Calendario -->
-    <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2 text-center">
+<!-- Días del Calendario -->
+@if($positionSchedule && count($positionSchedule) > 0)
+    <div class="grid grid-cols-2 gap-2 mt-2 sm:grid-cols-7">
         @foreach($daysOfWeek as $key => $label)
-            <div class="p-2 text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400 break-words">
-                {{ substr($label, 0, 3) }}
-            </div>
+            @php
+                $isSelected = $day_of_week === $key;
+                $schedule = $positionSchedule[$key] ?? null;
+                $hasHours = $schedule && $schedule->planned_hours > 0;
+                $bgColor = $isSelected
+                    ? 'bg-blue-100 dark:bg-blue-800 border-blue-500'
+                    : ($hasHours ? 'bg-gray-50 dark:bg-gray-800' : 'bg-gray-100 dark:bg-gray-700');
+                $cursorClass = $isSelected ? 'cursor-default' : 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700';
+            @endphp
+            <button
+                type="button"
+                wire:click="selectDay('{{ $key }}')"
+                class="relative w-full p-2 text-center transition-colors duration-200 border rounded-lg {{ $bgColor }} {{ $cursorClass }} dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 min-w-0 break-words"
+                @if($isSelected) disabled @endif
+            >
+                <!-- Mostrar nombre completo en móviles -->
+                <div class="text-sm font-medium text-gray-900 dark:text-gray-100 sm:hidden">
+                    {{ $label }}
+                </div>
+                <!-- Mostrar nombre abreviado en pantallas grandes -->
+                <div class="hidden text-sm font-medium text-gray-900 dark:text-gray-100 sm:block">
+                    {{ mb_substr($label, 0, 3) }}
+                </div>
+
+                @if($schedule)
+                    <div class="mt-1 text-xs font-semibold {{ $isSelected ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400' }}">
+                        {{ number_format($schedule->planned_hours, 2) }}h
+                    </div>
+                    @if($schedule->observations)
+                        <div class="mt-1 text-xs text-gray-500 truncate dark:text-gray-400" title="{{ $schedule->observations }}">
+                            {{ Str::limit($schedule->observations, 20) }}
+                        </div>
+                    @endif
+                @endif
+
+                @if($isSelected)
+                    <div class="absolute top-0 right-0 w-2 h-2 transform translate-x-1/2 -translate-y-1/2 bg-blue-500 rounded-full"></div>
+                @endif
+            </button>
         @endforeach
     </div>
-
-    <!-- Días del Calendario -->
-    @if($positionSchedule && count($positionSchedule) > 0)
-        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2 mt-3">
-            @foreach($daysOfWeek as $key => $label)
-                @php
-                    $isSelected = $day_of_week === $key;
-                    $schedule = $positionSchedule[$key] ?? null;
-                    $hasHours = $schedule && $schedule->planned_hours > 0;
-                    $bgColor = $isSelected
-                        ? 'bg-blue-100 dark:bg-blue-800 border-blue-500'
-                        : ($hasHours ? 'bg-gray-50 dark:bg-gray-800' : 'bg-gray-100 dark:bg-gray-700');
-                    $cursorClass = $isSelected ? 'cursor-default' : 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700';
-                @endphp
-                <button
-                    type="button"
-                    wire:click="selectDay('{{ $key }}')"
-                    class="relative w-full p-2 sm:p-3 text-center border rounded-lg {{ $bgColor }} {{ $cursorClass }}
-                        dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500
-                        focus:ring-offset-2 dark:focus:ring-offset-gray-800 min-w-0 transition-colors duration-200"
-                    @if($isSelected) disabled @endif
-                >
-                    <div class="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-100">
-                        {{ $label }}
-                    </div>
-
-                    @if($schedule)
-                        <div class="mt-1 text-xs sm:text-sm font-semibold {{ $isSelected ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400' }}">
-                            {{ number_format($schedule->planned_hours, 2) }}h
-                        </div>
-                        @if($schedule->observations)
-                            <div class="mt-1 text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 truncate" title="{{ $schedule->observations }}">
-                                {{ \Illuminate\Support\Str::limit($schedule->observations, 20) }}
-                            </div>
-                        @endif
-                    @endif
-
-                    @if($isSelected)
-                        <div class="absolute top-0 right-0 w-2 h-2 bg-blue-500 rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
-                    @endif
-                </button>
-            @endforeach
-        </div>
-    @else
-        <div class="p-4 text-center text-sm text-gray-500 dark:text-gray-400">
-            No hay horarios configurados para este cargo.
-        </div>
-    @endif
-</div>
+@endif
 
 
 
