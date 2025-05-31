@@ -29,7 +29,7 @@
                 <!-- Día de la Semana -->
                 <div>
                     <x-wireui-select
-                        wire:model="day_of_week"
+                        wire:model.live="day_of_week"
                         label="Día de la Semana"
                         placeholder="Seleccione un día"
                         :options="collect($daysOfWeek)->map(function($label, $value) {
