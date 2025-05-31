@@ -7,10 +7,11 @@ use App\Models\WeeklyWorkSchedule;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Collection;
+use WireUi\Traits\WireUiActions;
 
 class WeeklyWorkScheduleManagement extends Component
 {
-    use WithPagination;
+    use WithPagination, WireUiActions;
 
     // Properties for form handling
     public $position_id;
@@ -41,7 +42,26 @@ class WeeklyWorkScheduleManagement extends Component
     protected function rules()
     {
         return [
-            'position_id' => 'required|exists:positions,id',
+            'position_id' => [
+                'required',
+                'exists:positions,id',
+                function ($attribute, $value, $fail) {
+                    // Validación personalizada para evitar duplicados
+                    $query = WeeklyWorkSchedule::where('position_id', $value)
+                        ->where('day_of_week', $this->day_of_week)
+                        ->where('is_active', true);
+
+                    // Si estamos editando, excluimos el registro actual
+                    if ($this->editingScheduleId) {
+                        $query->where('id', '!=', $this->editingScheduleId);
+                    }
+
+                    if ($query->exists()) {
+                        $dayName = WeeklyWorkSchedule::DAYS_OF_WEEK[$this->day_of_week] ?? $this->day_of_week;
+                        $fail("Ya existe un horario activo para el día {$dayName} en este cargo.");
+                    }
+                },
+            ],
             'day_of_week' => 'required|in:Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday',
             'planned_hours' => 'required|numeric|min:0|max:24',
             'is_active' => 'boolean',
@@ -64,7 +84,6 @@ class WeeklyWorkScheduleManagement extends Component
             'is_active',
             'editingScheduleId'
         ]);
-        $this->closeModal();
     }
 
     /**
@@ -73,7 +92,7 @@ class WeeklyWorkScheduleManagement extends Component
     public function closeModal()
     {
         $this->showModal = false;
-        $this->editingScheduleId = null;
+        $this->resetForm();
     }
 
     /**
@@ -102,97 +121,186 @@ class WeeklyWorkScheduleManagement extends Component
 
     public function save()
     {
-        if ($this->editingScheduleId) {
-            $this->update();
-        } else {
-            $this->store();
+        try {
+            // Resetear mensajes de validación
+            $this->resetErrorBag();
+            $this->resetValidation();
+
+            // Verificar si es fin de semana
+            if (in_array($this->day_of_week, ['Saturday', 'Sunday'])) {
+                $dayName = WeeklyWorkSchedule::DAYS_OF_WEEK[$this->day_of_week];
+                $this->dialog()->confirm([
+                    'title' => '¿Confirmar horario de fin de semana?',
+                    'description' => "Está intentando crear un horario para el día {$dayName}. ¿Está seguro de que desea continuar?",
+                    'acceptLabel' => 'Sí, continuar',
+                    'rejectLabel' => 'No, cancelar',
+                    'method' => 'proceedWithSave',
+                    'accept' => [
+                        'label' => 'Sí, continuar',
+                        'color' => 'primary'
+                    ],
+                    'reject' => [
+                        'label' => 'No, cancelar',
+                        'color' => 'gray'
+                    ]
+                ]);
+                return;
+            }
+
+            $this->proceedWithSave();
+        } catch (\Throwable $e) {
+            report($e); // Registrar el error en los logs
+            $this->addError('general', 'Ha ocurrido un error al procesar la operación. Por favor, intente nuevamente..');
+            return;
+        }
+    }
+
+    public function proceedWithSave()
+    {
+        try {
+            $this->validate();
+
+            if ($this->editingScheduleId) {
+                $success = $this->update();
+            } else {
+                $success = $this->store();
+            }
+
+            if ($success) {
+                // Limpiar cualquier error previo
+                $this->resetErrorBag();
+                // Emitir evento de éxito
+                $this->dispatch('schedule-saved');
+                // Resetear el formulario pero mantener el modal abierto
+                $this->reset([
+                    'day_of_week',
+                    'planned_hours',
+                    'observations',
+                    'is_active',
+                    'editingScheduleId'
+                ]);
+            }
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $this->addError('general', 'Por favor, verifique los datos ingresados.');
+        } catch (\Throwable $e) {
+            report($e);
+            $this->addError('general', 'Ha ocurrido un error al procesar la operación. Por favor, intente nuevamente...');
         }
     }
 
     public function store()
     {
-        $this->validate();
+        try {
+            $schedule = WeeklyWorkSchedule::create([
+                'position_id' => $this->position_id,
+                'day_of_week' => $this->day_of_week,
+                'planned_hours' => $this->planned_hours,
+                'is_active' => $this->is_active,
+                'observations' => $this->observations,
+            ]);
 
-        // Check if schedule already exists for this position and day
-        $existingSchedule = WeeklyWorkSchedule::where('position_id', $this->position_id)
-            ->where('day_of_week', $this->day_of_week)
-            ->first();
+            // Validar total de horas semanales
+            if (!$schedule->isValidSchedule()) {
+                $schedule->delete();
+                $this->addError('planned_hours', 'El total de horas semanales no puede exceder 50 horas.');
+                return false;
+            }
 
-        if ($existingSchedule) {
-            $this->addError('day_of_week', 'Ya existe un horario para este día en el cargo seleccionado.');
-            return;
+            $this->notification()->success(
+                'Horario Creado',
+                'El horario ha sido creado correctamente.'
+            );
+            return true;
+        } catch (\Throwable $e) {
+            report($e);
+            $this->addError('general', 'Ha ocurrido un error al procesar la operación. Por favor, intente nuevamente.');
+            return false;
         }
-
-        // Create new schedule
-        $schedule = WeeklyWorkSchedule::create([
-            'position_id' => $this->position_id,
-            'day_of_week' => $this->day_of_week,
-            'planned_hours' => $this->planned_hours,
-            'is_active' => $this->is_active,
-            'observations' => $this->observations,
-        ]);
-
-        // Validate total weekly hours
-        if (!$schedule->isValidSchedule()) {
-            $schedule->delete();
-            $this->addError('planned_hours', 'El total de horas semanales no puede exceder 40 horas.');
-            return;
-        }
-
-        $this->resetForm();
-        $this->dispatch('schedule-created', 'Horario creado exitosamente.');
     }
 
     public function update()
     {
-        $this->validate();
 
         $schedule = WeeklyWorkSchedule::findOrFail($this->editingScheduleId);
 
-        // Check if schedule already exists for this position and day (excluding current schedule)
-        $existingSchedule = WeeklyWorkSchedule::where('position_id', $this->position_id)
-            ->where('day_of_week', $this->day_of_week)
-            ->where('id', '!=', $this->editingScheduleId)
-            ->first();
+        try {
+            $schedule = WeeklyWorkSchedule::findOrFail($this->editingScheduleId);
 
-        if ($existingSchedule) {
-            $this->addError('day_of_week', 'Ya existe un horario para este día en el cargo seleccionado.');
-            return;
+            // dd($schedule);
+
+            $arr = [
+                'position_id' => $this->position_id,
+                'day_of_week' => $this->day_of_week,
+                'planned_hours' => $this->planned_hours,
+                'is_active' => $this->is_active,
+                'observations' => $this->observations,
+            ];
+            // dd($arr);
+
+            $schedule->update($arr);
+
+
+            // Validar total de horas semanales
+            if (!$schedule->isValidSchedule()) {
+                $this->addError('planned_hours', 'El total de horas semanales no puede exceder 50 horas.');
+                return false;
+            }
+
+            $this->notification()->success(
+                'Horario Actualizado',
+                'El horario ha sido actualizado correctamente.'
+            );
+            return true;
+        } catch (\Throwable $e) {
+            report($e);
+            $this->addError('general', 'Ha ocurrido un error al procesar la operación de actualización. Por favor, intente nuevamente.');
+            return false;
         }
-
-        // Update schedule
-        $schedule->update([
-            'position_id' => $this->position_id,
-            'day_of_week' => $this->day_of_week,
-            'planned_hours' => $this->planned_hours,
-            'is_active' => $this->is_active,
-            'observations' => $this->observations,
-        ]);
-
-        // Validate total weekly hours
-        if (!$schedule->isValidSchedule()) {
-            $this->addError('planned_hours', 'El total de horas semanales no puede exceder 40 horas.');
-            return;
-        }
-
-        $this->resetForm();
-        $this->dispatch('schedule-updated', 'Horario actualizado exitosamente.');
     }
 
     public function confirmDelete($scheduleId)
     {
-        $this->scheduleToDelete = $scheduleId;
-        $this->showDeleteModal = true;
+        $schedule = WeeklyWorkSchedule::findOrFail($scheduleId);
+        $this->scheduleToDelete = $scheduleId; // Guardamos el ID antes de mostrar el diálogo
+
+        $this->dialog()->confirm([
+            'title' => '¿Eliminar Horario?',
+            'description' => "¿Está seguro de eliminar el horario del día {$schedule->getDayNameInSpanish()}? Esta acción no se puede deshacer.",
+            'acceptLabel' => 'Sí, eliminar',
+            'rejectLabel' => 'No, cancelar',
+            'method' => 'delete',
+            'accept' => [
+                'label' => 'Sí, eliminar',
+                'color' => 'negative'
+            ],
+            'reject' => [
+                'label' => 'No, cancelar',
+                'color' => 'gray'
+            ]
+        ]);
     }
 
     public function delete()
     {
-        $schedule = WeeklyWorkSchedule::findOrFail($this->scheduleToDelete);
-        $schedule->delete();
+        try {
+            if (!$this->scheduleToDelete) {
+                throw new \Exception('No se ha especificado el horario a eliminar.');
+            }
 
-        $this->showDeleteModal = false;
-        $this->scheduleToDelete = null;
-        $this->dispatch('schedule-deleted', 'Horario eliminado exitosamente.');
+            $schedule = WeeklyWorkSchedule::findOrFail($this->scheduleToDelete);
+            $schedule->delete();
+
+            $this->scheduleToDelete = null;
+            $this->showDeleteModal = false;
+
+            $this->notification()->success(
+                'Horario Eliminado',
+                'El horario ha sido eliminado correctamente.'
+            );
+        } catch (\Throwable $e) {
+            report($e);
+            $this->addError('general', 'Ha ocurrido un error al eliminar el horario. Por favor, intente nuevamente.');
+        }
     }
 
     public function getDaysOfWeekProperty(): array

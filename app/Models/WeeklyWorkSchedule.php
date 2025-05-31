@@ -35,6 +35,7 @@ class WeeklyWorkSchedule extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
+        // 'day_of_week' => 'float',
     ];
 
     /**
@@ -139,7 +140,7 @@ class WeeklyWorkSchedule extends Model
     public function isValidSchedule(): bool
     {
         $totalHours = self::getTotalWeeklyHours($this->position_id);
-        return $totalHours <= 40;
+        return $totalHours <= 50; // por defecto 40 horas
     }
 
     /**
