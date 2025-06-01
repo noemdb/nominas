@@ -37,6 +37,9 @@ class WeeklyWorkScheduleManagement extends Component
         'planned_hours.numeric' => 'Las horas planificadas deben ser un número.',
         'planned_hours.min' => 'Las horas planificadas no pueden ser negativas.',
         'planned_hours.max' => 'Las horas planificadas no pueden exceder 24 horas.',
+        'position_id.exists' => 'El cargo seleccionado no existe.',
+        'day_of_week.in' => 'El día de la semana seleccionado no es válido.',
+        'observations.max' => 'Las observaciones no pueden exceder los 1000 caracteres.',
     ];
 
     protected function rules()
@@ -162,29 +165,40 @@ class WeeklyWorkScheduleManagement extends Component
 
             if ($this->editingScheduleId) {
                 $success = $this->update();
+                if ($success) {
+                    $this->resetErrorBag();
+                    $this->dispatch('schedule-saved');
+                    // En modo edición no reseteamos ningún campo
+                }
             } else {
                 $success = $this->store();
-            }
-
-            if ($success) {
-                // Limpiar cualquier error previo
-                $this->resetErrorBag();
-                // Emitir evento de éxito
-                $this->dispatch('schedule-saved');
-                // Resetear el formulario pero mantener el modal abierto
-                $this->reset([
-                    'day_of_week',
-                    'planned_hours',
-                    'observations',
-                    'is_active',
-                    'editingScheduleId'
-                ]);
+                if ($success) {
+                    $this->resetErrorBag();
+                    $this->dispatch('schedule-saved');
+                    // Solo en modo creación reseteamos todos los campos
+                    $this->reset([
+                        'day_of_week',
+                        'planned_hours',
+                        'observations',
+                        'is_active',
+                        'editingScheduleId'
+                    ]);
+                }
             }
         } catch (\Illuminate\Validation\ValidationException $e) {
             $this->addError('general', 'Por favor, verifique los datos ingresados.');
+            foreach ($e->validator->errors()->messages() as $field => $errors) {
+                foreach ($errors as $error) {
+                    $this->addError($field, $error);
+                }
+            }
         } catch (\Throwable $e) {
             report($e);
-            $this->addError('general', 'Ha ocurrido un error al procesar la operación. Por favor, intente nuevamente...');
+            if ($e instanceof \Illuminate\Database\QueryException) {
+                $this->addError('general', 'Error al guardar en la base de datos. Por favor, intente nuevamente.');
+            } else {
+                $this->addError('general', 'Ha ocurrido un error inesperado. Por favor, intente nuevamente.');
+            }
         }
     }
 
@@ -199,7 +213,6 @@ class WeeklyWorkScheduleManagement extends Component
                 'observations' => $this->observations,
             ]);
 
-            // Validar total de horas semanales
             if (!$schedule->isValidSchedule()) {
                 $schedule->delete();
                 $this->addError('planned_hours', 'El total de horas semanales no puede exceder 50 horas.');
@@ -211,36 +224,34 @@ class WeeklyWorkScheduleManagement extends Component
                 'El horario ha sido creado correctamente.'
             );
             return true;
+        } catch (\Illuminate\Database\QueryException $e) {
+            report($e);
+            if (str_contains($e->getMessage(), 'Duplicate entry')) {
+                $this->addError('day_of_week', 'Ya existe un horario para este día en el cargo seleccionado.');
+            } else {
+                $this->addError('general', 'Error al crear el horario en la base de datos.');
+            }
+            return false;
         } catch (\Throwable $e) {
             report($e);
-            $this->addError('general', 'Ha ocurrido un error al procesar la operación. Por favor, intente nuevamente.');
+            $this->addError('general', 'Error al crear el horario. Por favor, intente nuevamente.');
             return false;
         }
     }
 
     public function update()
     {
-
-        $schedule = WeeklyWorkSchedule::findOrFail($this->editingScheduleId);
-
         try {
             $schedule = WeeklyWorkSchedule::findOrFail($this->editingScheduleId);
 
-            // dd($schedule);
-
-            $arr = [
+            $schedule->update([
                 'position_id' => $this->position_id,
                 'day_of_week' => $this->day_of_week,
                 'planned_hours' => $this->planned_hours,
                 'is_active' => $this->is_active,
                 'observations' => $this->observations,
-            ];
-            // dd($arr);
+            ]);
 
-            $schedule->update($arr);
-
-
-            // Validar total de horas semanales
             if (!$schedule->isValidSchedule()) {
                 $this->addError('planned_hours', 'El total de horas semanales no puede exceder 50 horas.');
                 return false;
@@ -251,9 +262,21 @@ class WeeklyWorkScheduleManagement extends Component
                 'El horario ha sido actualizado correctamente.'
             );
             return true;
+        } catch (\Illuminate\Database\QueryException $e) {
+            report($e);
+            if (str_contains($e->getMessage(), 'Duplicate entry')) {
+                $this->addError('day_of_week', 'Ya existe un horario para este día en el cargo seleccionado.');
+            } else {
+                $this->addError('general', 'Error al actualizar el horario en la base de datos.');
+            }
+            return false;
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            report($e);
+            $this->addError('general', 'El horario que intenta actualizar no existe.');
+            return false;
         } catch (\Throwable $e) {
             report($e);
-            $this->addError('general', 'Ha ocurrido un error al procesar la operación de actualización. Por favor, intente nuevamente.');
+            $this->addError('general', 'Error al actualizar el horario. Por favor, intente nuevamente.');
             return false;
         }
     }
@@ -297,9 +320,15 @@ class WeeklyWorkScheduleManagement extends Component
                 'Horario Eliminado',
                 'El horario ha sido eliminado correctamente.'
             );
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            report($e);
+            $this->addError('general', 'El horario que intenta eliminar no existe.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            report($e);
+            $this->addError('general', 'Error al eliminar el horario de la base de datos.');
         } catch (\Throwable $e) {
             report($e);
-            $this->addError('general', 'Ha ocurrido un error al eliminar el horario. Por favor, intente nuevamente.');
+            $this->addError('general', 'Error al eliminar el horario. Por favor, intente nuevamente.');
         }
     }
 

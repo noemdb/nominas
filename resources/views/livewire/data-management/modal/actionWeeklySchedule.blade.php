@@ -2,89 +2,108 @@
 <x-modal
     :title="$editingScheduleId ? 'Editar Horario' : 'Nuevo Horario'"
     :max-width="'2xl'"
+    :class="$editingScheduleId ? 'bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800/50 dark:to-gray-900/50' : 'bg-gradient-to-br from-blue-50 to-gray-50 dark:from-blue-900/20 dark:to-gray-800/50'"
     wire:key="modal-{{ $editingScheduleId ? 'edit-' . $editingScheduleId : 'create' }}">
 
-    <form wire:submit.prevent="save" class="space-y-8">
+    <!-- Header del Modal con estilo condicional -->
+    <div class="px-6 py-4 {{ $editingScheduleId ? 'bg-gray-100 dark:bg-gray-800/80 border-b border-gray-200 dark:border-gray-700' : 'bg-blue-50 dark:bg-blue-900/30 border-b border-blue-100 dark:border-blue-800' }}">
+        <h2 class="text-xl font-semibold {{ $editingScheduleId ? 'text-gray-900 dark:text-gray-100' : 'text-blue-900 dark:text-blue-100' }}">
+            {{ $editingScheduleId ? 'Editar Horario' : 'Nuevo Horario' }}
+        </h2>
+        <p class="mt-1 text-sm {{ $editingScheduleId ? 'text-gray-600 dark:text-gray-400' : 'text-blue-600 dark:text-blue-300' }}">
+            {{ $editingScheduleId ? 'Modifique los datos del horario existente' : 'Complete los datos para crear un nuevo horario' }}
+        </p>
+    </div>
+
+    <div class="space-y-8 {{ $editingScheduleId ? 'bg-gray-50/50 dark:bg-gray-800/30' : 'bg-blue-50/30 dark:bg-blue-900/10' }}">
         <!-- Grid principal para las secciones básicas -->
-        <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div class="grid grid-cols-1 gap-8 p-6 md:grid-cols-2">
             <!-- Sección de Información Básica -->
-            <div class="p-6 space-y-6 bg-white rounded-lg shadow-sm dark:bg-gray-800/50">
-                <div class="flex items-center pb-4 space-x-2 border-b border-gray-200 dark:border-gray-700">
-                    <x-wireui-icon name="document-text" class="w-5 h-5 text-blue-500 dark:text-blue-400" />
-                    <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100">Información Básica</h3>
-                </div>
-                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                    <!-- Cargo -->
-                    <div class="sm:col-span-2">
-                        <x-wireui-select
-                            wire:model.live="position_id"
-                            label="Cargo"
-                            placeholder="Seleccione un cargo"
-                            :options="$positionOptions"
-                            option-value="value"
-                            option-label="label"
-                            option-description="description"
-                            required
-                        />
+            <div class="p-6 space-y-6 {{ $editingScheduleId ? 'bg-white/80 dark:bg-gray-800/80' : 'bg-white/90 dark:bg-gray-800/90' }} rounded-lg shadow-sm">
+
+                <form wire:submit.prevent="save" class="space-y-8">
+
+                    <div class="flex items-center pb-4 space-x-2 border-b border-gray-200 dark:border-gray-700">
+                        <x-wireui-icon name="document-text" class="w-5 h-5 text-blue-500 dark:text-blue-400" />
+                        <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100">Información Básica</h3>
+                    </div>
+                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                        <!-- Cargo -->
+                        <div class="sm:col-span-2">
+                            <x-wireui-select
+                                wire:model.live="position_id"
+                                label="Cargo"
+                                placeholder="Seleccione un cargo"
+                                :options="$positionOptions"
+                                option-value="value"
+                                option-label="label"
+                                option-description="description"
+                                required
+                            />
+                        </div>
+
+                        <!-- Día de la Semana -->
+                        <div>
+                            <x-wireui-select
+                                wire:model.live="day_of_week"
+                                label="Día de la Semana"
+                                placeholder="Seleccione un día"
+                                :options="collect($daysOfWeek)->map(function($label, $value) {
+                                    return [
+                                        'value' => $value,
+                                        'label' => $label,
+                                        'description' => 'Día de la semana para el horario'
+                                    ];
+                                })->values()"
+                                option-value="value"
+                                option-label="label"
+                                option-description="description"
+                                required
+                            />
+                        </div>
+
+                        <!-- Horas Planificadas -->
+                        <div>
+                            <x-wireui-input
+                                wire:model="planned_hours"
+                                type="number"
+                                step="0.5"
+                                min="0"
+                                max="24"
+                                label="Horas Planificadas"
+                                placeholder="Ingrese las horas"
+                                required
+                            />
+                        </div>
+
+                        <!-- Estado -->
+                        <div class="sm:col-span-2">
+                            <x-wireui-toggle
+                                wire:model="is_active"
+                                label="Activo"
+                                description="Activar para que el horario esté disponible para su uso."
+                            />
+                        </div>
+
+                        <!-- Observaciones -->
+                        <div class="sm:col-span-2">
+                            <x-wireui-textarea
+                                wire:model="observations"
+                                label="Observaciones"
+                                placeholder="Ingrese observaciones adicionales"
+                                rows="2"
+                            />
+                        </div>
                     </div>
 
-                    <!-- Día de la Semana -->
-                    <div>
-                        <x-wireui-select
-                            wire:model.live="day_of_week"
-                            label="Día de la Semana"
-                            placeholder="Seleccione un día"
-                            :options="collect($daysOfWeek)->map(function($label, $value) {
-                                return [
-                                    'value' => $value,
-                                    'label' => $label,
-                                    'description' => 'Día de la semana para el horario'
-                                ];
-                            })->values()"
-                            option-value="value"
-                            option-label="label"
-                            option-description="description"
-                            required
-                        />
-                    </div>
+                    <x-wireui-errors />
 
-                    <!-- Horas Planificadas -->
-                    <div>
-                        <x-wireui-input
-                            wire:model="planned_hours"
-                            type="number"
-                            step="0.5"
-                            min="0"
-                            max="24"
-                            label="Horas Planificadas"
-                            placeholder="Ingrese las horas"
-                            required
-                        />
-                    </div>
+                </form>
 
-                    <!-- Estado -->
-                    <div class="sm:col-span-2">
-                        <x-wireui-toggle
-                            wire:model="is_active"
-                            label="Activo"
-                            description="Activar para que el horario esté disponible para su uso."
-                        />
-                    </div>
-
-                    <!-- Observaciones -->
-                    <div class="sm:col-span-2">
-                        <x-wireui-textarea
-                            wire:model="observations"
-                            label="Observaciones"
-                            placeholder="Ingrese observaciones adicionales"
-                            rows="2"
-                        />
-                    </div>
-                </div>
             </div>
 
             <!-- Sección de Resumen de Horas -->
-            <div class="p-6 space-y-6 rounded-lg shadow-sm bg-gray-50 dark:bg-gray-800/30">
+            <div class="p-6 space-y-6 rounded-lg shadow-sm {{ $editingScheduleId ? 'bg-gray-100/80 dark:bg-gray-800/60' : 'bg-blue-50/80 dark:bg-blue-900/20' }}">
                 <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-700">
                     <div class="flex items-center space-x-2">
                         <x-wireui-icon name="clock" class="w-5 h-5 text-blue-500 dark:text-blue-400" />
@@ -189,7 +208,7 @@
                         </div>
                     </div>
                 @else
-                    <div class="p-4 bg-yellow-50 rounded-lg shadow-sm dark:bg-yellow-900/20">
+                    <div class="p-4 rounded-lg shadow-sm bg-yellow-50 dark:bg-yellow-900/20">
                         <div class="flex items-start space-x-3">
                             <x-wireui-icon name="exclamation-triangle" class="w-5 h-5 text-yellow-500 dark:text-yellow-400 mt-0.5" />
                             <div>
@@ -235,7 +254,7 @@
         </div>
 
         <!-- Sección del Calendario -->
-        <div class="p-6 space-y-6 bg-white rounded-lg shadow-sm dark:bg-gray-800/50">
+        <div class="p-6 space-y-6 {{ $editingScheduleId ? 'bg-white/80 dark:bg-gray-800/80' : 'bg-white/90 dark:bg-gray-800/90' }} rounded-lg shadow-sm">
             <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-700">
                 <div class="flex items-center space-x-2">
                     <x-wireui-icon name="calendar" class="w-5 h-5 text-blue-500 dark:text-blue-400" />
@@ -264,7 +283,7 @@
                                 class="relative w-full p-2 text-center transition-colors duration-200 border rounded-lg {{ $bgColor }} {{ $cursorClass }} dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 min-w-0 break-words"
                                 @if($isSelected) disabled @endif
                             >
-                                {{-- Día del calendario (abreviatura en móvil, nombre completo en desktop) --}}
+                                <!--  Día del calendario (abreviatura en móvil, nombre completo en desktop) -->
                                 <div class="text-sm font-medium text-gray-900 dark:text-gray-100 sm:hidden">
                                     {{ mb_substr($label, 0, 3) }}
                                 </div>
@@ -272,7 +291,7 @@
                                     {{ $label }}
                                 </div>
 
-                                {{-- Horas --}}
+                                <!--  Horas -->
                                 @if($schedule)
                                     <div class="mt-1 text-xs font-semibold {{ $isSelected ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400' }}">
                                         {{ number_format($schedule->planned_hours, 2) }}h
@@ -284,7 +303,7 @@
                                     @endif
                                 @endif
 
-                                {{-- Indicador de día seleccionado --}}
+                                <!--  Indicador de día seleccionado -->
                                 @if($isSelected)
                                     <div class="absolute top-0 right-0 w-2 h-2 transform translate-x-1/2 -translate-y-1/2 bg-blue-500 rounded-full"></div>
                                 @endif
@@ -324,7 +343,7 @@
         </div>
 
         <!-- Información Adicional -->
-        <div class="p-6 bg-white rounded-lg shadow-sm dark:bg-gray-800/50">
+        <div class="p-6 {{ $editingScheduleId ? 'bg-white/80 dark:bg-gray-800/80' : 'bg-white/90 dark:bg-gray-800/90' }} rounded-lg shadow-sm">
             <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-700">
                 <div class="flex items-center space-x-2">
                     <x-wireui-icon name="information-circle" class="w-5 h-5 text-blue-500 dark:text-blue-400" />
@@ -339,7 +358,8 @@
                     </p>
                     @if($weeklyHours > 40)
                         <p class="text-red-600 dark:text-red-400">
-                            <x-wireui-icon name="exclamation" class="inline-block w-4 h-4 mr-1" />
+                            {{-- <x-wireui-icon name="exclamation" class="inline-block w-4 h-4 mr-1" /> --}}
+                            <x-wireui-icon name="exclamation-triangle" class="inline-block w-6 h-6" />
                             El total de horas semanales excede el límite de 40 horas.
                         </p>
                     @endif
@@ -350,20 +370,27 @@
                 </div>
             @endif
         </div>
+    </div>
 
-        <x-wireui-errors />
-
-        <!-- Botones -->
-        <div class="flex justify-end pt-4 mt-4 space-x-3 border-t border-gray-200 dark:border-gray-700">
-            <x-wireui-button white label="Cancelar" wire:click="closeModal" onclick="event.preventDefault();"/>
+    <!-- Footer del Modal con estilo condicional -->
+    <div class="px-6 py-4 {{ $editingScheduleId ? 'bg-gray-100 dark:bg-gray-800/80 border-t border-gray-200 dark:border-gray-700' : 'bg-blue-50 dark:bg-blue-900/30 border-t border-blue-100 dark:border-blue-800' }}">
+        <div class="flex justify-end space-x-3">
+            <x-wireui-button
+                white
+                label="Cancelar"
+                wire:click="closeModal"
+                onclick="event.preventDefault();"
+                :class="$editingScheduleId ? 'hover:bg-gray-200 dark:hover:bg-gray-700' : 'hover:bg-blue-100 dark:hover:bg-blue-800'"
+            />
             <x-wireui-button
                 type="submit"
                 wire:click.prevent="save"
                 :label="$editingScheduleId ? 'Actualizar' : 'Guardar'"
                 :icon="$editingScheduleId ? 'pencil' : 'plus'"
+                :class="$editingScheduleId ? 'bg-gray-600 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600' : 'bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600'"
             />
         </div>
-    </form>
+    </div>
 </x-modal>
 
 

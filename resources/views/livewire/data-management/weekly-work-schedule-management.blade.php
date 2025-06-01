@@ -23,10 +23,11 @@
             />
         </div>
         <div class="flex items-center">
-            <label class="inline-flex items-center">
-                <input wire:model.live="filterActive" type="checkbox" class="form-checkbox dark:bg-gray-800 dark:border-gray-600">
-                <span class="ml-2 text-gray-700 dark:text-gray-300">Mostrar solo activos</span>
-            </label>
+            <x-wireui-checkbox
+                wire:model.live="filterActive"
+                label="Mostrar solo activos"
+                description="Filtrar horarios activos"
+            />
         </div>
     </div>
 
@@ -106,6 +107,7 @@
     @endif
 
     <!-- Flash Messages -->
+    {{--
     <div x-data="{ show: false, message: '' }"
          x-on:schedule-created.window="show = true; message = $event.detail; setTimeout(() => show = false, 3000)"
          x-on:schedule-updated.window="show = true; message = $event.detail; setTimeout(() => show = false, 3000)"
@@ -115,6 +117,7 @@
          class="fixed px-6 py-3 text-white bg-green-500 rounded-lg shadow-lg dark:bg-green-600 bottom-4 right-4">
         <span x-text="message"></span>
     </div>
+    --}}
 
     <livewire:loading-indicator />
 </div>

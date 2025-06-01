@@ -16,15 +16,15 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link :href="route('data-management')" :active="request()->routeIs('data-management')">
-                        {{ __('Gestión de Datos') }}
+                        {{ __('Personal') }}
                     </x-nav-link>
 
                     <x-nav-link :href="route('setup.weekly-schedules.index')" :active="request()->routeIs('*setup.weekly-schedules*')">
-                        {{ __('Horarios Semanales') }}
+                        {{ __('Horarios') }}
                     </x-nav-link>
 
                     <x-nav-link :href="route('comportamiento')" :active="request()->routeIs('comportamiento')">
-                        {{ __('Comportamiento Laboral') }}
+                        {{ __('Comportamiento') }}
                     </x-nav-link>
 
                     <x-nav-link :href="route('setup.discounts.index')" :active="request()->routeIs('*setup.discounts*')">
@@ -42,36 +42,6 @@
                     <x-nav-link :href="route('setup.payrolls.index')" :active="request()->routeIs('*setup.payrolls*')">
                         {{ __('Nóminas') }}
                     </x-nav-link>
-
-                    {{--
-                    <x-nav-link :href="route('benefits')" :active="request()->routeIs('benefits')">
-                        {{ __('Beneficios Adicionales') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('legal-benefits')" :active="request()->routeIs('legal-benefits')">
-                        {{ __('Prestaciones Legales') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('deductions')" :active="request()->routeIs('deductions')">
-                        {{ __('Deducciones') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('payments')" :active="request()->routeIs('payments')">
-                        {{ __('Gestión de Pagos') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('vacations')" :active="request()->routeIs('vacations')">
-                        {{ __('Control de Vacaciones') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('reports')" :active="request()->routeIs('reports')">
-                        {{ __('Reportes') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('settings')" :active="request()->routeIs('settings')">
-                        {{ __('Configuración') }}
-                    </x-nav-link>
-                    --}}
 
                 </div>
             </div>
