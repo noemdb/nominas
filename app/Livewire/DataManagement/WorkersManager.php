@@ -25,6 +25,8 @@ class WorkersManager extends Component
     public $showModal = false;
     public $isEdit = false;
     public $showModalPosition = false;
+    public $showDetailsModal = false;
+    public $selectedWorker = null;
     public $workerId = null;
 
     public $confirmingDelete = false;
@@ -265,6 +267,7 @@ class WorkersManager extends Component
     {
         $this->showModal = false;
         $this->showModalPosition = false;
+        $this->showDetailsModal = false;
         $this->confirmingDelete = false;
         $this->resetErrorBag();
     }
@@ -427,5 +430,48 @@ class WorkersManager extends Component
         $this->clearModels();
         $this->showModalPosition = true;
         $this->resetErrorBag();
+    }
+
+    public function showWorkerDetails($id)
+    {
+        try {
+            $this->selectedWorker = Worker::with([
+                'positions' => function ($query) {
+                    $query->with(['area', 'rol'])
+                        ->where('is_active', true)
+                        ->latest('start_date');
+                },
+                'positions.weeklySchedule' => function ($query) {
+                    $query->where('is_active', true);
+                },
+                'behaviorHistory' => function ($query) {
+                    $query->with(['approver'])
+                        ->latest('date');
+                },
+                'discounts' => function ($query) {
+                    $query->latest('created_at');
+                },
+                'bonuses' => function ($query) {
+                    $query->latest('created_at');
+                }
+            ])->findOrFail($id);
+
+            $this->showDetailsModal = true;
+        } catch (\Exception $e) {
+            $this->logError('Error al cargar detalles del trabajador: ' . $e->getMessage(), [
+                'worker_id' => $id,
+                'exception' => $e
+            ]);
+            $this->notification()->error(
+                'Error',
+                'No se pudieron cargar los detalles del trabajador. Por favor, intente nuevamente.'
+            );
+        }
+    }
+
+    public function closeDetailsModal()
+    {
+        $this->showDetailsModal = false;
+        $this->selectedWorker = null;
     }
 }

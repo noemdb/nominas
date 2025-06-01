@@ -14,7 +14,8 @@ class Area extends Model
     {
         return self::all()->map(fn($area) => [
             'label' => $area->name,
-            'value' => $area->id
+            'value' => $area->id,
+            'description' => $area->description
         ]);
     }
 }

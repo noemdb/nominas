@@ -2,14 +2,14 @@
 <x-modal
     :title="$editingScheduleId ? 'Editar Horario' : 'Nuevo Horario'"
     :max-width="'2xl'"
-    :class="$editingScheduleId ? 'bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800/50 dark:to-gray-900/50' : 'bg-gradient-to-br from-blue-50 to-gray-50 dark:from-blue-900/20 dark:to-gray-800/50'"
+    :headerClass="$editingScheduleId ? 'bg-yellow-100 dark:bg-yellow-800/80 border-b border-yellow-200 dark:border-yellow-700' : 'bg-blue-50 dark:bg-blue-900/30 border-b border-blue-100 dark:border-blue-800'"
     wire:key="modal-{{ $editingScheduleId ? 'edit-' . $editingScheduleId : 'create' }}">
 
     <!-- Header del Modal con estilo condicional -->
-    <div class="px-6 py-4 {{ $editingScheduleId ? 'bg-gray-100 dark:bg-gray-800/80 border-b border-gray-200 dark:border-gray-700' : 'bg-blue-50 dark:bg-blue-900/30 border-b border-blue-100 dark:border-blue-800' }}">
-        <h2 class="text-xl font-semibold {{ $editingScheduleId ? 'text-gray-900 dark:text-gray-100' : 'text-blue-900 dark:text-blue-100' }}">
+    <div class="px-6 py-4>
+        {{-- <h2 class="text-xl font-semibold {{ $editingScheduleId ? 'text-gray-900 dark:text-gray-100' : 'text-blue-900 dark:text-blue-100' }}">
             {{ $editingScheduleId ? 'Editar Horario' : 'Nuevo Horario' }}
-        </h2>
+        </h2> --}}
         <p class="mt-1 text-sm {{ $editingScheduleId ? 'text-gray-600 dark:text-gray-400' : 'text-blue-600 dark:text-blue-300' }}">
             {{ $editingScheduleId ? 'Modifique los datos del horario existente' : 'Complete los datos para crear un nuevo horario' }}
         </p>
@@ -97,6 +97,26 @@
                     </div>
 
                     <x-wireui-errors />
+
+                    <!-- Footer del Modal con estilo condicional -->
+                    <div class="px-6 py-4 {{ $editingScheduleId ? 'bg-gray-100 dark:bg-gray-800/80 border-t border-gray-200 dark:border-gray-700' : 'bg-blue-50 dark:bg-blue-900/30 border-t border-blue-100 dark:border-blue-800' }}">
+                        <div class="flex justify-end space-x-3">
+                            <x-wireui-button
+                                white
+                                label="Cancelar"
+                                wire:click="closeModal"
+                                onclick="event.preventDefault();"
+                                :class="$editingScheduleId ? 'hover:bg-gray-200 dark:hover:bg-gray-700' : 'hover:bg-blue-100 dark:hover:bg-blue-800'"
+                            />
+                            <x-wireui-button
+                                type="submit"
+                                wire:click.prevent="save"
+                                :label="$editingScheduleId ? 'Actualizar' : 'Guardar'"
+                                :icon="$editingScheduleId ? 'pencil' : 'plus'"
+                                :class="$editingScheduleId ? 'bg-gray-600 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600' : 'bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600'"
+                            />
+                        </div>
+                    </div>
 
                 </form>
 
@@ -372,25 +392,7 @@
         </div>
     </div>
 
-    <!-- Footer del Modal con estilo condicional -->
-    <div class="px-6 py-4 {{ $editingScheduleId ? 'bg-gray-100 dark:bg-gray-800/80 border-t border-gray-200 dark:border-gray-700' : 'bg-blue-50 dark:bg-blue-900/30 border-t border-blue-100 dark:border-blue-800' }}">
-        <div class="flex justify-end space-x-3">
-            <x-wireui-button
-                white
-                label="Cancelar"
-                wire:click="closeModal"
-                onclick="event.preventDefault();"
-                :class="$editingScheduleId ? 'hover:bg-gray-200 dark:hover:bg-gray-700' : 'hover:bg-blue-100 dark:hover:bg-blue-800'"
-            />
-            <x-wireui-button
-                type="submit"
-                wire:click.prevent="save"
-                :label="$editingScheduleId ? 'Actualizar' : 'Guardar'"
-                :icon="$editingScheduleId ? 'pencil' : 'plus'"
-                :class="$editingScheduleId ? 'bg-gray-600 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600' : 'bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600'"
-            />
-        </div>
-    </div>
+
 </x-modal>
 
 

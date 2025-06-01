@@ -92,14 +92,13 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('data-management')" :active="request()->routeIs('data-management')">
-                {{ __('Gestión de Datos') }}
+                {{ __('Personal') }}
             </x-responsive-nav-link>
-
             <x-responsive-nav-link :href="route('setup.weekly-schedules.index')" :active="request()->routeIs('*setup.weekly-schedules*')">
-                {{ __('Horarios Semanales') }}
+                {{ __('Horarios') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('comportamiento')" :active="request()->routeIs('comportamiento')">
-                {{ __('Comportamiento Laboral') }}
+                {{ __('Comportamiento') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('setup.discounts.index')" :active="request()->routeIs('*setup.discounts*')">
                 {{ __('Descuentos') }}
@@ -114,23 +113,6 @@
                 {{ __('Nóminas') }}
             </x-responsive-nav-link>
 
-            {{--
-            <x-nav-link :href="route('setup.discounts.index')" :active="request()->routeIs('*setup.discounts*')">
-                {{ __('Descuentos') }}
-            </x-nav-link>
-
-            <x-nav-link :href="route('setup.deductions.index')" :active="request()->routeIs('*setup.deductions*')">
-                {{ __('Deducciones') }}
-            </x-nav-link>
-
-            <x-nav-link :href="route('setup.bonuses.index')" :active="request()->routeIs('*setup.bonuses*')">
-                {{ __('Asignaciones') }}
-            </x-nav-link>
-
-            <x-nav-link :href="route('setup.payrolls.index')" :active="request()->routeIs('*setup.payrolls*')">
-                {{ __('Nóminas') }}
-            </x-nav-link>
-            --}}
         </div>
 
         <!-- Responsive Settings Options -->

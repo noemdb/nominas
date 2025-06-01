@@ -93,9 +93,17 @@
                         <span class="font-bold sm:hidden">Acciones:</span>
                         <div class="flex flex-row rounded-md shadow-sm" role="group">
                             <x-wireui-mini-button
+                                info
+                                icon="eye"
+                                class="rounded-t-md sm:rounded-l-md sm:rounded-tr-none sm:rounded-br-none"
+                                wire:click="showWorkerDetails({{ $worker->id }})"
+                                wire:loading.attr="disabled"
+                                wire:target="showWorkerDetails({{ $worker->id }})"
+                                x-tooltip.raw="Ver detalles" />
+                            <x-wireui-mini-button
                                 warning
                                 icon="pencil"
-                                class="rounded-t-md sm:rounded-l-md sm:rounded-tr-none sm:rounded-br-none"
+                                class="sm:rounded-none"
                                 wire:click="edit({{ $worker->id }})"
                                 wire:loading.attr="disabled"
                                 wire:target="edit({{ $worker->id }})"

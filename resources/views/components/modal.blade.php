@@ -1,13 +1,14 @@
 @props([
     'title' => '',
     'maxWidth' => '2xl',
-    'closeAction' => 'closeModal'
+    'closeAction' => 'closeModal',
+    'headerClass' => 'bg-white dark:bg-gray-800'
 ])
 
 <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-400 bg-opacity-40">
     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-{{ $maxWidth }} flex flex-col max-h-[90vh]">
         <!-- Encabezado del modal -->
-        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 {{ $headerClass }}">
             <div class="flex items-center justify-between">
                 <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                     {{ $title }}

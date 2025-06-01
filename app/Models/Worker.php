@@ -49,8 +49,34 @@ class Worker extends Model
 
     public function positions()
     {
-        // return $this->hasOne(Position::class);
         return $this->hasMany(Position::class);
+    }
+
+    public function weeklySchedule()
+    {
+        return $this->hasManyThrough(
+            WeeklyWorkSchedule::class,
+            Position::class,
+            'worker_id', // Foreign key on positions table
+            'position_id', // Foreign key on weekly_work_schedules table
+            'id', // Local key on workers table
+            'id' // Local key on positions table
+        );
+    }
+
+    public function behaviorHistory()
+    {
+        return $this->hasMany(WorkerBehaviorHistory::class);
+    }
+
+    public function discounts()
+    {
+        return $this->hasMany(Discount::class);
+    }
+
+    public function bonuses()
+    {
+        return $this->hasMany(Bonus::class);
     }
 
     // Relación con Position
@@ -58,7 +84,6 @@ class Worker extends Model
     {
         return $this->hasOne(Position::class);
     }
-
 
     public function getCurrentPositionAttribute()
     {

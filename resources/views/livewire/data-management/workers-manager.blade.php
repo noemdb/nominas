@@ -24,10 +24,17 @@
     </div>
 
     <!-- Modal para crear/editar trabajador -->
-    @includeWhen($showModal, 'livewire.data-management.modal.actionWorker')
+    @if ($showDetailsModal)
+        @include('livewire.data-management.modal.worker-details')
+    @endif
 
-    <!-- Modal para crear/editar posiciones -->
-    @includeWhen($showModalPosition, 'livewire.data-management.modal.actionPositions')
+    @if($showModal)
+        @include('livewire.data-management.modal.action-worker')
+    @endif
+
+    @if($showModalPosition)
+        @include('livewire.data-management.modal.action-position')
+    @endif
 
     <!-- Modal de confirmación de eliminación -->
     @includeWhen($confirmingDelete, 'livewire.data-management.modal.confirmingDelete')

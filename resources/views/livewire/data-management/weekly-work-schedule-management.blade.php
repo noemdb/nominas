@@ -7,11 +7,26 @@
     </div>
 
     <!-- Search and Filter Section -->
-    <div class="grid grid-cols-1 gap-4 mb-6 md:grid-cols-3">
+    <div class="grid grid-cols-1 gap-4 mb-6 md:grid-cols-4">
+        <!-- Búsqueda -->
         <div>
-            <input wire:model.live="search" type="text" placeholder="Buscar por cargo..."
+            <input wire:model.live="search" type="text" placeholder="Buscar por nombre..."
                 class="w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500">
         </div>
+
+        <!-- Filtro por Área -->
+        <div>
+            <x-wireui-select
+                wire:model.live="selectedArea"
+                placeholder="Todas las áreas"
+                :options="$areaOptions"
+                option-value="value"
+                option-label="label"
+                option-description="description"
+            />
+        </div>
+
+        <!-- Filtro por Cargo -->
         <div>
             <x-wireui-select
                 wire:model.live="selectedPosition"
@@ -22,6 +37,8 @@
                 option-description="description"
             />
         </div>
+
+        <!-- Filtro de Estado -->
         <div class="flex items-center">
             <x-wireui-checkbox
                 wire:model.live="filterActive"
@@ -32,58 +49,78 @@
     </div>
 
    <!-- Table Section -->
-<div class="overflow-x-auto">
-    <div class="inline-block min-w-full align-middle">
-        <div class="overflow-hidden bg-white rounded-lg shadow-sm dark:bg-gray-800">
-            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead class="bg-gray-50 dark:bg-gray-700">
-                    <tr>
-                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Cargo</th>
-                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Día</th>
-                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Horas</th>
-                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Estado</th>
-                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                    @forelse($schedules as $schedule)
-                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
-                            <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-gray-300">
-                                {{ collect($positionOptions)->firstWhere('value', $schedule->position_id)['label'] ?? 'N/A' }}
-                            </td>
-                            <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-gray-300">
-                                {{ $schedule->getDayNameInSpanish() }}
-                            </td>
-                            <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-gray-300">
-                                {{ number_format($schedule->planned_hours, 2) }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $schedule->is_active ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' }}">
-                                    {{ $schedule->is_active ? 'Activo' : 'Inactivo' }}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
-                                <x-wireui-button icon="pencil" wire:click="edit({{ $schedule->id }})" flat />
-                                <x-wireui-button icon="trash" wire:click="confirmDelete({{ $schedule->id }})" flat negative />
-                            </td>
-                        </tr>
-                    @empty
+    <div class="overflow-x-auto">
+        <div class="inline-block min-w-full align-middle">
+            <div class="overflow-hidden bg-white rounded-lg shadow-sm dark:bg-gray-800">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead class="bg-gray-50 dark:bg-gray-700">
                         <tr>
-                            <td colspan="5" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
-                                No se encontraron horarios registrados.
-                            </td>
+                            <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Cargo</th>
+                            <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Día</th>
+                            <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Horas</th>
+                            <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Estado</th>
+                            <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Acciones</th>
                         </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                        @forelse($schedules as $schedule)
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <td class="px-6 py-4">
+                                    <div class="flex flex-col">
+                                        <!-- Nombre del Trabajador -->
+                                        <div class="font-medium text-gray-900 dark:text-gray-100">
+                                            {{ $schedule->position->worker->first_name ?? '' }} {{ $schedule->position->worker->last_name ?? '' }}
+                                        </div>
+                                        <!-- Área y Rol -->
+                                        <div class="text-sm text-gray-500 dark:text-gray-400">
+                                            {{ $schedule->position->area->name ?? 'N/A' }} - {{ $schedule->position->rol->name ?? 'N/A' }}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-gray-300">
+                                    {{ $schedule->getDayNameInSpanish() }}
+                                </td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-gray-300">
+                                    {{ number_format($schedule->planned_hours, 2) }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $schedule->is_active ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' }}">
+                                        {{ $schedule->is_active ? 'Activo' : 'Inactivo' }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+                                    <div class="inline-flex rounded-md shadow-sm" role="group">
+                                        <x-wireui-button
+                                            icon="pencil"
+                                            wire:click="edit({{ $schedule->id }})"
+                                            class="border-r-0 rounded-r-none"
+                                        />
+                                        <x-wireui-button
+                                            icon="trash"
+                                            wire:click="confirmDelete({{ $schedule->id }})"
+                                            negative
+                                            class="rounded-l-none"
+                                        />
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                                    No se encontraron horarios registrados.
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Pagination -->
-<div class="mt-6">
-    {{ $schedules->links() }}
-</div>
+    <!-- Pagination -->
+    <div class="mt-6">
+        {{ $schedules->links() }}
+    </div>
 
 
 
@@ -105,19 +142,6 @@
             </div>
         </div>
     @endif
-
-    <!-- Flash Messages -->
-    {{--
-    <div x-data="{ show: false, message: '' }"
-         x-on:schedule-created.window="show = true; message = $event.detail; setTimeout(() => show = false, 3000)"
-         x-on:schedule-updated.window="show = true; message = $event.detail; setTimeout(() => show = false, 3000)"
-         x-on:schedule-deleted.window="show = true; message = $event.detail; setTimeout(() => show = false, 3000)"
-         x-show="show"
-         x-transition
-         class="fixed px-6 py-3 text-white bg-green-500 rounded-lg shadow-lg dark:bg-green-600 bottom-4 right-4">
-        <span x-text="message"></span>
-    </div>
-    --}}
 
     <livewire:loading-indicator />
 </div>

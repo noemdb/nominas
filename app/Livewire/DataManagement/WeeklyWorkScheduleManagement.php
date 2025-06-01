@@ -2,6 +2,7 @@
 
 namespace App\Livewire\DataManagement;
 
+use App\Models\Area;
 use App\Models\Position;
 use App\Models\WeeklyWorkSchedule;
 use Livewire\Component;
@@ -27,6 +28,7 @@ class WeeklyWorkScheduleManagement extends Component
     // Properties for filtering and searching
     public $search = '';
     public $selectedPosition = null;
+    public $selectedArea = null;
     public $filterActive = true;
 
     // Properties for validation messages
@@ -418,36 +420,73 @@ class WeeklyWorkScheduleManagement extends Component
         $this->day_of_week = $day;
     }
 
+    /**
+     * Get the area options for the select component
+     */
+    public function getAreaOptionsProperty()
+    {
+        return Area::getSelectOptions();
+    }
+
     public function render()
     {
-        $query = WeeklyWorkSchedule::query()
-            ->with(['position.worker', 'position.area', 'position.rol'])
-            ->when($this->selectedPosition, function ($query) {
-                return $query->where('position_id', $this->selectedPosition);
-            })
-            ->when($this->filterActive, function ($query) {
-                return $query->where('is_active', true);
-            })
-            ->when($this->search, function ($query) {
-                return $query->whereHas('position', function ($q) {
-                    $q->whereHas('worker', function ($q) {
-                        $q->where('first_name', 'like', '%' . $this->search . '%')
-                            ->orWhere('last_name', 'like', '%' . $this->search . '%');
+        try {
+            $query = WeeklyWorkSchedule::query()
+                ->with(['position' => function ($query) {
+                    $query->with(['worker', 'area', 'rol']);
+                }])
+                ->when($this->selectedPosition, function ($query) {
+                    return $query->where('position_id', $this->selectedPosition);
+                })
+                ->when($this->selectedArea, function ($query) {
+                    return $query->whereHas('position', function ($q) {
+                        $q->where('area_id', $this->selectedArea);
                     });
-                });
-            })
-            ->orderBy('position_id')
-            ->orderByRaw("FIELD(day_of_week, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')");
+                })
+                ->when($this->filterActive, function ($query) {
+                    return $query->where('is_active', true);
+                })
+                ->when($this->search, function ($query) {
+                    return $query->whereHas('position', function ($q) {
+                        $q->whereHas('worker', function ($q) {
+                            $q->where(function ($q) {
+                                $q->where('first_name', 'like', '%' . $this->search . '%')
+                                    ->orWhere('last_name', 'like', '%' . $this->search . '%');
+                            });
+                        });
+                    });
+                })
+                ->orderBy('position_id')
+                ->orderByRaw("FIELD(day_of_week, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')");
 
-        return view('livewire.data-management.weekly-work-schedule-management', [
-            'schedules' => $query->paginate(10),
-            'positionOptions' => $this->positionOptions,
-            'daysOfWeek' => $this->daysOfWeek,
-            'weeklyHours' => $this->weeklyHours,
-            'monthlyHours' => $this->monthlyHours,
-            'workerInfo' => $this->workerInfo,
-            'positionInfo' => $this->positionInfo,
-            'positionSchedule' => $this->positionSchedule,
-        ]);
+            return view('livewire.data-management.weekly-work-schedule-management', [
+                'schedules' => $query->paginate(10),
+                'positionOptions' => $this->positionOptions,
+                'areaOptions' => $this->areaOptions,
+                'daysOfWeek' => $this->daysOfWeek,
+                'weeklyHours' => $this->weeklyHours,
+                'monthlyHours' => $this->monthlyHours,
+                'workerInfo' => $this->workerInfo,
+                'positionInfo' => $this->positionInfo,
+                'positionSchedule' => $this->positionSchedule,
+            ]);
+        } catch (\Exception $e) {
+            report($e);
+            $this->notification()->error(
+                'Error',
+                'Ha ocurrido un error al cargar los datos. Por favor, intente nuevamente.'
+            );
+            return view('livewire.data-management.weekly-work-schedule-management', [
+                'schedules' => collect(),
+                'positionOptions' => collect(),
+                'areaOptions' => collect(),
+                'daysOfWeek' => WeeklyWorkSchedule::DAYS_OF_WEEK,
+                'weeklyHours' => 0,
+                'monthlyHours' => 0,
+                'workerInfo' => null,
+                'positionInfo' => null,
+                'positionSchedule' => collect(),
+            ]);
+        }
     }
 }
