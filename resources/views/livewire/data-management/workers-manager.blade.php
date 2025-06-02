@@ -29,11 +29,11 @@
     @endif
 
     @if($showModal)
-        @include('livewire.data-management.modal.action-worker')
+        @include('livewire.data-management.modal.actionWorker')
     @endif
 
     @if($showModalPosition)
-        @include('livewire.data-management.modal.action-position')
+        @include('livewire.data-management.modal.actionPositions')
     @endif
 
     <!-- Modal de confirmación de eliminación -->

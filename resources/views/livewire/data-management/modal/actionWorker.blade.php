@@ -2,6 +2,6 @@
 <x-modal
     :title="$isEdit ? 'Editar Trabajador' : 'Registrar Nuevo Trabajador'"
     :max-width="'2xl'"
-    wire:key="modal-{{ $isEdit ? 'edit-' . $worker['id'] : 'create' }}">
+    wire:key="modal-{{ $isEdit ? 'edit-' . $workerId : 'create' }}">
     @include('livewire.data-management.partials.form')
 </x-modal>

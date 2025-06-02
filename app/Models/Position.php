@@ -22,13 +22,35 @@ class Position extends Model
     ];
 
     protected $casts = [
-        'start_date' => 'date',
-        'end_date' => 'date',
+        // 'start_date' => 'date',
+        // 'end_date' => 'date',
         'is_active' => 'boolean',
         'status_exchange' => 'boolean',
         'status_active' => 'boolean',
         'base_salary' => 'decimal:2',
     ];
+
+    /**
+     * Mutator para start_date - Asegura que se almacene solo la fecha sin tiempo
+     *
+     * @param mixed $value
+     * @return void
+     */
+    public function setStartDateAttribute($value)
+    {
+        $this->attributes['start_date'] = $value ? date('Y-m-d', strtotime($value)) : null;
+    }
+
+    /**
+     * Mutator para end_date - Asegura que se almacene solo la fecha sin tiempo
+     *
+     * @param mixed $value
+     * @return void
+     */
+    public function setEndDateAttribute($value)
+    {
+        $this->attributes['end_date'] = $value ? date('Y-m-d', strtotime($value)) : null;
+    }
 
     public function area()
     {
@@ -45,12 +67,17 @@ class Position extends Model
         return $this->belongsTo(Worker::class);
     }
 
+    public function weeklySchedule()
+    {
+        return $this->hasMany(WeeklyWorkSchedule::class);
+    }
+
     /**
      * Obtiene el salario base del trabajador asociado a esta posición
      *
      * @return float|null El salario base del trabajador o null si no hay trabajador asociado
      */
-    public function getBaseSalaryAPosttribute(): ?float
+    public function getBaseSalaryPosAttribute(): ?float
     {
         if (!$this->worker) {
             return null;
@@ -102,16 +129,77 @@ class Position extends Model
     {
         parent::boot();
 
-        // Evita duplicados de worker_id
+        // Validar que no exista solapamiento de fechas para el mismo trabajador
         static::creating(function ($position) {
             if ($position->worker_id) {
                 $exists = self::where('worker_id', $position->worker_id)
-                    ->where('end_date', '>', now())
                     ->where('is_active', true)
+                    ->where(function ($query) use ($position) {
+                        $query->where(function ($q) use ($position) {
+                            // La nueva posición comienza durante una posición existente
+                            $q->where('start_date', '<=', $position->start_date)
+                                ->where(function ($q) use ($position) {
+                                    $q->whereNull('end_date')
+                                        ->orWhere('end_date', '>=', $position->start_date);
+                                });
+                        })->orWhere(function ($q) use ($position) {
+                            // La nueva posición termina durante una posición existente
+                            $q->where('start_date', '<=', $position->end_date)
+                                ->where(function ($q) use ($position) {
+                                    $q->whereNull('end_date')
+                                        ->orWhere('end_date', '>=', $position->end_date);
+                                });
+                        })->orWhere(function ($q) use ($position) {
+                            // La nueva posición contiene completamente una posición existente
+                            $q->where('start_date', '>=', $position->start_date)
+                                ->where(function ($q) use ($position) {
+                                    $q->whereNull('end_date')
+                                        ->orWhere('end_date', '<=', $position->end_date);
+                                });
+                        });
+                    })
                     ->exists();
 
                 if ($exists) {
-                    throw new \Exception('Este trabajador ya tiene un cargo activo');
+                    throw new \Exception('El trabajador ya tiene una posición activa que se solapa con el período especificado. Por favor, verifique las fechas.');
+                }
+            }
+        });
+
+        // También validar al actualizar
+        static::updating(function ($position) {
+            if ($position->worker_id) {
+                $exists = self::where('worker_id', $position->worker_id)
+                    ->where('is_active', true)
+                    ->where('id', '!=', $position->id) // Excluir la posición actual
+                    ->where(function ($query) use ($position) {
+                        $query->where(function ($q) use ($position) {
+                            // La posición actualizada comienza durante una posición existente
+                            $q->where('start_date', '<=', $position->start_date)
+                                ->where(function ($q) use ($position) {
+                                    $q->whereNull('end_date')
+                                        ->orWhere('end_date', '>=', $position->start_date);
+                                });
+                        })->orWhere(function ($q) use ($position) {
+                            // La posición actualizada termina durante una posición existente
+                            $q->where('start_date', '<=', $position->end_date)
+                                ->where(function ($q) use ($position) {
+                                    $q->whereNull('end_date')
+                                        ->orWhere('end_date', '>=', $position->end_date);
+                                });
+                        })->orWhere(function ($q) use ($position) {
+                            // La posición actualizada contiene completamente una posición existente
+                            $q->where('start_date', '>=', $position->start_date)
+                                ->where(function ($q) use ($position) {
+                                    $q->whereNull('end_date')
+                                        ->orWhere('end_date', '<=', $position->end_date);
+                                });
+                        });
+                    })
+                    ->exists();
+
+                if ($exists) {
+                    throw new \Exception('El trabajador ya tiene una posición activa que se solapa con el período especificado. Por favor, verifique las fechas.');
                 }
             }
         });

@@ -1,4 +1,4 @@
-<div> 
+<div>
 
     <!-- Estado de carga (Spinner) -->
     {{-- @include('components.loading') --}}
@@ -17,7 +17,7 @@
 
     <!-- Contenedor para la tabla y el formulario -->
     {{-- <div class="grid grid-cols-1 gap-4 @if($isOpenPosition) lg:grid-cols-2 @endif"> --}}
-        
+
         <!-- partials contentivo de el listado de posiciones del selected_worker -->
         <div>
             @include('livewire.data-management.position.table')
@@ -26,7 +26,6 @@
         <!-- partials contentivo del form para crear/editar posicions del selected_worker -->
         @if($isOpenPosition)
             <div class=" border-y-2 py-2 border-gray-700">
-                {{-- @include('livewire.data-management.position.form') --}}
                 @include('livewire.data-management.position.main')
             </div>
         @endif

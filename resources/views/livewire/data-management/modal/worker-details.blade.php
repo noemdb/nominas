@@ -24,10 +24,25 @@
                     <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Teléfono:</span>
                     <p class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ $selectedWorker->phone ?? 'N/A' }}</p>
                 </div>
+                <div>
+                    <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Fecha de Ingreso:</span>
+                    <p class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ $selectedWorker->hire_date?->format('d/m/Y') ?? 'N/A' }}</p>
+                </div>
+                <div>
+                    <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Antigüedad:</span>
+                    <p class="text-sm font-medium text-gray-900 dark:text-gray-100">
+                        @if($selectedWorker->seniority['formatted'] !== 'Sin fecha de ingreso' && $selectedWorker->seniority['formatted'] !== 'Fecha de ingreso futura')
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200">
+                                {{ $selectedWorker->seniority['formatted'] }}
+                            </span>
+                        @else
+                            {{ $selectedWorker->seniority['formatted'] }}
+                        @endif
+                    </p>
+                </div>
             </div>
         </div>
 
-        {{--
         <!-- Navegación por Pestañas -->
         <div class="p-4 bg-white border border-gray-200 rounded-lg dark:border-gray-700 dark:bg-gray-800/50">
             <h3 class="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-300">Información Laboral</h3>
@@ -57,6 +72,18 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                             Horario Semanal
+                        </button>
+
+                        <!-- Pestaña Financiera -->
+                        <button
+                            @click="activeTab = 'financiera'"
+                            :class="{ 'border-primary-500 text-primary-600 dark:text-primary-400': activeTab === 'financiera',
+                                    'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300': activeTab !== 'financiera' }"
+                            class="flex items-center px-1 py-2 text-sm font-medium border-b-2 whitespace-nowrap">
+                            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Información Financiera
                         </button>
 
                         <!-- Pestaña Comportamiento -->
@@ -125,23 +152,229 @@
                         x-transition:leave="transition ease-in duration-150"
                         x-transition:leave-start="opacity-100 transform scale-100"
                         x-transition:leave-end="opacity-0 transform scale-95">
-                        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                            @foreach(['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'] as $day)
-                                <div class="p-3 bg-white rounded-lg shadow dark:bg-gray-800">
-                                    <div class="flex items-center mb-2 space-x-2">
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                        <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ $day }}</h4>
-                                    </div>
-                                    @php
-                                        $schedule = $selectedWorker->weeklySchedule->firstWhere('day_of_week', strtolower($day));
-                                    @endphp
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">
-                                        {{ $schedule ? number_format($schedule->planned_hours, 2) . ' horas' : 'No asignado' }}
-                                    </p>
+
+                        @php
+                            $schedules = $selectedWorker->getActiveSchedules();
+                            $weeklyHours = $schedules->sum('planned_hours');
+                            $monthlyHours = round($weeklyHours * 4.33, 2);
+                            $daysOfWeek = [
+                                'Monday' => 'Lunes',
+                                'Tuesday' => 'Martes',
+                                'Wednesday' => 'Miércoles',
+                                'Thursday' => 'Jueves',
+                                'Friday' => 'Viernes',
+                                'Saturday' => 'Sábado',
+                                'Sunday' => 'Domingo'
+                            ];
+                        @endphp
+
+                        <!-- Resumen de Horas -->
+                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-6">
+                            <!-- Resumen de Horas Semanales -->
+                            <div class="p-4 rounded-lg bg-blue-50 dark:bg-blue-900">
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-5 h-5 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <div class="text-sm font-medium text-gray-800 dark:text-gray-200">Horas Semanales</div>
                                 </div>
-                            @endforeach
+                                <div class="mt-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+                                    {{ number_format($weeklyHours, 2) }} horas
+                                </div>
+                                <div class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                    Distribuidas en {{ $schedules->count() }} días
+                                </div>
+                            </div>
+
+                            <!-- Resumen de Horas Mensuales -->
+                            <div class="p-4 rounded-lg bg-green-50 dark:bg-green-900">
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-5 h-5 text-green-500 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    <div class="text-sm font-medium text-gray-800 dark:text-gray-200">Horas Mensuales Estimadas</div>
+                                </div>
+                                <div class="mt-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+                                    {{ number_format($monthlyHours, 2) }} horas
+                                </div>
+                                <div class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                    Basado en 4.33 semanas por mes
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Calendario Semanal -->
+                        <div class="p-4 bg-white rounded-lg shadow-sm dark:bg-gray-800">
+                            <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-700">
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-5 h-5 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100">Calendario Semanal</h3>
+                                </div>
+                            </div>
+
+                            @if($schedules->isNotEmpty())
+                                <div class="grid grid-cols-2 gap-2 mt-4 sm:grid-cols-7">
+                                    @foreach($daysOfWeek as $key => $label)
+                                        @php
+                                            $schedule = $schedules->firstWhere('day_of_week', $key);
+                                            $hasHours = $schedule && $schedule->planned_hours > 0;
+                                            $bgColor = $hasHours ? 'bg-gray-50 dark:bg-gray-800' : 'bg-gray-100 dark:bg-gray-700';
+                                        @endphp
+                                        <div class="relative w-full p-2 text-center border rounded-lg {{ $bgColor }} dark:border-gray-600 min-w-0 break-words">
+                                            <!-- Día del calendario -->
+                                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100 sm:hidden">
+                                                {{ mb_substr($label, 0, 3) }}
+                                            </div>
+                                            <div class="hidden text-sm font-medium text-gray-900 dark:text-gray-100 sm:block">
+                                                {{ $label }}
+                                            </div>
+
+                                            <!-- Horas -->
+                                            @if($schedule)
+                                                <div class="mt-1 text-xs font-semibold text-gray-600 dark:text-gray-400">
+                                                    {{ number_format($schedule->planned_hours, 2) }}h
+                                                </div>
+                                                @if($schedule->observations)
+                                                    <div class="mt-1 text-xs text-gray-500 truncate dark:text-gray-400" title="{{ $schedule->observations }}">
+                                                        {{ Str::limit($schedule->observations, 20) }}
+                                                    </div>
+                                                @endif
+                                            @else
+                                                <div class="mt-1 text-xs text-gray-400 dark:text-gray-500">
+                                                    No asignado
+                                                </div>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <!-- Leyenda -->
+                                <div class="flex flex-col items-start pt-4 mt-4 space-y-2 text-xs text-gray-500 border-t border-gray-200 sm:flex-row sm:items-center sm:justify-center sm:space-y-0 sm:space-x-4 dark:border-gray-700 dark:text-gray-400">
+                                    <div class="flex items-center space-x-1">
+                                        <div class="w-3 h-3 border border-gray-300 rounded bg-gray-50 dark:bg-gray-800 dark:border-gray-600"></div>
+                                        <span>Con Horario</span>
+                                    </div>
+                                    <div class="flex items-center space-x-1">
+                                        <div class="w-3 h-3 bg-gray-100 border border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"></div>
+                                        <span>Sin Horario</span>
+                                    </div>
+                                </div>
+
+                                <!-- Información Adicional -->
+                                <div class="mt-4 p-4 text-sm text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                    <p>Este horario representa el {{ number_format(($weeklyHours / 40) * 100, 1) }}% de una jornada completa (40 horas semanales).</p>
+                                    @if($weeklyHours > 40)
+                                        <p class="mt-2 text-red-600 dark:text-red-400">
+                                            <svg class="inline-block w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                            </svg>
+                                            El total de horas semanales excede el límite de 40 horas.
+                                        </p>
+                                    @endif
+                                </div>
+                            @else
+                                <div class="p-4 text-center text-gray-500 dark:text-gray-400">
+                                    No hay horarios registrados para la posición actual.
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    <!-- Contenido Financiero -->
+                    <div x-show="activeTab === 'financiera'" x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0 transform scale-95"
+                        x-transition:enter-end="opacity-100 transform scale-100"
+                        x-transition:leave="transition ease-in duration-150"
+                        x-transition:leave-start="opacity-100 transform scale-100"
+                        x-transition:leave-end="opacity-0 transform scale-95">
+                        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                            <!-- Información Bancaria -->
+                            <div class="p-3 bg-white rounded-lg shadow dark:bg-gray-800">
+                                <div class="flex items-center mb-2 space-x-2">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                    </svg>
+                                    <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">Información Bancaria</h4>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <div>
+                                            <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Método de Pago:</span>
+                                            <p class="text-sm text-gray-900 dark:text-gray-100">
+                                                {{ ucfirst(str_replace('_', ' ', $selectedWorker->payment_method ?? 'N/A')) }}
+                                            </p>
+                                        </div>
+                                        @if($selectedWorker->payment_method === 'bank_transfer')
+                                            <div>
+                                                <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Banco:</span>
+                                                <p class="text-sm text-gray-900 dark:text-gray-100">{{ $selectedWorker->bank_name ?? 'N/A' }}</p>
+                                            </div>
+                                            <div>
+                                                <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Número de Cuenta:</span>
+                                                <p class="text-sm text-gray-900 dark:text-gray-100">{{ $selectedWorker->bank_account_number ?? 'N/A' }}</p>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Información Fiscal -->
+                            <div class="p-3 bg-white rounded-lg shadow dark:bg-gray-800">
+                                <div class="flex items-center mb-2 space-x-2">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                    <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">Información Fiscal</h4>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <div>
+                                            <span class="text-xs font-medium text-gray-500 dark:text-gray-400">RIF/Tax ID:</span>
+                                            <p class="text-sm text-gray-900 dark:text-gray-100">{{ $selectedWorker->tax_identification_number ?? 'N/A' }}</p>
+                                        </div>
+                                        <div>
+                                            <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Seguro Social:</span>
+                                            <p class="text-sm text-gray-900 dark:text-gray-100">{{ $selectedWorker->social_security_number ?? 'N/A' }}</p>
+                                        </div>
+                                        <div>
+                                            <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Fondo de Pensiones:</span>
+                                            <p class="text-sm text-gray-900 dark:text-gray-100">{{ $selectedWorker->pension_fund ?? 'N/A' }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Resumen Financiero -->
+                            <div class="p-3 bg-white rounded-lg shadow dark:bg-gray-800 sm:col-span-2">
+                                <div class="flex items-center mb-2 space-x-2">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                    </svg>
+                                    <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">Resumen Financiero</h4>
+                                </div>
+                                <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                                    <div>
+                                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Salario Base:</span>
+                                        <p class="text-sm font-medium text-gray-900 dark:text-gray-100">
+                                            {{ number_format($selectedWorker->base_salary ?? 0, 2, ',', '.') }}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Total Bonificaciones:</span>
+                                        <p class="text-sm font-medium text-green-600 dark:text-green-400">
+                                            {{ number_format($selectedWorker->bonuses->sum('amount') ?? 0, 2, ',', '.') }}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Total Descuentos:</span>
+                                        <p class="text-sm font-medium text-red-600 dark:text-red-400">
+                                            {{ number_format($selectedWorker->discounts->sum('amount') ?? 0, 2, ',', '.') }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -250,7 +483,6 @@
         <div class="flex justify-end pt-2 space-x-2 border-t border-gray-200 dark:border-gray-700">
             <x-wireui-button white label="Cerrar" wire:click="closeDetailsModal" onclick="event.preventDefault();"/>
         </div>
-        --}}
 
     </div>
 </x-modal>

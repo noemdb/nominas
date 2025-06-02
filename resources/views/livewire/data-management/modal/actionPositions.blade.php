@@ -19,6 +19,8 @@ wire:key="modal-{{ $isEdit ? 'edit-' . $workerId : 'create' }}">
         </div>
     </div>
 
+    <x-wireui-errors />
+
     <!-- Contenido del modal con scroll -->
     <div class="flex-grow p-4 overflow-y-auto">
         <livewire:data-management.positions-manager

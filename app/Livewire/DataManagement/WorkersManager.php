@@ -86,8 +86,6 @@ class WorkersManager extends Component
             'worker.pension_fund' => 'nullable|string|max:255',
             'worker.is_active' => 'nullable|boolean',
             'user.username' => 'required',
-            // 'user.name' => 'required',
-            // 'user.email' => 'required',
         ];
     }
 
@@ -128,6 +126,7 @@ class WorkersManager extends Component
         $this->clearModels();
 
         $workerModel = Worker::findOrFail($id);
+
         $this->worker = [
             'id' => $workerModel->id,
             'first_name' => $workerModel->first_name,
@@ -434,39 +433,8 @@ class WorkersManager extends Component
 
     public function showWorkerDetails($id)
     {
-        try {
-            $this->selectedWorker = Worker::with([
-                'positions' => function ($query) {
-                    $query->with(['area', 'rol'])
-                        ->where('is_active', true)
-                        ->latest('start_date');
-                },
-                'positions.weeklySchedule' => function ($query) {
-                    $query->where('is_active', true);
-                },
-                'behaviorHistory' => function ($query) {
-                    $query->with(['approver'])
-                        ->latest('date');
-                },
-                'discounts' => function ($query) {
-                    $query->latest('created_at');
-                },
-                'bonuses' => function ($query) {
-                    $query->latest('created_at');
-                }
-            ])->findOrFail($id);
-
-            $this->showDetailsModal = true;
-        } catch (\Exception $e) {
-            $this->logError('Error al cargar detalles del trabajador: ' . $e->getMessage(), [
-                'worker_id' => $id,
-                'exception' => $e
-            ]);
-            $this->notification()->error(
-                'Error',
-                'No se pudieron cargar los detalles del trabajador. Por favor, intente nuevamente.'
-            );
-        }
+        $this->selectedWorker = Worker::getWorkerWithDetails($id);
+        $this->showDetailsModal = true;
     }
 
     public function closeDetailsModal()

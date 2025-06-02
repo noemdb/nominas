@@ -15,33 +15,33 @@
     <!-- Contenido de la Pestaña Seleccionada -->
     <div class="w-full md:w-3/4 p-2 bg-white rounded-sm {{ $activePosition ? 'bg-gray-100 dark:bg-gray-700' : 'dark:bg-gray-800' }}">
         @if ($activePosition)
-            <div class="space-y-2">                
+            <div class="space-y-2">
 
                 <div class="grid grid-cols-2">
                     <div>
                         <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">
                             Área: <span class="text-gray-700 dark:text-gray-300">{{ $activePosition->area->name }}</span>
-                        </label>                        
+                        </label>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">
                             Rol: <span class="text-gray-700 dark:text-gray-300">{{ $activePosition->rol->name }}</span>
-                        </label>                        
+                        </label>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">
                             Fecha de Inicio: <span class="text-gray-700 dark:text-gray-300">{{ $activePosition->start_date }}</span>
-                        </label>                        
+                        </label>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">
                             Fecha de Fin: <span class="text-gray-700 dark:text-gray-300">{{ $activePosition->end_date }}</span>
-                        </label>                        
+                        </label>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">
                             Activo: <span class="text-gray-700 dark:text-gray-300">{{ $activePosition->is_active ? 'Sí' : 'No' }}</span>
-                        </label>                        
+                        </label>
                     </div>
                 </div>
             </div>

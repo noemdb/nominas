@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class Worker extends Model
 {
@@ -66,7 +67,14 @@ class Worker extends Model
 
     public function behaviorHistory()
     {
-        return $this->hasMany(WorkerBehaviorHistory::class);
+        return $this->hasManyThrough(
+            WorkerBehaviorHistory::class,
+            WorkerBehavior::class,
+            'worker_id', // Foreign key on worker_behaviors table
+            'worker_behavior_id', // Foreign key on worker_behavior_histories table
+            'id', // Local key on workers table
+            'id' // Local key on worker_behaviors table
+        );
     }
 
     public function discounts()
@@ -226,9 +234,135 @@ class Worker extends Model
 
     public static function getSelectOptions()
     {
-        return self::all()->map(fn($worker) => [
-            'label' => $worker->full_name,
-            'value' => $worker->id
-        ]);
+        return self::where('is_active', true)
+            ->with(['positions' => function ($query) {
+                $query->with(['area'])
+                    ->where('is_active', true)
+                    ->latest('start_date');
+            }])
+            ->get()
+            ->map(function ($worker) {
+                $currentPosition = $worker->positions->first();
+                $positionInfo = $currentPosition
+                    ? sprintf(
+                        'Área: %s | Período: %s',
+                        $currentPosition->area?->name ?? 'N/A',
+                        $currentPosition->start_date . ' - ' . ($currentPosition->end_date ?? 'Actual')
+                    )
+                    : 'Sin posición actual';
+
+                return [
+                    'value' => $worker->id,
+                    'label' => trim($worker->first_name . ' ' . $worker->last_name),
+                    'description' => sprintf(
+                        'Cédula: %s | %s',
+                        $worker->identification,
+                        $positionInfo
+                    )
+                ];
+            });
+    }
+
+    /**
+     * Obtiene un trabajador con sus detalles básicos para mostrar en vistas
+     *
+     * Este método carga las relaciones esenciales del trabajador de forma segura:
+     * - Usuario asociado
+     * - Posición actual con área y rol
+     * - Historial de comportamiento reciente
+     *
+     * @param int $id ID del trabajador
+     * @return \App\Models\Worker|null El trabajador con sus datos básicos o null si no se encuentra
+     */
+    public static function getWorkerWithDetails(int $id): ?Worker
+    {
+        try {
+            return self::query()
+                ->with([
+                    'user:id,name,email,username',
+                    'positions' => function ($query) {
+                        $query->with(['area:id,name', 'rol:id,name'])
+                            ->where('is_active', true)
+                            ->where('start_date', '<=', now())
+                            ->where(function ($q) {
+                                $q->whereNull('end_date')
+                                    ->orWhere('end_date', '>=', now());
+                            })
+                            ->latest('start_date');
+                    },
+                    'behaviorHistory' => function ($query) {
+                        $query->with(['behavior' => function ($q) {
+                            $q->select('id', 'date', 'status', 'approved_by');
+                        }])
+                            ->latest('created_at')
+                            ->limit(5);
+                    }
+                ])
+                ->find($id);
+        } catch (\Exception $e) {
+            Log::error('Error al obtener detalles del trabajador: ' . $e->getMessage(), [
+                'worker_id' => $id,
+                'exception' => $e
+            ]);
+            return null;
+        }
+    }
+
+    /**
+     * Obtiene el historial completo de comportamiento del trabajador
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getBehaviorHistory()
+    {
+        return $this->behaviorHistory()
+            ->with(['behavior' => function ($query) {
+                $query->with('approver');
+            }])
+            ->latest('created_at')
+            ->get();
+    }
+
+    /**
+     * Obtiene los horarios semanales activos del trabajador
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getActiveSchedules()
+    {
+        $currentPosition = $this->positions()
+            ->where('is_active', true)
+            ->where('start_date', '<=', now())
+            ->where(function ($query) {
+                $query->whereNull('end_date')
+                    ->orWhere('end_date', '>=', now());
+            })
+            ->latest('start_date')
+            ->first();
+
+        return $currentPosition
+            ? $currentPosition->weeklySchedule()
+            ->where('is_active', true)
+            ->get()
+            : collect();
+    }
+
+    /**
+     * Obtiene los descuentos y bonificaciones recientes
+     *
+     * @return array
+     */
+    public function getRecentPayrollAdjustments()
+    {
+        return [
+            'discounts' => $this->discounts()
+                ->latest()
+                ->limit(5)
+                ->get(),
+            'bonuses' => $this->bonuses()
+                ->latest()
+                ->limit(5)
+                ->get()
+        ];
     }
 }
