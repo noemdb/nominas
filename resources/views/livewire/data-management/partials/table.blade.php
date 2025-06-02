@@ -1,3 +1,5 @@
+
+
 <div class="overflow-x-auto">
     <table class="w-full text-left border-collapse">
         <thead class="bg-gray-50 dark:bg-gray-800">
@@ -11,17 +13,17 @@
                         @endif
                     </div>
                 </th>
-                <th wire:click="sortBy('identification')" class="hidden px-6 py-3 cursor-pointer sm:table-cell">
+                {{-- <th wire:click="sortBy('identification')" class="hidden px-6 py-3 cursor-pointer sm:table-cell">
                     <div class="flex items-center space-x-1">
                         <span>Cédula</span>
                         @if ($sortField === 'identification')
                             <span>{!! $sortDirection === 'asc' ? '&#8593;' : '&#8595;' !!}</span>
                         @endif
                     </div>
-                </th>
+                </th> --}}
                 <th wire:click="sortBy('current_position_info')" class="hidden px-6 py-3 cursor-pointer sm:table-cell">
                     <div class="flex items-center space-x-1">
-                        <span>Área/Roll</span>
+                        <span>Área/Rol</span>
                         @if ($sortField === 'current_position_info')
                             <span>{!! $sortDirection === 'asc' ? '&#8593;' : '&#8595;' !!}</span>
                         @endif
@@ -60,20 +62,32 @@
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Nombre:</span>
                         <span class="">{{ $worker->full_name ?? null }}</span>
+                        <span class="block text-xs text-gray-500 truncate dark:text-gray-400">
+                            {{ $worker->identification }}
+                        </span>
                     </td>
-                    <td class="block px-6 py-4 sm:table-cell">
+                    {{-- <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Cédula:</span>
                         <span class="sm:truncate sm:block sm:max-w-[150px]">{{ $worker->identification }}</span>
-                    </td>
+                    </td> --}}
                     <td class="block px-6 py-4 sm:table-cell">
-                        <span class="font-bold sm:hidden">Área/Roll:</span>
+                        <span class="font-bold sm:hidden">Área/Rol:</span>
                         <div class="">{{ $worker->last_position_name }}</div>
                         <div class="text-sm truncate max-w-[200px]">{{ $worker->last_position_range }}</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 truncate max-w-[200px]">
+                            {{ $worker->last_position ? number_format($worker->last_position->weeklySchedule()->where('is_active', true)->sum('planned_hours'), 2, ',', '.') . ' hrs/sem' : 'N/A' }}
+                        </div>
                     </td>
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Salario:</span>
                         <span class="truncate block max-w-[150px]">
                             {{ number_format($worker->base_salary, 2, ',', '.') }}
+                        </span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400 truncate block max-w-[150px]">
+                            {{ $worker->calculateHourlyRate() ? number_format($worker->calculateHourlyRate(), 2, ',', '.') . ' Bs/h' : 'N/A' }}
+                        </span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400 truncate block max-w-[150px]">
+                            {{ $worker->calculateWeeklySalary() ? number_format($worker->calculateWeeklySalary(), 2, ',', '.') . ' Bs/sem' : 'N/A' }}
                         </span>
                     </td>
                     <td class="block px-6 py-4 sm:table-cell">

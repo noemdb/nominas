@@ -12,7 +12,7 @@
                     wire:model="behavior.worker_id"
                     label="Trabajador"
                     placeholder="Seleccione un trabajador"
-                    :options="$workers->map(fn($worker) => ['label' => $worker->full_name, 'value' => $worker->id])"
+                    :options="$workerOptions"
                     option-value="value"
                     option-label="label"
                     required

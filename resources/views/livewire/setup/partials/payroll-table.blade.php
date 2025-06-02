@@ -240,6 +240,15 @@
                             wire:loading.attr="disabled"
                             wire:target="calculate({{ $payroll->id }})" />
 
+                            <x-wireui-dropdown.item
+                            separator
+                            icon="trash"
+                            label="Eliminar nómina"
+                            wire:click="confirmDeletePayroll({{ $payroll->id }})"
+                            wire:loading.attr="disabled"
+                            wire:target="confirmDeletePayroll({{ $payroll->id }})"
+                            class="text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400" />
+
                         </x-wireui-dropdown>
 
                     </td>

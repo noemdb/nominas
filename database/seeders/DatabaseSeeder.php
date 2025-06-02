@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             DiscountSeeder::class,
             DeductionSeeder::class,
             BonusSeeder::class,
+            WeeklyWorkScheduleSeeder::class,
             // WorkerBehaviorsTableSeeder::class,
         ]);
     }

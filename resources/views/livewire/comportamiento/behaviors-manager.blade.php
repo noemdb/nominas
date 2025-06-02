@@ -3,7 +3,7 @@
         <h1 class="text-2xl font-semibold text-gray-400 dark:text-gray-200">
             Gestión de Comportamiento Laboral
         </h1>
-        <x-wireui-button icon="plus" label="Registrar Comportamiento" wire:click="create" />
+        <x-wireui-button icon="plus" label="Registrar Comportamiento" wire:click="create" disabled />
     </div>
 
     <!-- Filtros y búsqueda -->
@@ -135,7 +135,7 @@
                                 </td>
                                 <td class="block px-6 py-4 sm:table-cell">
                                     <span class="font-bold sm:hidden">Estado:</span>
-                                    <span class="px-2 py-1 rounded-full text-xs
+                                    <span class="px-2 py-1 rounded-full text-xs font-bold
                                         @if($behavior->status === 'approved') bg-green-200 text-green-800
                                         @elseif($behavior->status === 'rejected') bg-red-200 text-red-800
                                         @else bg-yellow-200 text-yellow-800
@@ -156,6 +156,7 @@
                                             x-tooltip.raw="Editar comportamiento" />
                                         <x-wireui-mini-button
                                             negative
+                                            disabled
                                             icon="trash"
                                             class="rounded-b-md sm:rounded-r-md sm:rounded-tl-none sm:rounded-bl-none"
                                             wire:click="confirmDelete({{ $behavior->id }})"

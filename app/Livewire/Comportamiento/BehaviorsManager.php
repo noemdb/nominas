@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Comportamiento;
 
+use App\Models\Payroll;
 use App\Models\Worker;
 use App\Models\WorkerBehavior;
 // use App\Models\WorkerBehavior;
@@ -23,6 +24,7 @@ class BehaviorsManager extends Component
     public $filterPayrollId = null;
     public $filterStatus = null;
     public $payrollOptions = [];
+    public $workerOptions = [];
 
     public $showModal = false;
     public $isEdit = false;
@@ -57,7 +59,8 @@ class BehaviorsManager extends Component
 
     public function mount()
     {
-        $this->payrollOptions = \App\Models\Payroll::getSelectOptions();
+        $this->payrollOptions = Payroll::getSelectOptions();
+        $this->workerOptions = Worker::getSelectOptions();
     }
 
     public function setLoaded()

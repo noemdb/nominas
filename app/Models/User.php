@@ -24,9 +24,24 @@ class User extends Authenticatable
         'password',
     ];
 
+    /**
+     * Get the name of the unique identifier for the user.
+     *
+     * @return string
+     */
     public function getAuthIdentifierName()
     {
-        return 'username'; // Usar username como identificador de autenticación
+        return 'username';
+    }
+
+    /**
+     * Get the unique identifier for the user.
+     *
+     * @return mixed
+     */
+    public function getAuthIdentifier()
+    {
+        return $this->id; // Siempre devolver el ID numérico
     }
 
     /**
@@ -48,5 +63,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    
 }

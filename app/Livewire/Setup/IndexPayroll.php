@@ -283,19 +283,19 @@ class IndexPayroll extends Component
     public function clone($id)
     {
         $payroll = Payroll::findOrFail($id);
+        $result = $payroll->clonePayrollStructure();
 
-        // Crear una nueva nómina basada en la existente
-        $newPayroll = $payroll->replicate();
-        $newPayroll->name = $payroll->name . ' (Copia)';
-        $newPayroll->status_active = true;
-        $newPayroll->status_public = false;
-        $newPayroll->status_approved = false;
-        $newPayroll->save();
-
-        $this->notification()->success(
-            'Nómina Clonada',
-            'La nómina ha sido clonada correctamente.'
-        );
+        if ($result['success']) {
+            $this->notification()->success(
+                'Nómina Clonada',
+                $result['message']
+            );
+        } else {
+            $this->notification()->error(
+                'Error',
+                $result['message']
+            );
+        }
     }
 
     public function generateStructure($id)
@@ -378,6 +378,53 @@ class IndexPayroll extends Component
             'dateEndFilter',
             'currencyFilter'
         ]);
+    }
+
+    public function confirmDeletePayroll($id): void
+    {
+        $payroll = Payroll::findOrFail($id);
+        $this->dialog()->confirm([
+            'title' => '¿Eliminar Nómina?',
+            'description' => "¿Está seguro de eliminar la nómina '{$payroll->name}'? Esta acción eliminará permanentemente la nómina y todos sus datos asociados (conceptos, comportamientos, historiales). Esta acción no se puede deshacer.",
+            'acceptLabel' => 'Sí, eliminar',
+            'rejectLabel' => 'No, cancelar',
+            'method' => 'deletePayroll',
+            'params' => $id,
+            'accept' => [
+                'label' => 'Sí, eliminar',
+                'color' => 'negative'
+            ],
+            'reject' => [
+                'label' => 'No, cancelar',
+                'color' => 'gray'
+            ]
+        ]);
+    }
+
+    public function deletePayroll($id)
+    {
+        try {
+            $payroll = Payroll::findOrFail($id);
+
+            // Primero limpiar la estructura de datos
+            $result = $payroll->clearPayrollConcepts();
+            if (!$result['success']) {
+                throw new \Exception($result['message']);
+            }
+
+            // Luego eliminar la nómina
+            $payroll->delete();
+
+            $this->notification()->success(
+                'Nómina Eliminada',
+                'La nómina y todos sus datos asociados han sido eliminados correctamente.'
+            );
+        } catch (\Exception $e) {
+            $this->notification()->error(
+                'Error',
+                'No se pudo eliminar la nómina: ' . $e->getMessage()
+            );
+        }
     }
 
     public function render()

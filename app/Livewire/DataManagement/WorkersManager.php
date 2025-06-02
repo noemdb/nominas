@@ -5,6 +5,7 @@ namespace App\Livewire\DataManagement;
 use App\Models\Payroll;
 use App\Models\User;
 use App\Models\Worker;
+use App\Models\Area;
 use Livewire\Component;
 use Livewire\WithPagination;
 use WireUi\Traits\WireUiActions;
@@ -21,6 +22,8 @@ class WorkersManager extends Component
     public $sortField = 'first_name';
     public $sortDirection = 'asc';
     public $payrollOptions = [];
+    public $areaOptions = [];
+    public $selectedArea = '';
 
     public $showModal = false;
     public $isEdit = false;
@@ -294,6 +297,12 @@ class WorkersManager extends Component
                         });
                     }
                 });
+            })
+            ->when($this->selectedArea, function ($query) {
+                $query->whereHas('positions', function ($q) {
+                    $q->where('area_id', $this->selectedArea)
+                        ->where('is_active', true);
+                });
             });
 
         // Aplicar ordenamiento
@@ -327,6 +336,11 @@ class WorkersManager extends Component
         $this->resetPage();
     }
 
+    public function updatingSelectedArea()
+    {
+        $this->resetPage();
+    }
+
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
@@ -340,6 +354,12 @@ class WorkersManager extends Component
     public function clearSearch()
     {
         $this->search = '';
+    }
+
+    public function clearAreaFilter()
+    {
+        $this->selectedArea = '';
+        $this->resetPage();
     }
 
     public function clearModels()
@@ -364,6 +384,7 @@ class WorkersManager extends Component
     public function mount()
     {
         $this->payrollOptions = Payroll::getSelectOptions();
+        $this->areaOptions = Area::getSelectOptions();
         $this->setLoaded();
     }
 

@@ -365,4 +365,224 @@ class Worker extends Model
                 ->get()
         ];
     }
+
+    /**
+     * Calcula el salario base por hora del trabajador
+     * Basado en el salario mensual y las horas mensuales estimadas
+     *
+     * @return float|null Salario por hora o null si no hay datos suficientes
+     */
+    public function calculateHourlyRate(): ?float
+    {
+        try {
+            // Obtener la posición actual del trabajador
+            $position = $this->current_position;
+
+            if (!$position) {
+                return null;
+            }
+
+            // Obtener el salario base de la posición
+            $monthlySalary = $position->base_salary_pos;
+
+            // Obtener las horas semanales planificadas
+            $weeklyHours = $position->weeklySchedule()
+                ->where('is_active', true)
+                ->sum('planned_hours');
+
+            if ($weeklyHours <= 0) {
+                return null;
+            }
+
+            // Calcular horas mensuales estimadas (semanas * 4.33)
+            $monthlyHours = $weeklyHours * 4.33;
+
+            // Calcular salario por hora
+            $hourlyRate = $monthlySalary / $monthlyHours;
+
+            return round($hourlyRate, 2);
+        } catch (\Exception $e) {
+            Log::error('Error al calcular salario por hora: ' . $e->getMessage(), [
+                'worker_id' => $this->id,
+                'exception' => $e
+            ]);
+            return null;
+        }
+    }
+
+    /**
+     * Obtiene las horas mensuales estimadas del trabajador
+     *
+     * @return float|null Horas mensuales estimadas o null si no hay datos
+     */
+    public function getEstimatedMonthlyHours(): ?float
+    {
+        try {
+            $position = $this->current_position;
+
+            if (!$position) {
+                return null;
+            }
+
+            $weeklyHours = $position->weeklySchedule()
+                ->where('is_active', true)
+                ->sum('planned_hours');
+
+            if ($weeklyHours <= 0) {
+                return null;
+            }
+
+            // Calcular horas mensuales (semanas * 4.33)
+            return round($weeklyHours * 4.33, 2);
+        } catch (\Exception $e) {
+            Log::error('Error al calcular horas mensuales: ' . $e->getMessage(), [
+                'worker_id' => $this->id,
+                'exception' => $e
+            ]);
+            return null;
+        }
+    }
+
+    /**
+     * Calcula el descuento por inasistencia injustificada para un período específico
+     *
+     * @param \Carbon\Carbon $date Fecha de la inasistencia
+     * @param int $absences Número de inasistencias
+     * @return float|null Monto del descuento o null si no hay datos suficientes
+     */
+    public function calculateAbsenceDiscount(Carbon $date, int $absences): ?float
+    {
+        try {
+            $hourlyRate = $this->calculateHourlyRate();
+
+            if (!$hourlyRate || $absences <= 0) {
+                return null;
+            }
+
+            // Obtener las horas no trabajadas por inasistencia
+            $position = $this->current_position;
+            if (!$position) {
+                return null;
+            }
+
+            // Obtener el horario del día de la inasistencia
+            $schedule = $position->weeklySchedule()
+                ->where('is_active', true)
+                ->where('day_of_week', $date->format('l'))
+                ->first();
+
+            if (!$schedule) {
+                return null;
+            }
+
+            // Calcular el descuento (horas no trabajadas * salario por hora)
+            $hoursNotWorked = $schedule->planned_hours * $absences;
+            $discount = $hoursNotWorked * $hourlyRate;
+
+            return round($discount, 2);
+        } catch (\Exception $e) {
+            Log::error('Error al calcular descuento por inasistencia: ' . $e->getMessage(), [
+                'worker_id' => $this->id,
+                'date' => $date,
+                'absences' => $absences,
+                'exception' => $e
+            ]);
+            return null;
+        }
+    }
+
+    /**
+     * Calcula el salario devengado para un período específico
+     *
+     * @param float $hoursWorked Horas trabajadas en el período
+     * @return float|null Salario devengado o null si no hay datos suficientes
+     */
+    public function calculateEarnedSalary(float $hoursWorked): ?float
+    {
+        try {
+            $hourlyRate = $this->calculateHourlyRate();
+
+            if (!$hourlyRate || $hoursWorked <= 0) {
+                return null;
+            }
+
+            $earnedSalary = $hoursWorked * $hourlyRate;
+            return round($earnedSalary, 2);
+        } catch (\Exception $e) {
+            Log::error('Error al calcular salario devengado: ' . $e->getMessage(), [
+                'worker_id' => $this->id,
+                'hours_worked' => $hoursWorked,
+                'exception' => $e
+            ]);
+            return null;
+        }
+    }
+
+    /**
+     * Calcula el salario semanal del trabajador
+     * Basado en el salario por hora y las horas semanales planificadas
+     *
+     * @return float|null Salario semanal o null si no hay datos suficientes
+     */
+    public function calculateWeeklySalary(): ?float
+    {
+        try {
+            $position = $this->current_position;
+
+            if (!$position) {
+                return null;
+            }
+
+            // Obtener las horas semanales planificadas
+            $weeklyHours = $position->weeklySchedule()
+                ->where('is_active', true)
+                ->sum('planned_hours');
+
+            if ($weeklyHours <= 0) {
+                return null;
+            }
+
+            // Calcular usando el salario por hora
+            $hourlyRate = $this->calculateHourlyRate();
+            if (!$hourlyRate) {
+                return null;
+            }
+
+            $weeklySalary = $weeklyHours * $hourlyRate;
+            return round($weeklySalary, 2);
+        } catch (\Exception $e) {
+            Log::error('Error al calcular salario semanal: ' . $e->getMessage(), [
+                'worker_id' => $this->id,
+                'exception' => $e
+            ]);
+            return null;
+        }
+    }
+
+    /**
+     * Calcula el salario quincenal del trabajador
+     * Basado en el salario semanal (semanal * 2)
+     *
+     * @return float|null Salario quincenal o null si no hay datos suficientes
+     */
+    public function calculateBiweeklySalary(): ?float
+    {
+        try {
+            $weeklySalary = $this->calculateWeeklySalary();
+
+            if (!$weeklySalary) {
+                return null;
+            }
+
+            // El salario quincenal es el doble del semanal
+            $biweeklySalary = $weeklySalary * 2;
+            return round($biweeklySalary, 2);
+        } catch (\Exception $e) {
+            Log::error('Error al calcular salario quincenal: ' . $e->getMessage(), [
+                'worker_id' => $this->id,
+                'exception' => $e
+            ]);
+            return null;
+        }
+    }
 }
