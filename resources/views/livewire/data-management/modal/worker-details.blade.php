@@ -169,7 +169,7 @@
                         @endphp
 
                         <!-- Resumen de Horas -->
-                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-6">
+                        <div class="grid grid-cols-1 gap-6 mb-6 sm:grid-cols-2">
                             <!-- Resumen de Horas Semanales -->
                             <div class="p-4 rounded-lg bg-blue-50 dark:bg-blue-900">
                                 <div class="flex items-center space-x-2">
@@ -263,7 +263,7 @@
                                 </div>
 
                                 <!-- Información Adicional -->
-                                <div class="mt-4 p-4 text-sm text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                <div class="p-4 mt-4 text-sm text-gray-600 rounded-lg dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50">
                                     <p>Este horario representa el {{ number_format(($weeklyHours / 40) * 100, 1) }}% de una jornada completa (40 horas semanales).</p>
                                     @if($weeklyHours > 40)
                                         <p class="mt-2 text-red-600 dark:text-red-400">

@@ -18,14 +18,6 @@
                         @endif
                     </div>
                 </th>
-                {{-- <th wire:click="sortBy('num_days')" class="hidden px-6 py-3 cursor-pointer sm:table-cell">
-                    <div class="flex items-center space-x-1">
-                        <span>Días</span>
-                        @if ($sortField === 'num_days')
-                            <span>{!! $sortDirection === 'asc' ? '&#8593;' : '&#8595;' !!}</span>
-                        @endif
-                    </div>
-                </th> --}}
                 <th class="hidden px-6 py-3 sm:table-cell">
                     <div class="flex items-center space-x-1">
                         <span>Conceptos</span>
@@ -62,11 +54,6 @@
                             <small class="text-xs text-gray-400"">{{ $payroll->date_end->diffForHumans() }}</small>
                         </div>
                     </td>
-
-                    {{-- <td class="block px-6 py-4 sm:table-cell">
-                        <span class="font-bold sm:hidden">Días:</span>
-                        <span class="truncate block max-w-[150px]">{{ $payroll->num_days }}</span>
-                    </td> --}}
 
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold text-gray-700 sm:hidden dark:text-gray-300">Conceptos:</span>
@@ -189,25 +176,11 @@
                         <x-wireui-dropdown icon="arrow-up" position="left" icon="bars-3">
 
                             <x-wireui-dropdown.item
-                            label="Ver detalles"
-                            icon="eye"
-                            wire:target="viewDetails({{ $payroll->id }})"
-                            wire:click="viewDetails({{ $payroll->id }})"
-                            wire:loading.attr="disabled"/>
-
-                            <x-wireui-dropdown.item
                             icon="pencil"
                             label="Editar nómina"
                             wire:click="edit({{ $payroll->id }})"
                             wire:target="edit({{ $payroll->id }})"
                             wire:loading.attr="disabled"/>
-
-                            <x-wireui-dropdown.item
-                            icon="document-duplicate"
-                            label="Clonar nómina"
-                            wire:click="confirmClone({{ $payroll->id }})"
-                            wire:loading.attr="disabled"
-                            wire:target="confirmClone({{ $payroll->id }})" />
 
                             <x-wireui-dropdown.item
                             separator
@@ -218,27 +191,41 @@
                             wire:target="generateStructure({{ $payroll->id }})" />
 
                             <x-wireui-dropdown.item
-                            separator
-                            icon="trash"
-                            label="Limpiar Estructura"
-                            wire:click="confirmClearStructure({{ $payroll->id }})"
-                            wire:loading.attr="disabled"
-                            wire:target="confirmClearStructure({{ $payroll->id }})"
-                            class="text-orange-600 hover:text-orange-700 dark:text-orange-500 dark:hover:text-orange-400" />
+                            label="Ver detalles"
+                            icon="eye"
+                            wire:target="viewDetails({{ $payroll->id }})"
+                            wire:click="viewDetails({{ $payroll->id }})"
+                            wire:loading.attr="disabled"/>
 
                             <x-wireui-dropdown.item
                             icon="calculator"
                             label="Calcular nómina"
                             wire:click="calculate({{ $payroll->id }})"
                             wire:loading.attr="disabled"
-                            wire:target="calculate({{ $payroll->id }})" />
+                            wire:target="calculate({{ $payroll->id }})"/>
 
                             <x-wireui-dropdown.item
                             icon="document"
                             label="Reportes"
-                            {{-- wire:click="calculate({{ $payroll->id }})" --}}
+                            wire:click="showReports({{ $payroll->id }})"
                             wire:loading.attr="disabled"
-                            wire:target="calculate({{ $payroll->id }})" />
+                            wire:target="showReports({{ $payroll->id }})" />
+
+                            <x-wireui-dropdown.item
+                            separator
+                            icon="document-duplicate"
+                            label="Clonar nómina"
+                            wire:click="confirmClone({{ $payroll->id }})"
+                            wire:loading.attr="disabled"
+                            wire:target="confirmClone({{ $payroll->id }})" />
+
+                            <x-wireui-dropdown.item
+                            icon="trash"
+                            label="Limpiar Estructura"
+                            wire:click="confirmClearStructure({{ $payroll->id }})"
+                            wire:loading.attr="disabled"
+                            wire:target="confirmClearStructure({{ $payroll->id }})"
+                            class="text-orange-600 hover:text-orange-700 dark:text-orange-500 dark:hover:text-orange-400" />
 
                             <x-wireui-dropdown.item
                             separator
@@ -248,6 +235,8 @@
                             wire:loading.attr="disabled"
                             wire:target="confirmDeletePayroll({{ $payroll->id }})"
                             class="text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400" />
+
+
 
                         </x-wireui-dropdown>
 

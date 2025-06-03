@@ -35,13 +35,17 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the unique identifier for the user.
+     * Get the authenticated user's ID or default ID.
      *
-     * @return mixed
+     * @return int
      */
-    public function getAuthIdentifier()
+    public static function getAuthUserId(): int
     {
-        return $this->id; // Siempre devolver el ID numérico
+        if (auth()->check()) {
+            $user = auth()->user();
+            return $user ? (int) $user->id : 1;
+        }
+        return 1;
     }
 
     /**

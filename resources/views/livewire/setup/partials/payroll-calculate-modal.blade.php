@@ -27,9 +27,9 @@
         <div class="space-y-4">
             <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100">Proceso de Cálculo</h3>
             <div class="prose dark:prose-invert max-w-none">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>
+                    El proceso de cálculo de nóminas consiste en registrar la información laboral, asistencia, bonificaciones y deducciones de los empleados para determinar el monto neto a pagar. Se basa en días trabajados, faltas, horas extras, cargos, salarios básicos y otros conceptos definidos en la legislación laboral vigente.
+                </p>
 
                 <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
                     <h4 class="mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">Pasos del Proceso:</h4>

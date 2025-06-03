@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('areas', function (Blueprint $table) {
             $table->id();
+            $table->smallInteger('institution_id')->default(1);
             $table->string('name');
             $table->text('description')->nullable();
             // $table->string('code')->unique();
-            // $table->foreignId('institution_id')->constrained()->cascadeOnDelete();
             $table->boolean('status_active')->default(true);
             $table->timestamps();
             $table->softDeletes();

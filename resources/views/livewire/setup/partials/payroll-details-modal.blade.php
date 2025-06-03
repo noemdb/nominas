@@ -591,91 +591,72 @@
         </div>
 
         <!-- Resumen de Cálculos -->
-        <div class="p-4 bg-white border border-gray-200 rounded-lg dark:border-gray-700 dark:bg-gray-800/50">
-            <h3 class="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-300">Resumen de Cálculos</h3>
-            <!-- Totales Principales -->
-            <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                <div class="p-2 rounded-lg bg-gray-50 dark:bg-gray-700">
-                    <h4 class="text-xs font-medium text-gray-900 dark:text-gray-100">Total Trabajadores</h4>
-                    <p class="mt-1 text-2xl font-semibold text-gray-900 dark:text-gray-100">0</p>
-                </div>
-                <div class="p-2 rounded-lg bg-gray-50 dark:bg-gray-700">
-                    <h4 class="text-xs font-medium text-gray-900 dark:text-gray-100">Total Devengado</h4>
-                    <p class="mt-1 text-2xl font-semibold text-gray-900 dark:text-gray-100">
-                        {{ $payroll->status_exchange ? 'USD' : 'Bs' }} 0.00
-                        @if($payroll->status_exchange)
-                            <span class="ml-1 text-xs font-normal text-gray-500 dark:text-gray-400">(Ref.)</span>
-                        @endif
-                    </p>
-                </div>
-                <div class="p-2 rounded-lg bg-gray-50 dark:bg-gray-700">
-                    <h4 class="text-xs font-medium text-gray-900 dark:text-gray-100">Total Neto</h4>
-                    <p class="mt-1 text-2xl font-semibold text-gray-900 dark:text-gray-100">
-                        {{ $payroll->status_exchange ? 'USD' : 'Bs' }} 0.00
-                        @if($payroll->status_exchange)
-                            <span class="ml-1 text-xs font-normal text-gray-500 dark:text-gray-400">(Ref.)</span>
-                        @endif
-                    </p>
-                </div>
-            </div>
+        <div class="p-4 space-y-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+            <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">Resumen de Cálculos</h4>
 
-            <!-- Desglose de Totales -->
-            <div class="grid grid-cols-1 gap-3 mt-3 sm:grid-cols-2">
-                <!-- Totales Positivos -->
-                <div>
-                    <h4 class="mb-2 text-xs font-medium text-gray-900 dark:text-gray-100">Totales Positivos</h4>
-                    <div class="space-y-2">
-                        <div class="p-2 rounded-lg bg-green-50 dark:bg-green-900/20">
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-medium text-green-800 dark:text-green-200">Total Asignaciones</span>
-                                <span class="text-xs font-semibold text-green-800 dark:text-green-200">
-                                    {{ $payroll->status_exchange ? 'USD' : 'Bs' }} 0.00
-                                </span>
-                            </div>
-                        </div>
-                        <div class="p-2 rounded-lg bg-green-50 dark:bg-green-900/20">
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-medium text-green-800 dark:text-green-200">Total Horas Extras</span>
-                                <span class="text-xs font-semibold text-green-800 dark:text-green-200">
-                                    {{ $payroll->status_exchange ? 'USD' : 'Bs' }} 0.00
-                                </span>
-                            </div>
-                        </div>
+            @php
+                $summary = $payroll->payroll_summary;
+            @endphp
+
+            <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                <!-- Total Trabajadores -->
+                <div class="p-3 bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                    <div class="flex flex-col">
+                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Total Trabajadores</span>
+                        <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ $summary['total_workers'] }}</span>
                     </div>
                 </div>
 
-                <!-- Totales Negativos -->
-                <div>
-                    <h4 class="mb-2 text-xs font-medium text-gray-900 dark:text-gray-100">Totales Negativos</h4>
-                    <div class="space-y-2">
-                        <div class="p-2 rounded-lg bg-red-50 dark:bg-red-900/20">
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-medium text-red-800 dark:text-red-200">Total Descuentos</span>
-                                <span class="text-xs font-semibold text-red-800 dark:text-red-200">
-                                    {{ $payroll->status_exchange ? 'USD' : 'Bs' }} 0.00
-                                </span>
-                            </div>
-                        </div>
-                        <div class="p-2 rounded-lg bg-red-50 dark:bg-red-900/20">
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-medium text-red-800 dark:text-red-200">Total Deducciones</span>
-                                <span class="text-xs font-semibold text-red-800 dark:text-red-200">
-                                    {{ $payroll->status_exchange ? 'USD' : 'Bs' }} 0.00
-                                </span>
-                            </div>
-                        </div>
+                <!-- Total Devengado -->
+                <div class="p-3 bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                    <div class="flex flex-col">
+                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Total Devengado</span>
+                        <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                            {{ $payroll->currency }} {{ number_format($summary['total_earned'], 2) }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Total Neto -->
+                <div class="p-3 bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                    <div class="flex flex-col">
+                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Total Neto</span>
+                        <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                            {{ $payroll->currency }} {{ number_format($summary['total_net_pay'], 2) }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Total Asignaciones -->
+                <div class="p-3 bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                    <div class="flex flex-col">
+                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Total Asignaciones</span>
+                        <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                            {{ $payroll->currency }} {{ number_format($summary['total_assignments'], 2) }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Total Descuentos -->
+                <div class="p-3 bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                    <div class="flex flex-col">
+                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Total Descuentos</span>
+                        <span class="text-lg font-semibold text-red-600 dark:text-red-400">
+                            {{ $payroll->currency }} {{ number_format($summary['total_discounts'], 2) }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Total Deducciones -->
+                <div class="p-3 bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                    <div class="flex flex-col">
+                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Total Deducciones</span>
+                        <span class="text-lg font-semibold text-red-600 dark:text-red-400">
+                            {{ $payroll->currency }} {{ number_format($summary['total_deductions'], 2) }}
+                        </span>
                     </div>
                 </div>
             </div>
-
-            @if($payroll->status_exchange)
-                <div class="flex items-center p-2 mt-3 space-x-2 text-xs text-yellow-700 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 dark:text-yellow-200">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <p>Los montos mostrados están expresados en moneda referencial (USD). Los cálculos finales se realizarán aplicando la tasa de cambio vigente.</p>
-                </div>
-            @endif
         </div>
 
         <!-- Botones -->

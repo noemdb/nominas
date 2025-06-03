@@ -71,7 +71,7 @@
     <!-- Tabla de comportamientos -->
     <div class="overflow-hidden bg-white rounded-lg shadow-sm dark:bg-gray-900">
         @if (!$isLoaded)
-            {{-- <x-skeleton.table :rows="5" /> --}}
+            <x-skeleton.table :rows="8" />
         @else
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
@@ -87,9 +87,6 @@
                             </th>
                             <th class="hidden px-6 py-3 sm:table-cell">Trabajador</th>
                             <th class="hidden px-6 py-3 sm:table-cell">Asistencia</th>
-                            <th class="hidden px-6 py-3 sm:table-cell">Faltas</th>
-                            <th class="hidden px-6 py-3 sm:table-cell">Permisos</th>
-                            <th class="hidden px-6 py-3 sm:table-cell">Retardos</th>
                             <th class="hidden px-6 py-3 sm:table-cell">Horas Laboradas</th>
                             <th wire:click="sortBy('status')" class="hidden px-6 py-3 cursor-pointer sm:table-cell">
                                 <div class="flex items-center space-x-1">
@@ -118,18 +115,6 @@
                                     <span>{{ $behavior->attendance_days }} días</span>
                                 </td>
                                 <td class="block px-6 py-4 sm:table-cell">
-                                    <span class="font-bold sm:hidden">Faltas:</span>
-                                    <span>{{ $behavior->absences }}</span>
-                                </td>
-                                <td class="block px-6 py-4 sm:table-cell">
-                                    <span class="font-bold sm:hidden">Permisos:</span>
-                                    <span>{{ $behavior->permissions }}</span>
-                                </td>
-                                <td class="block px-6 py-4 sm:table-cell">
-                                    <span class="font-bold sm:hidden">Retardos:</span>
-                                    <span>{{ $behavior->delays }}</span>
-                                </td>
-                                <td class="block px-6 py-4 sm:table-cell">
                                     <span class="font-bold sm:hidden">Horas Laboradas:</span>
                                     <span>{{ number_format($behavior->labor_hours, 2) }} hrs</span>
                                 </td>
@@ -147,9 +132,17 @@
                                     <span class="font-bold sm:hidden">Acciones:</span>
                                     <div class="flex flex-row rounded-md shadow-sm" role="group">
                                         <x-wireui-mini-button
+                                            primary
+                                            icon="eye"
+                                            class="rounded-t-md sm:rounded-l-md sm:rounded-tr-none sm:rounded-br-none"
+                                            wire:click="showDetails({{ $behavior->id }})"
+                                            wire:loading.attr="disabled"
+                                            wire:target="showDetails({{ $behavior->id }})"
+                                            x-tooltip.raw="Ver detalles" />
+                                        <x-wireui-mini-button
                                             warning
                                             icon="pencil"
-                                            class="rounded-t-md sm:rounded-l-md sm:rounded-tr-none sm:rounded-br-none"
+                                            class="rounded-none"
                                             wire:click="edit({{ $behavior->id }})"
                                             wire:loading.attr="disabled"
                                             wire:target="edit({{ $behavior->id }})"
@@ -170,7 +163,7 @@
 
                         @if ($behaviors->count() === 0)
                             <tr>
-                                <td colspan="9" class="px-6 py-4 text-center text-gray-500">
+                                <td colspan="6" class="px-6 py-4 text-center text-gray-500">
                                     No se encontraron registros de comportamiento
                                 </td>
                             </tr>
@@ -188,6 +181,11 @@
 
     <!-- Modal para crear/editar comportamiento -->
     @includeWhen($showModal, 'livewire.comportamiento.modal.action-behavior')
+
+    <!-- Modal de detalles del comportamiento -->
+    @if ($showDetailsModal)
+        @include('livewire.comportamiento.modal.behavior-details')
+    @endif
 
     <!-- Modal de confirmación de eliminación -->
     @includeWhen($confirmingDelete, 'livewire.comportamiento.modal.confirming-delete')

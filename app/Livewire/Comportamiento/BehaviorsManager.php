@@ -43,11 +43,23 @@ class BehaviorsManager extends Component
         'permissions' => 0,
         'delays' => 0,
         'labor_hours' => 0,
+        'administrative_hours' => 0,
+        'medical_rest_days' => 0,
+        'medical_rest_hours' => 0,
+        'paid_permission_days' => 0,
+        'paid_permission_hours' => 0,
+        'unpaid_permission_days' => 0,
+        'unpaid_permission_hours' => 0,
+        'unjustified_absence_days' => 0,
+        'unjustified_absence_hours' => 0,
         'observations' => '',
         'bonus' => 0,
         'discount' => 0,
         'status' => 'pending'
     ];
+
+    public $showDetailsModal = false;
+    public $selectedBehavior = null;
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -79,6 +91,15 @@ class BehaviorsManager extends Component
             'behavior.permissions' => 'required|integer|min:0',
             'behavior.delays' => 'required|integer|min:0',
             'behavior.labor_hours' => 'required|numeric|min:0',
+            'behavior.administrative_hours' => 'required|numeric|min:0',
+            'behavior.medical_rest_days' => 'required|integer|min:0',
+            'behavior.medical_rest_hours' => 'required|numeric|min:0',
+            'behavior.paid_permission_days' => 'required|integer|min:0',
+            'behavior.paid_permission_hours' => 'required|numeric|min:0',
+            'behavior.unpaid_permission_days' => 'required|integer|min:0',
+            'behavior.unpaid_permission_hours' => 'required|numeric|min:0',
+            'behavior.unjustified_absence_days' => 'required|integer|min:0',
+            'behavior.unjustified_absence_hours' => 'required|numeric|min:0',
             'behavior.observations' => 'nullable|string',
             'behavior.bonus' => 'required|numeric|min:0',
             'behavior.discount' => 'required|numeric|min:0',
@@ -97,6 +118,15 @@ class BehaviorsManager extends Component
             'permissions' => 0,
             'delays' => 0,
             'labor_hours' => 0,
+            'administrative_hours' => 0,
+            'medical_rest_days' => 0,
+            'medical_rest_hours' => 0,
+            'paid_permission_days' => 0,
+            'paid_permission_hours' => 0,
+            'unpaid_permission_days' => 0,
+            'unpaid_permission_hours' => 0,
+            'unjustified_absence_days' => 0,
+            'unjustified_absence_hours' => 0,
             'observations' => '',
             'bonus' => 0,
             'discount' => 0,
@@ -181,6 +211,7 @@ class BehaviorsManager extends Component
     public function closeModal()
     {
         $this->showModal = false;
+        $this->showDetailsModal = false;
         $this->confirmingDelete = false;
         $this->resetErrorBag();
     }
@@ -253,5 +284,17 @@ class BehaviorsManager extends Component
             'title' => 'Realizado!',
             'description' => 'Acción ejecutada correctamente.',
         ]);
+    }
+
+    public function showDetails($behaviorId)
+    {
+        $this->selectedBehavior = WorkerBehavior::with(['worker', 'approver'])->find($behaviorId);
+        $this->showDetailsModal = true;
+    }
+
+    public function closeDetailsModal()
+    {
+        $this->showDetailsModal = false;
+        $this->selectedBehavior = null;
     }
 }

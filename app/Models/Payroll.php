@@ -43,6 +43,24 @@ class Payroll extends Model
     ];
 
     /**
+     * Get the worker details for this payroll.
+     */
+    public function payrollWorkerDetails()
+    {
+        return $this->hasMany(PayrollWorkerDetail::class);
+    }
+
+    /**
+     * Get the currency based on status_exchange.
+     *
+     * @return string
+     */
+    public function getCurrencyAttribute(): string
+    {
+        return $this->status_exchange ? 'USD' : 'Bs';
+    }
+
+    /**
      * Get the formatted status of the payroll.
      *
      * @return array{label: string, color: string, value: string}
@@ -122,5 +140,103 @@ class Payroll extends Model
                 'label' => $payroll->name,
             ];
         })->toArray();
+    }
+
+    /**
+     * Get the total number of active workers in the payroll.
+     */
+    public function getTotalWorkersAttribute(): int
+    {
+        return $this->payrollWorkerDetails()
+            ->where('status_active', true)
+            ->count();
+    }
+
+    /**
+     * Get the total earned amount (base salary + bonuses) for the payroll.
+     */
+    public function getTotalEarnedAttribute(): float
+    {
+        return $this->payrollWorkerDetails()
+            ->where('status_active', true)
+            ->sum('total_assignments');
+    }
+
+    /**
+     * Get the total net pay for the payroll.
+     */
+    public function getTotalNetPayAttribute(): float
+    {
+        return $this->payrollWorkerDetails()
+            ->where('status_active', true)
+            ->sum('net_pay');
+    }
+
+    /**
+     * Get the total assignments (base salary + bonuses) for the payroll.
+     */
+    public function getTotalAssignmentsAttribute(): float
+    {
+        return $this->payrollWorkerDetails()
+            ->where('status_active', true)
+            ->sum('total_assignments');
+    }
+
+    /**
+     * Get the total discounts for the payroll.
+     */
+    public function getTotalDiscountsAttribute(): float
+    {
+        return $this->payrollWorkerDetails()
+            ->whereHas('discounts', function ($query) {
+                $query->where('status_active', true);
+            })
+            ->withSum(['discounts' => function ($query) {
+                $query->where('status_active', true);
+            }], 'amount')
+            ->get()
+            ->sum('discounts_sum_amount');
+    }
+
+    /**
+     * Get the total deductions for the payroll.
+     */
+    public function getTotalDeductionsAttribute(): float
+    {
+        return $this->payrollWorkerDetails()
+            ->whereHas('deductions', function ($query) {
+                $query->where('status_active', true);
+            })
+            ->withSum(['deductions' => function ($query) {
+                $query->where('status_active', true);
+            }], 'amount')
+            ->get()
+            ->sum('deductions_sum_amount');
+    }
+
+    /**
+     * Get a summary of all payroll calculations.
+     * This method uses eager loading and optimized queries to get all totals in one go.
+     */
+    public function getPayrollSummaryAttribute(): array
+    {
+        $details = $this->payrollWorkerDetails()
+            ->where('status_active', true)
+            ->withSum(['discounts' => function ($query) {
+                $query->where('status_active', true);
+            }], 'amount')
+            ->withSum(['deductions' => function ($query) {
+                $query->where('status_active', true);
+            }], 'amount')
+            ->get();
+
+        return [
+            'total_workers' => $details->count(),
+            'total_earned' => $details->sum('total_assignments'),
+            'total_net_pay' => $details->sum('net_pay'),
+            'total_assignments' => $details->sum('total_assignments'),
+            'total_discounts' => $details->sum('discounts_sum_amount'),
+            'total_deductions' => $details->sum('deductions_sum_amount')
+        ];
     }
 }

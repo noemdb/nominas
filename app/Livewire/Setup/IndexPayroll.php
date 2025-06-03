@@ -3,10 +3,14 @@
 namespace App\Livewire\Setup;
 
 use App\Models\Payroll;
+use App\Models\PayrollWorkerDetail;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 use WireUi\Traits\WireUiActions;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PayrollDetailsExport;
+use Illuminate\Support\Facades\Log;
 
 class IndexPayroll extends Component
 {
@@ -38,6 +42,10 @@ class IndexPayroll extends Component
     public $status_public = false;
     public $status_approved = false;
     public $payroll;
+    public $showReportsModal = false;
+    public $selectedPayroll = null;
+    public $selectedDetail = null;
+    public $payrollDetails = [];
 
     protected $rules = [
         'name' => 'required|string|max:255',
@@ -154,7 +162,9 @@ class IndexPayroll extends Component
 
     public function closeDetailsModal()
     {
+        $this->showCalculateModal = false;
         $this->showDetailsModal = false;
+        $this->showReportsModal = false;
         $this->reset([
             'payrollId',
             'payrollName',
@@ -169,6 +179,7 @@ class IndexPayroll extends Component
         $this->showModal = false;
         $this->showCalculateModal = false;
         $this->showDetailsModal = false;
+        $this->showReportsModal = false;
         $this->reset([
             'name',
             'date_start',
@@ -257,14 +268,28 @@ class IndexPayroll extends Component
 
     public function startCalculation()
     {
-        // Aquí irá la lógica de cálculo
-        // Por ahora solo mostraremos una notificación
-        $this->notification()->success(
-            'Cálculo Iniciado',
-            'El proceso de cálculo de la nómina ha sido iniciado.'
-        );
+        try {
+            $payroll = Payroll::findOrFail($this->payrollId);
 
-        $this->closeCalculateModal();
+            // Registrar detalles del período laboral
+            $result = $payroll->registerWorkerPeriodDetails();
+
+            if (!$result['success']) {
+                throw new \Exception($result['message']);
+            }
+
+            $this->notification()->success(
+                'Cálculo Iniciado',
+                $result['message']
+            );
+
+            $this->closeCalculateModal();
+        } catch (\Exception $e) {
+            $this->notification()->error(
+                'Error en el Cálculo',
+                'No se pudo iniciar el cálculo: ' . $e->getMessage()
+            );
+        }
     }
 
     public function confirmClone($id): void
@@ -425,6 +450,119 @@ class IndexPayroll extends Component
                 'No se pudo eliminar la nómina: ' . $e->getMessage()
             );
         }
+    }
+
+    public function showReports($payrollId)
+    {
+        try {
+            // Cargar la nómina con sus relaciones básicas
+            $this->selectedPayroll = Payroll::findOrFail($payrollId);
+
+            // Cargar los detalles con todas las relaciones necesarias
+            $this->payrollDetails = PayrollWorkerDetail::with([
+                'worker',
+                'position.rol',
+                'position.area',
+                'bonuses' => function ($query) {
+                    $query->where('status_active', true)
+                        ->with('bonus');
+                },
+                'deductions' => function ($query) {
+                    $query->where('status_active', true)
+                        ->with('deduction');
+                },
+                'discounts' => function ($query) {
+                    $query->where('status_active', true)
+                        ->with('discount');
+                }
+            ])
+
+                ->where('payroll_id', $payrollId)
+                ->where('status_active', true)
+                ->get();
+
+            $this->showReportsModal = true;
+        } catch (\Exception $e) {
+            $this->notification()->error(
+                'Error',
+                'No se pudieron cargar los reportes: ' . $e->getMessage()
+            );
+            $this->closeReportsModal();
+        }
+    }
+
+    public function closeReportsModal()
+    {
+        $this->showReportsModal = false;
+        $this->selectedPayroll = null;
+        $this->selectedDetail = null;
+        $this->selectedDetail = null;
+        $this->payrollDetails = [];
+    }
+
+    public function viewWorkerDetail($detailId)
+    {
+        $this->selectedDetail = PayrollWorkerDetail::with(['worker', 'position.area', 'position.rol'])
+            ->findOrFail($detailId);
+    }
+
+    public function exportToExcel($payrollId)
+    {
+        try {
+            if (!$payrollId) {
+                $this->notification()->error(
+                    'Error al exportar',
+                    'No se ha seleccionado una nómina para exportar.'
+                );
+                return;
+            }
+
+            // Verificar que la nómina existe y está activa
+            $payroll = Payroll::findOrFail($payrollId);
+
+            if (!$payroll->status_active) {
+                $this->notification()->error(
+                    'Error al exportar',
+                    'La nómina seleccionada está inactiva.'
+                );
+                return;
+            }
+
+            // Verificar que hay detalles para exportar
+            $detailsCount = PayrollWorkerDetail::where('payroll_id', $payroll->id)
+                ->where('status_active', true)
+                ->count();
+
+            if ($detailsCount === 0) {
+                $this->notification()->error(
+                    'Error al exportar',
+                    'No hay detalles activos para exportar en esta nómina.'
+                );
+                return;
+            }
+
+            // Exportar usando el exportador
+            return Excel::download(
+                new PayrollDetailsExport($payroll),
+                'nomina_' . $payroll->name . '_' . now()->format('Y-m-d') . '.xlsx'
+            );
+        } catch (\Exception $e) {
+            Log::error('Error en exportToExcel', [
+                'error' => $e->getMessage(),
+                'payroll_id' => $payrollId,
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            $this->notification()->error(
+                'Error al exportar',
+                'Error al exportar la nómina: ' . $e->getMessage()
+            );
+        }
+    }
+
+    public function closeWorkerDetail()
+    {
+        $this->selectedDetail = null;
     }
 
     public function render()
