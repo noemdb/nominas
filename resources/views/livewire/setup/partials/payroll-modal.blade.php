@@ -39,6 +39,19 @@
                     />
                 </div>
 
+                <!-- Número de Días -->
+                <div>
+                    <x-wireui-input
+                        wire:model="num_days"
+                        type="number"
+                        label="Número de Días"
+                        placeholder="Ingrese el número de días"
+                        min="1"
+                        max="31"
+                        required
+                    />
+                </div>
+
                 <!-- Status Exchange -->
                 <div class="sm:col-span-2">
                     <x-wireui-toggle

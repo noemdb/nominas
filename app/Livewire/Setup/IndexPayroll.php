@@ -35,6 +35,7 @@ class IndexPayroll extends Component
     public $name;
     public $date_start;
     public $date_end;
+    public $num_days = 15;
     public $description;
     public $observations;
     public $status_exchange = false;
@@ -51,6 +52,7 @@ class IndexPayroll extends Component
         'name' => 'required|string|max:255',
         'date_start' => 'required|date',
         'date_end' => 'required|date|after_or_equal:date_start',
+        'num_days' => 'required|integer|min:1|max:31',
         'description' => 'nullable|string',
         'observations' => 'nullable|string',
         'status_exchange' => 'boolean',
@@ -82,7 +84,8 @@ class IndexPayroll extends Component
             'status_public',
             'status_approved'
         ]);
-        $this->status_active = true; // Por defecto activo
+        $this->num_days = 15;
+        $this->status_active = true;
         $this->editing = false;
         $this->showModal = true;
     }
@@ -96,6 +99,7 @@ class IndexPayroll extends Component
         $this->name = $payroll->name;
         $this->date_start = $payroll->date_start->format('Y-m-d');
         $this->date_end = $payroll->date_end->format('Y-m-d');
+        $this->num_days = $payroll->num_days;
         $this->description = $payroll->description;
         $this->observations = $payroll->observations;
         $this->status_exchange = $payroll->status_exchange;
@@ -112,13 +116,13 @@ class IndexPayroll extends Component
             'name' => $this->name,
             'date_start' => $this->date_start,
             'date_end' => $this->date_end,
+            'num_days' => $this->num_days,
             'description' => $this->description,
             'observations' => $this->observations,
             'status_exchange' => $this->status_exchange,
             'status_active' => $this->status_active,
             'status_public' => $this->status_public,
             'status_approved' => $this->status_approved,
-            'num_days' => Carbon::parse($this->date_start)->diffInDays($this->date_end) + 1,
         ];
         if ($this->editing) {
             Payroll::find($this->payrollId)->update($data);
@@ -138,6 +142,7 @@ class IndexPayroll extends Component
             'name',
             'date_start',
             'date_end',
+            'num_days',
             'description',
             'observations',
             'editing',
