@@ -16,20 +16,20 @@
     x-init="$watch('tab', value => localStorage.setItem('activeTabPosition', value))"  x-cloak>
 
     <!-- Navegación de Pestañas -->
-    <div class="flex space-x-4 border-b border-gray-200 dark:border-gray-700 mb-6">
+    <div class="flex mb-6 space-x-4 border-b border-gray-200 dark:border-gray-700">
         <button @click="tab = 'range'"
             :class="tab === 'range' ? 'border-b-2 border-blue-500 text-blue-500 font-semibold' : 'text-gray-600'"
-            class="px-4 py-2 focus:outline-none transition">
+            class="px-4 py-2 transition focus:outline-none">
             Rango
         </button>
         <button @click="tab = 'rol'"
             :class="tab === 'rol' ? 'border-b-2 border-blue-500 text-blue-500 font-semibold' : 'text-gray-600'"
-            class="px-4 py-2 focus:outline-none transition">
+            class="px-4 py-2 transition focus:outline-none">
             Rol
         </button>
         <button @click="tab = 'details'"
             :class="tab === 'details' ? 'border-b-2 border-blue-500 text-blue-500 font-semibold' : 'text-gray-600'"
-            class="px-4 py-2 focus:outline-none transition">
+            class="px-4 py-2 transition focus:outline-none">
             Detalles
         </button>
     </div>
@@ -39,26 +39,25 @@
         <!-- Información range -->
         <template x-if="tab === 'range'">
             <div>
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 gap-4">
                     <div class="mb-4">
                         <x-wireui-input
                             type="date"
                             label="Fecha de Inicio"
                             wire:model="start_date"
-                            :error="$errors->has('start_date')"
-                            :helper="$errors->first('start_date')"
                         />
                     </div>
 
+                    {{--
+                    Si oculta la fecha final
                     <div class="mb-4">
                         <x-wireui-input
                             type="date"
                             label="Fecha de Fin"
                             wire:model="end_date"
-                            :error="$errors->has('end_date')"
-                            :helper="$errors->first('end_date')"
                         />
                     </div>
+                    --}}
                 </div>
             </div>
         </template>
@@ -118,7 +117,7 @@
         <x-wireui-errors />
 
         <!-- Botones -->
-        <div class="mt-8 flex justify-end space-x-3">
+        <div class="flex justify-end mt-8 space-x-3">
             <x-wireui-button
                 white
                 label="Cancelar"

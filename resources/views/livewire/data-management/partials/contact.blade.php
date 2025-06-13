@@ -1,30 +1,32 @@
 <!-- Información de Contacto -->
 <div class="mb-8">
     <h2
-        class="text-end font-extralight text-md text-gray-800 dark:text-gray-400 mb-1 border-b border-gray-200 dark:border-gray-700">
+        class="mb-1 text-gray-800 border-b border-gray-200 text-end font-extralight text-md dark:text-gray-400 dark:border-gray-700">
         Información de Contacto
     </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
         <!-- Email -->
         <div>
-
             <x-wireui-input
                 label="Correo Electrónico"
                 placeholder="Ingresa tu correo electrónico"
-                suffix="@mail.com"
+                {{-- suffix="@mail.com" --}}
                 type="email"
-                wire:model="worker.email"
+                wire:model="email"
+                id="email"
+                :name="Str::random(10)"
             />
         </div>
 
         <!-- Teléfono -->
         <div>
             <x-wireui-maskable
-                id="phone-mask"
+                id="phone"
                 label="Teléfono"
                 mask="+## (###) ###-####"
                 placeholder="Teléfono"
-                wire:model="worker.phone"
+                wire:model="phone"
+                :name="Str::random(10)"
             />
         </div>
     </div>

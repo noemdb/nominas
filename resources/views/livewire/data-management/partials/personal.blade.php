@@ -1,127 +1,98 @@
 <!-- Información Personal -->
 <div class="mb-8">
     <h2
-        class="text-end font-extralight text-md text-gray-800 dark:text-gray-400 mb-1 border-b border-gray-200 dark:border-gray-700">
+        class="mb-1 text-gray-800 border-b border-gray-200 text-end font-extralight text-md dark:text-gray-400 dark:border-gray-700">
         Información Personal
     </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         <!-- Nombre -->
         <div>
-            <label for="first_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Nombre
-            </label>
-            <input wire:model="worker.first_name" type="text" id="first_name"
-                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white">
-            @error('worker.first_name')
-                <span class="text-red-500 text-sm">{{ $message }}</span>
-            @enderror
+
+            <x-wireui-input
+                wire:model.live="first_name"
+                label="Nombre"
+                placeholder="Ingrese el nombre"
+            />
         </div>
 
         <!-- Apellido -->
         <div>
-            <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Apellido
-            </label>
-            <input wire:model="worker.last_name" type="text" id="last_name"
-                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white">
-            @error('worker.last_name')
-                <span class="text-red-500 text-sm">{{ $message }}</span>
-            @enderror
+            <x-wireui-input
+                label="Apellido"
+                placeholder="Ingrese el apellido"
+                wire:model.live="last_name"
+            />
         </div>
 
         <!-- Cédula -->
         <div>
-            <label for="identification" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Cédula
-            </label>
-            <input wire:model="worker.identification" type="text" id="identification"
-                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white">
-            @error('worker.identification')
-                <span class="text-red-500 text-sm">{{ $message }}</span>
-            @enderror
-        </div>
-
-        <!-- Fecha de Nacimiento -->
-        <div>
-
             <x-wireui-input
-                label="Fecha de Nacimiento"
-                placeholder="Fecha de Nacimiento"
-                wire:model="worker.birth_date"
-                id="worker.birth_date" :name="Str::random(10)"
-                type="date"
+                label="Cédula"
+                placeholder="Ingrese la cédula"
+                wire:model.live="identification"
             />
-
-            {{-- <label for="birth_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Fecha de Nacimiento
-            </label>
-            <input wire:model="worker.birth_date" type="date" id="birth_date"
-                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white">
-            @error('worker.birth_date')
-                <span class="text-red-500 text-sm">{{ $message }}</span>
-            @enderror --}}
-
-            {{-- <x-wireui-datetime-picker
-                wire:model="worker.birth_date"
-                label="Fecha de Nacimiento"
-                placeholder="Fecha de Nacimiento"
-                parse-format="YYYY-MM-DD"
-                without-time
-            /> --}}
         </div>
+
+        <x-wireui-datetime-picker
+            wire:model.live="birth_date"
+            label="Fecha de Nacimiento"
+            placeholder="Seleccione"
+            display-format="DD-MM-YYYY"
+            without-time="true"
+        />
 
         <!-- Género -->
         <div>
-
-            {{-- 
-            <label for="gender" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Género
-            </label>
-            <select wire:model="worker.gender" id="gender"
-                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white">
-                <option selected>Seleccione</option>
-                <option value="Masculino">Masculino</option>
-                <option value="Femenino">Femenino</option>
-                <option value="Otro">Otro</option>
-            </select>
-            @error('worker.gender')
-                <span class="text-red-500 text-sm">{{ $message }}</span>
-            @enderror
-            --}}
-
-            <x-wireui-native-select label="Género" wire:model="worker.gender">
-                <<option selected>Seleccione</option>
-                <option>Masculino</option>
-                <option>Femenino</option>
-                <option>Otro</option>
-            </x-wireui-native-select>
-
+            <x-wireui-select
+                wire:model.live="gender"
+                label="Género"
+                :options="[
+                    ['label' => 'Masculino', 'value' => 'male'],
+                    ['label' => 'Femenino', 'value' => 'female'],
+                    ['label' => 'Otro', 'value' => 'other']
+                ]"
+                option-label="label"
+                option-value="value"
+            />
         </div>
 
         <!-- Estado Civil -->
         <div>
-
-            <x-wireui-native-select label="Estado Civil" wire:model="worker.marital_status">
-                <option selected>Seleccione</option>
-                <option>Soltero/a</option>
-                <option>Casado/a</option>
-                <option>Divorciado/a</option>
-                <option>Viudo/a</option>
-            </x-wireui-native-select>
-
+            <x-wireui-select
+                wire:model.live="marital_status"
+                label="Estado Civil"
+                :options="[
+                    ['label' => 'Soltero(a)', 'value' => 'single'],
+                    ['label' => 'Casado(a)', 'value' => 'married'],
+                    ['label' => 'Divorciado(a)', 'value' => 'divorced'],
+                    ['label' => 'Viudo(a)', 'value' => 'widowed']
+                ]"
+                option-label="label"
+                option-value="value"
+            />
         </div>
 
         <!-- Nacionalidad -->
         <div>
-            <label for="nationality" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Nacionalidad
-            </label>
-            <input wire:model="worker.nationality" type="text" id="nationality"
-                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white">
-            @error('worker.nationality')
-                <span class="text-red-500 text-sm">{{ $message }}</span>
-            @enderror
-        </div>
-        
+            <x-wireui-select
+                wire:model.live="nationality"
+                label="Nacionalidad"
+                :options="[
+                    ['label' => 'Venezolano(a)', 'value' => 'venezolano'],
+                    ['label' => 'Colombiano(a)', 'value' => 'colombiano'],
+                    ['label' => 'Peruano(a)', 'value' => 'peruano'],
+                    ['label' => 'Ecuatoriano(a)', 'value' => 'ecuatoriano'],
+                    ['label' => 'Chileno(a)', 'value' => 'chileno'],
+                    ['label' => 'Argentino(a)', 'value' => 'argentino'],
+                    ['label' => 'Brasileño(a)', 'value' => 'brasileño'],
+                    ['label' => 'Mexicano(a)', 'value' => 'mexicano'],
+                    ['label' => 'Español(a)', 'value' => 'español'],
+                    ['label' => 'Estadounidense', 'value' => 'estadounidense'],
+                    ['label' => 'Otro', 'value' => 'otro']
+                ]"
+                option-label="label"
+                option-value="value"
+            />
+        </div>  {{-- --}}
     </div>
 </div>

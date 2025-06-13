@@ -36,6 +36,7 @@ class IndexPayroll extends Component
     public $date_start;
     public $date_end;
     public $num_days = 15;
+    public $num_weeks = 4;
     public $description;
     public $observations;
     public $status_exchange = false;
@@ -53,6 +54,7 @@ class IndexPayroll extends Component
         'date_start' => 'required|date',
         'date_end' => 'required|date|after_or_equal:date_start',
         'num_days' => 'required|integer|min:1|max:31',
+        'num_weeks' => 'required|integer|min:1|max:6',
         'description' => 'nullable|string',
         'observations' => 'nullable|string',
         'status_exchange' => 'boolean',
@@ -70,6 +72,10 @@ class IndexPayroll extends Component
         'sortDirection' => ['except' => 'asc'],
     ];
 
+    protected $listeners = [
+        'updateNumWeeks' => 'calculateNumWeeks'
+    ];
+
     public function create()
     {
         $this->resetValidation();
@@ -85,6 +91,7 @@ class IndexPayroll extends Component
             'status_approved'
         ]);
         $this->num_days = 15;
+        $this->num_weeks = 4;
         $this->status_active = true;
         $this->editing = false;
         $this->showModal = true;
@@ -100,6 +107,7 @@ class IndexPayroll extends Component
         $this->date_start = $payroll->date_start->format('Y-m-d');
         $this->date_end = $payroll->date_end->format('Y-m-d');
         $this->num_days = $payroll->num_days;
+        $this->num_weeks = $payroll->num_weeks;
         $this->description = $payroll->description;
         $this->observations = $payroll->observations;
         $this->status_exchange = $payroll->status_exchange;
@@ -117,6 +125,7 @@ class IndexPayroll extends Component
             'date_start' => $this->date_start,
             'date_end' => $this->date_end,
             'num_days' => $this->num_days,
+            'num_weeks' => $this->num_weeks,
             'description' => $this->description,
             'observations' => $this->observations,
             'status_exchange' => $this->status_exchange,
@@ -143,6 +152,7 @@ class IndexPayroll extends Component
             'date_start',
             'date_end',
             'num_days',
+            'num_weeks',
             'description',
             'observations',
             'editing',
@@ -189,6 +199,8 @@ class IndexPayroll extends Component
             'name',
             'date_start',
             'date_end',
+            'num_days',
+            'num_weeks',
             'description',
             'observations',
             'editing',
@@ -568,6 +580,27 @@ class IndexPayroll extends Component
     public function closeWorkerDetail()
     {
         $this->selectedDetail = null;
+    }
+
+    public function calculateNumWeeks()
+    {
+        if ($this->date_start) {
+            $startDate = Carbon::parse($this->date_start);
+            $endDate = $this->date_end ? Carbon::parse($this->date_end) : $startDate->copy()->endOfMonth();
+
+            // Obtener el número de semanas en el mes
+            $this->num_weeks = $startDate->copy()->startOfMonth()->diffInWeeks($endDate->copy()->endOfMonth()) + 1;
+        }
+    }
+
+    public function updatedDateStart()
+    {
+        $this->calculateNumWeeks();
+    }
+
+    public function updatedDateEnd()
+    {
+        $this->calculateNumWeeks();
     }
 
     public function render()

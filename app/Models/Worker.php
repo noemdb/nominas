@@ -149,6 +149,28 @@ class Worker extends Model
     }
 
     /**
+     * Obtiene las horas semanales planificadas del último puesto
+     *
+     * @return string Horas semanales formateadas o 'N/A' si no hay datos
+     */
+    public function getLastPositionWeeklyHoursAttribute(): string
+    {
+        $position = $this->last_position;
+
+        if (!$position) {
+            return 'N/A';
+        }
+
+        $weeklyHours = $position->weeklySchedule()
+            ->where('is_active', true)
+            ->sum('planned_hours');
+
+        return $weeklyHours > 0
+            ? number_format($weeklyHours, 2, ',', '.') . ' hrs/sem'
+            : 'N/A';
+    }
+
+    /**
      * Calcula la antigüedad del trabajador desde su fecha de ingreso
      *
      * @return array Array con los años, meses y días de antigüedad
@@ -370,11 +392,15 @@ class Worker extends Model
      * Calcula el salario base por hora del trabajador
      * Basado en el salario mensual y las horas mensuales estimadas
      *
+     * @param \Carbon\Carbon|null $date Fecha de referencia para el cálculo (por defecto mes actual)
      * @return float|null Salario por hora o null si no hay datos suficientes
      */
-    public function calculateHourlyRate(): ?float
+    public function calculateHourlyRate(?Carbon $date = null): ?float
     {
         try {
+            // Si no se proporciona fecha, usar el mes actual
+            $date = $date ?? now();
+
             // Obtener la posición actual del trabajador
             $position = $this->current_position;
 
@@ -394,8 +420,23 @@ class Worker extends Model
                 return null;
             }
 
-            // Calcular horas mensuales estimadas (semanas * 4.33)
-            $monthlyHours = $weeklyHours * 4.33;
+            // Calcular semanas en el mes específico
+            $startOfMonth = $date->copy()->startOfMonth();
+            $endOfMonth = $date->copy()->endOfMonth();
+
+            // Obtener el número de semanas completas en el mes
+            $weeksInMonth = $startOfMonth->diffInWeeks($endOfMonth);
+
+            // Ajustar por semanas parciales al inicio y fin del mes
+            if ($startOfMonth->dayOfWeek !== Carbon::MONDAY) {
+                $weeksInMonth += 0.5; // Media semana al inicio
+            }
+            if ($endOfMonth->dayOfWeek !== Carbon::SUNDAY) {
+                $weeksInMonth += 0.5; // Media semana al final
+            }
+
+            // Calcular horas mensuales basadas en las semanas del mes
+            $monthlyHours = $weeklyHours * $weeksInMonth;
 
             // Calcular salario por hora
             $hourlyRate = $monthlySalary / $monthlyHours;
@@ -404,6 +445,7 @@ class Worker extends Model
         } catch (\Exception $e) {
             Log::error('Error al calcular salario por hora: ' . $e->getMessage(), [
                 'worker_id' => $this->id,
+                'date' => $date,
                 'exception' => $e
             ]);
             return null;
@@ -413,11 +455,15 @@ class Worker extends Model
     /**
      * Obtiene las horas mensuales estimadas del trabajador
      *
+     * @param \Carbon\Carbon|null $date Fecha de referencia para el cálculo (por defecto mes actual)
      * @return float|null Horas mensuales estimadas o null si no hay datos
      */
-    public function getEstimatedMonthlyHours(): ?float
+    public function getEstimatedMonthlyHours(?Carbon $date = null): ?float
     {
         try {
+            // Si no se proporciona fecha, usar el mes actual
+            $date = $date ?? now();
+
             $position = $this->current_position;
 
             if (!$position) {
@@ -432,11 +478,27 @@ class Worker extends Model
                 return null;
             }
 
-            // Calcular horas mensuales (semanas * 4.33)
-            return round($weeklyHours * 4.33, 2);
+            // Calcular semanas en el mes específico
+            $startOfMonth = $date->copy()->startOfMonth();
+            $endOfMonth = $date->copy()->endOfMonth();
+
+            // Obtener el número de semanas completas en el mes
+            $weeksInMonth = $startOfMonth->diffInWeeks($endOfMonth);
+
+            // Ajustar por semanas parciales al inicio y fin del mes
+            if ($startOfMonth->dayOfWeek !== Carbon::MONDAY) {
+                $weeksInMonth += 0.5; // Media semana al inicio
+            }
+            if ($endOfMonth->dayOfWeek !== Carbon::SUNDAY) {
+                $weeksInMonth += 0.5; // Media semana al final
+            }
+
+            // Calcular horas mensuales basadas en las semanas del mes
+            return round($weeklyHours * $weeksInMonth, 2);
         } catch (\Exception $e) {
             Log::error('Error al calcular horas mensuales: ' . $e->getMessage(), [
                 'worker_id' => $this->id,
+                'date' => $date,
                 'exception' => $e
             ]);
             return null;

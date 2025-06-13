@@ -44,8 +44,8 @@
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Nombre:</span>
                         <div class="block max-w-[200px]">
-                            <div class="text-sm font-medium text-gray-400">{{ $bonus->name }}</div>
-                            <div class="text-sm text-gray-500">{{ $bonus->description }}</div>
+                            <div class="text-sm font-medium text-gray-200">{{ $bonus->name }}</div>
+                            <div class="text-sm text-gray-400">{{ $bonus->description }}</div>
                         </div>
                     </td>
                     <td class="block px-6 py-4 sm:table-cell">

@@ -1,21 +1,20 @@
 <!-- Información Laboral -->
-<div class="mb-8">
+<div class="h-full mb-8">
     <h2
         class="mb-1 text-gray-800 border-b border-gray-200 text-end font-extralight text-md dark:text-gray-400 dark:border-gray-700">
         Información Laboral
     </h2>
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div class="grid h-full grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         <!-- Fecha de Contratación -->
-        <div>
-            <label for="hire_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Fecha de Contratación
-            </label>
-            <input wire:model.live="worker.hire_date" type="date" id="hire_date"
-                class="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white">
-            @error('worker.hire_date')
-                <span class="text-sm text-red-500">{{ $message }}</span>
-            @enderror
-            @if(isset($worker['hire_date']) && $worker['hire_date'])
+        <div class="flex flex-col">
+            <x-wireui-datetime-picker
+                wire:model.live="hire_date"
+                label="Fecha de Contratación"
+                placeholder="Seleccione"
+                display-format="DD-MM-YYYY"
+                class="flex-grow"
+            />
+            @if(isset($hire_date))
                 <div class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                     Antigüedad: {{ $this->workerSeniority['formatted'] }}
                 </div>
@@ -23,38 +22,41 @@
         </div>
 
         <!-- Salario Base -->
-        <div>
-            <label for="base_salary" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Salario Base
-            </label>
-            <input wire:model="worker.base_salary" type="number" step="0.01" id="base_salary"
-                class="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white">
-            @error('worker.base_salary')
-                <span class="text-sm text-red-500">{{ $message }}</span>
-            @enderror
+        <div class="flex flex-col">
+            <x-wireui-input
+                label="Salario Base"
+                placeholder="Ingrese el salario base"
+                wire:model="base_salary"
+                type="number"
+                step="0.01"
+                class="flex-grow"
+            />
         </div>
 
         <!-- Tipo de Contrato -->
-        <div>
-            <label for="contract_type" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Tipo de Contrato
-            </label>
-            <select wire:model="worker.contract_type" id="contract_type"
-                class="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white">
-                <option selected>Seleccione</option>
-                <option value="Tiempo Completo">Tiempo Completo</option>
-                <option value="Tiempo Parcial">Tiempo Parcial</option>
-                <option value="Temporal">Temporal</option>
-                <option value="Por Contrato">Por Contrato</option>
-            </select>
-            @error('worker.contract_type')
-                <span class="text-sm text-red-500">{{ $message }}</span>
-            @enderror
+        <div class="flex flex-col">
+            <x-wireui-select
+                wire:model="contract_type"
+                label="Tipo de Contrato"
+                :options="[
+                    ['label' => 'Tiempo Completo', 'value' => 'full-time', 'key' => 'full-time'],
+                    ['label' => 'Tiempo Parcial', 'value' => 'part-time', 'key' => 'part-time'],
+                    ['label' => 'Temporal', 'value' => 'temporary', 'key' => 'temporary'],
+                    ['label' => 'Por Contrato', 'value' => 'contractor', 'key' => 'contractor']
+                ]"
+                option-label="label"
+                option-value="value"
+                option-key-value="key"
+                class="flex-grow"
+            />
         </div>
 
         <!-- Estado -->
         <div class="flex items-center mt-6">
-            <x-wireui-checkbox label="Trabajador activo" id="size-md" wire:model="worker.is_active" value="md" md />
+            <x-wireui-checkbox
+                label="Trabajador activo"
+                wire:model="is_active"
+            />
         </div>
     </div>
 </div>

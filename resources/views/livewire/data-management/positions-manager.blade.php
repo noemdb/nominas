@@ -1,8 +1,4 @@
 <div>
-
-    <!-- Estado de carga (Spinner) -->
-    {{-- @include('components.loading') --}}
-
     <!-- Información sobre el Filtro -->
     @if ($selected_worker_id)
         <div class="p-1 mb-1">
@@ -25,7 +21,7 @@
 
         <!-- partials contentivo del form para crear/editar posicions del selected_worker -->
         @if($isOpenPosition)
-            <div class=" border-y-2 py-2 border-gray-700">
+            <div class="py-2 border-gray-700 border-y-2">
                 @include('livewire.data-management.position.main')
             </div>
         @endif

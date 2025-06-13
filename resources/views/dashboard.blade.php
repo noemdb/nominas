@@ -12,28 +12,6 @@
                 <!-- Tab Navigation -->
                 <div class="border-b border-gray-200 dark:border-gray-700">
                     <nav class="flex -mb-px space-x-8" aria-label="Tabs" role="tablist">
-                        <!-- Main Tab Button -->
-                        <button
-                            id="main-tab"
-                            class="inline-flex items-center px-1 py-4 text-sm font-medium transition-colors duration-200 ease-in-out border-b-2 group"
-                            :class="{
-                                'border-indigo-500 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400': activeTab === 'main',
-                                'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:border-gray-600': activeTab !== 'main'
-                            }"
-                            role="tab"
-                            aria-selected="true"
-                            aria-controls="main-panel"
-                            onclick="switchTab('main')"
-                        >
-                            <svg class="w-5 h-5 mr-2" :class="{
-                                'text-indigo-500 dark:text-indigo-400': activeTab === 'main',
-                                'text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400': activeTab !== 'main'
-                            }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                            </svg>
-                            Funcionalidades
-                        </button>
-
                         <!-- Indicators Tab Button -->
                         <button
                             id="indicators-tab"
@@ -55,25 +33,33 @@
                             </svg>
                             Indicadores
                         </button>
+
+                        <!-- Main Tab Button -->
+                        <button
+                            id="main-tab"
+                            class="inline-flex items-center px-1 py-4 text-sm font-medium transition-colors duration-200 ease-in-out border-b-2 group"
+                            :class="{
+                                'border-indigo-500 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400': activeTab === 'main',
+                                'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:border-gray-600': activeTab !== 'main'
+                            }"
+                            role="tab"
+                            aria-selected="true"
+                            aria-controls="main-panel"
+                            onclick="switchTab('main')"
+                        >
+                            <svg class="w-5 h-5 mr-2" :class="{
+                                'text-indigo-500 dark:text-indigo-400': activeTab === 'main',
+                                'text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400': activeTab !== 'main'
+                            }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                            Funcionalidades
+                        </button>
                     </nav>
                 </div>
 
                 <!-- Tab Panels -->
                 <div class="mt-6">
-                    <!-- Main Panel -->
-                    <div
-                        id="main-panel"
-                        class="transition-all duration-300 ease-in-out"
-                        :class="{ 'block': activeTab === 'main', 'hidden': activeTab !== 'main' }"
-                        role="tabpanel"
-                        aria-labelledby="main-tab"
-                    >
-                        <div class="overflow-hidden bg-white rounded-lg shadow-sm dark:bg-gray-800">
-                            <div class="p-6 text-gray-900 dark:text-gray-100">
-                                @include('dashboard.admin.main')
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Indicators Panel -->
                     <div
@@ -89,6 +75,22 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Main Panel -->
+                    <div
+                        id="main-panel"
+                        class="transition-all duration-300 ease-in-out"
+                        :class="{ 'block': activeTab === 'main', 'hidden': activeTab !== 'main' }"
+                        role="tabpanel"
+                        aria-labelledby="main-tab"
+                    >
+                        <div class="overflow-hidden bg-white rounded-lg shadow-sm dark:bg-gray-800">
+                            <div class="p-6 text-gray-900 dark:text-gray-100">
+                                @include('dashboard.admin.main')
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

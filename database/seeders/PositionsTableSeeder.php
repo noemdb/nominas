@@ -114,7 +114,7 @@ class PositionsTableSeeder extends Seeder
             ['worker_id' => 93, 'area_id' => 9, 'rol_id' => 36, 'start_date' => '2025-02-10'],
         ];
 
-        $end_dates = Carbon::now()->endOfYear(); // ultimo dia del año actual;
+        $end_dates = Carbon::now()->addYears(30)->endOfYear(); // ultimo dia del año actual;
         foreach ($positions as $position) {
             DB::table('positions')->insert([
                 'start_date' => $position['start_date'],

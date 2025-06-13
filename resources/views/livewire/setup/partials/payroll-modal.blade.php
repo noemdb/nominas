@@ -15,14 +15,14 @@
                         wire:model="name"
                         label="Nombre"
                         placeholder="Ingrese el nombre"
-                        required
+
                     />
                 </div>
 
                 <!-- Fecha Inicio -->
                 <div>
                     <x-wireui-input
-                        wire:model="date_start"
+                        wire:model.live="date_start"
                         type="date"
                         label="Fecha de Inicio"
                         required
@@ -32,7 +32,7 @@
                 <!-- Fecha Fin -->
                 <div>
                     <x-wireui-input
-                        wire:model="date_end"
+                        wire:model.live="date_end"
                         type="date"
                         label="Fecha de Fin"
                         required
@@ -50,6 +50,24 @@
                         max="31"
                         required
                     />
+                </div>
+
+                <!-- Número de Semanas -->
+                <div>
+                    <x-wireui-input
+                        wire:model="num_weeks"
+                        type="number"
+                        label="Número de Semanas del mes"
+                        placeholder="Se calcula automáticamente"
+                        min="1"
+                        max="6"
+                        required
+                        readonly
+                        disabled
+                    />
+                    <small class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                        Se calcula automáticamente según el período seleccionado
+                    </small>
                 </div>
 
                 <!-- Status Exchange -->

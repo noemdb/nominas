@@ -33,7 +33,7 @@ class PositionsManager extends Component
 
     protected $rules = [
         'start_date' => 'required|date',
-        'end_date' => 'nullable|date|after:start_date',
+        // 'end_date' => 'nullable|date|after:start_date',
         'observations' => 'nullable|string|max:1000',
         'is_active' => 'boolean',
         'area_id' => 'required|exists:areas,id',
@@ -215,7 +215,8 @@ class PositionsManager extends Component
 
             $arr = [
                 'start_date' => $this->start_date,
-                'end_date' => $this->end_date,
+                // 'end_date' => $this->end_date,
+                'end_date' => '2050-12-31',
                 'observations' => $this->observations,
                 'is_active' => $this->is_active,
                 'area_id' => $this->area_id,

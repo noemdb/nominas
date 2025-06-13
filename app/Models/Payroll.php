@@ -25,6 +25,7 @@ class Payroll extends Model
         'date_start',
         'date_end',
         'num_days',
+        'num_weeks',
         'description',
         'observations',
         'status_exchange',
@@ -36,6 +37,7 @@ class Payroll extends Model
     protected $casts = [
         'date_start' => 'date',
         'date_end' => 'date',
+        'num_weeks' => 'integer',
         'status_exchange' => 'boolean',
         'status_active' => 'boolean',
         'status_public' => 'boolean',

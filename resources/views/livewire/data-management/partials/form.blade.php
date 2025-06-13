@@ -6,6 +6,7 @@
     'user' => 'Usuario'
 ]" :active-tab="'contacto'" storage-key="worker-form-tab">
 
+
     <form wire:submit.prevent="save" class="space-y-6">
         <!-- Información Personal -->
         <template x-if="tab === 'personal'">

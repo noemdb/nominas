@@ -73,9 +73,9 @@
                     <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Área/Rol:</span>
                         <div class="">{{ $worker->last_position_name }}</div>
-                        <div class="text-sm truncate max-w-[200px]">{{ $worker->last_position_range }}</div>
+                        {{-- <div class="text-sm truncate max-w-[200px]">{{ $worker->last_position_range }}</div> --}}
                         <div class="text-xs text-gray-500 dark:text-gray-400 truncate max-w-[200px]">
-                            {{ $worker->last_position ? number_format($worker->last_position->weeklySchedule()->where('is_active', true)->sum('planned_hours'), 2, ',', '.') . ' hrs/sem' : 'N/A' }}
+                            {{ $worker->last_position_weekly_hours }}
                         </div>
                     </td>
                     <td class="block px-6 py-4 sm:table-cell">
@@ -102,6 +102,8 @@
                             class="px-2 py-1 rounded-full text-xs {{ $worker->is_active ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800' }}">
                             {{ $worker->is_active ? 'Activo' : 'Inactivo' }}
                         </span>
+
+                        {{-- {{$worker->positions ?? null}} --}}
                     </td>
                     <td class="flex px-6 py-4 space-x-2 sm:table-cell">
                         <span class="font-bold sm:hidden">Acciones:</span>

@@ -14,6 +14,7 @@ return new class extends Migration
             $table->date('date_start');
             $table->date('date_end');
             $table->integer('num_days');
+            $table->integer('num_weeks')->default(4)->comment('Número de semanas del mes para el cálculo de la nómina');
             $table->text('description')->nullable();
             $table->text('observations')->nullable();
             $table->boolean('status_exchange')->default(false);

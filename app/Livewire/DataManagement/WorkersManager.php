@@ -3,13 +3,15 @@
 namespace App\Livewire\DataManagement;
 
 use App\Models\Payroll;
-use App\Models\User;
 use App\Models\Worker;
 use App\Models\Area;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 use WireUi\Traits\WireUiActions;
 use App\Traits\Loggable;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class WorkersManager extends Component
 {
@@ -27,215 +29,276 @@ class WorkersManager extends Component
 
     public $showModal = false;
     public $isEdit = false;
+    public $isEditPosition = false;
     public $showModalPosition = false;
     public $showDetailsModal = false;
     public $selectedWorker = null;
     public $workerId = null;
+    public $userId = null;
 
     public $confirmingDelete = false;
     public $deleteId = null;
 
     public $isLoaded = false;
 
-    public $worker = [
-        'first_name' => '',
-        'last_name' => '',
-        'identification' => '',
-        'email' => '',
-        'phone' => '',
-        'birth_date' => '',
-        'gender' => 'male',
-        'marital_status' => 'single',
-        'nationality' => '',
-        'hire_date' => '',
-        'base_salary' => 0,
-        'contract_type' => 'full-time',
-        'payment_method' => 'bank_transfer',
-        'bank_name' => '',
-        'bank_account_number' => '',
-        'tax_identification_number' => '',
-        'social_security_number' => '',
-        'pension_fund' => '',
-        'is_active' => true
-    ];
-
-    public $user = [
-        'name' => '',
-        'username' => '',
-        'email' => '',
-        'password' => ''
-    ];
+    public $first_name = '';
+    public $last_name = '';
+    public $identification = '';
+    public $email = '';
+    public $phone = '';
+    public $birth_date = '';
+    public $gender = 'male';
+    public $marital_status = 'single';
+    public $nationality = '';
+    public $hire_date = '';
+    public $base_salary = 0;
+    public $contract_type = 'full-time';
+    public $payment_method = 'bank_transfer';
+    public $bank_name = '';
+    public $bank_account_number = '';
+    public $tax_identification_number = '';
+    public $social_security_number = '';
+    public $pension_fund = '';
+    public $is_active = true;
+    public $username;
+    public $password;
 
     protected function rules()
     {
         return [
-            'worker.first_name' => 'required|string|max:255',
-            'worker.last_name' => 'required|string|max:255',
-            'worker.identification' => 'required|string|max:20|unique:workers,identification,' . ($this->workerId ?? ''),
-            'worker.email' => 'required|email|max:255|unique:workers,email,' . ($this->workerId ?? ''),
-            'worker.phone' => 'required|string|max:20',
-            'worker.birth_date' => 'required|date',
-            'worker.gender' => 'required',
-            'worker.marital_status' => 'required',
-            'worker.nationality' => 'required|string|max:100',
-            'worker.hire_date' => 'required|date',
-            'worker.base_salary' => 'required|numeric|min:0',
-            'worker.contract_type' => 'required',
-            'worker.payment_method' => 'required',
-            'worker.bank_name' => 'nullable|required_if:payment_method,bank_transfer|string|max:255',
-            'worker.bank_account_number' => 'nullable|required_if:payment_method,bank_transfer|string|max:50',
-            'worker.tax_identification_number' => 'required|string|max:50',
-            'worker.social_security_number' => 'required|string|max:50',
-            'worker.pension_fund' => 'nullable|string|max:255',
-            'worker.is_active' => 'nullable|boolean',
-            'user.username' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'identification' => [
+                'required',
+                'min:7',
+                'max:13',
+                Rule::unique('workers', 'identification')->ignore($this->workerId),
+            ],
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('workers', 'email')->ignore($this->workerId),
+            ],
+            'phone' => 'required',
+            'birth_date' => 'required|date',
+            'gender' => 'required|in:male,female,other',
+            'marital_status' => 'required|in:single,married,divorced,widowed',
+            'nationality' => 'required',
+            'hire_date' => 'required|date',
+            'base_salary' => 'required|numeric|min:0',
+            'contract_type' => 'required',
+            'payment_method' => 'required',
+            'bank_name' => 'required_if:payment_method,bank_transfer',
+            'bank_account_number' => 'required_if:payment_method,bank_transfer',
+            'tax_identification_number' => 'nullable',
+            'social_security_number' => 'nullable',
+            'pension_fund' => 'nullable',
+            'is_active' => 'boolean',
+            'username' => [
+                'required',
+                'min:3',
+                'max:50',
+                Rule::unique('users', 'username')->ignore($this->userId),
+            ],
+            'password' => $this->isEdit ? 'nullable|min:6' : 'required|min:6',
         ];
     }
 
+    protected $messages = [
+        'first_name.required' => 'El nombre es obligatorio',
+        'last_name.required' => 'El apellido es obligatorio',
+        'identification.required' => 'La cédula de identidad es obligatoria',
+        'identification.min' => 'La cédula de identidad debe contener al menos :min caracteres',
+        'identification.max' => 'La cédula de identidad debe contener máximo :max caracteres',
+        'identification.unique' => 'Esta identificación ya está registrada',
+        'email.required' => 'El correo electrónico es obligatorio',
+        'email.email' => 'El correo electrónico debe ser válido',
+        'email.unique' => 'Este correo electrónico ya está registrado',
+        'phone.required' => 'El teléfono es obligatorio',
+        'birth_date.required' => 'La fecha de nacimiento es obligatoria',
+        'gender.required' => 'El género es obligatorio',
+        'marital_status.required' => 'El estado civil es obligatorio',
+        'nationality.required' => 'La nacionalidad es obligatoria',
+        'hire_date.required' => 'La fecha de contratación es obligatoria',
+        'base_salary.required' => 'El salario base es obligatorio',
+        'contract_type.required' => 'El tipo de contrato es obligatorio',
+        'payment_method.required' => 'El método de pago es obligatorio',
+        'bank_name.required_if' => 'El nombre del banco es obligatorio cuando el método de pago es transferencia bancaria',
+        'bank_account_number.required_if' => 'El número de cuenta es obligatorio cuando el método de pago es transferencia bancaria',
+        'tax_identification_number.required' => 'El número de identificación fiscal es obligatorio',
+        'social_security_number.required' => 'El número de seguridad social es obligatorio',
+        'pension_fund.required' => 'El fondo de pensiones es obligatorio',
+        'is_active.boolean' => 'El estado del trabajador debe ser booleano',
+        'username.required' => 'El nombre de usuario es obligatorio',
+        'username.unique' => 'Este nombre de usuario ya está registrado',
+        'password.required' => 'La contraseña es obligatoria',
+        'password.min' => 'La contraseña debe tener al menos 6 caracteres',
+    ];
+
+    protected $validationAttributes = [
+        'first_name' => 'nombre',
+        'last_name' => 'apellido',
+        'identification' => 'cédula de identidad',
+        'email' => 'correo electrónico',
+        'phone' => 'teléfono',
+        'birth_date' => 'fecha de nacimiento',
+        'gender' => 'género',
+        'marital_status' => 'estado civil',
+        'nationality' => 'nacionalidad',
+        'hire_date' => 'fecha de contratación',
+        'base_salary' => 'salario base',
+        'contract_type' => 'tipo de contrato',
+        'payment_method' => 'método de pago',
+        'bank_name' => 'nombre del banco',
+        'bank_account_number' => 'número de cuenta',
+        'tax_identification_number' => 'RIF',
+        'social_security_number' => 'número de seguridad social',
+        'pension_fund' => 'fondo de pensiones',
+        'is_active' => 'estado activo',
+        'user.username' => 'nombre de usuario',
+    ];
+
     public function create()
     {
-        $this->reset(['worker', 'workerId', 'isEdit']);
-        $this->worker = [
-            'first_name' => '',
-            'last_name' => '',
-            'identification' => '',
-            'email' => '',
-            'phone' => '',
-            'birth_date' => '',
-            'gender' => 'male',
-            'marital_status' => 'single',
-            'nationality' => '',
-            'hire_date' => '',
-            'base_salary' => 0,
-            'contract_type' => 'full-time',
-            'payment_method' => 'bank_transfer',
-            'bank_name' => '',
-            'bank_account_number' => '',
-            'tax_identification_number' => '',
-            'social_security_number' => '',
-            'pension_fund' => '',
-            'is_active' => true
-        ];
+        $this->resetValidation();
+        $this->reset([
+            'workerId',
+            'userId',
+            'username',
+            'password',
+            'first_name',
+            'last_name',
+            'identification',
+            'email',
+            'phone',
+            'birth_date',
+            'gender',
+            'marital_status',
+            'nationality',
+            'hire_date',
+            'base_salary',
+            'contract_type',
+            'payment_method',
+            'bank_name',
+            'bank_account_number',
+            'tax_identification_number',
+            'social_security_number',
+            'pension_fund',
+            'is_active'
+        ]);
         $this->isEdit = false;
-        $this->clearModels();
         $this->showModal = true;
-        $this->resetErrorBag();
     }
 
     public function edit($id)
     {
-        $this->workerId = $id;
+        $this->resetValidation();
+        $worker = Worker::findOrFail($id);
+        $this->userId = $worker->user_id;
+        $user = User::findOrFail($this->userId);
+
+        $this->username = $user->username;
+
+        $this->workerId = $worker->id;
+        $this->first_name = $worker->first_name;
+        $this->last_name = $worker->last_name;
+        $this->identification = $worker->identification;
+        $this->email = $worker->email;
+        $this->phone = $worker->phone;
+        $this->birth_date = $worker->birth_date;
+        $this->gender = $worker->gender;
+        $this->marital_status = $worker->marital_status;
+        $this->nationality = $worker->nationality;
+        $this->hire_date = $worker->hire_date;
+        $this->base_salary = $worker->base_salary;
+        $this->contract_type = $worker->contract_type;
+        $this->payment_method = $worker->payment_method;
+        $this->bank_name = $worker->bank_name;
+        $this->bank_account_number = $worker->bank_account_number;
+        $this->tax_identification_number = $worker->tax_identification_number;
+        $this->social_security_number = $worker->social_security_number;
+        $this->pension_fund = $worker->pension_fund;
+        $this->is_active = $worker->is_active;
+
         $this->isEdit = true;
-        $this->clearModels();
-
-        $workerModel = Worker::findOrFail($id);
-
-        $this->worker = [
-            'id' => $workerModel->id,
-            'first_name' => $workerModel->first_name,
-            'last_name' => $workerModel->last_name,
-            'identification' => $workerModel->identification,
-            'email' => $workerModel->email,
-            'phone' => $workerModel->phone,
-            'birth_date' => $workerModel->birth_date ? $workerModel->birth_date->format('Y-m-d') : '',
-            'gender' => $workerModel->gender,
-            'marital_status' => $workerModel->marital_status,
-            'nationality' => $workerModel->nationality,
-            'hire_date' => $workerModel->hire_date ? $workerModel->hire_date->format('Y-m-d') : '',
-            'base_salary' => $workerModel->base_salary,
-            'contract_type' => $workerModel->contract_type,
-            'payment_method' => $workerModel->payment_method,
-            'bank_name' => $workerModel->bank_name,
-            'bank_account_number' => $workerModel->bank_account_number,
-            'tax_identification_number' => $workerModel->tax_identification_number,
-            'social_security_number' => $workerModel->social_security_number,
-            'pension_fund' => $workerModel->pension_fund,
-            'is_active' => $workerModel->is_active
-        ];
-
-        $userId = $workerModel->user_id;
-        $UserModel = User::find($userId);
-
-        $this->user = $UserModel
-            ? array_merge($UserModel->only(['name', 'username', 'email']), ['password' => null])
-            : [];
-
         $this->showModal = true;
-        $this->resetErrorBag();
     }
 
     public function save()
     {
-        $this->validate();
-
-        if ($this->isEdit) {
-            $workerModel = Worker::findOrFail($this->workerId);
-            $userId = $workerModel->user_id;
-            $UserModel = User::findOrFail($userId);
-            $oldData = $workerModel->toArray();
-        } else {
-            $workerModel = new Worker();
-            $UserModel = new User();
-        }
-
-        // Asignar todos los campos del formulario al modelo
-        $workerModel->first_name = $this->worker['first_name'];
-        $workerModel->last_name = $this->worker['last_name'];
-        $workerModel->identification = $this->worker['identification'];
-        $workerModel->email = $this->worker['email'];
-        $workerModel->phone = $this->worker['phone'];
-        $workerModel->birth_date = $this->worker['birth_date'];
-        $workerModel->gender = $this->worker['gender'];
-        $workerModel->marital_status = $this->worker['marital_status'];
-        $workerModel->nationality = $this->worker['nationality'];
-        $workerModel->hire_date = $this->worker['hire_date'];
-        $workerModel->base_salary = $this->worker['base_salary'];
-        $workerModel->contract_type = $this->worker['contract_type'];
-        $workerModel->payment_method = $this->worker['payment_method'];
-
-        // Campos bancarios (solo si el método de pago es transferencia bancaria)
-        if ($this->worker['payment_method'] === 'bank_transfer') {
-            $workerModel->bank_name = $this->worker['bank_name'];
-            $workerModel->bank_account_number = $this->worker['bank_account_number'];
-        } else {
-            $workerModel->bank_name = null;
-            $workerModel->bank_account_number = null;
-        }
-
-        $workerModel->tax_identification_number = $this->worker['tax_identification_number'];
-        $workerModel->social_security_number = $this->worker['social_security_number'];
-        $workerModel->pension_fund = $this->worker['pension_fund'];
-        $workerModel->is_active = $this->worker['is_active'];
+        $data = $this->validate();
 
         try {
-            $workerModel->save();
+            $workerData = [
+                'first_name' => $this->first_name,
+                'last_name' => $this->last_name,
+                'identification' => $this->identification,
+                'email' => $this->email,
+                'phone' => $this->phone,
+                'birth_date' => $this->birth_date,
+                'gender' => $this->gender,
+                'marital_status' => $this->marital_status,
+                'nationality' => $this->nationality,
+                'hire_date' => $this->hire_date,
+                'base_salary' => $this->base_salary,
+                'contract_type' => $this->contract_type,
+                'payment_method' => $this->payment_method,
+                'bank_name' => $this->bank_name,
+                'bank_account_number' => $this->bank_account_number,
+                'tax_identification_number' => $this->tax_identification_number,
+                'social_security_number' => $this->social_security_number,
+                'pension_fund' => $this->pension_fund,
+                'is_active' => $this->is_active
+            ];
 
-            $UserModel->name = $workerModel->full_name;
-            $UserModel->email = $workerModel->email;
-            $UserModel->username = $this->user['username'];
-            $UserModel->password = $this->user['password'] !== null
-                ? bcrypt($this->user['password'])
-                : $UserModel->password;
-            $UserModel->save();
-
-            $workerModel->user_id = $UserModel->id;
-            $workerModel->save();
+            DB::beginTransaction();
 
             if ($this->isEdit) {
-                $this->logUpdate($oldData, $workerModel->toArray());
+                $worker = Worker::findOrFail($this->workerId);
+                $worker->update($workerData);
+                $this->notification()->success(
+                    'Trabajador actualizado',
+                    'El trabajador ha sido actualizado exitosamente'
+                );
             } else {
-                $this->logCreation($workerModel->toArray());
+                Worker::create($workerData);
+                $this->notification()->success(
+                    'Trabajador registrado',
+                    'El trabajador ha sido registrado exitosamente'
+                );
             }
 
-            $this->reset(['worker', 'user', 'workerId', 'isEdit', 'showModal']);
-            $this->successNotification();
-            $this->resetErrorBag();
-        } catch (\Exception $e) {
-            $this->logError('Error al guardar trabajador: ' . $e->getMessage(), [
-                'worker_data' => $this->worker,
-                'user_data' => $this->user
+            DB::commit();
+            $this->closeModal();
+            $this->reset([
+                'workerId',
+                'first_name',
+                'last_name',
+                'identification',
+                'email',
+                'phone',
+                'birth_date',
+                'gender',
+                'marital_status',
+                'nationality',
+                'hire_date',
+                'base_salary',
+                'contract_type',
+                'payment_method',
+                'bank_name',
+                'bank_account_number',
+                'tax_identification_number',
+                'social_security_number',
+                'pension_fund',
+                'is_active'
             ]);
-            throw $e;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->logError('Error al guardar trabajador: ' . $e->getMessage());
+            $this->notification()->error(
+                'Error',
+                'Ha ocurrido un error al guardar el trabajador'
+            );
         }
     }
 
@@ -271,6 +334,7 @@ class WorkersManager extends Component
         $this->showModalPosition = false;
         $this->showDetailsModal = false;
         $this->confirmingDelete = false;
+        $this->isEditPosition = false;
         $this->resetErrorBag();
     }
 
@@ -364,12 +428,31 @@ class WorkersManager extends Component
 
     public function clearModels()
     {
-        array_walk($this->worker, function (&$value) {
-            $value = null;
-        });
-        array_walk($this->user, function (&$value) {
-            $value = null;
-        });
+        $this->reset([
+            'workerId',
+            'userId',
+            'username',
+            'password',
+            'first_name',
+            'last_name',
+            'identification',
+            'email',
+            'phone',
+            'birth_date',
+            'gender',
+            'marital_status',
+            'nationality',
+            'hire_date',
+            'base_salary',
+            'contract_type',
+            'payment_method',
+            'bank_name',
+            'bank_account_number',
+            'tax_identification_number',
+            'social_security_number',
+            'pension_fund',
+            'is_active'
+        ]);
     }
 
     public function successNotification(): void
@@ -390,7 +473,7 @@ class WorkersManager extends Component
 
     public function getWorkerSeniorityProperty()
     {
-        if (empty($this->worker['hire_date'])) {
+        if (empty($this->hire_date)) {
             return [
                 'years' => 0,
                 'months' => 0,
@@ -399,7 +482,7 @@ class WorkersManager extends Component
             ];
         }
 
-        $hireDate = \Carbon\Carbon::parse($this->worker['hire_date']);
+        $hireDate = \Carbon\Carbon::parse($this->hire_date);
         $now = \Carbon\Carbon::now();
 
         // Si la fecha de ingreso es en el futuro, retornar 0
@@ -444,10 +527,12 @@ class WorkersManager extends Component
 
     public function setModePosition($id)
     {
-        $workerModel = Worker::findOrFail($id);
-        $this->workerId = $id;
-        $this->isEdit = true;
-        $this->clearModels();
+        $this->closeModal();
+
+        $worker = Worker::findOrFail($id);
+        $this->workerId = $worker->id;
+        $this->userId = $worker->user_id;
+        $this->isEditPosition = true;
         $this->showModalPosition = true;
         $this->resetErrorBag();
     }
