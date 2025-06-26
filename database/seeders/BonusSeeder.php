@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Bonus;
 use App\Models\Deduction;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class BonusSeeder extends Seeder
@@ -17,36 +16,36 @@ class BonusSeeder extends Seeder
     {
         Bonus::create([
             'name' => 'Prima de antigüedad',
-            'description' => 'Beneficio adicional por años de servicio en la institución. 5% del salario base por cada año trabajado.',
+            'description' => '5% del salario base por cada año trabajado.',
             'institution_id' => 1,
-            'type' => 'fijo',
+            'type' => 'variable',
             'percentage' => 5.00,
-            'amount' => 5.00,
-            'name_function' => 'prima_antiguedad',
+            'amount' => 0.00,
+            'name_function' => 'seniority_bonus',
             'status_exchange' => false,
             'status_active' => true,
         ]);
 
         Bonus::create([
             'name' => 'Prima de jerarquía',
-            'description' => 'Compensación económica por el cargo o nivel jerárquico (coordinador, director, etc). 10% del salario base.',
+            'description' => '10% del salario base por nivel jerárquico.',
             'institution_id' => 1,
-            'type' => 'fijo',
+            'type' => 'variable',
             'percentage' => 10.00,
-            'amount' => 10.00,
-            'name_function' => 'prima_jerarquia',
+            'amount' => 0.00,
+            'name_function' => 'hierarchy_bonus', // debes crear esta función en Bonus::FUNCTIONS y en calculateAmount()
             'status_exchange' => true,
             'status_active' => true,
         ]);
 
         Bonus::create([
             'name' => 'Prima por estudios',
-            'description' => 'Incentivo mensual por estudios de cuarto nivel (especialización, maestría, doctorado). 8% del salario base.',
+            'description' => '8% del salario base por estudios de cuarto nivel.',
             'institution_id' => 1,
-            'type' => 'fijo',
+            'type' => 'variable',
             'percentage' => 8.00,
-            'amount' => 8.00,
-            'name_function' => 'prima_estudios',
+            'amount' => 0.00,
+            'name_function' => 'education_bonus',
             'status_exchange' => false,
             'status_active' => true,
         ]);

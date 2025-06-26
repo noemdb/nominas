@@ -15,8 +15,8 @@
                         <span>Tipo</span>
                     </div>
                 </th>
-                <th class="hidden px-6 py-3 sm:table-cell">
-                    <div class="flex items-center space-x-1">
+                <th class="hidden px-1 py-3 sm:table-cell">
+                    <div class="flex items-start space-x-1">
                         <span>Monto/Porcentaje</span>
                     </div>
                 </th>
@@ -54,13 +54,19 @@
                             {{ ucfirst($deduction->type) }}
                         </span>
                     </td>
-                    <td class="block px-6 py-4 sm:table-cell">
+                    <td class="block sm:table-cell">
                         <span class="font-bold sm:hidden">Monto/Porcentaje:</span>
-                        <span class="truncate block max-w-[150px]">
+                        <span class="block">
                             @if ($deduction->type === 'fijo')
                                 Bs. {{ number_format($deduction->amount, 2) }}
                             @else
-                                {{ $deduction->name_function }}%
+                                @php
+                                    $function = collect(\App\Models\Deduction::FUNCTIONS)
+                                        ->firstWhere('value', $deduction->name_function);
+                                @endphp
+                                <span class="block font-semibold text-gray-200 text-md">Formula</span>
+                                <span class="block text-sm"> {{ $function['label'] ?? $deduction->description }}</span>
+                                <span class="block text-xs text-gray-400">{!! $function['example'] ?? '' !!}</span>
                             @endif
                         </span>
                     </td>
@@ -77,10 +83,10 @@
                         <div class="flex items-center">
                             <div class="relative group">
                                 <svg class="w-5 h-5 {{ $deduction->status_exchange ? 'text-yellow-500' : 'text-gray-400' }}"
-                                     fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                     x-tooltip.raw="{{ $deduction->status_exchange ? 'En moneda USD' : 'En moneda local' }}">
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        x-tooltip.raw="{{ $deduction->status_exchange ? 'En moneda USD' : 'En moneda local' }}">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </div>
                             <span class="ml-2 text-sm text-gray-500">

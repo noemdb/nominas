@@ -51,31 +51,25 @@ class Deduction extends Model
      */
     const FUNCTIONS = [
         [
-            'label' => 'Por Defecto',
-            'value' => 'default',
-            'description' => 'Cálculo estándar basado en un porcentaje'
+            'label' => 'Seguro Social Obligatorio',
+            'value' => 'sso_v1',
+            'description' => 'Descuento legal destinado al sistema de salud y seguridad social del país',
+            'example' => '<strong>SSO</strong> = <em>Salario Mensual</em> × <em>Tasa SSO (Ej: 4%)</em>'
         ],
         [
-            'label' => 'Por Días Trabajados',
-            'value' => 'by_worked_days',
-            'description' => 'Cálculo basado en días trabajados del mes'
+            'label' => 'Régimen Prestacional de Empleo (Paro forzoso)',
+            'value' => 'forced_unemployment',
+            'description' => 'Aporte al fondo que respalda al trabajador en caso de desempleo.',
+            'example' => '<strong>Paro Forzoso</strong> = <em>Salario Mensual</em> × <em>Tasa Paro (Ej: 0.5%)</em>'
         ],
         [
-            'label' => 'Por Faltas',
-            'value' => 'by_absences',
-            'description' => 'Cálculo basado en número de faltas'
+            'label' => 'FAOV. Fondo de Ahorro para la Vivienda',
+            'value' => 'faov_v1',
+            'description' => 'Aporte destinado al financiamiento habitacional del trabajador.',
+            'example' => '<strong>FAOV</strong> = <em>Salario Mensual</em> × <em>Tasa FAOV (Ej: 1%)</em>'
         ],
-        [
-            'label' => 'Por Retardos',
-            'value' => 'by_delays',
-            'description' => 'Cálculo basado en número de retardos'
-        ],
-        [
-            'label' => 'Por Permisos',
-            'value' => 'by_permissions',
-            'description' => 'Cálculo basado en número de permisos'
-        ]
     ];
+
 
     public function institution()
     {
@@ -148,5 +142,50 @@ class Deduction extends Model
     public function isUsedInPayroll()
     {
         return $this->payrolls()->exists();
+    }
+
+    /**
+     * Calcula el monto de la deducción basado en el salario base.
+     *
+     * @param float $baseSalary Salario mensual base del trabajador.
+     * @return float Monto calculado de la deducción.
+     */
+
+    public function calculateAmount(int $workerId): float
+    {
+        // Obtener el trabajador con su posición actual cargada
+        $worker = Worker::with('current_position')->find($workerId);
+
+        if (!$worker || !$worker->current_position) {
+            return 0.00; // Si no existe el trabajador o no tiene posición
+        }
+
+        $baseSalary = $worker->current_position->base_salary_pos;
+
+        if ($this->type === 'fijo') {
+            // Monto fijo definido directamente en la deducción
+            return round($this->amount, 2);
+        }
+
+        if ($this->type === 'variable') {
+            switch ($this->name_function) {
+                case 'sso_v1':
+                    $rate = 0.04;
+                    return round($baseSalary * $rate, 2);
+
+                case 'forced_unemployment':
+                    $rate = 0.005;
+                    return round($baseSalary * $rate, 2);
+
+                case 'faov_v1':
+                    $rate = 0.01;
+                    return round($baseSalary * $rate, 2);
+
+                default:
+                    return 0.00;
+            }
+        }
+
+        return 0.00;
     }
 }

@@ -16,11 +16,11 @@
                     </div>
                 </th>
                 <th class="hidden px-6 py-3 sm:table-cell">
-                    <div class="flex items-center space-x-1">
+                    <div class="flex items-start space-x-1">
                         <span>Monto/Porcentaje</span>
                     </div>
                 </th>
-                <th class="hidden px-6 py-3 sm:table-cell">
+                <th class="hidden px-1 py-3 sm:table-cell">
                     <div class="flex items-center space-x-1">
                         <span>Moneda</span>
                     </div>
@@ -54,13 +54,30 @@
                             {{ ucfirst($bonus->type) }}
                         </span>
                     </td>
-                    <td class="block px-6 py-4 sm:table-cell">
+                    {{-- <td class="block px-6 py-4 sm:table-cell">
                         <span class="font-bold sm:hidden">Monto/Porcentaje:</span>
                         <span class="truncate block max-w-[150px]">
                             @if ($bonus->type === 'fijo')
                                 Bs. {{ number_format($bonus->amount, 2) }}
                             @else
                                 {{ $bonus->percentage }}%
+                            @endif
+                        </span>
+                    </td> --}}
+
+                    <td class="block sm:table-cell">
+                        <span class="font-bold sm:hidden">Monto/Porcentaje:</span>
+                        <span class="block">
+                            @if ($bonus->type === 'fijo')
+                                Bs. {{ number_format($bonus->amount, 2) }}
+                            @else
+                                @php
+                                    $function = collect(\App\Models\Bonus::FUNCTIONS)
+                                        ->firstWhere('value', $bonus->name_function);
+                                @endphp
+                                <span class="block font-semibold text-gray-200 text-md">Formula</span>
+                                <span class="block text-sm"> {{ $function['label'] ?? $bonus->description }}</span>
+                                <span class="block text-xs text-gray-400">{!! $function['example'] ?? '' !!}</span>
                             @endif
                         </span>
                     </td>
